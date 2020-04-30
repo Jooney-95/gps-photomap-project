@@ -21,6 +21,16 @@
 		)
 	</insert>
 	
+	
+	<insert id="writeFile" parameterType="hashMap">
+		insert into
+		file_board(GPS, TIME, PATH)
+		values
+		<foreach collection="fileVOList" item="item" separator=" , ">
+		(#{item.GPS}, #{item.TIME}, #{item.PATH})
+		</foreach>
+	</insert>
+	
 	<!-- 게시물 조회 -->
 	<select id="view" parameterType="int" resultType="com.board.domain.BoardVO" >
 		select

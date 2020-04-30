@@ -18,6 +18,7 @@ import com.board.domain.BoardVO;
 import com.board.domain.Files;
 import com.board.domain.Page;
 import com.board.service.BoardService;
+import com.board.service.FileService;
 
 
 @Controller
@@ -29,6 +30,8 @@ public class BoardController {
 	@Inject
 	BoardService service;
 	
+	@Inject
+	FileService fileService;
 	
 	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
@@ -50,10 +53,12 @@ public class BoardController {
 	@RequestMapping(value="/write", method=RequestMethod.POST)
 	public String postWriter(BoardVO vo, MultipartHttpServletRequest request) throws Exception{
 		service.write(vo);
-		Files files = new Files();
+		
 		List<MultipartFile> file = request.getFiles("filesList");
-		files.setFiles(file);
-		log.info(Integer.toString((file.size())));
+		
+		fileService.write(file);
+		
+		
 		return "redirect:/board/list";
 	}
 	
