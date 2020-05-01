@@ -28,4 +28,11 @@ public class FileDAOImpl implements FileDAO {
 		sql.insert(namespace + ".writeFile", files.setFiles(file));
 	}
 
+	@Override
+	public List<FileVO> viewFile(int bno) throws Exception {
+		// TODO Auto-generated method stub
+		
+		return sql.selectList(namespace + ".viewFile");
+	}
+
 }

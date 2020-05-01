@@ -40,6 +40,13 @@
 		where
 		bno = #{bno}
 	</select>
+	
+	<select id="viewFile" resultType="com.board.domain.FileVO" >
+		select
+		GPS, TIME, PATH
+		from
+		file_board
+	</select>
 
 	<!-- 게시물 수정 -->
 	<update id="modify" parameterType="com.board.domain.BoardVO">

@@ -21,12 +21,13 @@ import com.drew.metadata.exif.GpsDirectory;
 public class Files {
 
 	private static final String SAVE_PATH = "C:\\Users\\skyhu\\Desktop\\fileUpload";
-	private static final String PREFIX_URL = "/upload/";
+	private static final String PREFIX_URL = "/img/";
 
 	private List<MultipartFile> files = null;
 
 	private String GPS[];
 	private String TIME[];
+	private String PATH[];
 	private String location;
 	private int SIZE = 0;
 	private int i = 0;
@@ -41,6 +42,7 @@ public class Files {
 		SIZE = filesList.size();
 		GPS = new String[SIZE];
 		TIME = new String[SIZE];
+		PATH = new String[SIZE];
 		FileVO[] fileVO = new FileVO[SIZE];
 
 		multipartToFile(files);
@@ -49,7 +51,7 @@ public class Files {
 			fileVO[j] = new FileVO();
 			fileVO[j].setGPS(GPS[j]);
 			fileVO[j].setTIME(TIME[j]);
-			fileVO[j].setPATH(SAVE_PATH);
+			fileVO[j].setPATH(PATH[j]);
 			fileVOList.add(fileVO[j]);
 		}
 		HashMap<String, Object> fileMap = new HashMap<String, Object>();
@@ -76,13 +78,13 @@ public class Files {
 			writeFile(mF, saveFileName);
 			File convFile = new File(saveFileName);
 			mF.transferTo(convFile);
-			fileMetadata(convFile);
+			fileMetadata(convFile, saveFileName);
 
 		}
 
 	}
 
-	private void fileMetadata(File file) throws JpegProcessingException {
+	private void fileMetadata(File file, String saveFileName) throws JpegProcessingException {
 		try {
 
 			Metadata metadata = JpegMetadataReader.readMetadata(file);
@@ -99,6 +101,8 @@ public class Files {
 
 			format_time = format.format(date);
 			TIME[i] = (format_time);
+			
+			PATH[i] = PREFIX_URL + saveFileName;
 
 			i++;
 

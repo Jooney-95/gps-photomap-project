@@ -39,6 +39,5 @@
 	<context:component-scan
 		base-package="com.board.controller" />
 
-
-
+	<resources mapping="/img/**" location="file:///C:/Users/skyhu/Desktop/fileUpload/" />
 </beans:beans>
