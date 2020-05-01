@@ -22,45 +22,60 @@ public class Files {
 
 	private static final String SAVE_PATH = "C:\\Users\\skyhu\\Desktop\\fileUpload";
 	private static final String PREFIX_URL = "/img/";
-
-	private List<MultipartFile> files = null;
-
-	private String GPS[];
-	private String TIME[];
-	private String PATH[];
-	private String location;
 	private int SIZE = 0;
 	private int i = 0;
+	private int fBno = 0;
 
-	public List<FileVO> fileVOList = new ArrayList<FileVO>();
+	private List<MultipartFile> files = null;
+	private String gps[];
+	private String timeView[];
+	private String timeSort[];
+	private String path[];
+	private String location;
+	private List<FileVO> fileVOList = new ArrayList<FileVO>();
 
-	SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월dd일 HH시mm분ss초");
-	String format_time = null;
+	SimpleDateFormat formatView = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	SimpleDateFormat formatSort = new SimpleDateFormat("yyyyMMddHHmmSSSS");
+	String fView = null;
+	String fSort = null;
 
-	public HashMap setFiles(List<MultipartFile> filesList) throws Exception {
+	public HashMap<String, Object> setFiles(List<MultipartFile> filesList, int fileBno) throws Exception {
 		this.files = filesList;
+
+		// 파일 수 설정
 		SIZE = filesList.size();
-		GPS = new String[SIZE];
-		TIME = new String[SIZE];
-		PATH = new String[SIZE];
+		fBno = fileBno;
+
+		gps = new String[SIZE];
+		timeView = new String[SIZE];
+		timeSort = new String[SIZE];
+		path = new String[SIZE];
+
+		fileWirteEXIF(files);
+
+		return fileVOSet();
+	}
+
+	private HashMap<String, Object> fileVOSet() {
+		// TODO Auto-generated method stub
 		FileVO[] fileVO = new FileVO[SIZE];
-
-		multipartToFile(files);
-
 		for (int j = 0; j < SIZE; j++) {
 			fileVO[j] = new FileVO();
-			fileVO[j].setGPS(GPS[j]);
-			fileVO[j].setTIME(TIME[j]);
-			fileVO[j].setPATH(PATH[j]);
+			fileVO[j].setfileBno(fBno);
+			fileVO[j].setGps(gps[j]);
+			fileVO[j].setTimeView(timeView[j]);
+			fileVO[j].setTimeSort(timeSort[j]);
+			fileVO[j].setPath(path[j]);
 			fileVOList.add(fileVO[j]);
 		}
+
 		HashMap<String, Object> fileMap = new HashMap<String, Object>();
 		fileMap.put("fileVOList", fileVOList);
 
 		return fileMap;
 	}
 
-	private boolean writeFile(MultipartFile multipartFile, String saveFileName) throws Exception {
+	private boolean fileWrite(MultipartFile multipartFile, String saveFileName) throws Exception {
 		boolean result = false;
 
 		byte[] data = multipartFile.getBytes();
@@ -71,20 +86,20 @@ public class Files {
 		return result;
 	}
 
-	private void multipartToFile(List<MultipartFile> multipart) throws Exception {
+	private void fileWirteEXIF(List<MultipartFile> multipart) throws Exception {
 
 		for (MultipartFile mF : multipart) {
 			String saveFileName = mF.getOriginalFilename();
-			writeFile(mF, saveFileName);
+			fileWrite(mF, saveFileName);
 			File convFile = new File(saveFileName);
 			mF.transferTo(convFile);
-			fileMetadata(convFile, saveFileName);
+			fileEXIF(convFile, saveFileName);
 
 		}
 
 	}
 
-	private void fileMetadata(File file, String saveFileName) throws JpegProcessingException {
+	private void fileEXIF(File file, String saveFileName) throws JpegProcessingException {
 		try {
 
 			Metadata metadata = JpegMetadataReader.readMetadata(file);
@@ -97,12 +112,13 @@ public class Files {
 
 			location = Double.toString(exifLocation.getLatitude()) + " " + Double.toString(exifLocation.getLongitude());
 
-			GPS[i] = location;
+			gps[i] = location;
 
-			format_time = format.format(date);
-			TIME[i] = (format_time);
-			
-			PATH[i] = PREFIX_URL + saveFileName;
+			fView = formatView.format(date);
+			fSort = formatSort.format(date);
+			timeView[i] = fView;
+			timeSort[i] = fSort;
+			path[i] = PREFIX_URL + saveFileName;
 
 			i++;
 

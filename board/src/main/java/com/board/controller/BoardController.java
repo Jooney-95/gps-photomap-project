@@ -53,11 +53,11 @@ public class BoardController {
 	
 	@RequestMapping(value="/write", method=RequestMethod.POST)
 	public String postWriter(BoardVO vo, MultipartHttpServletRequest request) throws Exception{
-		service.write(vo);
+		int fileBno = service.write(vo);
 		
 		List<MultipartFile> file = request.getFiles("filesList");
 		
-		fileService.write(file);
+		fileService.write(file, fileBno);
 		
 		
 		return "redirect:/board/list";

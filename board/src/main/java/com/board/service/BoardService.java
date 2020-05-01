@@ -8,7 +8,7 @@ public interface BoardService {
 
 	public List<BoardVO> list() throws Exception;
 	
-	public void write(BoardVO vo) throws Exception;
+	public int write(BoardVO vo) throws Exception;
 	
 	public BoardVO view(int bno) throws Exception;
 	

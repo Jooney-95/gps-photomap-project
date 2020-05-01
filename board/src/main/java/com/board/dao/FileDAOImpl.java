@@ -20,19 +20,19 @@ public class FileDAOImpl implements FileDAO {
 	private static String namespace = "com.board.mappers.board";
 
 	@Override
-	public void write(List<MultipartFile> file) throws Exception {
+	public void write(List<MultipartFile> file, int fileBno) throws Exception {
 		// TODO Auto-generated method stub
 
 		Files files = new Files();
 		
-		sql.insert(namespace + ".writeFile", files.setFiles(file));
+		sql.insert(namespace + ".writeFile", files.setFiles(file, fileBno));
 	}
 
 	@Override
 	public List<FileVO> viewFile(int bno) throws Exception {
 		// TODO Auto-generated method stub
 		
-		return sql.selectList(namespace + ".viewFile");
+		return sql.selectList(namespace + ".viewFile", bno);
 	}
 
 }

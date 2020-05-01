@@ -4,27 +4,45 @@ import com.drew.lang.annotations.NotNull;
 
 
 public class FileVO {
-	String GPS;
-	String TIME;
-	String PATH;
+
+	private int fileBno;
+	private String gps;
+	private String timeView;
+	private String timeSort;
+	private String path;
 	
-	public String getGPS() {
-		return GPS;
+	
+	public int getfileBno() {
+		return fileBno;
 	}
-	public void setGPS(String gPS) {
-		GPS = gPS;
+	public void setfileBno(int fileBno) {
+		this.fileBno = fileBno;
 	}
-	public String getTIME() {
-		return TIME;
+	public String getGps() {
+		return gps;
 	}
-	public void setTIME(String tIME) {
-		TIME = tIME;
+	public void setGps(String gps) {
+		this.gps = gps;
 	}
-	public String getPATH() {
-		return PATH;
+	public String getTimeView() {
+		return timeView;
 	}
-	public void setPATH(String pATH) {
-		PATH = pATH;
+	public void setTimeView(String timeView) {
+		this.timeView = timeView;
 	}
+	public String getTimeSort() {
+		return timeSort;
+	}
+	public void setTimeSort(String timeSort) {
+		this.timeSort = timeSort;
+	}
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
+	
+	
 	
 }

@@ -21,7 +21,7 @@
 	<label>내용</label>
 	<br /> ${view.content}
 	<c:forEach items="${list }" var="list">
-		<img alt="" src="<spring:url value='${list.PATH }'/>">
+		<img alt="" src="<spring:url value='${list.path }'/>">
 	</c:forEach>
 	<br />
 	<div>
