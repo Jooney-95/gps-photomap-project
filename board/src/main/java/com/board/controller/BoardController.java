@@ -92,16 +92,24 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public String postModify(HttpServletRequest request, BoardVO vo) throws Exception{
+	public String postModify(MultipartHttpServletRequest request, HttpServletRequest req, BoardVO vo) throws Exception{
 		service.modify(vo);
 		
-		String[] str_id = request.getParameterValues("id");
-		String[] gps = request.getParameterValues("gps");
-		String[] time = request.getParameterValues("time");
-		String[] delete = request.getParameterValues("del");
+		String fileBno = req.getParameter("bno");
+		String[] str_id = req.getParameterValues("id");
+		String[] gps = req.getParameterValues("gps");
+		String[] time = req.getParameterValues("time");
+		String[] delete = req.getParameterValues("del");
 		
 		fileService.modifyFile(str_id, gps, time);
-		fileService.deleteFile(delete);
+		if(!(delete == null)) {
+			fileService.deleteFile(delete);
+		}
+		
+		List<MultipartFile> file = request.getFiles("filesList");
+		if(file.get(0).getSize() != 0) {
+			fileService.write(file, Integer.parseInt(fileBno));
+			}
 		
 		return "redirect:/board/view?bno=" + vo.getBno();
 	}
