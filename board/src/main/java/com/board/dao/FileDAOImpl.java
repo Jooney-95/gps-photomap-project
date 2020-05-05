@@ -35,4 +35,27 @@ public class FileDAOImpl implements FileDAO {
 		return sql.selectList(namespace + ".viewFile", bno);
 	}
 
+	@Override
+	public void modifyFile(String[] str_id, String[] gps, String[] time) throws Exception {
+		// TODO Auto-generated method stub
+		Files files = new Files();
+		
+		FileVO[] fileVO = files.modifyFile(str_id, gps, time);
+		
+		for(FileVO vo : fileVO) {
+			sql.update(namespace + ".modifyFile", vo);
+		}
+		
+	}
+
+	@Override
+	public void deleteFile(String[] delete) throws Exception {
+		// TODO Auto-generated method stub
+		Files files = new Files();
+		for(String del : delete) {
+			files.deleteFile(sql.selectOne(namespace + ".fileName", Integer.parseInt(del)));
+			sql.delete(namespace + ".deleteFile", Integer.parseInt(del));
+		}
+	}
+
 }

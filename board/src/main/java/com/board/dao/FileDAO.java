@@ -12,4 +12,8 @@ public interface FileDAO {
 
 	public List<FileVO> viewFile(int bno) throws Exception;
 
+	public void modifyFile(String[] str_id, String[] gps, String[] time) throws Exception;
+
+	public void deleteFile(String[] delete) throws Exception;
+
 }

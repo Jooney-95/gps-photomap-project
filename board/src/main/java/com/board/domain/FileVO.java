@@ -5,13 +5,27 @@ import com.drew.lang.annotations.NotNull;
 
 public class FileVO {
 
+	private int id;
+	
 	private int fileBno;
 	private String gps;
 	private String timeView;
 	private String timeSort;
 	private String path;
+	private String fileName;
 	
-	
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public int getfileBno() {
 		return fileBno;
 	}
