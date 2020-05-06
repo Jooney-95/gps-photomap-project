@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
-import org.apache.commons.io.FilenameUtils;
 
 import com.drew.imaging.jpeg.JpegMetadataReader;
 import com.drew.imaging.jpeg.JpegProcessingException;
@@ -21,18 +20,18 @@ import com.drew.metadata.exif.GpsDirectory;
 
 public class Files {
 
-	private static final String SAVE_PATH = "C:\\Users\\skyhu\\Desktop\\fileUpload";
+	private static final String SAVE_PATH = "C:\\Users\\USER\\Desktop\\Upload";
 	private static final String PREFIX_URL = "/img/";
 	private int SIZE = 0;
 	private int i = 0;
 	private int fBno = 0;
 
 	private List<MultipartFile> files = null;
-	private String gps[];
+	private Double[] latitude;
+	private Double[] longitude;
 	private String timeView[];
 	private String timeSort[];
 	private String path[];
-	private String fileName[];
 	private String location;
 	private List<FileVO> fileVOList = new ArrayList<FileVO>();
 
@@ -48,28 +47,27 @@ public class Files {
 		SIZE = filesList.size();
 		fBno = fileBno;
 
-		gps = new String[SIZE];
+		latitude = new Double[SIZE];
+		longitude = new Double[SIZE];
 		timeView = new String[SIZE];
 		timeSort = new String[SIZE];
-		fileName = new String[SIZE];
 		path = new String[SIZE];
 
 		fileWirteEXIF(files);
 
 		return fileVOSet();
 	}
-	
-	
+
 	private HashMap<String, Object> fileVOSet() {
 		// TODO Auto-generated method stub
 		FileVO[] fileVO = new FileVO[SIZE];
 		for (int j = 0; j < SIZE; j++) {
 			fileVO[j] = new FileVO();
 			fileVO[j].setfileBno(fBno);
-			fileVO[j].setGps(gps[j]);
+			fileVO[j].setLatitude(latitude[j]);
+			fileVO[j].setLongitude(longitude[j]);
 			fileVO[j].setTimeView(timeView[j]);
 			fileVO[j].setTimeSort(timeSort[j]);
-			fileVO[j].setFileName(fileName[j]);
 			fileVO[j].setPath(path[j]);
 			fileVOList.add(fileVO[j]);
 		}
@@ -106,69 +104,29 @@ public class Files {
 
 	private void fileEXIF(File file, String saveFileName) throws JpegProcessingException {
 		try {
-			String extension = FilenameUtils.getExtension(file.getPath());
-			if (extension.equals("jpg") || extension.equals("jpeg")) {
-				Metadata metadata = JpegMetadataReader.readMetadata(file);
-				GpsDirectory gpsDirectory = metadata.getDirectory(GpsDirectory.class);
-				ExifSubIFDDirectory directory = metadata.getDirectory(ExifSubIFDDirectory.class);
 
-				if (directory != null) {
+			Metadata metadata = JpegMetadataReader.readMetadata(file);
+			GpsDirectory gpsDirectory = metadata.getDirectory(GpsDirectory.class);
+			ExifSubIFDDirectory directory = metadata.getDirectory(ExifSubIFDDirectory.class);
 
-					GeoLocation exifLocation = gpsDirectory.getGeoLocation();
-					Date date = directory.getDate(ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL);
+			GeoLocation exifLocation = gpsDirectory.getGeoLocation();
 
-					location = Double.toString(exifLocation.getLatitude()) + " "
-							+ Double.toString(exifLocation.getLongitude());
-					gps[i] = location;
+			Date date = directory.getDate(ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL);
 
-					fView = formatView.format(date);
-					fSort = formatSort.format(date);
-					timeView[i] = fView;
-					timeSort[i] = fSort;
-					fileName[i] = saveFileName;
-					path[i] = PREFIX_URL + saveFileName;
-					i++;
-				} else {
-					gps[i] = " ";
-					timeView[i] = " ";
-					timeSort[i] = " ";
-					fileName[i] = saveFileName;
-					path[i] = PREFIX_URL + saveFileName;
-					i++;
-				}
-			} else {
-				gps[i] = " ";
-				timeView[i] = " ";
-				timeSort[i] = " ";
-				fileName[i] = saveFileName;
-				path[i] = PREFIX_URL + saveFileName;
-				i++;
-			}
+			latitude[i] = exifLocation.getLatitude();
+			longitude[i] = exifLocation.getLongitude();
+			
+
+			fView = formatView.format(date);
+			fSort = formatSort.format(date);
+			timeView[i] = fView;
+			timeSort[i] = fSort;
+			path[i] = PREFIX_URL + saveFileName;
+
+			i++;
+
 		} catch (IOException ex) {
-	
-		}
-	}
 
-
-	public FileVO[] modifyFile(String[] str_id, String[] gps, String[] time) {
-		// TODO Auto-generated method stub
-		int size = str_id.length;
-		
-		FileVO[] modifyVO = new FileVO[size];
-		for (int j = 0; j < size; j++) {
-			modifyVO[j] = new FileVO();
-			modifyVO[j].setId(Integer.parseInt(str_id[j]));
-			modifyVO[j].setGps(gps[j]);
-			modifyVO[j].setTimeView(time[j]);
-		}
-		return modifyVO;
-	}
-
-	public void deleteFile(String name) {
-		// TODO Auto-generated method stub
-		File file = new File(SAVE_PATH + "/" + name);
-		if(file.exists()) {
-			file.delete();
 		}
 	}
 

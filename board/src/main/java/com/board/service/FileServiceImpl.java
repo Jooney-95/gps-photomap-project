@@ -32,16 +32,4 @@ public class FileServiceImpl implements FileService {
 		return dao.viewFile(bno);
 	}
 
-	@Override
-	public void modifyFile(String[] str_id, String[] gps, String[] time) throws Exception {
-		// TODO Auto-generated method stub
-		dao.modifyFile(str_id, gps, time);
-	}
-
-	@Override
-	public void deleteFile(String[] delete) throws Exception {
-		// TODO Auto-generated method stub
-		dao.deleteFile(delete);
-	}
-
 }

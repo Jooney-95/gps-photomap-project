@@ -5,38 +5,19 @@ import com.drew.lang.annotations.NotNull;
 
 public class FileVO {
 
-	private int id;
-	
 	private int fileBno;
-	private String gps;
+	private Double latitude; // 위도
+	private Double longitude; // 경도
 	private String timeView;
 	private String timeSort;
 	private String path;
-	private String fileName;
+	private int id;
 	
-	public String getFileName() {
-		return fileName;
-	}
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public int getfileBno() {
 		return fileBno;
 	}
 	public void setfileBno(int fileBno) {
 		this.fileBno = fileBno;
-	}
-	public String getGps() {
-		return gps;
-	}
-	public void setGps(String gps) {
-		this.gps = gps;
 	}
 	public String getTimeView() {
 		return timeView;
@@ -56,7 +37,23 @@ public class FileVO {
 	public void setPath(String path) {
 		this.path = path;
 	}
-	
-	
+	public int getId() {
+	      return id;
+	   }
+	public void setId(int id) {
+	      this.id = id;
+	   }
+	public Double getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+	public Double getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
 	
 }

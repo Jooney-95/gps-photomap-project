@@ -1,10 +1,8 @@
 package com.board.controller;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,19 +55,16 @@ public class BoardController {
 	public String postWriter(BoardVO vo, MultipartHttpServletRequest request) throws Exception{
 		int fileBno = service.write(vo);
 		
-		
 		List<MultipartFile> file = request.getFiles("filesList");
-		System.out.println();
-		if(file.get(0).getSize() != 0) {
+		
 		fileService.write(file, fileBno);
-		}
+		
 		
 		return "redirect:/board/list";
 	}
 	
 	@RequestMapping(value="/view", method=RequestMethod.GET)
 	public void getView(@RequestParam("bno") int bno, Model model) throws Exception{
-		
 		BoardVO vo = service.view(bno);
 		
 		List<FileVO> list = null;
@@ -84,32 +79,12 @@ public class BoardController {
 	public void getModify(@RequestParam("bno") int bno, Model model) throws Exception{
 		BoardVO vo = service.view(bno);
 		
-		List<FileVO> list = null;
-		list = fileService.viewFile(bno);
-		
 		model.addAttribute("view", vo);
-		model.addAttribute("list", list);
 	}
 	
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public String postModify(MultipartHttpServletRequest request, HttpServletRequest req, BoardVO vo) throws Exception{
+	public String postModify(BoardVO vo) throws Exception{
 		service.modify(vo);
-		
-		String fileBno = req.getParameter("bno");
-		String[] str_id = req.getParameterValues("id");
-		String[] gps = req.getParameterValues("gps");
-		String[] time = req.getParameterValues("time");
-		String[] delete = req.getParameterValues("del");
-		
-		fileService.modifyFile(str_id, gps, time);
-		if(!(delete == null)) {
-			fileService.deleteFile(delete);
-		}
-		
-		List<MultipartFile> file = request.getFiles("filesList");
-		if(file.get(0).getSize() != 0) {
-			fileService.write(file, Integer.parseInt(fileBno));
-			}
 		
 		return "redirect:/board/view?bno=" + vo.getBno();
 	}
