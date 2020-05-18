@@ -68,6 +68,14 @@
 		where id = #{id}
 	</update>
 	
+	<!-- 게시글 조회수 갱신 -->
+	<update id="hitViewCnt" parameterType="int">
+		update tbl_board
+		set 
+		viewCnt = viewCnt + 1
+		where bno = #{bno};
+	</update>
+	
 	<!-- 게시물 삭제 -->
 	<delete id="delete" parameterType="int">
 		delete

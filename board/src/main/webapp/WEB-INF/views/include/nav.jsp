@@ -12,4 +12,7 @@
  <li>
     <a href="/board/listPage?num=1">글 목록 페이징</a>
  </li>
+ <li>
+    <a href="/board/naverLogin">네이버 로그인</a>
+ </li>
 </ul>

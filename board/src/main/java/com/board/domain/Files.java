@@ -58,8 +58,7 @@ public class Files {
 
 		return fileVOSet();
 	}
-	
-	
+
 	private HashMap<String, Object> fileVOSet() {
 		// TODO Auto-generated method stub
 		FileVO[] fileVO = new FileVO[SIZE];
@@ -113,47 +112,50 @@ public class Files {
 				ExifSubIFDDirectory directory = metadata.getDirectory(ExifSubIFDDirectory.class);
 
 				if (directory != null) {
-
-					GeoLocation exifLocation = gpsDirectory.getGeoLocation();
 					Date date = directory.getDate(ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL);
+					if (date != null) {
 
-					location = Double.toString(exifLocation.getLatitude()) + " "
-							+ Double.toString(exifLocation.getLongitude());
-					gps[i] = location;
+						fView = formatView.format(date);
+						fSort = formatSort.format(date);
+						timeView[i] = fView;
+						timeSort[i] = fSort;
 
-					fView = formatView.format(date);
-					fSort = formatSort.format(date);
-					timeView[i] = fView;
-					timeSort[i] = fSort;
-					fileName[i] = saveFileName;
-					path[i] = PREFIX_URL + saveFileName;
-					i++;
+					}
 				} else {
-					gps[i] = " ";
 					timeView[i] = " ";
 					timeSort[i] = " ";
-					fileName[i] = saveFileName;
-					path[i] = PREFIX_URL + saveFileName;
-					i++;
 				}
+				
+				if (gpsDirectory != null) {
+					GeoLocation exifLocation = gpsDirectory.getGeoLocation();
+					if (exifLocation != null) {
+
+						location = Double.toString(exifLocation.getLatitude()) + " "
+								+ Double.toString(exifLocation.getLongitude());
+						gps[i] = location;
+					}
+				} else {
+					gps[i] = " ";
+				}
+
 			} else {
 				gps[i] = " ";
 				timeView[i] = " ";
 				timeSort[i] = " ";
-				fileName[i] = saveFileName;
-				path[i] = PREFIX_URL + saveFileName;
-				i++;
 			}
+			fileName[i] = saveFileName;
+			path[i] = PREFIX_URL + saveFileName;
+			i++;
+
 		} catch (IOException ex) {
-	
+
 		}
 	}
-
 
 	public FileVO[] modifyFile(String[] str_id, String[] gps, String[] time) {
 		// TODO Auto-generated method stub
 		int size = str_id.length;
-		
+
 		FileVO[] modifyVO = new FileVO[size];
 		for (int j = 0; j < size; j++) {
 			modifyVO[j] = new FileVO();
@@ -167,7 +169,7 @@ public class Files {
 	public void deleteFile(String name) {
 		// TODO Auto-generated method stub
 		File file = new File(SAVE_PATH + "/" + name);
-		if(file.exists()) {
+		if (file.exists()) {
 			file.delete();
 		}
 	}

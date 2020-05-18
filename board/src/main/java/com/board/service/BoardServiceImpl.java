@@ -57,4 +57,10 @@ public class BoardServiceImpl implements BoardService {
 		return dao.listPage(displayPost, postNum);
 	}
 
+	@Override
+	public void hitViewCnt(int bno) throws Exception {
+		// TODO Auto-generated method stub
+		dao.hitViewCnt(bno);
+	}
+
 }

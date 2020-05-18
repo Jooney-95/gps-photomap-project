@@ -1,13 +1,10 @@
 package com.board.controller;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +15,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.board.domain.BoardVO;
 import com.board.domain.FileVO;
-import com.board.domain.Files;
 import com.board.domain.Page;
 import com.board.service.BoardService;
 import com.board.service.FileService;
@@ -27,8 +23,6 @@ import com.board.service.FileService;
 @Controller
 @RequestMapping("/board/*")
 public class BoardController {
-	
-	private static final Logger log = LoggerFactory.getLogger(Files.class);
 
 	@Inject
 	BoardService service;
@@ -64,14 +58,14 @@ public class BoardController {
 		fileService.write(file, fileBno);
 		}
 		
-		return "redirect:/board/list";
+		return "redirect:/board/listPage?num=1";
 	}
 	
 	@RequestMapping(value="/view", method=RequestMethod.GET)
 	public void getView(@RequestParam("bno") int bno, Model model) throws Exception{
 		
 		BoardVO vo = service.view(bno);
-		
+		service.hitViewCnt(bno);
 		List<FileVO> list = null;
 		list = fileService.viewFile(bno);
 		

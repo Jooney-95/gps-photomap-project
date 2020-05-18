@@ -25,9 +25,10 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	
+
 	<!-- 멀티파트 리졸버 -->
-	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- 최대업로드 가능한 바이트크기 -->
 		<beans:property name="maxUploadSize" value="100000000" />
 		<!-- 디스크에 임시 파일을 생성하기 전에 메모리에 보관할수있는 최대 바이트 크기 -->
@@ -35,9 +36,15 @@
 		<!-- defaultEncoding -->
 		<beans:property name="defaultEncoding" value="utf-8" />
 	</beans:bean>
-	
+
 	<context:component-scan
 		base-package="com.board.controller" />
+		
+	<!-- NaverLoginBO Class에 대한 Bean설정 추가 -->
+	<beans:bean id="naverLoginBO"
+		class="com.login.domain.NaverLoginBO" />
 
-	<resources mapping="/img/**" location="file:///C:/Users/skyhu/Desktop/fileUpload/" />
+
+	<resources mapping="/img/**"
+		location="file:///C:/Users/skyhu/Desktop/fileUpload/" />
 </beans:beans>

@@ -67,4 +67,10 @@ public class BoardDAOImpl implements BoardDAO {
 		return sql.selectList(namespace + ".listPage", data);
 	}
 
+	@Override
+	public void hitViewCnt(int bno) throws Exception {
+		// TODO Auto-generated method stub
+		sql.update(namespace + ".hitViewCnt", bno);
+	}
+
 }

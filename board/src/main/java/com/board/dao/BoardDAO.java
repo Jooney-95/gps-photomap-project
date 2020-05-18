@@ -19,4 +19,6 @@ public interface BoardDAO {
 	public int count() throws Exception;
 
 	public List<BoardVO> listPage(int displayPost, int postNum) throws Exception;
+
+	public void hitViewCnt(int bno) throws Exception;
 }

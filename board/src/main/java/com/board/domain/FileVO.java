@@ -1,8 +1,5 @@
 package com.board.domain;
 
-import com.drew.lang.annotations.NotNull;
-
-
 public class FileVO {
 
 	private int id;
