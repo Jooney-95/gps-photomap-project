@@ -66,7 +66,7 @@ public class LoginController {
 		// Top레벨 단계 _response 파싱
 		JSONObject response_obj = (JSONObject) jsonObj.get("response");
 		// response의 nickname값 파싱
-		String nickname = (String) response_obj.get("nickname");
+		String nickname = (String) response_obj.get("email");
 		System.out.println(nickname);
 		// 4.파싱 닉네임 세션으로 저장
 		session.setAttribute("sessionId", nickname); // 세션 생성
