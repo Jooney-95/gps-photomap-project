@@ -24,10 +24,10 @@
 	
 	<insert id="writeFile" parameterType="hashMap">
 		insert into
-		file_board(fileBno, latitude, longitude, timeView, timeSort, path)
+		file_board(fileBno, latitude, longitude, timeView, timeSort, fileName, path)
 		values
 		<foreach collection="fileVOList" item="item" separator=" , ">
-		(#{item.fileBno}, #{item.latitude}, #{item.longitude}, #{item.timeView}, #{item.timeSort}, #{item.path})
+		(#{item.fileBno}, #{item.latitude}, #{item.longitude}, #{item.timeView}, #{item.timeSort}, #{item.fileName}, #{item.path})
 		</foreach>
 	</insert>
 	
@@ -43,7 +43,7 @@
 	
 	<select id="viewFile" parameterType="int" resultType="com.board.domain.FileVO" >
 		select
-		latitude, longitude, timeView, path
+		id, latitude, longitude, timeView, path
 		from
 		file_board
 		where fileBno = #{bno}
@@ -60,12 +60,43 @@
 		where bno = #{bno}
 	</update>
 	
+	<update id="modifyFile" parameterType="com.board.domain.FileVO">
+		update file_board
+		set
+		timeView = #{timeView},
+		latitude = #{latitude},
+		longitude = #{longitude},
+		where id = #{id}
+	</update>
+	
+	<!-- 게시글 조회수 갱신 -->
+	<update id="hitViewCnt" parameterType="int">
+		update tbl_board
+		set 
+		viewCnt = viewCnt + 1
+		where bno = #{bno};
+	</update>
+	
 	<!-- 게시물 삭제 -->
 	<delete id="delete" parameterType="int">
 		delete
 		from tbl_board
 		where bno = #{bno}
 	</delete>
+	
+	<delete id="deleteFile" parameterType="int">
+		delete
+		from file_board
+		where id = #{del}
+	</delete>
+	
+	<select id="fileName" parameterType="int" resultType="String">
+		select
+		fileName
+		from 
+		file_board
+		where id = #{del} 
+	</select>
 	
 	<!-- 게시글 총 갯수 -->
 	<select id="count" resultType="int">

@@ -1,18 +1,44 @@
 package com.board.domain;
 
-import com.drew.lang.annotations.NotNull;
-
-
 public class FileVO {
 
-	private int fileBno;
-	private Double latitude; // 위도
-	private Double longitude; // 경도
-	private String timeView;
-	private String timeSort;
-	private String path;
 	private int id;
 	
+	private int fileBno;
+	private String latitude;
+	private String longitude;
+	private String timeView;
+	private String timeSort;
+	
+	
+	
+	public String getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+	public String getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+	private String path;
+	private String fileName;
+	
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public int getfileBno() {
 		return fileBno;
 	}
@@ -37,23 +63,7 @@ public class FileVO {
 	public void setPath(String path) {
 		this.path = path;
 	}
-	public int getId() {
-	      return id;
-	   }
-	public void setId(int id) {
-	      this.id = id;
-	   }
-	public Double getLatitude() {
-		return latitude;
-	}
-	public void setLatitude(Double latitude) {
-		this.latitude = latitude;
-	}
-	public Double getLongitude() {
-		return longitude;
-	}
-	public void setLongitude(Double longitude) {
-		this.longitude = longitude;
-	}
+	
+	
 	
 }

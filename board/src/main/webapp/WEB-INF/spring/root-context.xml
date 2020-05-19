@@ -43,4 +43,6 @@
 		base-package="com.board.dao" />
 	<context:component-scan
 		base-package="com.board.service" />
+	<context:component-scan
+		base-package="com.login.domain" />
 </beans>
