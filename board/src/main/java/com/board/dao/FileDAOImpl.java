@@ -36,11 +36,11 @@ public class FileDAOImpl implements FileDAO {
 	}
 
 	@Override
-	public void modifyFile(String[] str_id, String[] gps, String[] time) throws Exception {
+	public void modifyFile(String[] str_id, String[] latitude, String[] longitude, String[] time) throws Exception {
 		// TODO Auto-generated method stub
 		Files files = new Files();
 		
-		FileVO[] fileVO = files.modifyFile(str_id, gps, time);
+		FileVO[] fileVO = files.modifyFile(str_id, latitude, longitude, time);
 		
 		for(FileVO vo : fileVO) {
 			sql.update(namespace + ".modifyFile", vo);

@@ -5,9 +5,25 @@ public class FileVO {
 	private int id;
 	
 	private int fileBno;
-	private String gps;
+	private String latitude;
+	private String longitude;
 	private String timeView;
 	private String timeSort;
+	
+	
+	
+	public String getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+	public String getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
 	private String path;
 	private String fileName;
 	
@@ -28,12 +44,6 @@ public class FileVO {
 	}
 	public void setfileBno(int fileBno) {
 		this.fileBno = fileBno;
-	}
-	public String getGps() {
-		return gps;
-	}
-	public void setGps(String gps) {
-		this.gps = gps;
 	}
 	public String getTimeView() {
 		return timeView;

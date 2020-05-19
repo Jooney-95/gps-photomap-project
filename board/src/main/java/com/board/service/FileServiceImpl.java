@@ -33,9 +33,9 @@ public class FileServiceImpl implements FileService {
 	}
 
 	@Override
-	public void modifyFile(String[] str_id, String[] gps, String[] time) throws Exception {
+	public void modifyFile(String[] str_id, String[] latitude, String[] longitude, String[] time) throws Exception {
 		// TODO Auto-generated method stub
-		dao.modifyFile(str_id, gps, time);
+		dao.modifyFile(str_id, latitude, longitude, time);
 	}
 
 	@Override

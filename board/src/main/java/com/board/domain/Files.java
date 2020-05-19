@@ -28,12 +28,12 @@ public class Files {
 	private int fBno = 0;
 
 	private List<MultipartFile> files = null;
-	private String gps[];
+	private String latitude[];
+	private String longitude[];
 	private String timeView[];
 	private String timeSort[];
 	private String path[];
 	private String fileName[];
-	private String location;
 	private List<FileVO> fileVOList = new ArrayList<FileVO>();
 
 	SimpleDateFormat formatView = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -48,7 +48,8 @@ public class Files {
 		SIZE = filesList.size();
 		fBno = fileBno;
 
-		gps = new String[SIZE];
+		latitude = new String[SIZE];
+		longitude = new String[SIZE];
 		timeView = new String[SIZE];
 		timeSort = new String[SIZE];
 		fileName = new String[SIZE];
@@ -65,7 +66,8 @@ public class Files {
 		for (int j = 0; j < SIZE; j++) {
 			fileVO[j] = new FileVO();
 			fileVO[j].setfileBno(fBno);
-			fileVO[j].setGps(gps[j]);
+			fileVO[j].setLatitude(latitude[j]);
+			fileVO[j].setLongitude(longitude[j]);
 			fileVO[j].setTimeView(timeView[j]);
 			fileVO[j].setTimeSort(timeSort[j]);
 			fileVO[j].setFileName(fileName[j]);
@@ -130,16 +132,17 @@ public class Files {
 					GeoLocation exifLocation = gpsDirectory.getGeoLocation();
 					if (exifLocation != null) {
 
-						location = Double.toString(exifLocation.getLatitude()) + " "
-								+ Double.toString(exifLocation.getLongitude());
-						gps[i] = location;
+						latitude[i] = Double.toString(exifLocation.getLatitude());
+						longitude[i] = Double.toString(exifLocation.getLongitude());
 					}
 				} else {
-					gps[i] = " ";
+					latitude[i] = " ";
+					longitude[i] = " ";
 				}
 
 			} else {
-				gps[i] = " ";
+				latitude[i] = " ";
+				longitude[i] = " ";
 				timeView[i] = " ";
 				timeSort[i] = " ";
 			}
@@ -152,7 +155,7 @@ public class Files {
 		}
 	}
 
-	public FileVO[] modifyFile(String[] str_id, String[] gps, String[] time) {
+	public FileVO[] modifyFile(String[] str_id, String[] latitude, String[] longitude, String[] time) {
 		// TODO Auto-generated method stub
 		int size = str_id.length;
 
@@ -160,7 +163,8 @@ public class Files {
 		for (int j = 0; j < size; j++) {
 			modifyVO[j] = new FileVO();
 			modifyVO[j].setId(Integer.parseInt(str_id[j]));
-			modifyVO[j].setGps(gps[j]);
+			modifyVO[j].setLatitude(latitude[j]);
+			modifyVO[j].setLongitude(longitude[j]);
 			modifyVO[j].setTimeView(time[j]);
 		}
 		return modifyVO;

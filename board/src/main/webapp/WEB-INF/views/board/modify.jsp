@@ -26,7 +26,8 @@
 		<c:forEach items="${list }" var="list">
 			<input type="hidden" name="id" value="${list.id }" />
 			<img width="100" height="100" alt="" src="<spring:url value='${list.path }'/>"><br>
-			<input type="text" name="gps" value="${list.gps }"/><br>
+			<input type="text" name="lat" value="${list.latitude }"/><br>
+			<input type="text" name="lon" value="${list.longitude }"/><br>
 			<input type="text" name="time" value="${list.timeView }"/><br>
 			<input type="checkbox" class="delete" name="del" value="${list.id }">삭제
 			<br/>

@@ -91,11 +91,12 @@ public class BoardController {
 		
 		String fileBno = req.getParameter("bno");
 		String[] str_id = req.getParameterValues("id");
-		String[] gps = req.getParameterValues("gps");
 		String[] time = req.getParameterValues("time");
 		String[] delete = req.getParameterValues("del");
+		String[] latitude = req.getParameterValues("lat");
+		String[] longitude = req.getParameterValues("lon");
 		
-		fileService.modifyFile(str_id, gps, time);
+		fileService.modifyFile(str_id, latitude, longitude, time);
 		if(!(delete == null)) {
 			fileService.deleteFile(delete);
 		}

@@ -24,10 +24,10 @@
 	
 	<insert id="writeFile" parameterType="hashMap">
 		insert into
-		file_board(fileBno, gps, timeView, timeSort, fileName, path)
+		file_board(fileBno, latitude, longitude, timeView, timeSort, fileName, path)
 		values
 		<foreach collection="fileVOList" item="item" separator=" , ">
-		(#{item.fileBno}, #{item.gps}, #{item.timeView}, #{item.timeSort}, #{item.fileName}, #{item.path})
+		(#{item.fileBno}, #{item.latitude}, #{item.longitude}, #{item.timeView}, #{item.timeSort}, #{item.fileName}, #{item.path})
 		</foreach>
 	</insert>
 	
@@ -43,7 +43,7 @@
 	
 	<select id="viewFile" parameterType="int" resultType="com.board.domain.FileVO" >
 		select
-		id, gps, timeView, path
+		id, latitude, longitude, timeView, path
 		from
 		file_board
 		where fileBno = #{bno}
@@ -64,7 +64,8 @@
 		update file_board
 		set
 		timeView = #{timeView},
-		gps = #{gps}
+		latitude = #{latitude},
+		longitude = #{longitude},
 		where id = #{id}
 	</update>
 	
