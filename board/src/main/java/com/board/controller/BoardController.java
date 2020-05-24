@@ -45,17 +45,14 @@ public class BoardController {
 		
 	}
 	
-	
-	
 	@RequestMapping(value="/write", method=RequestMethod.POST)
 	public String postWriter(BoardVO vo, MultipartHttpServletRequest request) throws Exception{
 		int fileBno = service.write(vo);
 		
-		
 		List<MultipartFile> file = request.getFiles("filesList");
 		System.out.println();
 		if(file.get(0).getSize() != 0) {
-		fileService.write(file, fileBno);
+			fileService.write(file, fileBno);
 		}
 		
 		return "redirect:/board/listPage?num=1";
@@ -96,8 +93,10 @@ public class BoardController {
 		String[] latitude = req.getParameterValues("lat");
 		String[] longitude = req.getParameterValues("lon");
 		
-		fileService.modifyFile(str_id, latitude, longitude, time);
-		if(!(delete == null)) {
+		if(str_id != null) {
+			fileService.modifyFile(str_id, latitude, longitude, time);
+		}
+		if(delete != null) {
 			fileService.deleteFile(delete);
 		}
 		

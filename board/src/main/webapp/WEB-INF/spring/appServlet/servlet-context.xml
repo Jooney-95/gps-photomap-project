@@ -17,6 +17,7 @@
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/css/**" location="/css/"/>
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
@@ -39,11 +40,22 @@
 
 	<context:component-scan
 		base-package="com.board.controller" />
-		
+
 	<!-- NaverLoginBO Class에 대한 Bean설정 추가 -->
 	<beans:bean id="naverLoginBO"
 		class="com.login.domain.NaverLoginBO" />
 
+	<!-- 인터셉터 객체 생성 -->
+	<beans:bean id="LoginInterceptor"
+		class="com.login.interceptor.LoginInterceptor">
+	</beans:bean>
+	<!-- Interceptor 설정 -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/board/write" />
+			<beans:ref bean="LoginInterceptor" />
+		</interceptor>
+	</interceptors>
 
 	<resources mapping="/img/**"
 		location="file:///C:/Users/skyhu/Desktop/fileUpload/" />

@@ -8,9 +8,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
-import org.springframework.web.multipart.MultipartFile;
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.drew.imaging.jpeg.JpegMetadataReader;
 import com.drew.imaging.jpeg.JpegProcessingException;
@@ -95,18 +96,23 @@ public class Files {
 	private void fileWirteEXIF(List<MultipartFile> multipart) throws Exception {
 
 		for (MultipartFile mF : multipart) {
-			String saveFileName = mF.getOriginalFilename();
-			fileWrite(mF, saveFileName);
-			File convFile = new File(saveFileName);
-			mF.transferTo(convFile);
-			fileEXIF(convFile, saveFileName);
-
+			String originalName = mF.getOriginalFilename().toLowerCase();
+			if (originalName.endsWith(".jpg") || originalName.endsWith(".jpeg")) {
+				String saveFileName = getRandomString();
+				fileWrite(mF, saveFileName);
+				File convFile = new File(saveFileName);
+				mF.transferTo(convFile);
+				fileEXIF(convFile, saveFileName);
+			} else {
+				System.out.println("jpg,jpeg 파일만 업로드 가능");
+			}
 		}
 
 	}
 
 	private void fileEXIF(File file, String saveFileName) throws JpegProcessingException {
 		try {
+			
 			String extension = FilenameUtils.getExtension(file.getPath());
 			if (extension.equals("jpg") || extension.equals("jpeg")) {
 				Metadata metadata = JpegMetadataReader.readMetadata(file);
@@ -127,7 +133,7 @@ public class Files {
 					timeView[i] = " ";
 					timeSort[i] = " ";
 				}
-				
+
 				if (gpsDirectory != null) {
 					GeoLocation exifLocation = gpsDirectory.getGeoLocation();
 					if (exifLocation != null) {
@@ -176,6 +182,24 @@ public class Files {
 		if (file.exists()) {
 			file.delete();
 		}
+	}
+
+	public static String getRandomString() {
+		
+		String fileName;
+		String saveFileName = UUID.randomUUID().toString().replaceAll("-", "") + ".jpg";
+
+		File file = new File(SAVE_PATH + "\\" + saveFileName);
+
+		while (file.exists()) {
+			saveFileName = "0" + saveFileName;
+			file = new File(SAVE_PATH + "\\" + saveFileName);
+		}
+
+		fileName = saveFileName;
+
+		return fileName;
+
 	}
 
 }

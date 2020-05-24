@@ -65,7 +65,7 @@
 		set
 		timeView = #{timeView},
 		latitude = #{latitude},
-		longitude = #{longitude},
+		longitude = #{longitude}
 		where id = #{id}
 	</update>
 	
@@ -105,11 +105,30 @@
 	
 	<!-- 게시물 목록+페이징 -->
 	<select id="listPage" parameterType="hashMap" resultType="hashMap">
-	select
-	bno, title, writer, regDate, viewCnt
-	from tbl_board
-	order by bno desc
-	limit #{displayPost}, #{postNum}
+		select
+		bno, title, writer, regDate, viewCnt
+		from tbl_board
+		order by bno desc
+		limit #{displayPost}, #{postNum}
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="register" parameterType="com.board.domain.MemberVO">
+		insert into
+		reg_board(mID, mPW, mNickname)
+		values(
+		#{mID}, #{mPW}, #{mNickname}
+		)
+	</insert>
+	
+	<!-- 로그인 -->
+	<select id="login" parameterType="com.board.domain.MemberVO" resultType="com.board.domain.MemberVO">
+		select
+		mID, mPW, mNickname
+		from
+		reg_board
+		where
+		mID = #{mID}
 	</select>
 
 </mapper>
