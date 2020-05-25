@@ -45,20 +45,17 @@ public class BoardController {
 		
 	}
 	
-	
-	
 	@RequestMapping(value="/write", method=RequestMethod.POST)
 	public String postWriter(BoardVO vo, MultipartHttpServletRequest request) throws Exception{
 		int fileBno = service.write(vo);
 		
-		
 		List<MultipartFile> file = request.getFiles("filesList");
 		System.out.println();
 		if(file.get(0).getSize() != 0) {
-		fileService.write(file, fileBno);
+			fileService.write(file, fileBno);
 		}
 		
-		return "redirect:/board/listPageSearch?num=1";
+		return "redirect:/board/listPage?num=1";
 	}
 	
 	@RequestMapping(value="/view", method=RequestMethod.GET)
@@ -96,8 +93,10 @@ public class BoardController {
 		String[] latitude = req.getParameterValues("lat");
 		String[] longitude = req.getParameterValues("lon");
 		
-		fileService.modifyFile(str_id, latitude, longitude, time);
-		if(!(delete == null)) {
+		if(str_id != null) {
+			fileService.modifyFile(str_id, latitude, longitude, time);
+		}
+		if(delete != null) {
 			fileService.deleteFile(delete);
 		}
 		
@@ -113,17 +112,16 @@ public class BoardController {
 	public String getDelete(@RequestParam("bno") int bno) throws Exception{
 		service.delete(bno);
 		
-		return "redirect:/board/listPageSearch?num=1";
+		return "redirect:/board/list";
 	}
 
 	@RequestMapping(value = "/listPage", method = RequestMethod.GET)
 	public void getListPage(Model model, @RequestParam("num") int num) throws Exception{
-		
 		Page page = new Page();
-		
 		page.setNum(num);
 		page.setCount(service.count());
 		
+
 		List<BoardVO> list = null;
 		list = service.listPage(page.getDisplayPost(), page.getPostNum());
 
@@ -133,30 +131,5 @@ public class BoardController {
 		
 		model.addAttribute("select", num);
 	}
-	
-	
-	// 게시물 목록 + 페이징 추가 + 검색
-	@RequestMapping(value = "/listPageSearch", method = RequestMethod.GET)
-	public void getListPageSearch(Model model, @RequestParam("num") int num, 
-			@RequestParam(value = "searchType",required = false, defaultValue = "title") String searchType,
-			@RequestParam(value = "keyword",required = false, defaultValue = "") String keyword
-			) throws Exception {
-
-	 
-		Page page = new Page();
-	 
-		page.setNum(num);
-		page.setCount(service.count());  
-	 
-		List<BoardVO> list = null; 
-		//list = service.listPage(page.getDisplayPost(), page.getPostNum());
-		list = service.listPageSearch(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
-	 
-		model.addAttribute("list", list);
-		model.addAttribute("page", page);
-		model.addAttribute("select", num);
-	 
-	}
-	
 	
 }

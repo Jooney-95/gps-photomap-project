@@ -79,7 +79,7 @@ public class LoginController {
 	public String logout(HttpSession session) throws IOException {
 		System.out.println("여기는 logout");
 		session.invalidate();
-		return "redirect:/board/listPage?num=1";
+		return "/board/naverLogin";
 	}
 
 }

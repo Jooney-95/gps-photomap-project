@@ -19,12 +19,12 @@
 		<input type="text" name="title" />
 		<br/>
 		<label>작성자</label>
-		<input type="text" name="writer" />
+		<input type="text" name="writer" value="${member.mNickname }" readOnly />
 		<br/>
 		<label>내용</label>
 		<textarea cols="50" rows="5" name="content"></textarea>
 		<br/>
-		<input type="file" id="input_imgs" name="filesList" multiple/>
+		<input type="file" id="input_imgs" name="filesList" accept=".jpg, .jpeg" multiple/>
 		<br/>
 		<button type="submit">작성</button>
 	</form>

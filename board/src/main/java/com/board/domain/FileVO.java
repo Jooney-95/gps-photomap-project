@@ -3,13 +3,13 @@ package com.board.domain;
 public class FileVO {
 
 	private int id;
+	
 	private int fileBno;
 	private String latitude;
 	private String longitude;
 	private String timeView;
 	private String timeSort;
-	private String path;
-	private String fileName;
+	
 	
 	
 	public String getLatitude() {
@@ -24,6 +24,9 @@ public class FileVO {
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
 	}
+	private String path;
+	private String fileName;
+	
 	public String getFileName() {
 		return fileName;
 	}

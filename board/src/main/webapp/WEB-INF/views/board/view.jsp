@@ -8,27 +8,27 @@
 <title>게시물 조회</title>
 </head>
 <body>
-	<div id="nav">
-		<%@ include file="../include/nav.jsp"%>
-	</div>
-	<label>제목</label> ${view.title}
-	<br />
+   <div id="nav">
+      <%@ include file="../include/nav.jsp"%>
+   </div>
+   <label>제목</label> ${view.title}
+   <br />
 
-	<label>작성자</label> ${view.writer}
-	<br />
+   <label>작성자</label> ${view.writer}
+   <br />
 
-	<label>내용</label>
-	<br /> ${view.content}<br>
-	<c:forEach items="${list }" var="list">
-		<img width="100" height="100" alt="" src="<spring:url value='${list.path }'/>"><br>
-		<input type="hidden" name="id" value="${list.id }" />
-		<input type="text" name="lat" value="${list.latitude }"/><br>
-		<input type="text" name="lon" value="${list.longitude }"/><br>
-		<input type="text" name="time" value="${list.timeView }"/><br>
-	</c:forEach>
-	<br />
-	
-	
+   <label>내용</label>
+   <br /> ${view.content}<br>
+   <c:forEach items="${list }" var="list">
+      <img width="100" height="100" alt="" src="<spring:url value='${list.path }'/>"><br>
+      <input type="hidden" name="id" value="${list.id }" />
+      <input type="text" name="lat" value="${list.latitude }"/><br>
+      <input type="text" name="lon" value="${list.longitude }"/><br>
+      <input type="text" name="time" value="${list.timeView }"/><br>
+   </c:forEach>
+   <br />
+   
+   
    <!-- 카카오맵 api 호출 -->
    <div id="map" style="width:500px;height:400px;"></div> 
    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dd9fb87d40ab9678af574d3665e02b6e&libraries=clusterer"></script>
@@ -43,25 +43,25 @@
       </c:forEach>
       
       var MARKER_WIDTH = 36, // 기본, 클릭 마커의 너비
-	      MARKER_HEIGHT = 37, // 기본, 클릭 마커의 높이
-	      OFFSET_X = 13, // 기본, 클릭 마커의 기준 X좌표
-	      OFFSET_Y = MARKER_HEIGHT, // 기본, 클릭 마커의 기준 Y좌표
-	      SPRITE_MARKER_URL = '${Path}/resources/imgs/markers.png', // 스프라이트 마커 이미지 URL
-	      SPRITE_WIDTH = 44, // 스프라이트 이미지 너비
-	      SPRITE_HEIGHT = 2254, // 스프라이트 이미지 높이
-	      SPRITE_GAP = 9.1; // 스프라이트 이미지에서 마커간 간격
+         MARKER_HEIGHT = 37, // 기본, 클릭 마커의 높이
+         OFFSET_X = 13, // 기본, 클릭 마커의 기준 X좌표
+         OFFSET_Y = MARKER_HEIGHT, // 기본, 클릭 마커의 기준 Y좌표
+         SPRITE_MARKER_URL = '${Path}/resources/imgs/markers.png', // 스프라이트 마커 이미지 URL
+         SPRITE_WIDTH = 44, // 스프라이트 이미지 너비
+         SPRITE_HEIGHT = 2254, // 스프라이트 이미지 높이
+         SPRITE_GAP = 9.1; // 스프라이트 이미지에서 마커간 간격
 
-	  var markerSize = new kakao.maps.Size(MARKER_WIDTH, MARKER_HEIGHT), // 기본, 클릭 마커의 크기
-	      markerOffset = new kakao.maps.Point(OFFSET_X, OFFSET_Y), // 기본, 클릭 마커의 기준좌표
-	      spriteImageSize = new kakao.maps.Size(SPRITE_WIDTH, SPRITE_HEIGHT); // 스프라이트 이미지의 크기
+     var markerSize = new kakao.maps.Size(MARKER_WIDTH, MARKER_HEIGHT), // 기본, 클릭 마커의 크기
+         markerOffset = new kakao.maps.Point(OFFSET_X, OFFSET_Y), // 기본, 클릭 마커의 기준좌표
+         spriteImageSize = new kakao.maps.Size(SPRITE_WIDTH, SPRITE_HEIGHT); // 스프라이트 이미지의 크기
       
-	  var positions = [], // 위치정보들을 담는 객체 배열 생성 - 안에서 객체들 반복문 돌려 사진업로드 갯수만큼 저장해야한다.
-	  selectedMarker = null; // 클릭한 마커를 담을 변수
-	   
-	         
-	  for (var i=0; i<lat.length; i++) { // 위도값갯수만큼(위도와 경도는 같이 포함되기에 위도갯수만 체크해도 됨) 마커에 위도, 경도값을 저장한다
-	  	positions.push(new kakao.maps.LatLng(parseFloat(lat[i]), parseFloat(lon[i])));
-	  }
+     var positions = [], // 위치정보들을 담는 객체 배열 생성 - 안에서 객체들 반복문 돌려 사진업로드 갯수만큼 저장해야한다.
+     selectedMarker = null; // 클릭한 마커를 담을 변수
+      
+            
+     for (var i=0; i<lat.length; i++) { // 위도값갯수만큼(위도와 경도는 같이 포함되기에 위도갯수만 체크해도 됨) 마커에 위도, 경도값을 저장한다
+        positions.push(new kakao.maps.LatLng(parseFloat(lat[i]), parseFloat(lon[i])));
+     }
 
       var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
        mapOption = { 
@@ -72,7 +72,7 @@
       var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
         
     
-  	  // 지도 위에 마커를 표시합니다
+       // 지도 위에 마커를 표시합니다
       for (var i = 0, len = positions.length; i < len; i++) {
           var gapX = (MARKER_WIDTH + SPRITE_GAP), // 스프라이트 이미지에서 마커로 사용할 이미지 X좌표 간격 값
               originY = (MARKER_HEIGHT + SPRITE_GAP) * i, // 스프라이트 이미지에서 기본, 클릭 마커로 사용할 Y좌표 값
@@ -91,13 +91,13 @@
               
 
           //for(var i=0; i<positions.length; i++) { // 등록된 이미지 개수만큼 마커를 표시한다.
-	          // 마커를 생성하고 이미지는 기본 마커 이미지를 사용합니다
-	          var marker = new kakao.maps.Marker({
-	              map: map,
-	              position: positions[i],
-	              image: normalImage
-	          });
-        //  }	
+             // 마커를 생성하고 이미지는 기본 마커 이미지를 사용합니다
+             var marker = new kakao.maps.Marker({
+                 map: map,
+                 position: positions[i],
+                 image: normalImage
+             });
+        //  }   
           // 마커 객체에 마커아이디와 마커의 기본 이미지를 추가합니다
           marker.normalImage = normalImage;
 
@@ -163,13 +163,13 @@
       // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
       // marker.setMap(null);
    </script>
-	
-	
-	
-	
-	<div>
-		<a href="/board/modify?bno=${view.bno}">게시물 수정</a> <a
-			href="/board/delete?bno=${view.bno}">게시물 삭제</a>
-	</div>
+   
+   
+   
+   
+   <div>
+      <a href="/board/modify?bno=${view.bno}">게시물 수정</a> <a
+         href="/board/delete?bno=${view.bno}">게시물 삭제</a>
+   </div>
 </body>
 </html>
