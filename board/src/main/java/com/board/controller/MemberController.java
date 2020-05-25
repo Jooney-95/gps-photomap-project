@@ -40,7 +40,7 @@ public class MemberController {
 	}
 	// 로그인
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public void postLogin(MemberVO vo, HttpServletRequest req, RedirectAttributes rttr) throws Exception {
+	public String postLogin(MemberVO vo, HttpServletRequest req, RedirectAttributes rttr) throws Exception {
 		HttpSession session = req.getSession();
 		MemberVO login = service.login(vo);
 		System.out.println(login);
@@ -49,6 +49,7 @@ public class MemberController {
 		if (login == null) {
 			rttr.addFlashAttribute("msg", "falseID");
 			System.out.println("아이디 없음");
+			return "/member/login";
 		} else {
 			// 암호화된 비밀번호 비교
 			boolean matchPW = pwdEncoder.matches(vo.getmPW(), login.getmPW());
@@ -56,19 +57,23 @@ public class MemberController {
 			if (matchPW) {
 				session.setAttribute("member", login);
 				System.out.println("로그인 성공");
+				return "redirect:/";
 			} else {
 				session.setAttribute("member", null);
 				rttr.addFlashAttribute("msg", "falsePW");
 				System.out.println("비번 오류");
+				return "/member/login";
 			}
 		}
+		
 	}
 	
 	// 로그아웃
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String getLogout(HttpSession session) throws Exception{
+	public String logout(HttpSession session) throws Exception {
+	
 		session.invalidate();
-		
-		return "/member/login";
+	   
+		return "redirect:/";
 	}
 }

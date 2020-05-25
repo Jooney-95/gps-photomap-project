@@ -20,12 +20,22 @@
 		<br/>
 		<button type="submit">로그인</button>
 	</form>
+
 	<c:if test="${member != null }">
 		<p>${member.mNickname }</p>
+		<a href="/member/logout">로그아웃</a>
 	</c:if>
+	
+	
+	<c:if test="${member == null }">
+		<a href="/member/register">회원가입</a>
+		<a href="/member/naverLogin">네이버 로그인</a>
+	</c:if>
+	
 	<script>
 
-	
 	</script>
+	
+	
 </body>
 </html>
