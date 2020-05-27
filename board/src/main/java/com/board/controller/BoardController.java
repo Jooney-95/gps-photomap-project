@@ -1,10 +1,14 @@
 package com.board.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,7 +59,7 @@ public class BoardController {
 			fileService.write(file, fileBno);
 		}
 		
-		return "redirect:/board/listPage?num=1";
+		return "redirect:/board/listPageSearch?num=1";
 	}
 	
 	@RequestMapping(value="/view", method=RequestMethod.GET)
@@ -68,7 +72,9 @@ public class BoardController {
 		
 		model.addAttribute("view", vo);
 		model.addAttribute("list", list);
-	
+
+		
+		
 	}
 	
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
@@ -112,23 +118,9 @@ public class BoardController {
 	public String getDelete(@RequestParam("bno") int bno) throws Exception{
 		service.delete(bno);
 		
-		return "redirect:/board/list";
+		return "redirect:/board/listPageSearch?num=1";
 	}
 
-	@RequestMapping(value = "/listPage", method = RequestMethod.GET)
-	public void getListPage(Model model, @RequestParam("num") int num) throws Exception{
-		Page page = new Page();
-		page.setNum(num);
-		page.setCount(service.count());
-		
-
-		List<BoardVO> list = null;
-		list = service.listPage(page.getDisplayPost(), page.getPostNum());
-
-		model.addAttribute("list", list);
-		model.addAttribute("page", page);
-		model.addAttribute("select", num);
-	}
 	
 	// 게시물 목록 + 페이징 추가 + 검색
 	@RequestMapping(value = "/listPageSearch", method = RequestMethod.GET)

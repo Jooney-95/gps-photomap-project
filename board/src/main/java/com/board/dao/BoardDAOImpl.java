@@ -56,16 +56,6 @@ public class BoardDAOImpl implements BoardDAO {
 		return sql.selectOne(namespace + ".count");
 	}
 
-	@Override
-	public List<BoardVO> listPage(int displayPost, int postNum) throws Exception {
-		// TODO Auto-generated method stub
-		HashMap<String, Integer> data = new HashMap<String, Integer>();
-
-		data.put("displayPost", displayPost);
-		data.put("postNum", postNum);
-
-		return sql.selectList(namespace + ".listPage", data);
-	}
 	
 	// 게시물 목록 + 페이징 + 검색
 	@Override

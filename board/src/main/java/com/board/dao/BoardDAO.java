@@ -17,8 +17,6 @@ public interface BoardDAO {
 	public void delete(int bno);
 
 	public int count() throws Exception;
-
-	public List<BoardVO> listPage(int displayPost, int postNum) throws Exception;
 	
 	// 게시물 목록 + 페이징 + 검색
 	public List<BoardVO> listPageSearch(

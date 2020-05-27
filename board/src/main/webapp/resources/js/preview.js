@@ -41,7 +41,7 @@ function handleImgFileSelect(e){
 				}
 			}
 			
-			var html = "<a href=\"javascript:void(0);\" onclick=\"deleteImageAction(" + index + ")\" id=\"img_id_" + index + "\" name=\"imgs\"><img width=" + width + " height=" + height + " src=\"" + e.target.result + "\" data-file'"+f.name+"'>" ;
+			var html = "<a href=\"javascript:void(0);\" onclick=\"deleteImageAction(" + index + ")\" id=\"img_id_" + index + "\" name=\"imgs\"><img width=" + 100 + " height=" + 100 + " src=\"" + e.target.result + "\" data-file'"+f.name+"'>" ;
 			$(".img_box").append(html);
 			
 			var img_id = "#img_id_" + index;

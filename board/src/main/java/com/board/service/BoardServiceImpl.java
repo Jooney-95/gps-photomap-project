@@ -51,12 +51,6 @@ public class BoardServiceImpl implements BoardService {
 		return dao.count();
 	}
 
-	@Override
-	public List<BoardVO> listPage(int displayPost, int postNum) throws Exception {
-		// TODO Auto-generated method stub
-		return dao.listPage(displayPost, postNum);
-	}
-
 	// 게시물 목록 + 페이징 + 검색
 	@Override
 	public List<BoardVO> listPageSearch(
@@ -68,6 +62,12 @@ public class BoardServiceImpl implements BoardService {
 	public void hitViewCnt(int bno) throws Exception {
 		// TODO Auto-generated method stub
 		dao.hitViewCnt(bno);
+	}
+
+	@Override
+	public List<BoardVO> listPage(int displayPost, int postNum) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

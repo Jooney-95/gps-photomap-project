@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div id="nav">
-		<%@ include file="../include/nav.jsp"%>
+		<%@ include file="./nav.jsp"%>
 	</div>
 	<form method="post" enctype="multipart/form-data">
 		<input type="hidden" name="bno" value="${view.bno }" />

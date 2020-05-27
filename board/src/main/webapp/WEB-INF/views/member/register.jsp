@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div id="nav">
-		<%@ include file="../include/nav.jsp"%>
+		<%@ include file="../board/nav.jsp"%>
 	</div>
 	<form method="post">
 		<label>아이디</label>

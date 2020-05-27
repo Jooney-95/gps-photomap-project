@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div id="nav">
-		<%@ include file="./include/nav.jsp"%>
+		<%@ include file="./board/nav.jsp"%>
 	</div>
 	
 	<header id="header">
