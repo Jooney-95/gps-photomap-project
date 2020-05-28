@@ -14,12 +14,6 @@ public class BoardServiceImpl implements BoardService {
 
 	@Inject
 	private BoardDAO dao;
-	
-	@Override
-	public List<BoardVO> list() throws Exception {
-		// TODO Auto-generated method stub
-		return dao.list();
-	}
 
 	@Override
 	public int write(BoardVO vo) throws Exception {
@@ -62,12 +56,6 @@ public class BoardServiceImpl implements BoardService {
 	public void hitViewCnt(int bno) throws Exception {
 		// TODO Auto-generated method stub
 		dao.hitViewCnt(bno);
-	}
-
-	@Override
-	public List<BoardVO> listPage(int displayPost, int postNum) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

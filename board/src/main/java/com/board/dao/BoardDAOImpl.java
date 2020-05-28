@@ -20,12 +20,6 @@ public class BoardDAOImpl implements BoardDAO {
 	private static String namespace = "com.board.mappers.board";
 
 	@Override
-	public List<BoardVO> list() throws Exception {
-		// TODO Auto-generated method stub
-		return sql.selectList(namespace + ".list");
-	}
-
-	@Override
 	public int write(BoardVO vo) throws Exception {
 		// TODO Auto-generated method stub
 		sql.insert(namespace + ".write", vo);

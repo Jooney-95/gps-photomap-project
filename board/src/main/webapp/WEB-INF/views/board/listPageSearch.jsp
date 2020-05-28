@@ -1,3 +1,4 @@
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -11,7 +12,12 @@
 
 <body>
 	<div id="nav">
-		<%@ include file="./nav.jsp"%>
+		<c:if test="${member != null }">
+			<%@ include file="../include/navLogin.jsp"%>
+		</c:if>
+		<c:if test="${member == null }">
+			<%@ include file="../include/navLogout.jsp"%>
+		</c:if>
 	</div>
 	<table>
 		<thead>
@@ -28,7 +34,14 @@
 			<c:forEach items="${list}" var="list">
 				<tr>
 					<td>${list.bno}</td>
-					<td><a href="/board/view?bno=${list.bno}">${list.title}</a></td>
+					<td><a href="/board/view?bno=${list.bno}">${list.title}</a><br/><c:forEach
+							items="${fileList }" var="fileList">
+							<c:forEach items="${fileList }" var="fileList">
+								<c:if test="${fileList.fileBno == list.bno}">
+								<img width="100" height="100" alt="" src="<spring:url value='${fileList.path }'/>">						
+									</c:if>
+							</c:forEach>
+						</c:forEach></td>
 					<td>${list.regDate}</td>
 					<td>${list.writer}</td>
 					<td>${list.viewCnt}</td>

@@ -8,7 +8,6 @@ import com.drew.lang.annotations.NotNull;
 public class BoardVO {
 	private int bno;
 	private String title;
-	private String content;
 	private String writer;
 	private Date regDate;
 	private int viewCnt;
@@ -24,12 +23,6 @@ public class BoardVO {
 	}
 	public void setTitle(String title) {
 		this.title = title;
-	}
-	public String getContent() {
-		return content;
-	}
-	public void setContent(String content) {
-		this.content = content;
 	}
 	public String getWriter() {
 		return writer;

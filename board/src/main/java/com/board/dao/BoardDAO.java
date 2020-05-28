@@ -5,8 +5,6 @@ import java.util.List;
 import com.board.domain.BoardVO;
 
 public interface BoardDAO {
-
-	public List<BoardVO> list() throws Exception;
 	
 	public int write(BoardVO vo) throws Exception;
 	

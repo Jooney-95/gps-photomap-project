@@ -11,7 +11,12 @@
 </head>
 <body>
 	<div id="nav">
-		<%@ include file="./board/nav.jsp"%>
+		<c:if test="${member != null }">
+			<%@ include file="./include/navLogin.jsp"%>
+		</c:if>
+		<c:if test="${member == null }">
+			<%@ include file="./include/navLogout.jsp"%>
+		</c:if>
 	</div>
 	
 	<header id="header">
