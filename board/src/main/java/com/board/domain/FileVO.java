@@ -8,8 +8,7 @@ public class FileVO {
 	private String latitude;
 	private String longitude;
 	private String timeView;
-	private String timeSort;
-	
+	private String content;
 	
 	
 	public String getLatitude() {
@@ -51,11 +50,11 @@ public class FileVO {
 	public void setTimeView(String timeView) {
 		this.timeView = timeView;
 	}
-	public String getTimeSort() {
-		return timeSort;
+	public String getContent() {
+		return content;
 	}
-	public void setTimeSort(String timeSort) {
-		this.timeSort = timeSort;
+	public void setContent(String content) {
+		this.content = content;
 	}
 	public String getPath() {
 		return path;

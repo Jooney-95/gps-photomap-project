@@ -23,7 +23,7 @@ function handleImgFileSelect(e){
 		var reader = new FileReader();
 		reader.onload = function(e){
 			
-			$("body").append('<img src="" id="temp_img" style="display:none;" />');
+			/*$("body").append('<img src="" id="temp_img" style="display:none;" />');
 			$("#temp_img").attr("src", e.target.result);
 			
 			width = $("#temp_img").width();
@@ -39,17 +39,17 @@ function handleImgFileSelect(e){
 					width *= MAX_HEIGHT / height;
 					height = MAX_HEIGHT;
 				}
-			}
+			}*/
 			
-			var html = "<a href=\"javascript:void(0);\" onclick=\"deleteImageAction(" + index + ")\" id=\"img_id_" + index + "\" name=\"imgs\"><img width=" + width + " height=" + height + " src=\"" + e.target.result + "\" data-file'"+f.name+"'>" ;
+			var html = "<a href=\"javascript:void(0);\" onclick=\"deleteImageAction(" + index + ")\" id=\"img_id_" + index + "\" name=\"imgs\"><img width=" + 150 + " height=" + 150 + " src=\"" + e.target.result + "\" data-file'"+f.name+"'>";
 			$(".img_box").append(html);
 			
-			var img_id = "#img_id_" + index;
+			/*var img_id = "#img_id_" + index;
 			
 			var width = $(img_id).children("img").attr("width");
 	        var height = $(img_id).children("img").attr("height");
 	        
-	        $("#temp_img").remove();
+	        $("#temp_img").remove();*/
 	        
 			index++;
 		}

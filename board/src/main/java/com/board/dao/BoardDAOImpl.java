@@ -20,12 +20,6 @@ public class BoardDAOImpl implements BoardDAO {
 	private static String namespace = "com.board.mappers.board";
 
 	@Override
-	public List<BoardVO> list() throws Exception {
-		// TODO Auto-generated method stub
-		return sql.selectList(namespace + ".list");
-	}
-
-	@Override
 	public int write(BoardVO vo) throws Exception {
 		// TODO Auto-generated method stub
 		sql.insert(namespace + ".write", vo);
@@ -56,17 +50,23 @@ public class BoardDAOImpl implements BoardDAO {
 		return sql.selectOne(namespace + ".count");
 	}
 
+	
+	// 게시물 목록 + 페이징 + 검색
 	@Override
-	public List<BoardVO> listPage(int displayPost, int postNum) throws Exception {
-		// TODO Auto-generated method stub
-		HashMap<String, Integer> data = new HashMap<String, Integer>();
+	public List<BoardVO> listPageSearch(
+			int displayPost, int postNum, String searchType, String keyword) throws Exception {
 
+		HashMap<String, Object> data = new HashMap<String, Object>();
+	  
 		data.put("displayPost", displayPost);
 		data.put("postNum", postNum);
-
-		return sql.selectList(namespace + ".listPage", data);
-	}
-
+	  
+		data.put("searchType", searchType);
+		data.put("keyword", keyword);
+	  
+		return sql.selectList(namespace + ".listPageSearch", data);
+	 }
+	 
 	@Override
 	public void hitViewCnt(int bno) throws Exception {
 		// TODO Auto-generated method stub

@@ -22,7 +22,7 @@ import com.drew.metadata.exif.GpsDirectory;
 
 public class Files {
 
-	private static final String SAVE_PATH = "C:\\Users\\skyhu\\Desktop\\fileUpload";
+	private static final String SAVE_PATH = "C:\\upload";
 	private static final String PREFIX_URL = "/img/";
 	private int SIZE = 0;
 	private int i = 0;
@@ -32,27 +32,23 @@ public class Files {
 	private String latitude[];
 	private String longitude[];
 	private String timeView[];
-	private String timeSort[];
 	private String path[];
 	private String fileName[];
 	private List<FileVO> fileVOList = new ArrayList<FileVO>();
 
 	SimpleDateFormat formatView = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-	SimpleDateFormat formatSort = new SimpleDateFormat("yyyyMMddHHmmSSSS");
 	String fView = null;
-	String fSort = null;
 
 	public HashMap<String, Object> setFiles(List<MultipartFile> filesList, int fileBno) throws Exception {
 		this.files = filesList;
 
-		// 파일 수 설정
+		// �뙆�씪 �닔 �꽕�젙
 		SIZE = filesList.size();
 		fBno = fileBno;
 
 		latitude = new String[SIZE];
 		longitude = new String[SIZE];
 		timeView = new String[SIZE];
-		timeSort = new String[SIZE];
 		fileName = new String[SIZE];
 		path = new String[SIZE];
 
@@ -65,12 +61,14 @@ public class Files {
 		// TODO Auto-generated method stub
 		FileVO[] fileVO = new FileVO[SIZE];
 		for (int j = 0; j < SIZE; j++) {
+			if(fileName[j] == null) {
+				break;
+			}
 			fileVO[j] = new FileVO();
 			fileVO[j].setfileBno(fBno);
 			fileVO[j].setLatitude(latitude[j]);
 			fileVO[j].setLongitude(longitude[j]);
 			fileVO[j].setTimeView(timeView[j]);
-			fileVO[j].setTimeSort(timeSort[j]);
 			fileVO[j].setFileName(fileName[j]);
 			fileVO[j].setPath(path[j]);
 			fileVOList.add(fileVO[j]);
@@ -104,7 +102,7 @@ public class Files {
 				mF.transferTo(convFile);
 				fileEXIF(convFile, saveFileName);
 			} else {
-				System.out.println("jpg,jpeg 파일만 업로드 가능");
+				System.out.println("jpg,jpeg 만 업로드 가능");
 			}
 		}
 
@@ -124,14 +122,11 @@ public class Files {
 					if (date != null) {
 
 						fView = formatView.format(date);
-						fSort = formatSort.format(date);
 						timeView[i] = fView;
-						timeSort[i] = fSort;
 
 					}
 				} else {
 					timeView[i] = " ";
-					timeSort[i] = " ";
 				}
 
 				if (gpsDirectory != null) {
@@ -150,7 +145,6 @@ public class Files {
 				latitude[i] = " ";
 				longitude[i] = " ";
 				timeView[i] = " ";
-				timeSort[i] = " ";
 			}
 			fileName[i] = saveFileName;
 			path[i] = PREFIX_URL + saveFileName;
@@ -161,7 +155,7 @@ public class Files {
 		}
 	}
 
-	public FileVO[] modifyFile(String[] str_id, String[] latitude, String[] longitude, String[] time) {
+	public FileVO[] modifyFile(String[] str_id, String[] latitude, String[] longitude, String[] time, String[] content) {
 		// TODO Auto-generated method stub
 		int size = str_id.length;
 
@@ -169,9 +163,10 @@ public class Files {
 		for (int j = 0; j < size; j++) {
 			modifyVO[j] = new FileVO();
 			modifyVO[j].setId(Integer.parseInt(str_id[j]));
-			modifyVO[j].setLatitude(latitude[j]);
-			modifyVO[j].setLongitude(longitude[j]);
-			modifyVO[j].setTimeView(time[j]);
+			modifyVO[j].setLatitude(latitude[j].trim());
+			modifyVO[j].setLongitude(longitude[j].trim());
+			modifyVO[j].setTimeView(time[j].trim());
+			modifyVO[j].setContent(content[j]);
 		}
 		return modifyVO;
 	}

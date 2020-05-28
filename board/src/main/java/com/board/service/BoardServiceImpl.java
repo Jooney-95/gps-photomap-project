@@ -14,12 +14,6 @@ public class BoardServiceImpl implements BoardService {
 
 	@Inject
 	private BoardDAO dao;
-	
-	@Override
-	public List<BoardVO> list() throws Exception {
-		// TODO Auto-generated method stub
-		return dao.list();
-	}
 
 	@Override
 	public int write(BoardVO vo) throws Exception {
@@ -51,12 +45,13 @@ public class BoardServiceImpl implements BoardService {
 		return dao.count();
 	}
 
+	// 게시물 목록 + 페이징 + 검색
 	@Override
-	public List<BoardVO> listPage(int displayPost, int postNum) throws Exception {
-		// TODO Auto-generated method stub
-		return dao.listPage(displayPost, postNum);
+	public List<BoardVO> listPageSearch(
+			int displayPost, int postNum, String searchType, String keyword) throws Exception {
+		return  dao.listPageSearch(displayPost, postNum, searchType, keyword);
 	}
-
+	
 	@Override
 	public void hitViewCnt(int bno) throws Exception {
 		// TODO Auto-generated method stub

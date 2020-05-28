@@ -12,7 +12,7 @@ public interface FileService {
 
 	public List<FileVO> viewFile(int bno) throws Exception;
 
-	public void modifyFile(String[] str_id, String[] latitude, String[] longitude, String[] time) throws Exception;
+	public void modifyFile(String[] str_id, String[] latitude, String[] longitude, String[] time, String[] content) throws Exception;
 
 	public void deleteFile(String[] delete) throws Exception;
 

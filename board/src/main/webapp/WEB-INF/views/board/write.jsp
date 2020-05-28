@@ -4,15 +4,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="/resources/js/preview.js"></script> -->
+<script src="/resources/js/preview.js"></script>
 <meta charset="UTF-8">
 <title>게시물 작성</title>
+
 </head>
 <body>
 	<div id="nav">
-		<%@ include file="../include/nav.jsp"%>
+		<c:if test="${member != null }">
+			<%@ include file="../include/navLogin.jsp"%>
+		</c:if>
+		<c:if test="${member == null }">
+			<%@ include file="../include/navLogout.jsp"%>
+		</c:if>
 	</div>
 	<form method="post" enctype="multipart/form-data">
 		<label>제목</label>
@@ -21,14 +27,12 @@
 		<label>작성자</label>
 		<input type="text" name="writer" value="${member.mNickname }" readOnly />
 		<br/>
-		<label>내용</label>
-		<textarea cols="50" rows="5" name="content"></textarea>
-		<br/>
 		<input type="file" id="input_imgs" name="filesList" accept=".jpg, .jpeg" multiple/>
 		<br/>
 		<button type="submit">작성</button>
+		<div class="img_box"></div>
 	</form>
-	<div class="img_box"></div>
+	
 	 
 </body>
 </html>

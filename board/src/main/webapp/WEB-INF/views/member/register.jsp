@@ -9,7 +9,12 @@
 </head>
 <body>
 	<div id="nav">
-		<%@ include file="../include/nav.jsp"%>
+		<c:if test="${member != null }">
+			<%@ include file="../include/navLogin.jsp"%>
+		</c:if>
+		<c:if test="${member == null }">
+			<%@ include file="../include/navLogout.jsp"%>
+		</c:if>
 	</div>
 	<form method="post">
 		<label>아이디</label>

@@ -29,55 +29,55 @@ public class LoginController {
 		this.naverLoginBO = naverLoginBO;
 	}
 
-	// ë¡œê·¸ì¸ ì²« í™”ë©´ ìš”ì²­ ë©”ì†Œë“œ
+	// ·Î±×ÀÎ Ã¹ È­¸é ¿äÃ» ¸Ş¼Òµå
 	@RequestMapping(value = "/naverLogin", method = { RequestMethod.GET, RequestMethod.POST })
 	public String login(Model model, HttpSession session) {
-		/* ë„¤ì´ë²„ì•„ì´ë””ë¡œ ì¸ì¦ URLì„ ìƒì„±í•˜ê¸° ìœ„í•˜ì—¬ naverLoginBOí´ë˜ìŠ¤ì˜ getAuthorizationUrlë©”ì†Œë“œ í˜¸ì¶œ */
+		/* ³×ÀÌ¹ö¾ÆÀÌµğ·Î ÀÎÁõ URLÀ» »ı¼ºÇÏ±â À§ÇÏ¿© naverLoginBOÅ¬·¡½ºÀÇ getAuthorizationUrl¸Ş¼Òµå È£Ãâ */
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
 		
 		// https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=sE***************&
 		// redirect_uri=http%3A%2F%2F211.63.89.90%3A8090%2Flogin_project%2Fcallback&state=e68c269c-5ba9-4c31-85da-54c16c658125
-		System.out.println("ë„¤ì´ë²„:" + naverAuthUrl);
+		System.out.println("³×ÀÌ¹ö:" + naverAuthUrl);
 		
-		// ë„¤ì´ë²„
+		// ³×ÀÌ¹ö
 		model.addAttribute("url", naverAuthUrl);
 		
 		return "/board/naverLogin";
 	}
 
-	// ë„¤ì´ë²„ ë¡œê·¸ì¸ ì„±ê³µì‹œ callbackí˜¸ì¶œ ë©”ì†Œë“œ
+	// ³×ÀÌ¹ö ·Î±×ÀÎ ¼º°ø½Ã callbackÈ£Ãâ ¸Ş¼Òµå
 	@RequestMapping(value = "/callback", method = { RequestMethod.GET, RequestMethod.POST })
 	public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session)
 			throws IOException, ParseException {
-		System.out.println("ì—¬ê¸°ëŠ” callback");
+		System.out.println("¿©±â´Â callback");
 		OAuth2AccessToken oauthToken;
 		oauthToken = naverLoginBO.getAccessToken(session, code, state);
-		// 1. ë¡œê·¸ì¸ ì‚¬ìš©ì ì •ë³´ë¥¼ ì½ì–´ì˜¨ë‹¤.
-		apiResult = naverLoginBO.getUserProfile(oauthToken); // Stringí˜•ì‹ì˜ jsonë°ì´í„°
+		// 1. ·Î±×ÀÎ »ç¿ëÀÚ Á¤º¸¸¦ ÀĞ¾î¿Â´Ù.
+		apiResult = naverLoginBO.getUserProfile(oauthToken); // StringÇü½ÄÀÇ jsonµ¥ÀÌÅÍ
 		/**
-		 * apiResult json êµ¬ì¡° {"resultcode":"00", "message":"success",
+		 * apiResult json ±¸Á¶ {"resultcode":"00", "message":"success",
 		 * "response":{"id":"33666449","nickname":"shinn****","age":"20-29","gender":"M","email":"sh@naver.com","name":"\uc2e0\ubc94\ud638"}}
 		 **/
-		// 2. Stringí˜•ì‹ì¸ apiResultë¥¼ jsoní˜•íƒœë¡œ ë°”ê¿ˆ
+		// 2. StringÇü½ÄÀÎ apiResult¸¦ jsonÇüÅÂ·Î ¹Ù²Ş
 		JSONParser parser = new JSONParser();
 		Object obj = parser.parse(apiResult);
 		JSONObject jsonObj = (JSONObject) obj;
-		// 3. ë°ì´í„° íŒŒì‹±
-		// Topë ˆë²¨ ë‹¨ê³„ _response íŒŒì‹±
+		// 3. µ¥ÀÌÅÍ ÆÄ½Ì
+		// Top·¹º§ ´Ü°è _response ÆÄ½Ì
 		JSONObject response_obj = (JSONObject) jsonObj.get("response");
-		// responseì˜ nicknameê°’ íŒŒì‹±
+		// responseÀÇ nickname°ª ÆÄ½Ì
 		String nickname = (String) response_obj.get("email");
 		System.out.println(nickname);
-		// 4.íŒŒì‹± ë‹‰ë„¤ì„ ì„¸ì…˜ìœ¼ë¡œ ì €ì¥
-		session.setAttribute("sessionId", nickname); // ì„¸ì…˜ ìƒì„±
+		// 4.ÆÄ½Ì ´Ğ³×ÀÓ ¼¼¼ÇÀ¸·Î ÀúÀå
+		session.setAttribute("sessionId", nickname); // ¼¼¼Ç »ı¼º
 		model.addAttribute("result", apiResult);
 		return "/board/naverLogin";
 	}
 
-	// ë¡œê·¸ì•„ì›ƒ
+	// ·Î±×¾Æ¿ô
 	@RequestMapping(value = "/logout", method = { RequestMethod.GET, RequestMethod.POST })
 	public String logout(HttpSession session) throws IOException {
-		System.out.println("ì—¬ê¸°ëŠ” logout");
+		System.out.println("¿©±â´Â logout");
 		session.invalidate();
 		return "/board/naverLogin";
 	}

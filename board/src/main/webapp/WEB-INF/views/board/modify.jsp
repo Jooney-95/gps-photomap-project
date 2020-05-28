@@ -10,7 +10,12 @@
 </head>
 <body>
 	<div id="nav">
-		<%@ include file="../include/nav.jsp"%>
+		<c:if test="${member != null }">
+			<%@ include file="../include/navLogin.jsp"%>
+		</c:if>
+		<c:if test="${member == null }">
+			<%@ include file="../include/navLogout.jsp"%>
+		</c:if>
 	</div>
 	<form method="post" enctype="multipart/form-data">
 		<input type="hidden" name="bno" value="${view.bno }" />
@@ -20,19 +25,17 @@
 		<label>작성자</label>
 		<input type="text" name="writer" value="${view.writer }" readOnly/>
 		<br/>
-		<label>내용</label>
-		<textarea cols="50" rows="5" name="content" >${view.content }</textarea>
-		<br/>
 		<c:forEach items="${list }" var="list">
 			<input type="hidden" name="id" value="${list.id }" />
-			<img width="100" height="100" alt="" src="<spring:url value='${list.path }'/>"><br>
+			<img width="100" height="100" alt="" src="<spring:url value='${list.path }'/>">
+			<textarea cols="50" rows="5" name="content" >${list.content  }</textarea><br>
 			<input type="text" name="lat" value="${list.latitude }"/><br>
 			<input type="text" name="lon" value="${list.longitude }"/><br>
 			<input type="text" name="time" value="${list.timeView }"/><br>
 			<input type="checkbox" class="delete" name="del" value="${list.id }">삭제
 			<br/>
 		</c:forEach>
-		<input type="file" name="filesList" multiple/>
+		<input type="file" name="filesList" accept=".jpg, .jpeg" multiple/>
 		<button type="submit">완료</button>
 	</form>
 </body>

@@ -22,9 +22,9 @@ public class FileDAOImpl implements FileDAO {
 	@Override
 	public void write(List<MultipartFile> file, int fileBno) throws Exception {
 		// TODO Auto-generated method stub
-
-		Files files = new Files();
 		
+		Files files = new Files();
+	
 		sql.insert(namespace + ".writeFile", files.setFiles(file, fileBno));
 	}
 
@@ -36,11 +36,11 @@ public class FileDAOImpl implements FileDAO {
 	}
 
 	@Override
-	public void modifyFile(String[] str_id, String[] latitude, String[] longitude, String[] time) throws Exception {
+	public void modifyFile(String[] str_id, String[] latitude, String[] longitude, String[] time, String[] content) throws Exception {
 		// TODO Auto-generated method stub
 		Files files = new Files();
 		
-		FileVO[] fileVO = files.modifyFile(str_id, latitude, longitude, time);
+		FileVO[] fileVO = files.modifyFile(str_id, latitude, longitude, time, content);
 		
 		for(FileVO vo : fileVO) {
 			sql.update(namespace + ".modifyFile", vo);

@@ -9,8 +9,14 @@
 </head>
 <body>
 	<div id="nav">
-		<%@ include file="../include/nav.jsp"%>
+		<c:if test="${member != null }">
+			<%@ include file="../include/navLogin.jsp"%>
+		</c:if>
+		<c:if test="${member == null }">
+			<%@ include file="../include/navLogout.jsp"%>
+		</c:if>
 	</div>
+	
 	<form method="post">
 		<label>아이디</label>
 		<input type="text" name="mID" />
@@ -20,12 +26,28 @@
 		<br/>
 		<button type="submit">로그인</button>
 	</form>
+
 	<c:if test="${member != null }">
 		<p>${member.mNickname }</p>
+		<a href="/member/logout">로그아웃</a>
 	</c:if>
-	<script>
-
 	
-	</script>
+	<c:if test="${member == null }">
+		<a href="/member/register">회원가입</a>
+		<a href="/member/naverLogin">네이버 로그인</a>
+	</c:if>
+	
+	<c:if test="${msg eq 'fID'}">
+	    <script>
+	    	alert("아이디 오류");
+	    </script>
+ 	</c:if>
+ 	
+ 	<c:if test="${msg eq 'fPW'}">
+	    <script>
+	    	alert("비밀번호 오류");
+	    </script>
+ 	</c:if>
+	
 </body>
 </html>
