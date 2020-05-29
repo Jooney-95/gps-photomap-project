@@ -137,5 +137,24 @@
 		mID = #{mID}
 	</select>
 	
+	<delete id="reset" parameterType="int">
+		delete
+		from tp_board
+		where tpBno = #{id}
+	</delete>
+	
+	<insert id="set" parameterType="com.board.domain.TpVO">
+		insert into
+		tp_board(tpBno, fileBno, tp)
+		values(#{tpBno}, #{fileBno}, #{tp})
+	</insert>
+	
+	<select id="viewTp" parameterType="int" resultType="com.board.domain.TpVO">
+		select
+		tpBno, fileBno, tp
+		from tp_board
+		where fileBno = #{bno}
+	</select>
+	
 
 </mapper>

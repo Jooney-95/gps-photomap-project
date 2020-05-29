@@ -28,6 +28,20 @@
    <c:forEach items="${list }" var="list">
       <img width="100" height="100" alt="" src="<spring:url value='${list.path }'/>">
       ${list.content  }<br>
+      <c:forEach items="${tp }" var="tp">
+				<c:choose>
+				<c:when test="${tp.tpBno eq list.id and tp.tp eq 's' }">
+				s
+				</c:when>
+				<c:when test="${tp.tpBno eq list.id and tp.tp eq 'b' }">
+				b
+				</c:when>
+				<c:when test="${tp.tpBno eq list.id and tp.tp eq 'w' }">
+				w
+				</c:when>
+				</c:choose>
+					
+			</c:forEach>
       <input type="hidden" name="id" value="${list.id }" />
       <input type="text" name="time" value="${list.timeView }"/><br>
    </c:forEach>

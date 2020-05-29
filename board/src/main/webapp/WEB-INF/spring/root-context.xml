@@ -18,7 +18,7 @@
 		<property name="url"
 			value="jdbc:mysql://127.0.0.1:3306/board" />
 		<property name="username" value="root" />
-		<property name="password" value="admin1234" />
+		<property name="password" value="root" />
 	</bean>
 
 	<bean id="sqlSessionFactory"

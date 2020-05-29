@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.board.domain.FileVO;
+import com.board.domain.TpVO;
 
 public interface FileService {
 

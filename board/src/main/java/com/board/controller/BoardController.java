@@ -17,8 +17,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.board.domain.BoardVO;
 import com.board.domain.FileVO;
 import com.board.domain.Page;
+import com.board.domain.TpVO;
 import com.board.service.BoardService;
 import com.board.service.FileService;
+import com.board.service.TpService;
 
 @Controller
 @RequestMapping("/board/*")
@@ -29,6 +31,9 @@ public class BoardController {
 
 	@Inject
 	FileService fileService;
+
+	@Inject
+	TpService tpService;
 
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public void getWrite() throws Exception {
@@ -52,30 +57,39 @@ public class BoardController {
 
 		BoardVO vo = service.view(bno);
 		service.hitViewCnt(bno);
+		
 		List<FileVO> list = null;
+		List<TpVO> tp = null;
+		
 		list = fileService.viewFile(bno);
-
+		tp = tpService.viewTp(bno);
+		
 		model.addAttribute("view", vo);
 		model.addAttribute("list", list);
+		model.addAttribute("tp", tp);
 
 	}
 
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
 	public void getModify(@RequestParam("bno") int bno, Model model) throws Exception {
 		BoardVO vo = service.view(bno);
-
+		
 		List<FileVO> list = null;
+		List<TpVO> tp = null;
+		
 		list = fileService.viewFile(bno);
-
+		tp = tpService.viewTp(bno);
+		
 		model.addAttribute("view", vo);
 		model.addAttribute("list", list);
+		model.addAttribute("tp", tp);
 	}
 
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	public String postModify(MultipartHttpServletRequest request, HttpServletRequest req, BoardVO vo) throws Exception {
 		service.modify(vo);
 
-		String fileBno = req.getParameter("bno");
+		int fileBno = Integer.parseInt(req.getParameter("bno"));
 		String[] str_id = req.getParameterValues("id");
 		String[] time = req.getParameterValues("time");
 		String[] delete = req.getParameterValues("del");
@@ -84,8 +98,21 @@ public class BoardController {
 		String[] content = req.getParameterValues("content");
 
 		if (str_id != null) {
+			TpVO tp = new TpVO();
+			tpService.reset(str_id);
 			fileService.modifyFile(str_id, latitude, longitude, time, content);
+			
+			for (int i = Integer.parseInt(str_id[0]); i <= Integer.parseInt(str_id[str_id.length - 1]); i++) {
+				if (req.getParameterValues(Integer.toString(i)) != null) {
+					for (int j = 0; j < req.getParameterValues(Integer.toString(i)).length; j++) {
+						tp.setTpBno(i);
+						tp.setTp(req.getParameterValues(Integer.toString(i))[j]);
+						tp.setFileBno(fileBno);
+						tpService.set(tp);
 
+					}
+				}
+			}
 		}
 		if (delete != null) {
 			fileService.deleteFile(delete);
@@ -93,7 +120,7 @@ public class BoardController {
 
 		List<MultipartFile> file = request.getFiles("filesList");
 		if (file.get(0).getSize() != 0) {
-			fileService.write(file, Integer.parseInt(fileBno));
+			fileService.write(file, fileBno);
 			return "redirect:/board/modify?bno=" + vo.getBno();
 		} else {
 			return "redirect:/board/view?bno=" + vo.getBno();
