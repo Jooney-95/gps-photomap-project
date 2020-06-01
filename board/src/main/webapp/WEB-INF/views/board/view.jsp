@@ -6,37 +6,98 @@
 <head>
 <meta charset="UTF-8">
 <title>게시물 조회</title>
-<style>
-  
-</style>
+<link rel="stylesheet" href="/resources/css/write.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 </head>
+
+
 <body>
-   <div id="nav">
-      <c:if test="${member != null }">
-			<%@ include file="../include/navLogin.jsp"%>
-		</c:if>
-		<c:if test="${member == null }">
-			<%@ include file="../include/navLogout.jsp"%>
-		</c:if>
+<div id="header">
+  <div class="logo">
+    <a href="#">SAMPLE</a>
+  </div>
+<div class="wrap">
+   <div class="search">
+      <input type="text" class="searchTerm" placeholder="어떤 곳을 찾으시나요?">
+      <button type="submit" class="searchButton">
+        <i class="fa fa-search"></i>
+     </button>
    </div>
-   <label>제목</label> ${view.title}
-   <br />
+</div>
+<div id="nav">
+      <c:if test="${member != null }">
+         <%@ include file="../include/navLogin.jsp"%>
+      </c:if>
+      <c:if test="${member == null }">
+         <%@ include file="../include/navLogout.jsp"%>
+      </c:if>
+</div>
+</div>
 
-   <label>작성자</label> ${view.writer}
-   <br />
 
+
+ <!-- 카카오맵 api 호출 -->
+<div id="map" style="width:500px; height:500px; margin-top:140px; margin-right:50%;"></div>
+
+
+<div class="mainright">
+   <div id="top">
+         <p>제목 <input type="text" name="title" value="${view.title }"/></p>
+      <p>작성자  <input type="text" name="writer" value="${view.writer }" readOnly/></p>
+         <br/>
+   </div>
+   
+   
    <c:forEach items="${list }" var="list">
-      <img width="100" height="100" alt="" src="<spring:url value='${list.path }'/>">
-      ${list.content  }<br>
-      <input type="hidden" name="id" value="${list.id }" />
-      <input type="text" name="time" value="${list.timeView }"/><br>
+   <input type="hidden" name="id" value="${list.id }" />
+   
+   
+      <div id="middle">
+
+         <div id="left">
+            <img width="100" height="100" alt="" src="<spring:url value='${list.path }'/>"><br>
+         </div>
+         
+         
+         <div id="right">
+            <div id="one">
+               <input type="text" name="lat" value="${list.latitude }"/>
+               <input type="text" name="lon" value="${list.longitude }"/>
+               <input type="text" name="time" value="${list.timeView }"/>
+            </div>         
+         
+            <div id="two">
+               <textarea cols="40" rows="5" name="content" >${list.content }</textarea>
+            </div>
+            
+            <div id="three">
+                  <c:forEach items="${tp }" var="tp">
+                  <c:choose>
+                  <c:when test="${tp.tpBno eq list.id and tp.tp eq 's' }"> s
+                  </c:when>
+                  <c:when test="${tp.tpBno eq list.id and tp.tp eq 'b' }"> b
+                  </c:when>
+                  <c:when test="${tp.tpBno eq list.id and tp.tp eq 'w' }"> w
+                  </c:when>
+                  </c:choose>
+                  </c:forEach>
+
+            </div>   
+         </div>
+   </div>      
+               
    </c:forEach>
    <br />
+</div>
+
+ 
+   <c:if test="${member.mNickname eq view.writer }">
+	   <div class="button">
+		   <button class="raise" onclick="location.href='/board/modify?bno=${view.bno}'">게시물 수정</button>
+		   <button class="raise" onclick="location.href='/board/delete?bno=${view.bno}'">게시물 삭제</button>
+	   </div>   
+   </c:if>
    
-   
-   
-     <!-- 카카오맵 api 호출 -->
-   <div id="map" style="width:500px;height:400px;"></div> 
    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dd9fb87d40ab9678af574d3665e02b6e&libraries=services,clusterer"></script>
    <script>
       
@@ -104,7 +165,7 @@
 			        marker.normalImage = normalImage;
 			                   			        
 			        // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다 - 마우스 오버 이벤트로 인포윈도우 생성하기
-	                var iwContent = '<div class="wrap">' + address[i] + '</div>'; 	
+	                var iwContent = '<div style="width:100%;font-size:5px;">' + address[i] + '</div>'; 	
 	              
 	       	        // 마커에 표시할 인포윈도우를 생성합니다
 	       	        var infowindow = new kakao.maps.InfoWindow({
@@ -162,12 +223,13 @@
       // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
       // marker.setMap(null);
    </script>
+     
    
-   
-   
-   <div>
-      <a href="/board/modify?bno=${view.bno}">게시물 수정</a> <a
-         href="/board/delete?bno=${view.bno}">게시물 삭제</a>
-   </div>
+ <script>
+   function resize(obj) {
+        obj.style.height = "1px";
+        obj.style.height = (12+obj.scrollHeight)+"px";   
+   }
+</script>
 </body>
 </html>

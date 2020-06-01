@@ -2,8 +2,11 @@
 	pageEncoding="UTF-8"%>
 
 <ul>
-	<li><a href="/">메인화면</a></li>
-	<li><a href="/board/write">게시물 작성</a></li>
-	<li><a href="/board/listPageSearch?num=1">게시물 목록</a></li>
+	<li><a href="/board/list">글 목록</a></li>
+
+	<li><a href="/board/write">글 작성</a></li>
+	<li><a href="/board/listPage?num=1">글 목록 페이징</a></li>
+	<li><a href="/board/naverLogin">네이버 로그인</a></li>
+	<li><a href="/member/register">회원가입</a></li>
 	<li><a href="/member/login">로그인</a></li>
 </ul>

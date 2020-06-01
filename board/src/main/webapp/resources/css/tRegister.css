@@ -1,0 +1,224 @@
+@charset "UTF-8";@charset "UTF-8";
+/*/////////////헤더/////////////*/
+#header {
+  background: #1CDD9E;
+  font-color:#fff; 
+  width: 100%;/*헤더 가로*/
+  height:100px; /*헤더 높이*/
+  /*상단 고정*/
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index:10;
+}
+/*////////////////////////////*/
+
+
+
+/*///////////로고//////////////*/
+.logo {
+  float: left;/*왼쪽 정렬*/
+  padding: 30px 0 20px;/*로고 위치*/
+}
+.logo a {
+  color: #fff;
+  font-size: 28px;
+  display: block;
+  padding: 0 0 0 20px;
+  text-decoration: none; /*텍스트 밑줄 제거*/
+}
+/*///////////////////////////*/
+
+
+/*///////////////검색창/////////////////*/
+.search {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 3px solid #10b27d;
+  border-right: none;
+  padding: 10px;
+  height: 50px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9dbfaf;
+}
+
+.searchTerm:focus {
+  color: #000000;/*검색내용텍스트색*/
+}
+
+.searchButton {
+  width: 60px;
+  padding: 10px;
+  height: 50px;
+  border: 1px solid #10b27d;
+  background: #10b27d;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.wrap {
+  width: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+/*///////////////////////////////*/
+
+
+
+
+
+
+
+body{
+   background:#f9f9f9;
+}
+
+
+
+/*///////////회원가입 폼////////////*/
+form{
+   display: block;
+   border:1px solid #f8f8f8;
+   border-radius:10px;
+   text-align:center;
+   margin-top:30px;/*헤더와 멀게 하기위해*/
+   width:100%;
+   
+   
+}
+
+.register{
+   
+   border-radius:10px;
+   width:1000px;
+   height:500px;
+   text-align:center;
+   margin:0 auto;
+   -webkit-box-shadow: 10px 10px 2px -4px#f8f8f8;
+    -moz-box-shadow: 10px 10px 2px -4px #f8f8f8;
+    box-shadow: 10px 10px 2px -4px #f8f8f8;
+    background:#fff;
+   
+}
+
+
+
+
+/*/////////TOP 수정////////////*/
+.top{
+   text-align:center;
+   font-weight:bold;
+   padding:4px;
+   
+   
+}
+
+p{
+   font-size:25px;
+   color:#4c4c4c;
+   text-align:center;
+   font-weight:bold;
+   
+   
+   
+}
+
+
+
+
+/*//////////가운데/////////*/
+.middle{
+   width:800px;;
+   margin-top:4px ;
+   height:330px;
+   text-align:center;
+   display:inline-block;
+  
+   
+}
+
+.finish img{
+	width:150px;
+	height:150px;
+	margin-top:20px;
+}
+.finish p{
+	font-weight:bold;
+	font-size:20px;
+}
+
+
+
+
+
+/*//////// 아이콘들  ///////////*/
+
+
+
+/*/////////////////////////////*/
+
+
+
+/*//////// 버튼  ///////////*/
+.low{
+   width:300px;
+   height:65px;
+   margin-top:0px;
+   text-align:center;
+   display:inline-block;
+   color:#ff3547;
+   padding:10px;
+
+}
+
+.low button{
+   color:#000;
+   border:1px solid #008040;
+   border-radius:30px;
+   background:#fff;
+   width:100px;
+   height:50px;
+   font-size:16px;
+   font-weight:bold;
+   transition:0.27s;
+   padding:10px;
+   
+
+}
+   
+.low button:hover{
+   color:#fff;
+   border:none;
+   border-radius:30px;
+   background:#10b27d;
+    box-shadow: 0 0 0 0.2rem #79bd9a;
+   
+   
+
+}
+.pg{
+   text-align:center;
+   
+   
+   
+}
+/*progress이미지*/
+img{
+   width:480px;
+   height:25px;
+   margin-top:120px;
+   display:inline-block;
+   
+}

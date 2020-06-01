@@ -39,7 +39,10 @@
             </div>
 
             <div class="right_icons">
-                <a href="new_post.html"><div class="sprite_camera_icon"></div></a>
+                <c:if test="${member != null }">
+					<%@ include file="./include/navLogin.jsp"%>
+				</c:if><div class="sprite_camera_icon"></div></a>
+                
                 <a href="login.html"><div class="sprite_compass_icon"></div></a>
                 <a href="follow.html"><div class="sprite_heart_icon_outline"></div></a>
                 <a href="profile.html"><div class="sprite_user_icon_outline"></div></a>
