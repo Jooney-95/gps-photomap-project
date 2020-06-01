@@ -6,9 +6,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.board.domain.MemberVO;
 import com.board.service.MemberService;
@@ -33,6 +33,29 @@ public class MemberController {
 		vo.setmPW(pwdEncoder.encode(vo.getmPW()));
 		service.register(vo);
 	}
+	
+	@RequestMapping(value = "/fRegister", method = RequestMethod.GET)
+	public void getFRegister() {
+
+	}
+	@RequestMapping(value = "/fRegister", method = RequestMethod.POST)
+	public String postFRegister() {
+		return "redirect:/member/sRegister";
+	}
+	
+	@RequestMapping(value = "/sRegister", method = RequestMethod.GET)
+	public void getSRegister() {
+
+	}
+	@RequestMapping(value = "/sRegister", method = RequestMethod.POST)
+	public String postSRegister() {
+		return "redirect:/member/tRegister";
+	}
+	
+	@RequestMapping(value = "/tRegister", method = RequestMethod.GET)
+	public void getTRegister() {
+
+	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public void getLogin() {
@@ -40,14 +63,14 @@ public class MemberController {
 	}
 	// 로그인
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String postLogin(MemberVO vo, HttpServletRequest req, RedirectAttributes rttr) throws Exception {
+	public String postLogin(MemberVO vo, HttpServletRequest req, Model model) throws Exception {
 		HttpSession session = req.getSession();
 		MemberVO login = service.login(vo);
 		System.out.println(login);
 		
 		// 해당하는 정보가 없을때
 		if (login == null) {
-			rttr.addFlashAttribute("msg", "falseID");
+			model.addAttribute("msg", "falseID");
 			System.out.println("아이디 없음");
 			return "/member/login";
 		} else {
@@ -60,7 +83,7 @@ public class MemberController {
 				return "redirect:/";
 			} else {
 				session.setAttribute("member", null);
-				rttr.addFlashAttribute("msg", "falsePW");
+				model.addAttribute("msg", "falsePW");
 				System.out.println("비번 오류");
 				return "/member/login";
 			}

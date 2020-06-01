@@ -33,17 +33,16 @@
 	</c:if>
 	
 	<c:if test="${member == null }">
-		<a href="/member/register">회원가입</a>
+		<a href="/member/fRegister">회원가입</a>
 		<a href="/member/naverLogin">네이버 로그인</a>
 	</c:if>
-	
-	<c:if test="${msg eq 'fID'}">
+	<c:if test="${msg eq 'falseID'}">
 	    <script>
 	    	alert("아이디 오류");
 	    </script>
  	</c:if>
  	
- 	<c:if test="${msg eq 'fPW'}">
+ 	<c:if test="${msg eq 'falsePW'}">
 	    <script>
 	    	alert("비밀번호 오류");
 	    </script>
