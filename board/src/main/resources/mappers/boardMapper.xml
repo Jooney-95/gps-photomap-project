@@ -3,21 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.board.mappers.board">
-
-	<!-- 게시글 목록 -->
-	<select id="list" resultType="com.board.domain.BoardVO">
-		select
-		bno, title, writer, regDate, viewCnt
-		from
-		tbl_board
-	</select>
 	
 	<!-- 게시물 작성 -->
 	<insert id="write" parameterType="com.board.domain.BoardVO" useGeneratedKeys="true" keyProperty="bno">
 		insert into
-		tbl_board(title, writer)
+		tbl_board(title, writer, pNum)
 		values(
-		#{title}, #{writer}
+		#{title}, #{writer}, #{pNum}
 		)
 	</insert>
 	
@@ -34,7 +26,7 @@
 	<!-- 게시물 조회 -->
 	<select id="view" parameterType="int" resultType="com.board.domain.BoardVO" >
 		select
-		bno, title, writer, regDate, viewCnt
+		bno, title, writer, regDate, viewCnt, pNum
 		from
 		tbl_board
 		where
@@ -55,7 +47,8 @@
 		update tbl_board
 		set
 		title = #{title},
-		writer = #{writer}
+		writer = #{writer},
+		pNum = #{pNum}
 		where bno = #{bno}
 	</update>
 	
@@ -106,7 +99,7 @@
 	<!-- 게시물 목록 + 페이징 + 검색 -->
 	<select id="listPageSearch" parameterType="hashMap" resultType="com.board.domain.BoardVO">
  		select
-  			bno, title, writer, regDate, viewCnt
+  			bno, title, writer, regDate, viewCnt, pNum
  		from tbl_board
  		<if test='searchType.equals("title")'>
   			WHERE title LIKE concat('%', #{keyword}, '%')

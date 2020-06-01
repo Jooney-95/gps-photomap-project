@@ -29,6 +29,10 @@
 		<br/>
 		<input type="file" id="input_imgs" name="filesList" accept=".jpg, .jpeg" multiple/>
 		<br/>
+		<input type="radio" name="pNum" value="0" checked="true" /> 전체공개
+		<input type="radio" name="pNum" value="1" /> 이웃공개
+		<input type="radio" name="pNum" value="2" /> 비공개
+		<br/>
 		<button type="submit">작성</button>
 		<div class="img_box"></div>
 	</form>

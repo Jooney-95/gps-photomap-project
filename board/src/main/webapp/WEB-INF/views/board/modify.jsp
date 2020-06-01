@@ -39,6 +39,23 @@
 			<br/>
 		</c:forEach>
 		<input type="file" name="filesList" accept=".jpg, .jpeg" multiple/>
+		<br/>
+		<c:if test="${view.pNum == 0 }">
+		<input type="radio" name="pNum" value="0" checked="true" /> 전체공개
+		<input type="radio" name="pNum" value="1" /> 이웃공개
+		<input type="radio" name="pNum" value="2" /> 비공개
+		</c:if>
+		<c:if test="${view.pNum == 1 }">
+		<input type="radio" name="pNum" value="0" /> 전체공개
+		<input type="radio" name="pNum" value="1" checked="true" /> 이웃공개
+		<input type="radio" name="pNum" value="2" /> 비공개
+		</c:if>
+		<c:if test="${view.pNum == 2 }">
+		<input type="radio" name="pNum" value="0" /> 전체공개
+		<input type="radio" name="pNum" value="1" /> 이웃공개
+		<input type="radio" name="pNum" value="2" checked="true" /> 비공개
+		</c:if>
+		<br/>
 		<button type="submit">완료</button>
 	</form>
 
