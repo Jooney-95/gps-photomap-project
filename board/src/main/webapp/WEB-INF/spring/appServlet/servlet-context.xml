@@ -41,9 +41,6 @@
 	<context:component-scan
 		base-package="com.board.controller" />
 
-	<!-- NaverLoginBO Class에 대한 Bean설정 추가 -->
-	<beans:bean id="naverLoginBO"
-		class="com.login.domain.NaverLoginBO" />
 
 	<!-- 인터셉터 객체 생성 -->
 	<beans:bean id="LoginInterceptor"

@@ -42,6 +42,8 @@ public class BoardController {
 
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String postWriter(BoardVO vo, MultipartHttpServletRequest request) throws Exception {
+		vo.setTitle(vo.getTitle().trim());
+		
 		int fileBno = service.write(vo);
 
 		List<MultipartFile> file = request.getFiles("filesList");
@@ -72,6 +74,7 @@ public class BoardController {
 
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
 	public void getModify(@RequestParam("bno") int bno, Model model) throws Exception {
+		
 		BoardVO vo = service.view(bno);
 		
 		List<FileVO> list = null;
@@ -87,6 +90,7 @@ public class BoardController {
 
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	public String postModify(MultipartHttpServletRequest request, HttpServletRequest req, BoardVO vo) throws Exception {
+		vo.setTitle(vo.getTitle().trim());
 		service.modify(vo);
 
 		int fileBno = Integer.parseInt(req.getParameter("bno"));

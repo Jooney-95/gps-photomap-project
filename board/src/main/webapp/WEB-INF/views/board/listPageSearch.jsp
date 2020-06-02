@@ -36,7 +36,7 @@
 					<td>${list.bno}</td>
 					<td><a href="/board/view?bno=${list.bno}">${list.title}</a><br/><c:forEach
 							items="${fileList }" var="fileList">
-							<c:forEach items="${fileList }" var="fileList">
+							<c:forEach items="${fileList }" var="fileList" end="2">
 								<c:if test="${fileList.fileBno == list.bno}">
 								<img width="100" height="100" alt="" src="<spring:url value='${fileList.path }'/>">						
 									</c:if>

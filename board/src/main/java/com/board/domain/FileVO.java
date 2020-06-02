@@ -12,13 +12,13 @@ public class FileVO {
 	
 	
 	public String getLatitude() {
-		return latitude;
+		return latitude.replaceAll("(?i)<script", "&lt;script");
 	}
 	public void setLatitude(String latitude) {
 		this.latitude = latitude;
 	}
 	public String getLongitude() {
-		return longitude;
+		return longitude.replaceAll("(?i)<script", "&lt;script");
 	}
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
@@ -27,7 +27,7 @@ public class FileVO {
 	private String fileName;
 	
 	public String getFileName() {
-		return fileName;
+		return fileName.replaceAll("(?i)<script", "&lt;script");
 	}
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
@@ -45,13 +45,13 @@ public class FileVO {
 		this.fileBno = fileBno;
 	}
 	public String getTimeView() {
-		return timeView;
+		return timeView.replaceAll("(?i)<script", "&lt;script");
 	}
 	public void setTimeView(String timeView) {
 		this.timeView = timeView;
 	}
 	public String getContent() {
-		return content;
+		return content.replaceAll("(?i)<script", "&lt;script");
 	}
 	public void setContent(String content) {
 		this.content = content;

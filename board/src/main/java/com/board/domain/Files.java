@@ -3,6 +3,7 @@ package com.board.domain;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,6 +35,10 @@ public class Files {
 	private String timeView[];
 	private String path[];
 	private String fileName[];
+	DecimalFormat latFomat = new DecimalFormat("#0.##############");
+	DecimalFormat lonFomat = new DecimalFormat("##0.##############");
+
+	
 	private List<FileVO> fileVOList = new ArrayList<FileVO>();
 
 	SimpleDateFormat formatView = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -126,7 +131,7 @@ public class Files {
 
 					}
 				} else {
-					timeView[i] = " ";
+					timeView[i] = "";
 				}
 
 				if (gpsDirectory != null) {
@@ -137,14 +142,14 @@ public class Files {
 						longitude[i] = Double.toString(exifLocation.getLongitude());
 					}
 				} else {
-					latitude[i] = " ";
-					longitude[i] = " ";
+					latitude[i] = "";
+					longitude[i] = "";
 				}
 
 			} else {
-				latitude[i] = " ";
-				longitude[i] = " ";
-				timeView[i] = " ";
+				latitude[i] = "";
+				longitude[i] = "";
+				timeView[i] = "";
 			}
 			fileName[i] = saveFileName;
 			path[i] = PREFIX_URL + saveFileName;
@@ -163,8 +168,8 @@ public class Files {
 		for (int j = 0; j < size; j++) {
 			modifyVO[j] = new FileVO();
 			modifyVO[j].setId(Integer.parseInt(str_id[j]));
-			modifyVO[j].setLatitude(latitude[j].trim());
-			modifyVO[j].setLongitude(longitude[j].trim());
+			modifyVO[j].setLatitude((latFomat.format(Double.parseDouble(latitude[j].trim())))+"");
+			modifyVO[j].setLongitude(lonFomat.format(Double.parseDouble(longitude[j].trim()))+"");
 			modifyVO[j].setTimeView(time[j].trim());
 			modifyVO[j].setContent(content[j]);
 		}
