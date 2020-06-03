@@ -50,6 +50,8 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/board/write" />
+			<mapping path="/member/profile" />
+			<mapping path="/member/password" />
 			<beans:ref bean="LoginInterceptor" />
 		</interceptor>
 	</interceptors>

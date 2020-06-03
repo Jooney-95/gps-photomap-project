@@ -3,6 +3,7 @@ package com.board.service;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.board.dao.MemberDAO;
 import com.board.domain.MemberVO;
@@ -35,6 +36,30 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO nicknameCheck(String mNickname) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.nicknameCheck(mNickname);
+	}
+
+	@Override
+	public void profile(MemberVO vo, MultipartFile file) throws Exception {
+		// TODO Auto-generated method stub
+		dao.profile(vo, file);
+	}
+
+	@Override
+	public void profile(MemberVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		dao.profile(vo);
+	}
+
+	@Override
+	public MemberVO pwCheck(String mID) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.pwCheck(mID);
+	}
+
+	@Override
+	public void password(MemberVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		dao.password(vo);
 	}
 
 }

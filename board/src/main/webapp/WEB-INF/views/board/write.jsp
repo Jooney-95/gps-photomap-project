@@ -33,10 +33,10 @@
 </div>
    
 <div id="nav">
-    <c:if test="${member != null }">
+    <c:if test="${session != null }">
          <%@ include file="../include/navLogin.jsp"%>
     </c:if>
-    <c:if test="${member == null }">
+    <c:if test="${session == null }">
          <%@ include file="../include/navLogout.jsp"%>
     </c:if>
 </div>   
@@ -48,7 +48,7 @@
 
       <div id="top">
          <p>제목     <input type="text" id="title" name="title" placeholder="제목을 입력하세요."/></p>
-          <p>작성자  <input type="text" name="writer" value="${member.mNickname }" readOnly /></p>
+          <p>작성자  <input type="text" name="writer" value="${session.mNickname }" readOnly /></p>
       </div>
       
       <div class="button-wrapper">
@@ -56,7 +56,7 @@
            <span class="label">
              내 라이브러리
            </span>
-             <input type="file" name="filesList" id="input_imgs" class="upload-box" placeholder="Upload File"accept=".jpg, .jpeg" multiple/></p>
+             <input type="file" name="filesList" id="input_imgs" class="upload-box" placeholder="Upload File" accept=".jpg, .jpeg" multiple/></p>
       </div>
       
       <div id="text">

@@ -9,27 +9,27 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 
-	// preHandle() : 컨트롤러보다 먼저 수행되는 메서드
+	// preHandle() : 而⑦듃濡ㅻ윭蹂대떎 癒쇱� �닔�뻾�릺�뒗 硫붿꽌�뱶
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		// session 객체를 가져옴
+		// session 媛앹껜瑜� 媛��졇�샂
 		HttpSession session = request.getSession();
-		// login처리를 담당하는 사용자 정보를 담고 있는 객체를 가져옴
-		Object obj = session.getAttribute("member");
+		// login泥섎━瑜� �떞�떦�븯�뒗 �궗�슜�옄 �젙蹂대�� �떞怨� �엳�뒗 媛앹껜瑜� 媛��졇�샂
+		Object obj = session.getAttribute("session");
 
 		if (obj == null) {
-			// 로그인이 안되어 있는 상태임으로 로그인 폼으로 다시 돌려보냄(redirect)
+			// 濡쒓렇�씤�씠 �븞�릺�뼱 �엳�뒗 �긽�깭�엫�쑝濡� 濡쒓렇�씤 �뤌�쑝濡� �떎�떆 �룎�젮蹂대깂(redirect)
 			response.sendRedirect("/member/login");
-			return false; // 더이상 컨트롤러 요청으로 가지 않도록 false로 반환함
+			return false; // �뜑�씠�긽 而⑦듃濡ㅻ윭 �슂泥��쑝濡� 媛�吏� �븡�룄濡� false濡� 諛섑솚�븿
 		}
 
-		// preHandle의 return은 컨트롤러 요청 uri로 가도 되냐 안되냐를 허가하는 의미임
-		// 따라서 true로하면 컨트롤러 uri로 가게 됨.
+		// preHandle�쓽 return�� 而⑦듃濡ㅻ윭 �슂泥� uri濡� 媛��룄 �릺�깘 �븞�릺�깘瑜� �뿀媛��븯�뒗 �쓽誘몄엫
+		// �뵲�씪�꽌 true濡쒗븯硫� 而⑦듃濡ㅻ윭 uri濡� 媛�寃� �맖.
 		return true;
 	}
 
-	// 컨트롤러가 수행되고 화면이 보여지기 직전에 수행되는 메서드
+	// 而⑦듃濡ㅻ윭媛� �닔�뻾�릺怨� �솕硫댁씠 蹂댁뿬吏�湲� 吏곸쟾�뿉 �닔�뻾�릺�뒗 硫붿꽌�뱶
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {

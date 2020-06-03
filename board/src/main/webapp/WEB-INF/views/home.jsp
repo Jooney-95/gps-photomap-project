@@ -11,10 +11,10 @@
 </head>
 <body>
 	<div id="nav">
-		<c:if test="${member != null }">
+		<c:if test="${session != null }">
 			<%@ include file="./include/navLogin.jsp"%>
 		</c:if>
-		<c:if test="${member == null }">
+		<c:if test="${session == null }">
 			<%@ include file="./include/navLogout.jsp"%>
 		</c:if>
 	</div>
@@ -39,7 +39,7 @@
             </div>
 
             <div class="right_icons">
-                <c:if test="${member != null }">
+                <c:if test="${session != null }">
 					<%@ include file="./include/navLogin.jsp"%>
 				</c:if><div class="sprite_camera_icon"></div></a>
                 
@@ -54,6 +54,6 @@
 	<p><a href="/board/list">게시물 목록</a>
 	<a href="/board/write">게시물 작성</a>
 	</p>
-	<p>${member.mNickname }</p>
+	<p>${session.mNickname }</p>
 </body>
 </html>

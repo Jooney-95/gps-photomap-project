@@ -123,7 +123,7 @@
    <!-- 로그인 -->
    <select id="login" parameterType="com.board.domain.MemberVO" resultType="com.board.domain.MemberVO">
       select
-      mID, mPW, mNickname
+      mID, mPW, mNickname, mEmail, mImg
       from
       reg_board
       where
@@ -161,5 +161,40 @@
    	where mNickname = #{mNickname}
    </select>
    
+     <!-- 비밀번호 확인 -->
+   <select id="pwCheck" parameterType="string" resultType="com.board.domain.MemberVO">
+   	select mPW from reg_board
+   	where mID = #{mID}
+   </select>
+   
+   <!-- 사진 없는 프로필 변경 -->
+   <update id="profile" parameterType="com.board.domain.MemberVO">
+   update reg_board
+   set
+   mNickname = #{mNickname},
+   mEmail = #{mEmail}
+   where
+   mID = #{mID}
+   </update>
+   
+   <!-- 사진 있는 프로필 변경 -->
+    <update id="profileImg" parameterType="com.board.domain.MemberVO">
+    update reg_board
+   set
+   mNickname = #{mNickname},
+   mEmail = #{mEmail},
+   mImg = #{mImg}
+   where
+   mID = #{mID}
+   </update>
 
+<!-- 사진 있는 프로필 변경 -->
+    <update id="password" parameterType="com.board.domain.MemberVO">
+    update reg_board
+   set
+   mPW = #{mPW}
+   where
+   mID = #{mID}
+   </update>
+   
 </mapper>

@@ -25,10 +25,10 @@
    </div>
 </div>
 <div id="nav">
-      <c:if test="${member != null }">
+      <c:if test="${session != null }">
          <%@ include file="../include/navLogin.jsp"%>
       </c:if>
-      <c:if test="${member == null }">
+      <c:if test="${session == null }">
          <%@ include file="../include/navLogout.jsp"%>
       </c:if>
 </div>
@@ -91,7 +91,7 @@
 </div>
 
  
-   <c:if test="${member.mNickname eq view.writer }">
+   <c:if test="${session.mNickname eq view.writer }">
 	   <div class="button">
 		   <button class="raise" onclick="location.href='/board/modify?bno=${view.bno}'">게시물 수정</button>
 		   <button class="raise" onclick="location.href='/board/delete?bno=${view.bno}'">게시물 삭제</button>

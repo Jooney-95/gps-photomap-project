@@ -12,10 +12,10 @@
 
 <body>
 	<div id="nav">
-		<c:if test="${member != null }">
+		<c:if test="${session != null }">
 			<%@ include file="../include/navLogin.jsp"%>
 		</c:if>
-		<c:if test="${member == null }">
+		<c:if test="${session == null }">
 			<%@ include file="../include/navLogout.jsp"%>
 		</c:if>
 	</div>

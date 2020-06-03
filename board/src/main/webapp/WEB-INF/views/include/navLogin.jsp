@@ -6,4 +6,5 @@
 	<li><a href="/board/write">게시물 작성</a></li>
 	<li><a href="/board/listPageSearch?num=1">게시물 목록</a></li>
 	<li><a href="/member/logout">로그아웃</a></li>
+	<li><a href="/member/profile">프로필</a></li>
 </ul>

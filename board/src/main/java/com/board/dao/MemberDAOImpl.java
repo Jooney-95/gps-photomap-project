@@ -4,8 +4,10 @@ import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.board.domain.MemberVO;
+import com.board.domain.Profile;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO {
@@ -37,6 +39,32 @@ public class MemberDAOImpl implements MemberDAO {
 	public MemberVO nicknameCheck(String mNickname) throws Exception {
 		// TODO Auto-generated method stub
 		return sql.selectOne(namespace + ".nicknameCheck", mNickname);
+	}
+
+	@Override
+	public void profile(MemberVO vo, MultipartFile file) throws Exception {
+		// TODO Auto-generated method stub
+		Profile pro = new Profile();
+		MemberVO mVo = pro.profileImg(vo, file);
+		sql.update(namespace + ".profileImg", mVo);
+	}
+
+	@Override
+	public void profile(MemberVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		sql.update(namespace + ".profile", vo);
+	}
+
+	@Override
+	public MemberVO pwCheck(String mID) throws Exception {
+		// TODO Auto-generated method stub
+		return sql.selectOne(namespace + ".pwCheck", mID);
+	}
+
+	@Override
+	public void password(MemberVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		sql.update(namespace + ".password", vo);
 	}
 
 }

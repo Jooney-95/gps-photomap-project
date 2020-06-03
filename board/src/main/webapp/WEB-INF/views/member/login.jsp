@@ -28,7 +28,7 @@
 		<div class="login">
           <button type="submit" id="login-button">LOGIN</button>
         </div>
-        <c:if test="${member == null }">
+        <c:if test="${session == null }">
 	    <a href="/member/id" class="id">아이디찾기</a> |
         <a href="/member/password" class="password">비밀번호찾기</a> |
 		<a href="/member/fRegister" class="join">회원가입</a>
@@ -36,8 +36,8 @@
 	</form>
 	</div>
 	
-	<c:if test="${member != null }">
-		<p>${member.mNickname }</p>
+	<c:if test="${session != null }">
+		<p>${session.mNickname }</p>
 		<a href="/member/logout">로그아웃</a>
 	</c:if>
 	

@@ -1,5 +1,7 @@
 package com.board.dao;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.board.domain.MemberVO;
 
 public interface MemberDAO {
@@ -11,5 +13,13 @@ public interface MemberDAO {
 	public MemberVO idCheck(String mID) throws Exception;
 
 	public MemberVO nicknameCheck(String mNickname) throws Exception;
+
+	public void profile(MemberVO vo, MultipartFile file) throws Exception;
+
+	public void profile(MemberVO vo) throws Exception;
+
+	public MemberVO pwCheck(String mID) throws Exception;
+
+	public void password(MemberVO vo) throws Exception;
 
 }

@@ -112,6 +112,7 @@
 		var regTypeID = /[^a-z0-9]/gi;
 		var regTypePW = /^[a-zA-Z0-9](?=.*[!@#$%^*+=-]){8,}/;
 		var regTypeNickname = /[^a-z0-9ㄱ-ㅎ가-힣0-9]/gi;
+		var regTypeEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 		
 		var nickname = document.getElementById("nickname");
 		var nMsg = document.getElementById("nicknameMsg");
@@ -128,20 +129,30 @@
 		bBack.addEventListener('click', function(event) {
 			location.href = "/member/fRegister";
 		});
+		
 		bNext.addEventListener('click', function(event) {
-			if (nMsg == "check") {
-				if (idMsg == "check") {
+			if (nMsg.value == "check") {
+				if (idMsg.value == "check") {
 					if (email.value.trim() != "") {
-						if (pw.value.trim() != "") {
-							if (pwRepeat.value == pw.value) {
-								document.getElementById("f").submit();
+						if(regTypeEmail.test(email.value)){
+							if (pw.value.trim() != "") {
+								if (regTypePW.test(pw.value)) {
+									if (pwRepeat.value == pw.value) {
+										document.getElementById("f").submit();
+									} else {
+										alert("비밀번호가 다릅니다.");
+										pwRepeat.focus();
+									}
+								} else {
+									alert("비밀번호 양식을 맞춰주세요.");
+									pw.focus()
+								}
 							} else {
-								alert("비밀번호가 다릅니다.");
-								pwRepeat.focus();
-							}
-						} else {
-							alert("비밀번호를 입력해주세요");
-							pw.focus();
+								alert("비밀번호를 입력해주세요");
+							}	pw.focus();
+						} else{
+							alert("이메일 양식을 맞춰주세요.");
+							email.focus();
 						}
 					} else {
 						alert("이메일을 입력해주세요");
@@ -165,16 +176,15 @@
 		nickname.addEventListener('keydown', function(event) {
 			nMsg.value = "";
 		});
-		
+
 		id.addEventListener('keyup', function(event) {
 			var v = this.value;
 			this.value = v.replace(regTypeID, "");
 		});
-		
+
 		id.addEventListener('keydown', function(event) {
 			idMsg.value = "";
 		});
-		
 
 		pw.addEventListener('keyup', function(event) {
 			if (regTypePW.test(pw.value)) {
@@ -190,56 +200,69 @@
 				pwConfirm.innerText = "";
 			}
 		});
-		
+
 		pwHidden.addEventListener('click', function(event) {
-			if(pwHidden.className == "fa fa-eye fa-lg"){
+			if (pwHidden.className == "fa fa-eye fa-lg") {
 				pwHidden.className = "fa fa-eye-slash fa-lg";
 				pw.type = "password";
 				pwRepeat.type = "password";
-			} else{
+			} else {
 				pwHidden.className = "fa fa-eye fa-lg";
 				pw.type = "text";
 				pwRepeat.type = "text";
 			}
 		});
+
 		
-		$("#idCheck").click(function(){
-			var query = {mID : $("#id").val()};
-			
-			$.ajax({
-				url : "/member/idCheck",
-				type : "post",
-				data : query,
-				success : function(data) {
-					if(data == 1){
-						$("#idMsg").text("사용 불가");
-						$("#idMsg").val("");
-					} else{
-						$("#idMsg").text("사용 가능");
-						$("#idMsg").val("check");
+		$("#idCheck").click(
+				function() {
+					if ($("#id").val() != "" && $("#id").val() != null
+							&& $("#id").val() != undefined) {
+						var query = {
+							mID : $("#id").val()
+						};
+
+						$.ajax({
+							url : "/member/idCheck",
+							type : "post",
+							data : query,
+							success : function(data) {
+								if (data == 1) {
+									$("#idMsg").text("사용 불가");
+									$("#idMsg").val("");
+								} else {
+									$("#idMsg").text("사용 가능");
+									$("#idMsg").val("check");
+								}
+							}
+						});
 					}
-				}
-			});
-		});
-		$("#nicknameCheck").click(function(){
-			var query = {mNickname : $("#nickname").val()};
-			
-			$.ajax({
-				url : "/member/nicknameCheck",
-				type : "post",
-				data : query,
-				success : function(data) {
-					if(data == 1){
-						$("#nicknameMsg").text("사용 불가");
-						$("#nicknameMsg").val("");
-					} else{
-						$("#nicknameMsg").text("사용 가능");
-						$("#nicknameMsg").val("check");
+				});
+		$("#nicknameCheck").click(
+				function() {
+					if ($("#nickname").val() != ""
+							&& $("#nickname").val() != null
+							&& $("#nickname").val() != undefined) {
+						var query = {
+							mNickname : $("#nickname").val()
+						};
+
+						$.ajax({
+							url : "/member/nicknameCheck",
+							type : "post",
+							data : query,
+							success : function(data) {
+								if (data == 1) {
+									$("#nicknameMsg").text("사용 불가");
+									$("#nicknameMsg").val("");
+								} else {
+									$("#nicknameMsg").text("사용 가능");
+									$("#nicknameMsg").val("check");
+								}
+							}
+						});
 					}
-				}
-			});
-		});
-		
+				});
 	</script>
 
 </body>

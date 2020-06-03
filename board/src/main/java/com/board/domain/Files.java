@@ -82,7 +82,7 @@ public class Files {
 		return fileMap;
 	}
 
-	private boolean fileWrite(MultipartFile multipartFile, String saveFileName) throws Exception {
+	public boolean fileWrite(MultipartFile multipartFile, String saveFileName) throws Exception {
 		boolean result = false;
 
 		byte[] data = multipartFile.getBytes();
@@ -181,7 +181,7 @@ public class Files {
 		}
 	}
 
-	public static String getRandomString() {
+	public String getRandomString() {
 		
 		String fileName;
 		String saveFileName = UUID.randomUUID().toString().replaceAll("-", "") + ".jpg";
