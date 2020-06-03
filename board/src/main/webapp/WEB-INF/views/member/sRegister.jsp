@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="/resources/css/sRegister.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 <link rel="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 
 
@@ -49,14 +50,16 @@
       영어, 한글, 숫자를 사용할 수 있습니다.<br/> 
       <i class="far fa-user fa-lg"></i>
       <input type="text" id="nickname"  name="mNickname" placeholder="닉네임" >
-      
+      <button type="button" id="nicknameCheck">닉네임 중복 확인</button>
+      <p id="nicknameMsg" ></p>
     </div>
     
     <div class="info">
        영어, 숫자를 사용할 수 있습니다.<br/>
        <i class="far fa-paper-plane fa-lg"></i>
        <input type="text" id="id" name="mID" placeholder="아이디">
-       
+       <button type="button" id="idCheck">아이디 중복 확인</button>
+       <p id="idMsg" ></p>
     </div>
     
     <div class="info">
@@ -111,7 +114,9 @@
 		var regTypeNickname = /[^a-z0-9ㄱ-ㅎ가-힣0-9]/gi;
 		
 		var nickname = document.getElementById("nickname");
+		var nMsg = document.getElementById("nicknameMsg");
 		var id = document.getElementById("id");
+		var idMsg = document.getElementById("idMsg");
 		var email = document.getElementById("email");
 		var pw = document.getElementById("pw");
 		var pwRepeat = document.getElementById("pwRepeat");
@@ -124,16 +129,11 @@
 			location.href = "/member/fRegister";
 		});
 		bNext.addEventListener('click', function(event) {
-			if (regTypeID.test(nickname.value)) {
-				console.log(nickname);
-				if (id.value.trim() != "") {
-					console.log(id);
+			if (nMsg == "check") {
+				if (idMsg == "check") {
 					if (email.value.trim() != "") {
-						console.log(email);
 						if (pw.value.trim() != "") {
-							console.log(pw);
 							if (pwRepeat.value == pw.value) {
-								console.log(pwRepeat);
 								document.getElementById("f").submit();
 							} else {
 								alert("비밀번호가 다릅니다.");
@@ -148,11 +148,11 @@
 						email.focus();
 					}
 				} else {
-					alert("아이디를 입력해주세요");
+					alert("아이디  중복 확인해주세요");
 					id.focus();
 				}
 			} else {
-				alert("닉네임을 입력해주세요");
+				alert("닉네임 중복 확인해주세요");
 				nickname.focus();
 			}
 		});
@@ -161,11 +161,20 @@
 			var v = this.value;
 			this.value = v.replace(regTypeNickname, "");
 		});
+
+		nickname.addEventListener('keydown', function(event) {
+			nMsg.value = "";
+		});
 		
 		id.addEventListener('keyup', function(event) {
 			var v = this.value;
 			this.value = v.replace(regTypeID, "");
 		});
+		
+		id.addEventListener('keydown', function(event) {
+			idMsg.value = "";
+		});
+		
 
 		pw.addEventListener('keyup', function(event) {
 			if (regTypePW.test(pw.value)) {
@@ -193,6 +202,44 @@
 				pwRepeat.type = "text";
 			}
 		});
+		
+		$("#idCheck").click(function(){
+			var query = {mID : $("#id").val()};
+			
+			$.ajax({
+				url : "/member/idCheck",
+				type : "post",
+				data : query,
+				success : function(data) {
+					if(data == 1){
+						$("#idMsg").text("사용 불가");
+						$("#idMsg").val("");
+					} else{
+						$("#idMsg").text("사용 가능");
+						$("#idMsg").val("check");
+					}
+				}
+			});
+		});
+		$("#nicknameCheck").click(function(){
+			var query = {mNickname : $("#nickname").val()};
+			
+			$.ajax({
+				url : "/member/nicknameCheck",
+				type : "post",
+				data : query,
+				success : function(data) {
+					if(data == 1){
+						$("#nicknameMsg").text("사용 불가");
+						$("#nicknameMsg").val("");
+					} else{
+						$("#nicknameMsg").text("사용 가능");
+						$("#nicknameMsg").val("check");
+					}
+				}
+			});
+		});
+		
 	</script>
 
 </body>

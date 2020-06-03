@@ -35,9 +35,6 @@ public class Files {
 	private String timeView[];
 	private String path[];
 	private String fileName[];
-	DecimalFormat latFomat = new DecimalFormat("#0.##############");
-	DecimalFormat lonFomat = new DecimalFormat("##0.##############");
-
 	
 	private List<FileVO> fileVOList = new ArrayList<FileVO>();
 
@@ -168,8 +165,8 @@ public class Files {
 		for (int j = 0; j < size; j++) {
 			modifyVO[j] = new FileVO();
 			modifyVO[j].setId(Integer.parseInt(str_id[j]));
-			modifyVO[j].setLatitude((latFomat.format(Double.parseDouble(latitude[j].trim())))+"");
-			modifyVO[j].setLongitude(lonFomat.format(Double.parseDouble(longitude[j].trim()))+"");
+			modifyVO[j].setLatitude(latitude[j].trim());
+			modifyVO[j].setLongitude(longitude[j].trim());
 			modifyVO[j].setTimeView(time[j].trim());
 			modifyVO[j].setContent(content[j]);
 		}

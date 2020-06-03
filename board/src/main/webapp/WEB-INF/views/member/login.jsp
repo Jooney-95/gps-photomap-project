@@ -16,7 +16,7 @@
 	<form method="post" class="form">
 		<div class="grid">
          <i class="fas fa-user" id="user" ></i>
-         <input type="text" name="mID" placeholder="Username">
+         <input type="text" id="id" name="mID" placeholder="Username">
         </div>
         
 		<div class="grid">
@@ -56,6 +56,10 @@
 	<script>
 	var pw = document.getElementById("pw");
 	var pwHidden = document.getElementById("pwHidden");
+	
+	window.onload = function(){
+		document.getElementById("id").focus();
+	}
 	
 	pwHidden.addEventListener('click', function(event) {
 		if(pwHidden.className == "fa fa-eye fa-lg"){

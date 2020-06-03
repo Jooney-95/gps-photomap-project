@@ -25,4 +25,16 @@ public class MemberServiceImpl implements MemberService {
 		return dao.login(vo);
 	}
 
+	@Override
+	public MemberVO idCheck(String mID) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.idCheck(mID);
+	}
+
+	@Override
+	public MemberVO nicknameCheck(String mNickname) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.nicknameCheck(mNickname);
+	}
+
 }

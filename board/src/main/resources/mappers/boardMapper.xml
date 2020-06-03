@@ -149,5 +149,17 @@
       where fileBno = #{bno}
    </select>
    
+   <!-- 아이디 확인 -->
+   <select id="idCheck" parameterType="string" resultType="com.board.domain.MemberVO">
+   	select mID from reg_board
+   	where mID = #{mID}
+   </select>
+   
+    <!-- 닉네임 확인 -->
+   <select id="nicknameCheck" parameterType="string" resultType="com.board.domain.MemberVO">
+   	select mNickname from reg_board
+   	where mNickname = #{mNickname}
+   </select>
+   
 
 </mapper>

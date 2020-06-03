@@ -27,4 +27,16 @@ public class MemberDAOImpl implements MemberDAO {
 		return sql.selectOne(namespace + ".login", vo);
 	}
 
+	@Override
+	public MemberVO idCheck(String mID) throws Exception {
+		// TODO Auto-generated method stub
+		return sql.selectOne(namespace + ".idCheck", mID);
+	}
+
+	@Override
+	public MemberVO nicknameCheck(String mNickname) throws Exception {
+		// TODO Auto-generated method stub
+		return sql.selectOne(namespace + ".nicknameCheck", mNickname);
+	}
+
 }

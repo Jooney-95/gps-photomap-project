@@ -8,4 +8,8 @@ public interface MemberDAO {
 
 	public MemberVO login(MemberVO vo) throws Exception;
 
+	public MemberVO idCheck(String mID) throws Exception;
+
+	public MemberVO nicknameCheck(String mNickname) throws Exception;
+
 }
