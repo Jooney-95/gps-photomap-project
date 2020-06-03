@@ -89,7 +89,7 @@
          </div>
          
          <div class="down">
-            <input type="checkbox" id="delete" name="del" value="${list.id }">삭제
+            <input type="checkbox" id="del${list.id }" name="del" value="${list.id }">삭제
          </div>
       </div>
       
@@ -113,10 +113,10 @@
 
 	<script>
 	
-	var regTypeLat = /^[-+]?([0-9]\d*[.]\d{14}?|[1-8][0-9]\d*[.]\d{14}?|[9][0]\d*[.]\0{14}?|[9][0])$/;
-	var regTypeLon = /^[-+]?([0-9]\d*[.]\d{14}?|[1-9][0-9]\d*[.]\d{14}?|[1][1-7[1-9]\d*[.]\d{14}?|[1][8][0])$/; 
-	var regTypeTime = /^(19|20)\d{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[0-1])\s([1-9]|[01][0-9]|2[0-3]):([0-5][0-9])$/;
-	
+		var regTypeLat = /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/;
+		var regTypeLon = /^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/; 
+		var regTypeTime = /^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])\s([1-9]|[01][0-9]|2[0-3]):([0-5][0-9])$/;
+		
 		var pNum = ${view.pNum }
 		var title = document.getElementById("title");
 		var pNum0 = document.getElementById("pNum0");
@@ -126,6 +126,7 @@
 		
 		var lat = new Array();
 		var lon = new Array();
+		var time = new Array();
 		var tpBno = new Array();
 		var tp = new Array();
 		var listID = new Array();
@@ -141,9 +142,9 @@
 		
 		window.onload = function forListID(){
 			for (i = 0; i < listID.length; i++) {
-				lat = document.getElementById("lat" + listID[i]);
-				lon = document.getElementById("lon" + listID[i]);
-				time = document.getElementById("time" + listID[i]);
+				lat.push(document.getElementById("lat" + listID[i]));
+				lon.push(document.getElementById("lon" + listID[i]));
+				time.push(document.getElementById("time" + listID[i]));
 				for (j = 0; j < tp.length; j++) {
 					if (listID[i] == tpBno[j]) {
 						var checktp = listID[i] + tp[j];
