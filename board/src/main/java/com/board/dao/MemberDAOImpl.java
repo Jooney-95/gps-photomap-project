@@ -67,4 +67,16 @@ public class MemberDAOImpl implements MemberDAO {
 		sql.update(namespace + ".password", vo);
 	}
 
+	@Override
+	public int countMyPage(int id) throws Exception {
+		// TODO Auto-generated method stub
+		return sql.selectOne(namespace + ".countMyPage", id);
+	}
+
+	@Override
+	public MemberVO memberVO(int id) throws Exception {
+		// TODO Auto-generated method stub
+		return sql.selectOne(namespace + ".memberVO", id);
+	}
+
 }

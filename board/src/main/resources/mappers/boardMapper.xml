@@ -3,198 +3,269 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.board.mappers.board">
-   
-   <!-- 게시물 작성 -->
-   <insert id="write" parameterType="com.board.domain.BoardVO" useGeneratedKeys="true" keyProperty="bno">
-      insert into
-      tbl_board(title, writer, pNum)
-      values(
-      #{title}, #{writer}, #{pNum}
-      )
-   </insert>
-   
-   
-   <insert id="writeFile" parameterType="hashMap">
-      insert into
-      file_board(fileBno, latitude, longitude, timeView, fileName, path, content)
-      values
-      <foreach collection="fileVOList" item="item" separator=" , ">
-      (#{item.fileBno}, #{item.latitude}, #{item.longitude}, #{item.timeView}, #{item.fileName}, #{item.path}, "")
-      </foreach>
-   </insert>
-   
-   <!-- 게시물 조회 -->
-   <select id="view" parameterType="int" resultType="com.board.domain.BoardVO" >
-      select
-      bno, title, writer, regDate, viewCnt, pNum
-      from
-      tbl_board
-      where
-      bno = #{bno}
-   </select>
-   
-   <select id="viewFile" parameterType="int" resultType="com.board.domain.FileVO" >
-      select
-      id, fileBno, latitude, longitude, timeView, path, content
-      from
-      file_board
-      where fileBno = #{bno}
-      order by timeView
-   </select>
 
-   <!-- 게시물 수정 -->
-   <update id="modify" parameterType="com.board.domain.BoardVO">
-      update tbl_board
-      set
-      title = #{title},
-      writer = #{writer},
-      pNum = #{pNum}
-      where bno = #{bno}
-   </update>
-   
-   <update id="modifyFile" parameterType="com.board.domain.FileVO">
-      update file_board
-      set
-      timeView = #{timeView},
-      latitude = #{latitude},
-      longitude = #{longitude},
-      content = #{content}
-      where id = #{id}
-   </update>
-   
-   <!-- 게시글 조회수 갱신 -->
-   <update id="hitViewCnt" parameterType="int">
-      update tbl_board
-      set 
-      viewCnt = viewCnt + 1
-      where bno = #{bno};
-   </update>
-   
-   <!-- 게시물 삭제 -->
-   <delete id="delete" parameterType="int">
-      delete
-      from tbl_board
-      where bno = #{bno}
-   </delete>
-   
-   <delete id="deleteFile" parameterType="int">
-      delete
-      from file_board
-      where id = #{del}
-   </delete>
-   
-   <select id="fileName" parameterType="int" resultType="String">
-      select
-      fileName
-      from 
-      file_board
-      where id = #{del} 
-   </select>
-   
-   <!-- 게시글 총 갯수 -->
-   <select id="count" resultType="int">
-      select count(bno) from tbl_board
-   </select>
+	<!-- tbl_board start -->
 
-   <!-- 게시물 목록 + 페이징 + 검색 -->
-   <select id="listPageSearch" parameterType="hashMap" resultType="com.board.domain.BoardVO">
-       select
-           bno, title, writer, regDate, viewCnt, pNum
-       from tbl_board
-       <if test='searchType.equals("title")'>
-           WHERE title LIKE concat('%', #{keyword}, '%')
-       </if>
-      <if test='searchType.equals("writer")'>
-         WHERE writer LIKE concat('%', #{keyword}, '%')
-      </if>
-      order by bno desc
-         limit #{displayPost}, #{postNum}
-       </select> 
-   
-   <!-- 회원가입 -->
-   <insert id="register" parameterType="com.board.domain.MemberVO">
-      insert into
-      reg_board(mID, mPW, mNickname, mEmail)
-      values(
-      #{mID}, #{mPW}, #{mNickname}, #{mEmail}
-      )
-   </insert>
-   
-   <!-- 로그인 -->
-   <select id="login" parameterType="com.board.domain.MemberVO" resultType="com.board.domain.MemberVO">
-      select
-      mID, mPW, mNickname, mEmail, mImg
-      from
-      reg_board
-      where
-      mID = #{mID}
-   </select>
-   
-   <delete id="reset" parameterType="int">
-      delete
-      from tp_board
-      where tpBno = #{id}
-   </delete>
-   
-   <insert id="set" parameterType="com.board.domain.TpVO">
-      insert into
-      tp_board(tpBno, fileBno, tp)
-      values(#{tpBno}, #{fileBno}, #{tp})
-   </insert>
-   
-   <select id="viewTp" parameterType="int" resultType="com.board.domain.TpVO">
-      select
-      tpBno, fileBno, tp
-      from tp_board
-      where fileBno = #{bno}
-   </select>
-   
-   <!-- 아이디 확인 -->
-   <select id="idCheck" parameterType="string" resultType="com.board.domain.MemberVO">
-   	select mID from reg_board
-   	where mID = #{mID}
-   </select>
-   
-    <!-- 닉네임 확인 -->
-   <select id="nicknameCheck" parameterType="string" resultType="com.board.domain.MemberVO">
-   	select mNickname from reg_board
-   	where mNickname = #{mNickname}
-   </select>
-   
-     <!-- 비밀번호 확인 -->
-   <select id="pwCheck" parameterType="string" resultType="com.board.domain.MemberVO">
-   	select mPW from reg_board
-   	where mID = #{mID}
-   </select>
-   
-   <!-- 사진 없는 프로필 변경 -->
-   <update id="profile" parameterType="com.board.domain.MemberVO">
-   update reg_board
-   set
-   mNickname = #{mNickname},
-   mEmail = #{mEmail}
-   where
-   mID = #{mID}
-   </update>
-   
-   <!-- 사진 있는 프로필 변경 -->
-    <update id="profileImg" parameterType="com.board.domain.MemberVO">
-    update reg_board
-   set
-   mNickname = #{mNickname},
-   mEmail = #{mEmail},
-   mImg = #{mImg}
-   where
-   mID = #{mID}
-   </update>
+	<!-- 게시물 작성 -->
+	<insert id="write" parameterType="com.board.domain.BoardVO"
+		useGeneratedKeys="true" keyProperty="bno">
+		insert into
+		tbl_board(title,
+		writer, pNum)
+		values(
+		#{title}, #{writer}, #{pNum}
+		)
+	</insert>
 
-<!-- 사진 있는 프로필 변경 -->
-    <update id="password" parameterType="com.board.domain.MemberVO">
-    update reg_board
-   set
-   mPW = #{mPW}
-   where
-   mID = #{mID}
-   </update>
-   
+	<!-- 게시물 조회 -->
+	<select id="view" parameterType="int"
+		resultType="com.board.domain.BoardVO">
+		select
+		bno, title, writer, regDate, viewCnt, pNum
+		from
+		tbl_board
+		where
+		bno = #{bno}
+	</select>
+
+	<!-- 게시물 수정 -->
+	<update id="modify" parameterType="com.board.domain.BoardVO">
+		update tbl_board
+		set
+		title =
+		#{title},
+		writer = #{writer},
+		pNum = #{pNum}
+		where bno = #{bno}
+	</update>
+
+	<!-- 게시글 조회수 갱신 -->
+	<update id="hitViewCnt" parameterType="int">
+		update tbl_board
+		set
+		viewCnt = viewCnt + 1
+		where bno = #{bno};
+	</update>
+
+	<!-- 게시물 삭제 -->
+	<delete id="delete" parameterType="int">
+		delete
+		from tbl_board
+		where bno
+		= #{bno}
+	</delete>
+
+	<!-- 게시글 총 갯수 -->
+	<select id="count" resultType="int">
+		select count(bno) from tbl_board
+	</select>
+
+	<!-- 작성자의 게시글 총 갯수 -->
+	<select id="countMyPage" parameterType="int" resultType="int">
+		select count(bno) from tbl_board
+		where writer = #{id}
+	</select>
+
+	<!-- 게시물 목록 + 페이징 + 검색 -->
+	<select id="listPageSearch" parameterType="hashMap"
+		resultType="com.board.domain.BoardVO">
+		select
+		bno, title, writer, regDate, viewCnt, pNum
+		from tbl_board
+		<if test='searchType.equals("title")'>
+			WHERE title LIKE concat('%', #{keyword}, '%')
+		</if>
+		<if test='searchType.equals("writer")'>
+			WHERE writer LIKE concat('%', #{keyword}, '%')
+		</if>
+		order by bno desc
+		limit #{displayPost}, #{postNum}
+	</select>
+	
+	<!-- 마이페이지 게시물 목록 + 페이징 + 검색 -->
+	<select id="MyPageSearch" parameterType="hashMap"
+		resultType="com.board.domain.BoardVO">
+		select
+		bno, title, writer, regDate, viewCnt, pNum
+		from tbl_board
+		<if test='searchType.equals("title")'>
+			WHERE title LIKE concat('%', #{keyword}, '%') and writer = #{writer}
+		</if>
+		<if test='searchType.equals("writer")'>
+			WHERE writer LIKE concat('%', #{keyword}, '%') and writer = #{writer}
+		</if>
+		order by bno desc
+		limit #{displayPost}, #{postNum}
+	</select>
+
+
+	<!-- tbl_board end -->
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	<!-- file_board start -->
+
+	<!-- 파일 추가 -->
+	<insert id="writeFile" parameterType="hashMap">
+		insert into
+		file_board(fileBno, latitude, longitude, timeView, fileName, path, content)
+		values
+		<foreach collection="fileVOList" item="item" separator=" , ">
+			(#{item.fileBno}, #{item.latitude}, #{item.longitude},
+			#{item.timeView}, #{item.fileName}, #{item.path}, "")
+		</foreach>
+	</insert>
+
+	<!-- 파일 불러오기 -->
+	<select id="viewFile" parameterType="int"
+		resultType="com.board.domain.FileVO">
+		select
+		id, fileBno, latitude, longitude, timeView, path, content
+		from
+		file_board
+		where fileBno = #{bno}
+		order by timeView
+	</select>
+
+	<!-- 파일 수정 -->
+	<update id="modifyFile" parameterType="com.board.domain.FileVO">
+		update file_board
+		set
+		timeView = #{timeView},
+		latitude = #{latitude},
+		longitude = #{longitude},
+		content = #{content}
+		where id = #{id}
+	</update>
+
+	<!-- 파일 삭제 -->
+	<delete id="deleteFile" parameterType="int">
+		delete
+		from file_board
+		where id = #{del}
+	</delete>
+
+	<!-- 파일 이름 불러오기 -->
+	<select id="fileName" parameterType="int" resultType="String">
+		select
+		fileName
+		from
+		file_board
+		where id = #{del}
+	</select>
+
+	<!-- file_board end -->
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	<!-- reg_board start -->
+
+	<!-- 회원가입 -->
+	<insert id="register" parameterType="com.board.domain.MemberVO">
+		insert into
+		reg_board(mID, mPW, mNickname, mEmail, mImg)
+		values(
+		#{mID}, #{mPW}, #{mNickname}, #{mEmail}, "/resources/imgs/unnamed.png"
+		)
+	</insert>
+
+	<!-- 로그인 -->
+	<select id="login" parameterType="com.board.domain.MemberVO"
+		resultType="com.board.domain.MemberVO">
+		select
+		id, mID, mPW, mNickname, mEmail, mImg
+		from
+		reg_board
+		where
+		mID = #{mID}
+	</select>
+	
+	<!-- 회원정보 가져오기 -->
+	<select id="memberVO" parameterType="int"
+		resultType="com.board.domain.MemberVO">
+		select
+		id, mID, mPW, mNickname, mEmail, mImg
+		from
+		reg_board
+		where
+		id = #{id}
+	</select>
+	
+	<!-- 아이디 확인 -->
+	<select id="idCheck" parameterType="string"
+		resultType="com.board.domain.MemberVO">
+		select mID from reg_board
+		where mID = #{mID}
+	</select>
+
+	<!-- 닉네임 확인 -->
+	<select id="nicknameCheck" parameterType="string"
+		resultType="com.board.domain.MemberVO">
+		select mNickname from reg_board
+		where mNickname = #{mNickname}
+	</select>
+
+	<!-- 비밀번호 확인 -->
+	<select id="pwCheck" parameterType="string"
+		resultType="com.board.domain.MemberVO">
+		select mPW from reg_board
+		where mID = #{mID}
+	</select>
+
+	<!-- 사진 없는 프로필 변경 -->
+	<update id="profile" parameterType="com.board.domain.MemberVO">
+		update reg_board
+		set
+		mNickname = #{mNickname},
+		mEmail = #{mEmail}
+		where
+		mID = #{mID}
+	</update>
+
+	<!-- 사진 있는 프로필 변경 -->
+	<update id="profileImg"
+		parameterType="com.board.domain.MemberVO">
+		update reg_board
+		set
+		mNickname = #{mNickname},
+		mEmail = #{mEmail},
+		mImg = #{mImg}
+		where
+		mID = #{mID}
+	</update>
+
+	<!-- 비밀번호 변경 -->
+	<update id="password" parameterType="com.board.domain.MemberVO">
+		update reg_board
+		set
+		mPW = #{mPW}
+		where
+		mID = #{mID}
+	</update>
+
+	<!-- reg_board end -->
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	<!-- tp_board start -->
+
+	<!-- 초기화 -->
+	<delete id="reset" parameterType="int">
+		delete
+		from tp_board
+		where tpBno = #{id}
+	</delete>
+
+	<!-- 이동수단 등록 -->
+	<insert id="set" parameterType="com.board.domain.TpVO">
+		insert into
+		tp_board(tpBno, fileBno, tp)
+		values(#{tpBno}, #{fileBno}, #{tp})
+	</insert>
+
+	<!-- 이동수단 불러오기 -->
+	<select id="viewTp" parameterType="int"
+		resultType="com.board.domain.TpVO">
+		select
+		tpBno, fileBno, tp
+		from tp_board
+		where fileBno = #{bno}
+	</select>
+
+	<!-- tp_board end -->
+
 </mapper>

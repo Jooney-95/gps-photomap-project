@@ -22,4 +22,8 @@ public interface MemberDAO {
 
 	public void password(MemberVO vo) throws Exception;
 
+	public int countMyPage(int id) throws Exception;
+
+	public MemberVO memberVO(int id) throws Exception;
+
 }

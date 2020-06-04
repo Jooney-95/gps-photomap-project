@@ -56,6 +56,8 @@
 		var bSub = document.getElementById("bSub");
 		var bPW = document.getElementById("bPW");
 
+		nMsg.value="check";
+		
 		bImg.addEventListener('click', function(event) {
 			upload.click();
 		});

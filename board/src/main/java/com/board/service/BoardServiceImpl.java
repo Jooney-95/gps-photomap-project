@@ -18,7 +18,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int write(BoardVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.write(vo);		
+		return dao.write(vo);
 	}
 
 	@Override
@@ -47,15 +47,22 @@ public class BoardServiceImpl implements BoardService {
 
 	// 게시물 목록 + 페이징 + 검색
 	@Override
-	public List<BoardVO> listPageSearch(
-			int displayPost, int postNum, String searchType, String keyword) throws Exception {
-		return  dao.listPageSearch(displayPost, postNum, searchType, keyword);
+	public List<BoardVO> listPageSearch(int displayPost, int postNum, String searchType, String keyword)
+			throws Exception {
+		return dao.listPageSearch(displayPost, postNum, searchType, keyword);
 	}
-	
+
 	@Override
 	public void hitViewCnt(int bno) throws Exception {
 		// TODO Auto-generated method stub
 		dao.hitViewCnt(bno);
+	}
+
+	@Override
+	public List<BoardVO> MyPageSearch(int id, int displayPost, int postNum, String searchType, String keyword)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return dao.MyPageSearch(id, displayPost, postNum, searchType, keyword);
 	}
 
 }

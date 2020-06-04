@@ -52,6 +52,7 @@
 			<mapping path="/board/write" />
 			<mapping path="/member/profile" />
 			<mapping path="/member/password" />
+			<mapping path="/member/myPage" />
 			<beans:ref bean="LoginInterceptor" />
 		</interceptor>
 	</interceptors>

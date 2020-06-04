@@ -11,7 +11,12 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 </head>
 <body>
-
+<c:if test="${session.id ne view.writer }">
+	<script>
+		alert("권한이 없습니다.");
+		window.history.back();
+	</script>
+</c:if>
 <div id="header">
   <div class="logo">
     <a href="#">SAMPLE</a>
@@ -40,7 +45,8 @@
    <div id="top">
       <input type="hidden" name="bno" value="${view.bno }" />
       <p>제목     <input type="text" id="title" name="title" value="${view.title }"/></p>
-      <p>작성자  <input type="text" name="writer" value="${view.writer }" readOnly/></p>
+      <input type="hidden" name="writer" value="${session.id }" />
+      <p>작성자  <input type="text" value="${session.mNickname }" readOnly/></p>
       <br/>
    </div>
    

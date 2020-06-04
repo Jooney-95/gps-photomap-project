@@ -73,4 +73,21 @@ public class BoardDAOImpl implements BoardDAO {
 		sql.update(namespace + ".hitViewCnt", bno);
 	}
 
+	@Override
+	public List<BoardVO> MyPageSearch(int id, int displayPost, int postNum, String searchType, String keyword) {
+		// TODO Auto-generated method stub
+		
+		
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		
+		data.put("writer", id);
+		data.put("displayPost", displayPost);
+		data.put("postNum", postNum);
+	  
+		data.put("searchType", searchType);
+		data.put("keyword", keyword);
+	  
+		return sql.selectList(namespace + ".MyPageSearch", data);
+	}
+
 }

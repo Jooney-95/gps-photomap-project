@@ -18,6 +18,7 @@
 		<c:if test="${session == null }">
 			<%@ include file="../include/navLogout.jsp"%>
 		</c:if>
+		<a href="/member/profile">프로필 수정</a>
 	</div>
 	<table>
 		<thead>

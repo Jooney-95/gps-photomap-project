@@ -1,5 +1,7 @@
 package com.board.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -60,6 +62,18 @@ public class MemberServiceImpl implements MemberService {
 	public void password(MemberVO vo) throws Exception {
 		// TODO Auto-generated method stub
 		dao.password(vo);
+	}
+
+	@Override
+	public int countMyPage(int id) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.countMyPage(id);
+	}
+
+	@Override
+	public MemberVO memberVO(int id) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.memberVO(id);
 	}
 
 }

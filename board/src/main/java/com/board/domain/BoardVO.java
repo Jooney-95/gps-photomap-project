@@ -8,7 +8,7 @@ import com.drew.lang.annotations.NotNull;
 public class BoardVO {
 	private int bno;
 	private String title;
-	private String writer;
+	private int writer;
 	private Date regDate;
 	private int viewCnt;
 	private int pNum;
@@ -25,10 +25,10 @@ public class BoardVO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getWriter() {
-		return writer.replaceAll("(?i)<script", "&lt;script");
+	public int getWriter() {
+		return writer;
 	}
-	public void setWriter(String writer) {
+	public void setWriter(int writer) {
 		this.writer = writer;
 	}
 	public Date getRegDate() {

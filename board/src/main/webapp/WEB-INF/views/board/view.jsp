@@ -91,7 +91,7 @@
 </div>
 
  
-   <c:if test="${session.mNickname eq view.writer }">
+   <c:if test="${session.id eq view.writer }">
 	   <div class="button">
 		   <button class="raise" onclick="location.href='/board/modify?bno=${view.bno}'">게시물 수정</button>
 		   <button class="raise" onclick="location.href='/board/delete?bno=${view.bno}'">게시물 삭제</button>
@@ -222,6 +222,8 @@
       
       // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
       // marker.setMap(null);
+      
+      document.getElementById("map").style.marginLeft="50%";
    </script>
      
    

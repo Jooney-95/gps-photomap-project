@@ -16,10 +16,12 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.board.domain.BoardVO;
 import com.board.domain.FileVO;
+import com.board.domain.MemberVO;
 import com.board.domain.Page;
 import com.board.domain.TpVO;
 import com.board.service.BoardService;
 import com.board.service.FileService;
+import com.board.service.MemberService;
 import com.board.service.TpService;
 
 @Controller
@@ -34,6 +36,9 @@ public class BoardController {
 
 	@Inject
 	TpService tpService;
+	
+	@Inject
+	MemberService memberService;
 
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public void getWrite() throws Exception {
@@ -155,17 +160,22 @@ public class BoardController {
 
 		List<FileVO> fList = new ArrayList<FileVO>();
 		List<ArrayList<FileVO>> fileList = new ArrayList<ArrayList<FileVO>>();
+		MemberVO m = new MemberVO();
+		List<MemberVO> mList = new ArrayList<MemberVO>();
 
 		// 글 번호에 해당하는 이미지 받아오기
 		for (BoardVO vo : list) {
 			fList = fileService.viewFile(vo.getBno());
+			m = memberService.memberVO(vo.getWriter());
 			fileList.add((ArrayList<FileVO>) fList);
+			mList.add(m);
 		}
 
 		model.addAttribute("fileList", fileList);
 		model.addAttribute("list", list);
 		model.addAttribute("page", page);
 		model.addAttribute("select", num);
+		model.addAttribute("member", mList);
 
 	}
 }

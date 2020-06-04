@@ -1,5 +1,8 @@
 package com.board.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -9,11 +12,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.board.domain.BoardVO;
+import com.board.domain.FileVO;
 import com.board.domain.MemberVO;
+import com.board.domain.Page;
+import com.board.service.BoardService;
+import com.board.service.FileService;
 import com.board.service.MemberService;
 
 @Controller
@@ -22,7 +31,13 @@ public class MemberController {
 
 	@Inject
 	MemberService service;
+	
+	@Inject
+	BoardService boardService;
 
+	@Inject
+	FileService fileService;
+	
 	@Inject
 	BCryptPasswordEncoder pwdEncoder;
 
@@ -179,6 +194,41 @@ public class MemberController {
 		session.invalidate();
 		
 		return "redirect:/member/login";
+	}
+	
+	@RequestMapping(value = "/myPage", method = RequestMethod.GET)
+	public void getMyPage(Model model, HttpSession session, @RequestParam("num") int num,
+			@RequestParam(value = "searchType", required = false, defaultValue = "title") String searchType,
+			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) throws Exception {
+		
+		Page page = new Page();
+		MemberVO member = (MemberVO)session.getAttribute("session");
+		
+		page.setNum(num);
+		page.setCount(service.countMyPage(member.getId()));
+		
+		List<BoardVO> list = null;
+		
+		list = boardService.MyPageSearch(member.getId(), page.getDisplayPost(), page.getPostNum(), searchType, keyword);
+
+		List<FileVO> fList = new ArrayList<FileVO>();
+		List<ArrayList<FileVO>> fileList = new ArrayList<ArrayList<FileVO>>();
+		MemberVO m = new MemberVO();
+		List<MemberVO> mList = new ArrayList<MemberVO>();
+
+		// 글 번호에 해당하는 이미지 받아오기
+		for (BoardVO vo : list) {
+			fList = fileService.viewFile(vo.getBno());
+			m = service.memberVO(vo.getWriter());
+			fileList.add((ArrayList<FileVO>) fList);
+			mList.add(m);
+		}
+
+		model.addAttribute("fileList", fileList);
+		model.addAttribute("list", list);
+		model.addAttribute("page", page);
+		model.addAttribute("select", num);
+		model.addAttribute("member", mList);
 	}
 
 }

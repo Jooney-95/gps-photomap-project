@@ -48,7 +48,8 @@
 
       <div id="top">
          <p>제목     <input type="text" id="title" name="title" placeholder="제목을 입력하세요."/></p>
-          <p>작성자  <input type="text" name="writer" value="${session.mNickname }" readOnly /></p>
+         <input type="hidden" name="writer" value="${session.id }" />
+          <p>작성자  <input type="text" value="${session.mNickname }" readOnly /></p>
       </div>
       
       <div class="button-wrapper">
