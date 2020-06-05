@@ -8,6 +8,7 @@
 <title>게시물 조회</title>
 <link rel="stylesheet" href="/resources/css/write.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 
 
@@ -43,13 +44,15 @@
 <div class="mainright">
    <div id="top">
          <p>제목 <input type="text" name="title" value="${view.title }" readOnly /></p>
-      <p>작성자  <input type="text" name="writer" value="${view.writer }" readOnly /></p>
+      <p>작성자  <input type="text" name="writer" value="${member.mNickname }" readOnly /></p>
          <br/>
    </div>
    
    
    <c:forEach items="${list }" var="list">
    <input type="hidden" name="id" value="${list.id }" />
+   <input type="hidden" id="tblBno" value="${view.bno }" />
+   <input type="hidden" name="userID" value="${session.id }" />
    
    
       <div id="middle">
@@ -89,7 +92,9 @@
    </c:forEach>
    <br />
 </div>
-
+<p id="like"></p>
+<br />
+<button type="button" id="bLike">게시글 추천</button>
  
    <c:if test="${session.id eq view.writer }">
 	   <div class="button">
@@ -224,6 +229,80 @@
       // marker.setMap(null);
       
       document.getElementById("map").style.marginLeft="50%";
+      
+     
+      
+      $("#bLike").click(
+    		  function(){
+    			  if("${session }" != ""){
+    				  var query = {
+    						  userID : "${session.id}",
+    						  tblBno : "${view.bno}"
+    				  };
+    				  $.ajax({
+    					  url : "/board/likeClick",
+    					  type : "post",
+    					  data : query,
+    					  success : function(count) {
+    						  countLike();
+    						  likeCheck();
+    					  },
+    		    		  error:function(request,status,error){
+    		    		        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+    		    		  }
+    				  });
+    			  } else{
+    				  alert("로그인 후 이용해주세요");
+    			  }
+    		  });
+      
+      window.onload = function(){
+    	  countLike();
+    	  likeCheck();
+      }
+    	  function countLike(){
+    	  var query = {
+    			  tblBno : "${view.bno}"
+    	  };
+    	  $.ajax({
+			  url : "/board/likeCount",
+			  type : "post",
+			  data : query,
+			  success : function(count) {
+				  $("#like").text("추천수 :" + count);
+				  
+			  },
+    		  error:function(request,status,error){
+    		        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+    		  }
+		  });
+      }
+    	  
+    	  function likeCheck(){
+    		  if("${session }" != ""){
+        	  var query = {
+        			  userID : "${session.id}",
+        			  tblBno : "${view.bno}"
+        	  };
+        	  $.ajax({
+    			  url : "/board/likeCheck",
+    			  type : "post",
+    			  data : query,
+    			  success : function(check) {
+    				  if(check == 1){
+    					  $("#bLike").text("추천 취소");
+    				  } else{
+    					  $("#bLike").text("게시글 추천");
+    				  }
+    			  },
+        		  error:function(request,status,error){
+        		        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        		  }
+    		  });
+    		  }
+          }
+  
+      
    </script>
      
    

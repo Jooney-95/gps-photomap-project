@@ -145,10 +145,9 @@ public class MemberController {
 	public int postPwCheck(HttpServletRequest req) throws Exception {
 		String mID = req.getParameter("mID");
 		String curPW = req.getParameter("curPW");
-		System.out.println(curPW);
 		
 		MemberVO pwCheck = service.pwCheck(mID);
-		System.out.println(pwCheck.getmPW());
+		
 		int result = 0;
 		if (pwCheck != null) {
 			boolean matchPW = pwdEncoder.matches(curPW, pwCheck.getmPW());

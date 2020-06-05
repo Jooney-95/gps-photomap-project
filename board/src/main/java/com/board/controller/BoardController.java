@@ -11,11 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.board.domain.BoardVO;
 import com.board.domain.FileVO;
+import com.board.domain.LikeVO;
 import com.board.domain.MemberVO;
 import com.board.domain.Page;
 import com.board.domain.TpVO;
@@ -63,6 +65,7 @@ public class BoardController {
 	public void getView(@RequestParam("bno") int bno, Model model) throws Exception {
 
 		BoardVO vo = service.view(bno);
+		MemberVO mVo = memberService.memberVO(vo.getWriter());
 		service.hitViewCnt(bno);
 		
 		List<FileVO> list = null;
@@ -74,6 +77,7 @@ public class BoardController {
 		model.addAttribute("view", vo);
 		model.addAttribute("list", list);
 		model.addAttribute("tp", tp);
+		model.addAttribute("member", mVo);
 
 	}
 
@@ -91,6 +95,7 @@ public class BoardController {
 		model.addAttribute("view", vo);
 		model.addAttribute("list", list);
 		model.addAttribute("tp", tp);
+		
 	}
 
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
@@ -178,4 +183,58 @@ public class BoardController {
 		model.addAttribute("member", mList);
 
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/likeClick", method = RequestMethod.POST)
+	public void postLikeClick(HttpServletRequest req) throws Exception {
+		int userID = Integer.parseInt(req.getParameter("userID"));
+		int tblBno = Integer.parseInt(req.getParameter("tblBno"));
+		
+		LikeVO vo = new LikeVO();
+		vo.setTblBno(tblBno);
+		vo.setUserID(userID);
+		LikeVO likeVO = service.likeCheck(vo);
+		
+		
+		if (likeVO == null) {
+			service.likeUp(vo);
+			service.likeUpTbl(vo);
+		} else {
+			service.likeDown(vo);
+			service.likeDownTbl(vo);
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/likeCount", method = RequestMethod.POST)
+	public int postLikeCount(HttpServletRequest req) throws Exception {
+		int tblBno = Integer.parseInt(req.getParameter("tblBno"));
+
+		int likeCount = service.likeCnt(tblBno);
+
+		return likeCount;
+
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/likeCheck", method = RequestMethod.POST)
+	public int postLikeCheck(HttpServletRequest req) throws Exception {
+		int userID = Integer.parseInt(req.getParameter("userID"));
+		int tblBno = Integer.parseInt(req.getParameter("tblBno"));
+		int check = 0;
+		
+		LikeVO vo = new LikeVO();
+		vo.setTblBno(tblBno);
+		vo.setUserID(userID);
+		LikeVO likeVO = service.likeCheck(vo);
+		
+		
+		if (likeVO == null) {
+		} else {
+			check = 1;
+		}
+		
+		return check;
+	}
+	
 }

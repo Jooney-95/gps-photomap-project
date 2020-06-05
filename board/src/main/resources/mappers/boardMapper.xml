@@ -21,7 +21,7 @@
 	<select id="view" parameterType="int"
 		resultType="com.board.domain.BoardVO">
 		select
-		bno, title, writer, regDate, viewCnt, pNum
+		bno, title, writer, regDate, viewCnt, pNum, likeCnt
 		from
 		tbl_board
 		where
@@ -44,7 +44,7 @@
 		update tbl_board
 		set
 		viewCnt = viewCnt + 1
-		where bno = #{bno};
+		where bno = #{bno}
 	</update>
 
 	<!-- 게시물 삭제 -->
@@ -70,7 +70,7 @@
 	<select id="listPageSearch" parameterType="hashMap"
 		resultType="com.board.domain.BoardVO">
 		select
-		bno, title, writer, regDate, viewCnt, pNum
+		bno, title, writer, regDate, viewCnt, pNum, likeCnt
 		from tbl_board
 		<if test='searchType.equals("title")'>
 			WHERE title LIKE concat('%', #{keyword}, '%')
@@ -82,11 +82,32 @@
 		limit #{displayPost}, #{postNum}
 	</select>
 	
+	<!-- 좋아요 증가 -->
+	<update id="likeUpTbl" parameterType="com.board.domain.LikeVO">
+		update tbl_board
+		set
+		likeCnt = likeCnt + 1
+		where bno = #{tblBno}
+	</update>
+	
+	<!-- 좋아요 감소 -->
+	<update id="likeDownTbl" parameterType="com.board.domain.LikeVO">
+		update tbl_board
+		set
+		likeCnt = likeCnt - 1
+		where bno = #{tblBno}
+	</update>
+	
+	<!-- 좋아요 갯수 -->
+	<select id="likeCnt" parameterType="int" resultType="int">
+		select likeCnt from tbl_board where bno = #{tblBno}
+	</select>
+	
 	<!-- 마이페이지 게시물 목록 + 페이징 + 검색 -->
 	<select id="MyPageSearch" parameterType="hashMap"
 		resultType="com.board.domain.BoardVO">
 		select
-		bno, title, writer, regDate, viewCnt, pNum
+		bno, title, writer, regDate, viewCnt, pNum, likeCnt
 		from tbl_board
 		<if test='searchType.equals("title")'>
 			WHERE title LIKE concat('%', #{keyword}, '%') and writer = #{writer}
@@ -267,5 +288,31 @@
 	</select>
 
 	<!-- tp_board end -->
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	<!-- like_board start -->
+	
+	<!-- 조회수 증가 -->
+	<insert id="likeUp" parameterType="com.board.domain.LikeVO">
+		insert into
+		like_board(tblBno, userID)
+		values(#{tblBno}, #{userID})
+	</insert>
+	
+	<!-- 조회수 감소 -->
+	<delete id="likeDown" parameterType="com.board.domain.LikeVO">
+		delete from like_board
+		where tblBno = #{tblBno} and userID = #{userID}
+	</delete>
+	
+	<!-- 좋아요 검색 -->
+	<select id="likeCheck" parameterType="com.board.domain.LikeVO" resultType="com.board.domain.LikeVO">
+		select
+		tblBno, userID
+		from
+		like_board
+		where tblBno = #{tblBno} and userID = #{userID}
+	</select>
+	
+	<!-- like_board end -->
 
 </mapper>

@@ -26,6 +26,7 @@
 				<th>제목</th>
 				<th>작성일</th>
 				<th>조회수</th>
+				<th>추천수</th>
 			</tr>
 		</thead>
 
@@ -43,6 +44,7 @@
 						</c:forEach></td>
 					<td>${list.regDate}</td>
 					<td>${list.viewCnt}</td>
+					<td>${list.likeCnt}</td>
 				</tr>
 			</c:forEach>
 		</tbody>

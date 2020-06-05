@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.board.domain.BoardVO;
+import com.board.domain.LikeVO;
 
 
 @Repository
@@ -88,6 +89,44 @@ public class BoardDAOImpl implements BoardDAO {
 		data.put("keyword", keyword);
 	  
 		return sql.selectList(namespace + ".MyPageSearch", data);
+	}
+
+	@Override
+	public LikeVO likeCheck(LikeVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return sql.selectOne(namespace + ".likeCheck", vo);
+	}
+
+	@Override
+	public void likeUp(LikeVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		sql.insert(namespace + ".likeUp", vo);
+		
+	}
+
+	@Override
+	public void likeDown(LikeVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		sql.delete(namespace + ".likeDown", vo);
+		
+	}
+
+	@Override
+	public int likeCnt(int tblBno) throws Exception {
+		// TODO Auto-generated method stub
+		return sql.selectOne(namespace + ".likeCnt", tblBno);
+	}
+
+	@Override
+	public void likeUpTbl(LikeVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		sql.update(namespace + ".likeUpTbl", vo);
+	}
+
+	@Override
+	public void likeDownTbl(LikeVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		sql.update(namespace + ".likeDownTbl", vo);
 	}
 
 }

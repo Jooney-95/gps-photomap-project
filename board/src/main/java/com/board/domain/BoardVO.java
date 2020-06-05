@@ -12,7 +12,14 @@ public class BoardVO {
 	private Date regDate;
 	private int viewCnt;
 	private int pNum;
+	private int likeCnt;
 	
+	public int getLikeCnt() {
+		return likeCnt;
+	}
+	public void setLikeCnt(int likeCnt) {
+		this.likeCnt = likeCnt;
+	}
 	public int getBno() {
 		return bno;
 	}
