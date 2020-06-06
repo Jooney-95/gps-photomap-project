@@ -70,9 +70,9 @@
       
       <div id="bottom">
          공개 범위 
-         <input type="radio" name="pNum" value="0" checked="true">  전체 공개
-         <input type="radio" name="pNum" value="1">  이웃 공개
-         <input type="radio" name="pNum" value="2">  비공개
+         <input type="radio" name="pNum" value="-1" checked="checked">  전체공개
+         <input type="radio" name="pNum" value="-2">  비공개
+         <input type="radio" name="pNum" value="${session.id }">  맞팔공개
       </div>   
       
 </div>

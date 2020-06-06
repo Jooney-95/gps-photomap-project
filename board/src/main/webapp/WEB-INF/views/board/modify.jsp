@@ -154,7 +154,7 @@
 				for (j = 0; j < tp.length; j++) {
 					if (listID[i] == tpBno[j]) {
 						var checktp = listID[i] + tp[j];
-						document.getElementById(checktp).checked = true;
+						document.getElementById(checktp).checked = checked;
 					}
 				}
 			}

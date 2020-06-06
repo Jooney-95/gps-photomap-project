@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -144,16 +145,20 @@ public class BoardController {
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public String getDelete(@RequestParam("bno") int bno) throws Exception {
 		service.delete(bno);
-
+		fileService.deleteFileBno(bno);
+		tpService.deleteFileBno(bno);
 		return "redirect:/board/listPageSearch?num=1";
 	}
 
 	// 게시물 목록 + 페이징 추가 + 검색
 	@RequestMapping(value = "/listPageSearch", method = RequestMethod.GET)
-	public void getListPageSearch(Model model, @RequestParam("num") int num,
+	public void getListPageSearch(Model model, HttpSession session, @RequestParam("num") int num,
 			@RequestParam(value = "searchType", required = false, defaultValue = "title") String searchType,
 			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) throws Exception {
 
+		if(session != null) {
+			
+		}
 		Page page = new Page();
 
 		page.setNum(num);

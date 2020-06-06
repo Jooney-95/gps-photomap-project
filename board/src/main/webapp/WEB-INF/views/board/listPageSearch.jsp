@@ -23,6 +23,7 @@
 		<thead>
 			<tr>
 				<th>작성자</th>
+				<th>공개범위</th>
 				<th>제목</th>
 				<th>작성일</th>
 				<th>조회수</th>
@@ -34,6 +35,16 @@
 			<c:forEach items="${list}" var="list">
 				<tr>
 					<td id="writer${list.bno }"></td>
+					<td id="pNum${list.pNum }"><c:choose>
+                  		<c:when test="${list.pNum eq -1 }"> [공개]
+                 		</c:when>
+                  		<c:when test="${list.pNum eq -2 }"> [비공개]
+                  		</c:when>
+                 		<c:otherwise>
+                 			[맞팔공개]	
+                 		</c:otherwise>
+                  		</c:choose>
+                  	</td>
 					<td><a href="/board/view?bno=${list.bno}">${list.title}</a><br/><c:forEach
 							items="${fileList }" var="fileList">
 							<c:forEach items="${fileList }" var="fileList" end="2">
@@ -86,17 +97,19 @@
 			var mImg = new Array();
 			var mNickname = new Array();
 			var bno = new Array();
+			var userID = new Array();
 			
 			<c:forEach items="${member }" var="member">
 				mImg.push("${member.mImg }");
 				mNickname.push("${member.mNickname }");
+				userID.push("${member.id}");
 			</c:forEach>
 			<c:forEach items="${list}" var="list">
 				bno.push("writer${list.bno }");
 			</c:forEach>
 			
 			for(i=0;i<bno.length;i++){
-				document.getElementById(bno[i]).innerHTML = '<img width="100" height="100" alt="" src=' + mImg[i] + '>' + mNickname[i] + '';	
+				document.getElementById(bno[i]).innerHTML = '<img width="100" height="100" alt="" src=' + mImg[i] + '><br/><a href="/member/myPage?num=1&userID=' + userID[i] + '">' + mNickname[i] + '</a>';	
 			}
 
 			document.getElementById("searchBtn").onclick = function() {

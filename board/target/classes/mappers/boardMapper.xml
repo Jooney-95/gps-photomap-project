@@ -73,10 +73,10 @@
 		bno, title, writer, regDate, viewCnt, pNum, likeCnt
 		from tbl_board
 		<if test='searchType.equals("title")'>
-			WHERE title LIKE concat('%', #{keyword}, '%')
+			WHERE (title LIKE concat('%', #{keyword}, '%'))
 		</if>
 		<if test='searchType.equals("writer")'>
-			WHERE writer LIKE concat('%', #{keyword}, '%')
+			WHERE (writer LIKE concat('%', #{keyword}, '%'))
 		</if>
 		order by bno desc
 		limit #{displayPost}, #{postNum}
@@ -162,6 +162,13 @@
 		delete
 		from file_board
 		where id = #{del}
+	</delete>
+	
+	<!-- 게시글 파일 삭제 -->
+	<delete id="deleteFFB" parameterType="int">
+		delete
+		from file_board
+		where fileBno = #{bno}
 	</delete>
 
 	<!-- 파일 이름 불러오기 -->
@@ -286,6 +293,13 @@
 		from tp_board
 		where fileBno = #{bno}
 	</select>
+	
+	<!-- 게시글 이동수단 삭제 -->
+	<delete id="deleteTFB" parameterType="int">
+		delete
+		from tp_board
+		where fileBno = #{bno}
+	</delete>
 
 	<!-- tp_board end -->
 	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
@@ -312,6 +326,46 @@
 		like_board
 		where tblBno = #{tblBno} and userID = #{userID}
 	</select>
+	
+	<!-- like_board end -->
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	<!-- like_board start -->
+	
+	<!-- 팔로잉 검색 -->
+	<select id="followingCheck" parameterType="com.board.domain.FollowVO" resultType="com.board.domain.FollowVO">
+		select
+		id, userID, following, fforf 
+		from
+		fol_board
+		where userID = #{userID} and following = #{following}
+	</select>
+	
+	<!-- 팔로우 -->
+	<insert id="follow" parameterType="com.board.domain.FollowVO">
+		insert into
+		fol_board(userID, following)
+		values(#{userID}, #{following})
+	</insert>
+	
+	<!-- 언팔로우 -->
+	<delete id="unFollow" parameterType="com.board.domain.FollowVO">
+		delete from fol_board
+		where (userID = #{userID}) and (following =  #{following})
+	</delete>
+	
+	<!-- 맞팔로우 -->
+	<update id="fforf" parameterType="com.board.domain.FollowVO">
+		update fol_board
+		set fforf = 1
+		where ((userID = #{userID}) and (following =  #{following})) or ((userID = #{following}) and (following =  #{userID}))
+	</update>
+	
+	<!-- 언맞팔로우 -->
+	<update id="unFforf" parameterType="com.board.domain.FollowVO">
+		update fol_board
+		set fforf = 0
+		where ((userID = #{userID}) and (following =  #{following}))
+	</update>
 	
 	<!-- like_board end -->
 

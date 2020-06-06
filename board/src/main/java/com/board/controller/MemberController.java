@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.board.domain.BoardVO;
 import com.board.domain.FileVO;
+import com.board.domain.FollowVO;
 import com.board.domain.MemberVO;
 import com.board.domain.Page;
 import com.board.service.BoardService;
@@ -196,19 +197,19 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/myPage", method = RequestMethod.GET)
-	public void getMyPage(Model model, HttpSession session, @RequestParam("num") int num,
+	public void getMyPage(Model model, @RequestParam("userID") int userID, @RequestParam("num") int num,
 			@RequestParam(value = "searchType", required = false, defaultValue = "title") String searchType,
 			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) throws Exception {
 		
 		Page page = new Page();
-		MemberVO member = (MemberVO)session.getAttribute("session");
+		
 		
 		page.setNum(num);
-		page.setCount(service.countMyPage(member.getId()));
+		page.setCount(service.countMyPage(userID));
 		
 		List<BoardVO> list = null;
 		
-		list = boardService.MyPageSearch(member.getId(), page.getDisplayPost(), page.getPostNum(), searchType, keyword);
+		list = boardService.MyPageSearch(userID, page.getDisplayPost(), page.getPostNum(), searchType, keyword);
 
 		List<FileVO> fList = new ArrayList<FileVO>();
 		List<ArrayList<FileVO>> fileList = new ArrayList<ArrayList<FileVO>>();
@@ -228,6 +229,68 @@ public class MemberController {
 		model.addAttribute("page", page);
 		model.addAttribute("select", num);
 		model.addAttribute("member", mList);
+		model.addAttribute("userID", userID);
 	}
 
+	@ResponseBody
+	@RequestMapping(value = "/followingCheck", method = RequestMethod.POST)
+	public int postFollowCheck(HttpServletRequest req) throws Exception {
+		int sessionID = Integer.parseInt(req.getParameter("sessionID"));
+		int userID = Integer.parseInt(req.getParameter("userID"));
+		
+		FollowVO suVo = new FollowVO();
+		suVo.setUserID(sessionID);
+		suVo.setFollowing(userID);
+		
+		FollowVO usVo = new FollowVO();
+		usVo.setUserID(userID);
+		usVo.setFollowing(sessionID);
+		
+		FollowVO suCheck = service.followingCheck(suVo);
+		FollowVO usCheck = service.followingCheck(usVo);
+		
+		int result = 0;
+		if (suCheck == null && usCheck != null) {
+			result = 2;
+		}
+		else if(suCheck != null) {
+			result = 1;
+		}
+
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/followClick", method = RequestMethod.POST)
+	public void postFollowClick(HttpServletRequest req) throws Exception {
+		int sessionID = Integer.parseInt(req.getParameter("sessionID"));
+		int userID = Integer.parseInt(req.getParameter("userID"));
+		
+		FollowVO suVo = new FollowVO();
+		suVo.setUserID(sessionID);
+		suVo.setFollowing(userID);
+		
+		FollowVO usVo = new FollowVO();
+		usVo.setUserID(userID);
+		usVo.setFollowing(sessionID);
+		
+		FollowVO suCheck = service.followingCheck(suVo);
+		FollowVO usCheck = service.followingCheck(usVo);
+		
+		if (suCheck == null && usCheck == null) {
+			service.follow(suVo);
+		}
+		else if(suCheck != null && usCheck == null) {
+			service.unFollow(suVo);
+		}
+		else if(suCheck == null && usCheck != null) {
+			service.follow(suVo);
+			service.fforf(suVo);
+		}
+		else if(suCheck != null && usCheck != null) {
+			service.unFollow(suVo);
+			service.unFforf(usVo);
+		}
+		
+	}
 }

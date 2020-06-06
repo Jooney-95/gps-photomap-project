@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.board.dao.MemberDAO;
+import com.board.domain.FollowVO;
 import com.board.domain.MemberVO;
 
 @Service
@@ -72,6 +73,36 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO memberVO(int id) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.memberVO(id);
+	}
+
+	@Override
+	public FollowVO followingCheck(FollowVO fVo) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.followingCheck(fVo);
+	}
+
+	@Override
+	public void follow(FollowVO fVo) throws Exception {
+		// TODO Auto-generated method stub
+		dao.follow(fVo);
+	}
+
+	@Override
+	public void unFollow(FollowVO fVo) throws Exception {
+		// TODO Auto-generated method stub
+		dao.unFollow(fVo);
+	}
+
+	@Override
+	public void fforf(FollowVO fVo) throws Exception {
+		// TODO Auto-generated method stub
+		dao.fforf(fVo);
+	}
+
+	@Override
+	public void unFforf(FollowVO fVo) throws Exception {
+		// TODO Auto-generated method stub
+		dao.unFforf(fVo);
 	}
 
 

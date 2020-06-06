@@ -12,4 +12,6 @@ public interface TpDAO {
 
 	List<TpVO> viewTp(int bno) throws Exception;
 
+	void deleteFileBno(int bno) throws Exception;
+
 }

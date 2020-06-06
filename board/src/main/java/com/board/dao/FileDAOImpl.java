@@ -58,4 +58,10 @@ public class FileDAOImpl implements FileDAO {
 		}
 	}
 
+	@Override
+	public void deleteFileBno(int bno) throws Exception {
+		// TODO Auto-generated method stub
+		sql.delete(namespace + ".deleteFFB", bno);
+	}
+
 }

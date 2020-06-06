@@ -44,4 +44,10 @@ public class FileServiceImpl implements FileService {
 		dao.deleteFile(delete);
 	}
 
+	@Override
+	public void deleteFileBno(int bno) throws Exception {
+		// TODO Auto-generated method stub
+		dao.deleteFileBno(bno);
+	}
+
 }

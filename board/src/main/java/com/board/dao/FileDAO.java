@@ -16,4 +16,6 @@ public interface FileDAO {
 
 	public void deleteFile(String[] delete) throws Exception;
 
+	public void deleteFileBno(int bno) throws Exception;
+
 }

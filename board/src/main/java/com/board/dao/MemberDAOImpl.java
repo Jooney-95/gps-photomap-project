@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.board.domain.FollowVO;
 import com.board.domain.MemberVO;
 import com.board.domain.Profile;
 
@@ -77,6 +78,36 @@ public class MemberDAOImpl implements MemberDAO {
 	public MemberVO memberVO(int id) throws Exception {
 		// TODO Auto-generated method stub
 		return sql.selectOne(namespace + ".memberVO", id);
+	}
+
+	@Override
+	public FollowVO followingCheck(FollowVO fVo) throws Exception {
+		// TODO Auto-generated method stub
+		return sql.selectOne(namespace + ".followingCheck", fVo);
+	}
+
+	@Override
+	public void follow(FollowVO fVo) throws Exception {
+		// TODO Auto-generated method stub
+		sql.insert(namespace + ".follow", fVo);
+	}
+
+	@Override
+	public void unFollow(FollowVO fVo) throws Exception {
+		// TODO Auto-generated method stub
+		sql.delete(namespace + ".unFollow", fVo);
+	}
+
+	@Override
+	public void fforf(FollowVO fVo) throws Exception {
+		// TODO Auto-generated method stub
+		sql.update(namespace + ".fforf", fVo);
+	}
+
+	@Override
+	public void unFforf(FollowVO fVo) throws Exception {
+		// TODO Auto-generated method stub
+		sql.update(namespace + ".unFforf", fVo);
 	}
 
 }
