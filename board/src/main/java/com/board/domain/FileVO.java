@@ -9,8 +9,21 @@ public class FileVO {
 	private String longitude;
 	private String timeView;
 	private String content;
+	private int userID;
 	
 	
+	public int getFileBno() {
+		return fileBno;
+	}
+	public void setFileBno(int fileBno) {
+		this.fileBno = fileBno;
+	}
+	public int getUserID() {
+		return userID;
+	}
+	public void setUserID(int userID) {
+		this.userID = userID;
+	}
 	public String getLatitude() {
 		return latitude.replaceAll("(?i)<script", "&lt;script");
 	}
@@ -37,12 +50,6 @@ public class FileVO {
 	}
 	public void setId(int id) {
 		this.id = id;
-	}
-	public int getfileBno() {
-		return fileBno;
-	}
-	public void setfileBno(int fileBno) {
-		this.fileBno = fileBno;
 	}
 	public String getTimeView() {
 		return timeView.replaceAll("(?i)<script", "&lt;script");

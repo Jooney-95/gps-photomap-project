@@ -1,12 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="/resources/js/preview.js"></script>
+<script src="/resources/js/imgPreviewUpload.js?var=4"></script>
 <meta charset="UTF-8">
 
 <title>게시물 작성</title>
@@ -42,13 +42,12 @@
 </div>   
 </div>
 
-
 <form method="post" id="f" enctype="multipart/form-data" >   
 <div class="main">
 
       <div id="top">
          <p>제목     <input type="text" id="title" name="title" placeholder="제목을 입력하세요."/></p>
-         <input type="hidden" name="writer" value="${session.id }" />
+         <input type="hidden" id="userID" name="writer" value="${session.id }" />
           <p>작성자  <input type="text" value="${session.mNickname }" readOnly /></p>
       </div>
       
@@ -57,7 +56,7 @@
            <span class="label">
              내 라이브러리
            </span>
-             <input type="file" name="filesList" id="input_imgs" class="upload-box" placeholder="Upload File" accept=".jpg, .jpeg" multiple/></p>
+             <input type="file" id="input_imgs" name="imgList" class="upload-box" placeholder="Upload File" accept=".jpg, .jpeg" multiple/></p>
       </div>
       
       <div id="text">
@@ -79,28 +78,17 @@
       
 <div class="button">
    <button class="raise" id="bWrite" type="button">작성</button>
+   <button class="raise" id="bImgUpload" type="button">이미지 업로드</button>
 </div>   
       
 </form>   
 
 <script>
-   var title = document.getElementById("title");
-   var bWrite = document.getElementById("bWrite");
-   
    function resize(obj) {
         obj.style.height = "1px";
         obj.style.height = (12+obj.scrollHeight)+"px";   
    }
-   
-   bWrite.addEventListener('click', function(event){
-	  if(title.value.trim() != ""){
-		  document.getElementById("f").submit();
-	  } else{
-		  alert("제목을 입력하세요.");
-	  }
-   });
-   
-   
+
 </script>
 
 

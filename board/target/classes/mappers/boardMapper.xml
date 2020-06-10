@@ -126,12 +126,20 @@
 
 	<!-- 파일 추가 -->
 	<insert id="writeFile" parameterType="hashMap">
+		update file_board
+		set
+		fileBno = #{fileBno},
+		userID = #{userID}
+		where fileBno = 0 and userID = -1
+	</insert>
+	
+	<insert id="imgUpload" parameterType="hashMap">
 		insert into
-		file_board(fileBno, latitude, longitude, timeView, fileName, path, content)
+		file_board(latitude, longitude, timeView, fileName, path, userID)
 		values
 		<foreach collection="fileVOList" item="item" separator=" , ">
-			(#{item.fileBno}, #{item.latitude}, #{item.longitude},
-			#{item.timeView}, #{item.fileName}, #{item.path}, "")
+			(#{item.latitude}, #{item.longitude},
+			#{item.timeView}, #{item.fileName}, #{item.path}, #{item.userID})
 		</foreach>
 	</insert>
 
@@ -145,11 +153,33 @@
 		where fileBno = #{bno}
 		order by timeView
 	</select>
+	
+	<!-- 파일 불러오기 -->
+	<select id="imgSelect" parameterType="int"
+		resultType="com.board.domain.FileVO">
+		select
+		id, latitude, longitude, timeView
+		from
+		file_board
+		where userID = #{userID} and fileBno = 0
+	</select>
 
 	<!-- 파일 수정 -->
 	<update id="modifyFile" parameterType="com.board.domain.FileVO">
 		update file_board
 		set
+		timeView = #{timeView},
+		latitude = #{latitude},
+		longitude = #{longitude},
+		content = #{content}
+		where id = #{id}
+	</update>
+	
+	<!-- 파일 수정 -->
+	<update id="writeClick" parameterType="com.board.domain.FileVO">
+		update file_board
+		set
+		fileBno = #{fileBno},
 		timeView = #{timeView},
 		latitude = #{latitude},
 		longitude = #{longitude},
@@ -169,6 +199,13 @@
 		delete
 		from file_board
 		where fileBno = #{bno}
+	</delete>
+	
+	<!-- 게시글 파일 삭제 -->
+	<delete id="beforeunload" parameterType="int">
+		delete
+		from file_board
+		where userID = #{userID}
 	</delete>
 
 	<!-- 파일 이름 불러오기 -->
@@ -329,7 +366,7 @@
 	
 	<!-- like_board end -->
 	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-	<!-- like_board start -->
+	<!-- fol_board start -->
 	
 	<!-- 팔로잉 검색 -->
 	<select id="followingCheck" parameterType="com.board.domain.FollowVO" resultType="com.board.domain.FollowVO">
@@ -367,6 +404,6 @@
 		where ((userID = #{userID}) and (following =  #{following}))
 	</update>
 	
-	<!-- like_board end -->
+	<!-- fol_board end -->
 
 </mapper>
