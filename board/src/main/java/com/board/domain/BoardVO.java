@@ -8,11 +8,18 @@ import com.drew.lang.annotations.NotNull;
 public class BoardVO {
 	private int bno;
 	private String title;
-	private String writer;
+	private int writer;
 	private Date regDate;
 	private int viewCnt;
 	private int pNum;
+	private int likeCnt;
 	
+	public int getLikeCnt() {
+		return likeCnt;
+	}
+	public void setLikeCnt(int likeCnt) {
+		this.likeCnt = likeCnt;
+	}
 	public int getBno() {
 		return bno;
 	}
@@ -20,15 +27,15 @@ public class BoardVO {
 		this.bno = bno;
 	}
 	public String getTitle() {
-		return title;
+		return title.replaceAll("(?i)<script", "&lt;script");
 	}
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getWriter() {
+	public int getWriter() {
 		return writer;
 	}
-	public void setWriter(String writer) {
+	public void setWriter(int writer) {
 		this.writer = writer;
 	}
 	public Date getRegDate() {

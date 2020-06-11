@@ -27,24 +27,43 @@ public class Files {
 	private int SIZE = 0;
 	private int i = 0;
 	private int fBno = 0;
-
+	private int userID = 0;
+	
 	private List<MultipartFile> files = null;
 	private String latitude[];
 	private String longitude[];
 	private String timeView[];
 	private String path[];
 	private String fileName[];
+	
 	private List<FileVO> fileVOList = new ArrayList<FileVO>();
 
 	SimpleDateFormat formatView = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	String fView = null;
 
-	public HashMap<String, Object> setFiles(List<MultipartFile> filesList, int fileBno) throws Exception {
+	public HashMap<String, Object> setFiles(List<MultipartFile> filesList, int fileBno, int userID) throws Exception {
 		this.files = filesList;
-
+		this.userID = userID;
 		// �뙆�씪 �닔 �꽕�젙
 		SIZE = filesList.size();
 		fBno = fileBno;
+
+		latitude = new String[SIZE];
+		longitude = new String[SIZE];
+		timeView = new String[SIZE];
+		fileName = new String[SIZE];
+		path = new String[SIZE];
+
+		fileWirteEXIF(files);
+
+		return fileVOSet();
+	}
+	
+	public HashMap<String, Object> imgUpload(List<MultipartFile> filesList, int userID) throws Exception {
+		this.files = filesList;
+		this.userID = userID;
+		// �뙆�씪 �닔 �꽕�젙
+		SIZE = filesList.size();
 
 		latitude = new String[SIZE];
 		longitude = new String[SIZE];
@@ -65,12 +84,13 @@ public class Files {
 				break;
 			}
 			fileVO[j] = new FileVO();
-			fileVO[j].setfileBno(fBno);
+			fileVO[j].setFileBno(fBno);
 			fileVO[j].setLatitude(latitude[j]);
 			fileVO[j].setLongitude(longitude[j]);
 			fileVO[j].setTimeView(timeView[j]);
 			fileVO[j].setFileName(fileName[j]);
 			fileVO[j].setPath(path[j]);
+			fileVO[j].setUserID(userID);
 			fileVOList.add(fileVO[j]);
 		}
 
@@ -80,7 +100,7 @@ public class Files {
 		return fileMap;
 	}
 
-	private boolean fileWrite(MultipartFile multipartFile, String saveFileName) throws Exception {
+	public boolean fileWrite(MultipartFile multipartFile, String saveFileName) throws Exception {
 		boolean result = false;
 
 		byte[] data = multipartFile.getBytes();
@@ -126,7 +146,7 @@ public class Files {
 
 					}
 				} else {
-					timeView[i] = " ";
+					timeView[i] = "";
 				}
 
 				if (gpsDirectory != null) {
@@ -137,14 +157,14 @@ public class Files {
 						longitude[i] = Double.toString(exifLocation.getLongitude());
 					}
 				} else {
-					latitude[i] = " ";
-					longitude[i] = " ";
+					latitude[i] = "";
+					longitude[i] = "";
 				}
 
 			} else {
-				latitude[i] = " ";
-				longitude[i] = " ";
-				timeView[i] = " ";
+				latitude[i] = "";
+				longitude[i] = "";
+				timeView[i] = "";
 			}
 			fileName[i] = saveFileName;
 			path[i] = PREFIX_URL + saveFileName;
@@ -179,7 +199,7 @@ public class Files {
 		}
 	}
 
-	public static String getRandomString() {
+	public String getRandomString() {
 		
 		String fileName;
 		String saveFileName = UUID.randomUUID().toString().replaceAll("-", "") + ".jpg";
@@ -195,6 +215,25 @@ public class Files {
 
 		return fileName;
 
+	}
+
+	public FileVO[] writeClick(int fileBno, String[] id, String[] lat, String[] lon, String[] time, String[] content) {
+		// TODO Auto-generated method stub
+		int size = id.length;
+		
+		FileVO[] modifyVO = new FileVO[size];
+		for (int j = 0; j < size; j++) {
+			if(id[j] != "") {
+				modifyVO[j] = new FileVO();
+				modifyVO[j].setFileBno(fileBno);
+				modifyVO[j].setId(Integer.parseInt(id[j]));
+				modifyVO[j].setLatitude(lat[j].trim());
+				modifyVO[j].setLongitude(lon[j].trim());
+				modifyVO[j].setTimeView(time[j].trim());
+				modifyVO[j].setContent(content[j]);
+			}
+		}
+		return modifyVO;
 	}
 
 }

@@ -20,12 +20,12 @@ public class FileDAOImpl implements FileDAO {
 	private static String namespace = "com.board.mappers.board";
 
 	@Override
-	public void write(List<MultipartFile> file, int fileBno) throws Exception {
+	public void write(List<MultipartFile> file, int fileBno, int uesrID) throws Exception {
 		// TODO Auto-generated method stub
 		
 		Files files = new Files();
 	
-		sql.insert(namespace + ".writeFile", files.setFiles(file, fileBno));
+		sql.insert(namespace + ".writeFile", files.setFiles(file, fileBno, uesrID));
 	}
 
 	@Override
@@ -56,6 +56,43 @@ public class FileDAOImpl implements FileDAO {
 			files.deleteFile(sql.selectOne(namespace + ".fileName", Integer.parseInt(del)));
 			sql.delete(namespace + ".deleteFile", Integer.parseInt(del));
 		}
+	}
+
+	@Override
+	public void deleteFileBno(int bno) throws Exception {
+		// TODO Auto-generated method stub
+		sql.delete(namespace + ".deleteFFB", bno);
+	}
+
+	@Override
+	public void imgUpload(List<MultipartFile> file, int uesrID) throws Exception {
+		// TODO Auto-generated method stub
+		Files files = new Files();
+		
+		sql.insert(namespace + ".imgUpload", files.imgUpload(file, uesrID));
+	}
+
+	@Override
+	public List<FileVO> imgSelect(int userID) throws Exception {
+		// TODO Auto-generated method stub
+		return sql.selectList(namespace + ".imgSelect", userID);
+	}
+
+	@Override
+	public void writeClick(int fileBno, String[] id, String[] lat, String[] lon, String[] time, String[] content)
+			throws Exception {
+		// TODO Auto-generated method stub
+		Files f = new Files();
+		FileVO[] fileVO = f.writeClick(fileBno, id, lat, lon, time, content);
+		for(FileVO vo : fileVO) {
+			sql.update(namespace + ".writeClick", vo);
+		}
+	}
+
+	@Override
+	public void beforeunload(int userID) throws Exception {
+		// TODO Auto-generated method stub
+		sql.delete(namespace + ".beforeunload", userID);
 	}
 
 }

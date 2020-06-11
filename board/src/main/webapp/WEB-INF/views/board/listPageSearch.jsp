@@ -7,33 +7,81 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>insert title here</title>
+	<title>메인</title>
+	<link rel="stylesheet" href="/resources/css/top.css">
+	<link rel="stylesheet" href="/resources/css/main.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+	
 </head>
 
 <body>
-	<div id="nav">
-		<c:if test="${member != null }">
-			<%@ include file="../include/navLogin.jsp"%>
-		</c:if>
-		<c:if test="${member == null }">
-			<%@ include file="../include/navLogout.jsp"%>
-		</c:if>
-	</div>
+<!-- 상단 바 -->
+<div id="header">
+   <!-- 로고 -->
+     <div class="logo">
+       <a href="/board/listPageSearch?num=1">SAMPLE</a>
+     </div>     
+<!-- 검색창 -->
+<div class="wrap">
+	<div class="search">
+        <input type="text" class="searchTerm" placeholder="어떤 곳을 찾으시나요?">
+        <button type="submit" class="searchButton">
+        	<i class="fa fa-search"></i>
+        </button>
+    </div>
+</div>
+
+   <!-- 사용자 로그인 현황 -->
+   <div class="r">
+      <div class="profile">
+         <a href="/member/myPage?num=1&userID=${session.id }"><img src="${session.mImg }"/>
+         ${session.mNickname }
+         </a>
+      </div>
+      <div id="log">
+            <c:if test="${session != null }">
+               <%@ include file="../include/navLogin.jsp"%>
+            </c:if>
+            <c:if test="${session == null }">
+               <%@ include file="../include/navLogout.jsp"%>
+            </c:if>
+      </div>
+   </div>
+   
+<!-- 게시물 작성 버튼-->
+   <div class="writebutton">
+       <a href="/board/write"><img src="/resources/imgs/w1.png"/></a>
+   </div>
+   
+
+</div>
+
 	<table>
 		<thead>
 			<tr>
-				<th>번호</th>
+				<th>작성자</th>
+				<th>공개범위</th>
 				<th>제목</th>
 				<th>작성일</th>
-				<th>작성자</th>
 				<th>조회수</th>
+				<th>추천수</th>
 			</tr>
 		</thead>
 
 		<tbody>
 			<c:forEach items="${list}" var="list">
 				<tr>
-					<td>${list.bno}</td>
+					<td id="writer${list.bno }"></td>
+					<td id="pNum${list.pNum }"><c:choose>
+                  		<c:when test="${list.pNum eq -1 }"> [공개]
+                 		</c:when>
+                  		<c:when test="${list.pNum eq -2 }"> [비공개]
+                  		</c:when>
+                 		<c:otherwise>
+                 			[맞팔공개]	
+                 		</c:otherwise>
+                  		</c:choose>
+                  	</td>
 					<td><a href="/board/view?bno=${list.bno}">${list.title}</a><br/><c:forEach
 							items="${fileList }" var="fileList">
 							<c:forEach items="${fileList }" var="fileList" end="2">
@@ -43,8 +91,8 @@
 							</c:forEach>
 						</c:forEach></td>
 					<td>${list.regDate}</td>
-					<td>${list.writer}</td>
 					<td>${list.viewCnt}</td>
+					<td>${list.likeCnt}</td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -77,21 +125,39 @@
 	    	<select name="searchType">
 	    		<option value="writer">작성자</option>
 				<option value="title">제목</option>
-			    <option value="content">내용</option>
-			    <option value="title_content">제목+내용</option>
 			</select>
         	<input type="text" name="keyword" />
 			<button type="button" id="searchBtn">검색</button>
  		</div>
 		<script>
-		document.getElementById("searchBtn").onclick = function () {
-		    
-			let searchType = document.getElementsByName("searchType")[0].value;
-			let keyword =  document.getElementsByName("keyword")[0].value;
-		  
-			location.href = "/board/listPageSearch?num=1" + "&searchType=" + searchType + "&keyword=" + keyword;
-		};
-</script>
+		
+			var mImg = new Array();
+			var mNickname = new Array();
+			var bno = new Array();
+			var userID = new Array();
+			
+			<c:forEach items="${member }" var="member">
+				mImg.push("${member.mImg }");
+				mNickname.push("${member.mNickname }");
+				userID.push("${member.id}");
+			</c:forEach>
+			<c:forEach items="${list}" var="list">
+				bno.push("writer${list.bno }");
+			</c:forEach>
+			
+			for(i=0;i<bno.length;i++){
+				document.getElementById(bno[i]).innerHTML = '<img width="100" height="100" alt="" src=' + mImg[i] + '><br/><a href="/member/myPage?num=1&userID=' + userID[i] + '">' + mNickname[i] + '</a>';	
+			}
+
+			document.getElementById("searchBtn").onclick = function() {
+
+				let searchType = document.getElementsByName("searchType")[0].value;
+				let keyword = document.getElementsByName("keyword")[0].value;
+
+				location.href = "/board/listPageSearch?num=1" + "&searchType="
+						+ searchType + "&keyword=" + keyword;
+			};
+		</script>
 	</div>
 </body>
 

@@ -39,4 +39,10 @@ public class TpDAOImpl implements TpDAO {
 		return sql.selectList(namespace + ".viewTp", bno);
 	}
 
+	@Override
+	public void deleteFileBno(int bno) throws Exception {
+		// TODO Auto-generated method stub
+		sql.delete(namespace + ".deleteTFB", bno);
+	}
+
 }

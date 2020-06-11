@@ -1,0 +1,139 @@
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: sans-serif;
+  font-size: 18px;
+}
+
+
+/*/////////////헤더/////////////*/
+#header {
+  background: #1CDD9E;
+  font-color:#fff; 
+  width: 100%;/*헤더 가로*/
+  height:100px; /*헤더 높이*/
+  /*상단 고정*/
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index:10;
+}
+/*////////////////////////////*/
+
+
+
+/*///////////로고//////////////*/
+.logo {
+  float: left;/*왼쪽 정렬*/
+  padding: 30px 0 20px;/*로고 위치*/
+}
+.logo a {
+  color: #fff;
+  font-size: 28px;
+  display: block;
+  padding: 0 0 0 20px;
+  text-decoration: none; /*텍스트 밑줄 제거*/
+}
+/*///////////////////////////*/
+
+
+/*///////////////검색창/////////////////*/
+.search {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 3px solid #10b27d;
+  border-right: none;
+  padding: 10px;
+  height: 50px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9dbfaf;
+}
+
+.searchTerm:focus {
+  color: #000000;/*검색내용텍스트색*/
+}
+
+.searchButton {
+  width: 60px;
+  padding: 10px;
+  height: 50px;
+  border: 1px solid #10b27d;
+  background: #10b27d;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.wrap {
+  width: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+/*///////////////////////////////*/
+
+.r{
+  display: inline-block;
+  vertical-align: middle;
+  height: 100px;
+  width: 100px;
+  float:right;
+  padding:10px;
+  font-size: 15px;
+  margin-right:10px;
+}
+
+.profile{
+  width: 80px;
+  margin-top:6px;
+  text-align:center;
+}
+
+.profile img{
+    width:45px;
+   height:45px;
+   border: 2px solid #10b27d;
+    border-radius: 77%;
+}
+
+#log{
+  width: 80px;
+  height:25px;
+  font-size: 14px;
+  text-align:center;
+}
+
+.writebutton{
+  display: inline-block;
+  vertical-align: middle;
+  width: 50px;
+  float:right;
+  padding: 20px 0 20px;
+}
+
+.writebutton img{
+   width:52px;
+   height:52px;
+   padding: 6px;
+   border: 2px solid #10b27d;
+    border-radius: 77%;
+    margin-top:5px;
+}

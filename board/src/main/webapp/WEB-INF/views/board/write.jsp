@@ -1,16 +1,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="/resources/js/preview.js"></script>
+<script src="/resources/js/imgPreviewUpload.js?var=4"></script>
 <meta charset="UTF-8">
 
 <title>게시물 작성</title>
 <link rel="stylesheet" href="/resources/css/write.css">
+<link rel="stylesheet" href="/resources/css/top.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 </head>
 
@@ -18,37 +19,49 @@
 <body>
 
 <div id="header">
- 
-  <div class="logo">
-    <a href="#">SAMPLE</a>
-  </div>
-  
-<div class="wrap">
-   <div class="search">
-      <input type="text" class="searchTerm" placeholder="어떤 곳을 찾으시나요?">
-      <button type="submit" class="searchButton">
-        <i class="fa fa-search"></i>
-     </button>
+   <!-- 로고 -->
+     <div class="logo">
+     	<a href="/board/listPageSearch?num=1">SAMPLE</a>
+     </div>
+     
+     <!-- 검색창 -->
+   <div class="wrap">
+         <div class="search">
+            <input type="text" class="searchTerm" placeholder="어떤 곳을 찾으시나요?">
+            <button type="submit" class="searchButton">
+            	<i class="fa fa-search"></i>
+           </button>
+         </div>
    </div>
-</div>
+
    
-<div id="nav">
-    <c:if test="${member != null }">
-         <%@ include file="../include/navLogin.jsp"%>
-    </c:if>
-    <c:if test="${member == null }">
-         <%@ include file="../include/navLogout.jsp"%>
-    </c:if>
-</div>   
+   <!-- 사용자 로그인 현황 -->
+   <div class="r">
+      <div class="profile">
+         <img src="/resources/imgs/p1.png"/>
+      </div>
+   
+      <div id="log">
+            <c:if test="${session != null }">
+               <%@ include file="../include/navLogin.jsp"%>
+            </c:if>
+            <c:if test="${session == null }">
+               <%@ include file="../include/navLogout.jsp"%>
+            </c:if>
+      </div>
+   </div>
+
+
 </div>
 
 
-<form method="post" enctype="multipart/form-data" >   
+<form method="post" id="f" enctype="multipart/form-data" >   
 <div class="main">
 
       <div id="top">
-         <p>제목     <input type="text" name="title" placeholder="제목을 입력하세요."/></p>
-         <p>작성자  <input type="text" name="writer" value="${member.mNickname }" readOnly /></p>
+         <p>제목     <input type="text" id="title" name="title" placeholder="제목을 입력하세요."/></p>
+         <input type="hidden" id="userID" name="writer" value="${session.id }" />
+          <p>작성자  <input type="text" value="${session.mNickname }" readOnly /></p>
       </div>
       
       <div class="button-wrapper">
@@ -56,7 +69,7 @@
            <span class="label">
              내 라이브러리
            </span>
-             <input type="file" name="filesList" id="input_imgs" class="upload-box" placeholder="Upload File"accept=".jpg, .jpeg" multiple/></p>
+             <input type="file" id="input_imgs" name="imgList" class="upload-box" placeholder="Upload File" accept=".jpg, .jpeg" multiple/></p>
       </div>
       
       <div id="text">
@@ -69,15 +82,16 @@
       
       <div id="bottom">
          공개 범위 
-         <input type="radio" name="pNum" value="0" checked="true">  전체 공개
-         <input type="radio" name="pNum" value="1">  이웃 공개
-         <input type="radio" name="pNum" value="2">  비공개
+         <input type="radio" name="pNum" value="-1" checked="checked">  전체공개
+         <input type="radio" name="pNum" value="-2">  비공개
+         <input type="radio" name="pNum" value="${session.id }">  맞팔공개
       </div>   
       
 </div>
       
 <div class="button">
-   <button class="raise" type="submit">작성</button>
+   <button class="raise" id="bWrite" type="button">작성</button>
+   <button class="raise" id="bImgUpload" type="button">이미지 업로드</button>
 </div>   
       
 </form>   
@@ -87,6 +101,7 @@
         obj.style.height = "1px";
         obj.style.height = (12+obj.scrollHeight)+"px";   
    }
+
 </script>
 
 

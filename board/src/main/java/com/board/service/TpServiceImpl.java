@@ -33,4 +33,10 @@ public class TpServiceImpl implements TpService {
 		return dao.viewTp(bno);
 	}
 
+	@Override
+	public void deleteFileBno(int bno) throws Exception {
+		// TODO Auto-generated method stub
+		dao.deleteFileBno(bno);
+	}
+
 }

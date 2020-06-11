@@ -100,11 +100,11 @@
     <div class="low">
     
        <div class="back" style=" float:left">
-          <button type="submit" >이전</button>
+          <button type="button" id="bBack">이전</button>
        </div>    
        
        <div class="next" style="float:right">
-          <button id="bSub">다음</button>
+          <button type="button" id="bNext">다음</button>
        </div>
        
     </div>
@@ -120,28 +120,34 @@
 
 </form>
 
-<script>
-var ch1 = document.getElementById("ch1");
-var ch2 = document.getElementById("ch2");
-var ch3 = document.getElementById("ch3");
-var bSub = document.getElementById("bSub");
+	<script>
+		var ch1 = document.getElementById("ch1");
+		var ch2 = document.getElementById("ch2");
+		var ch3 = document.getElementById("ch3");
+		var bBack = document.getElementById("bBack");
+		var bNext = document.getElementById("bNext");
 
-   bSub.addEventListener('click', function(event) {
-      if (ch1.checked) {
-         if (ch2.checked) {
-            if (ch3.checked) {
-               document.getElementById("f").submit();
-            } else {
-               ch3.focus();
-            }
-         } else {
-            ch2.focus();
-         }
-      } else {
-         ch1.focus();
-      }
-   });
-</script>
+		bBack.addEventListener('click', function(event) {
+			location.href = "/member/login";
+		});
+
+		bNext.addEventListener('click', function(event) {
+
+			if (ch1.checked) {
+				if (ch2.checked) {
+					if (ch3.checked) {
+						document.getElementById("f").submit();
+					} else {
+						alert("위치 정보 동의");
+					}
+				} else {
+					alert("개인정보 수집 및 이용 동의");
+				}
+			} else {
+				alert("이용약관 동의");
+			}
+		});
+	</script>
 </body>
 </html>
 

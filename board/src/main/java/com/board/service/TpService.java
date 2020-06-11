@@ -11,5 +11,7 @@ public interface TpService {
 	void set(TpVO tp) throws Exception;
 
 	public List<TpVO> viewTp(int bno) throws Exception;
+
+	void deleteFileBno(int bno) throws Exception;
 	
 }

@@ -1,79 +1,6 @@
 @charset "UTF-8";
 
-#header {
-  background: #1CDD9E;
-  font-color:#fff ;
-  width: 100%;/*헤더가로*/
-  height:100px; /*헤더높이*/
-  /*상단고정*/
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index:10;
-}
-/*////////////////////////////*/
 
-
-
-/*///////////로고//////////////*/
-.logo {
-  float: left;/*왼쪽정렬*/
-  padding: 30px 0 20px;/*로고위치*/
-}
-.logo a {
-  color: #fff;
-  font-size: 28px;
-  display: block;
-  padding: 0 0 0 20px;
-  text-decoration: none ;/*텍스트밑줄제거*/
-}
-/*///////////////////////////*/
-
-
-/*///////////////검색창/////////////////*/
-.search {
-  width: 100%;
-  position: relative;
-  display: flex;
-}
-
-.searchTerm {
-  width: 100%;
-  border: 3px solid #10b27d;
-  border-right: none;
-  padding: 10px;
-  height: 50px;
-  border-radius: 5px 0 0 5px;
-  outline: none;
-  color: #9dbfaf;
-}
-
-.searchTerm:focus {
-  color: #000000;/*검색내용텍스트색*/
-}
-
-.searchButton {
-  width: 60px;
-  padding: 10px;
-  height: 50px;
-  border: 1px solid #10b27d;
-  background: #10b27d;
-  text-align: center;
-  color: #fff;
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-  font-size: 20px;
-}
-
-.wrap {
-  width: 500px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-/*///////////////////////////////*/
 
 
 
@@ -246,32 +173,30 @@ margin:0px 10px;/*체크박스와글씨간격*/
    margin-top:30px;
    text-align:center;
    display:inline-block;
-   color:#ffd88f;
    padding:10px;
 
 }
-
+button{
+    transition: 0.25s;
+}
 .low button{
-   color:#35a785;
-   border:1px solid #ffd88f;
-   border-radius:30px;
-   background:#fff;
-   width:100px;
-   height:50px;   
-   font-size:16px;
-   font-weight:bold;
-   transition:0.27s;
-   padding:10px;
+  width:100px;
+   height:50px;
+   border:none;
+   background-color:#f9f7f2;
+   border-bottom: 5px solid #eee9d9;
+   text-shadow: 0px -2px #eee9d9;
+   color:#000;
+   -webkit-transition: 0.25s;
    
 
 }
    
 .low button:hover{
-   color:#fff;
-   border:none;
-   border-radius:30px;
-   background:#57caa8;
-    box-shadow: 0 0 0 0.2rem #ffd88f;
+   transform: translate(0px,5px);
+   -webkit-transform: translate(0px,5px);
+   border-bottom: 1px solid #eee9d9;
+   cursor:pointer;
    
    
 
