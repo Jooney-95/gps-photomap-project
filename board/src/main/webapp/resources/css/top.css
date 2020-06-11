@@ -90,15 +90,11 @@ body {
 }
 /*///////////////////////////////*/
 
-.r{
-  display: inline-block;
-  vertical-align: middle;
-  height: 100px;
-  width: 100px;
-  float:right;
-  padding:10px;
-  font-size: 15px;
-  margin-right:10px;
+#r{
+ width: 80px;
+  height:25px;
+  font-size: 14px;
+  text-align:center;
 }
 
 .profile{
@@ -114,22 +110,25 @@ body {
     border-radius: 77%;
 }
 
-#log{
-  width: 80px;
-  height:25px;
-  font-size: 14px;
-  text-align:center;
+.log{ 
+  display: inline-block;
+  vertical-align: middle;
+  height: 100px;
+  width: 100px;
+  float:right;
+  padding:10px;
+  font-size: 15px;
+  margin-right:10px;
 }
 
-.writebutton{
+#writebutton{
   display: inline-block;
   vertical-align: middle;
   width: 50px;
   float:right;
-  padding: 20px 0 20px;
 }
 
-.writebutton img{
+#writebutton img{
    width:52px;
    height:52px;
    padding: 6px;

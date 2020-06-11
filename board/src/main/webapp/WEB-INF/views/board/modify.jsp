@@ -7,16 +7,16 @@
 <head>
 <meta charset="UTF-8">
 <title>게시물 수정</title>
-<link rel="stylesheet" href="/resources/css/write.css">
+<link rel="stylesheet" href="/resources/css/modify.css">
 <link rel="stylesheet" href="/resources/css/top.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 </head>
 <body>
 <c:if test="${session.id ne view.writer }">
-	<script>
-		alert("권한이 없습니다.");
-		window.history.back();
-	</script>
+   <script>
+      alert("권한이 없습니다.");
+      window.history.back();
+   </script>
 </c:if>
 
 <!-- 상단 바 -->
@@ -37,19 +37,24 @@
    </div>
 
    <!-- 사용자 로그인 현황 -->
-   <div class="r">
-      <div class="profile">
-         <img src="/resources/imgs/p1.png"/>
-      </div>
-      <div id="log">
-            <c:if test="${session != null }">
-               <%@ include file="../include/navLogin.jsp"%>
+      <div class="log">
+            <c:if test="${session != null }"> <!-- 로그인했을때 -->
+	            <div id="r">
+					<div class="profile">
+				    	<a href="/member/myPage?num=1&userID=${session.id }"><img src="${session.mImg }"/>
+				        	${session.mNickname }
+				        </a>
+				   	</div>   	 
+			   		</div>
+				    <div id="writebutton"> <!-- 게시물 작성 버튼-->
+				    	<a href="/board/write"><img src="/resources/imgs/w1.png"/></a>
+				   	</div>  
             </c:if>
-            <c:if test="${session == null }">
-               <%@ include file="../include/navLogout.jsp"%>
+            
+            <c:if test="${session == null }"> <!-- 로그인 안했을때 -->
+		    <a href="/member/login">로그인</a>
             </c:if>
       </div>
-   </div>
 
 
 </div>
@@ -101,19 +106,20 @@
             </div>   
                                  
             <div id="three">
-            	<div id="t-1"><p>이동수단</p></div>
-		            <div id="t-2">
-		               	  <input type="checkbox" id="${list.id }s" name="${list.id }" value="s" /><label>버스</label>
-		                  <input type="checkbox" id="${list.id }b" name="${list.id }" value="b" /><label>지하철</label>
-		                  <input type="checkbox" id="${list.id }w" name="${list.id }" value="w" /><label>자가용</label>
-		                  <br>
-		                  <input type="checkbox" id="${list.id }t" name="${list.id }" value="t" /><label>택시</label>
-		                  <input type="checkbox" id="${list.id }c" name="${list.id }" value="c" /><label>자전거</label>
-		                  <input type="checkbox" id="${list.id }m" name="${list.id }" value="m" /><label>오토바이</label>
-		            </div>
+                <div id="t-2" >
+                     <input type="checkbox" id="${list.id }w" name="${list.id }" value="d" /><label><img src="/resources/imgs/sneakers.png"></label>
+                     <input type="checkbox" id="${list.id }s" name="${list.id }" value="s" /><label><img src="/resources/imgs/bus.png"></label>
+                     <input type="checkbox" id="${list.id }b" name="${list.id }" value="b" /><label><img src="/resources/imgs/train.png"></label>
+                     <br>
+                     <input type="checkbox" id="${list.id }w" name="${list.id }" value="w" /><label><img src="/resources/imgs/car.png"></label>
+                      <input type="checkbox" id="${list.id }t" name="${list.id }" value="t" /><label><img src="/resources/imgs/taxi.png"></label>
+                     <input type="checkbox" id="${list.id }c" name="${list.id }" value="c" /><label><img src="/resources/imgs/bike.png"></label>
+                     <input type="checkbox" id="${list.id }m" name="${list.id }" value="m" /><label><img src="/resources/imgs/scooter.png"></label>
+               </div>
+
             </div>
-         </div>
-       </div>
+         
+          </div>
          
          <div class="down">
             <input type="checkbox" id="del${list.id }" name="del" value="${list.id }">삭제
@@ -138,109 +144,109 @@
 
 
 
-	<script>
-	
-		var regTypeLat = /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/;
-		var regTypeLon = /^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/; 
-		var regTypeTime = /^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])\s([1-9]|[01][0-9]|2[0-3]):([0-5][0-9])$/;
-		
-		var pNum = ${view.pNum }
-		var title = document.getElementById("title");
-		var pNum0 = document.getElementById("pNum0");
-		var pNum1 = document.getElementById("pNum1");
-		var pNum2 = document.getElementById("pNum2");
-		var bWrite = document.getElementById("bWrite");
-		
-		var lat = new Array();
-		var lon = new Array();
-		var time = new Array();
-		var tpBno = new Array();
-		var tp = new Array();
-		var listID = new Array();
+   <script>
+   
+      var regTypeLat = /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/;
+      var regTypeLon = /^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/; 
+      var regTypeTime = /^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])\s([1-9]|[01][0-9]|2[0-3]):([0-5][0-9])$/;
+      
+      var pNum = ${view.pNum }
+      var title = document.getElementById("title");
+      var pNum0 = document.getElementById("pNum0");
+      var pNum1 = document.getElementById("pNum1");
+      var pNum2 = document.getElementById("pNum2");
+      var bWrite = document.getElementById("bWrite");
+      
+      var lat = new Array();
+      var lon = new Array();
+      var time = new Array();
+      var tpBno = new Array();
+      var tp = new Array();
+      var listID = new Array();
 
-		<c:forEach items="${list }" var="list">
-		listID.push("${list.id}");
-		</c:forEach>
-		
-		<c:forEach items="${tp }" var="tp">
-		tpBno.push("${tp.tpBno }");
-		tp.push("${tp.tp }");
-		</c:forEach>
-		
-		window.onload = function forListID(){
-			for (i = 0; i < listID.length; i++) {
-				lat.push(document.getElementById("lat" + listID[i]));
-				lon.push(document.getElementById("lon" + listID[i]));
-				time.push(document.getElementById("time" + listID[i]));
-				for (j = 0; j < tp.length; j++) {
-					if (listID[i] == tpBno[j]) {
-						var checktp = listID[i] + tp[j];
-						document.getElementById(checktp).checked = checked;
-					}
-				}
-			}
-			latLon();
-			Time();
-		}
-		function latLon(){
-			for(i=0;i<lat.length;i++){
-				if(regTypeLat.test(lat[i].value)){
-					if(regTypeLon.test(lon[i].value)){
-						
-					} else{
-						lon[i].focus();
-						return false;
-					}
-				} else{
-					lat[i].focus();
-					return false;
-				}
-			}
-			return true;
-		}
-		function Time(){
-			for(i=0;i<time.length;i++){
-				if(regTypeTime.test(time[i].value)){
-					
-				} else{
-					time[i].focus();
-					return false;
-				}
-			}
-			return true;
-		}
-		switch(pNum){
-		case 0:
-			pNum0.checked = true;
-			break;
-		case 1:
-			pNum1.checked = true;
-			break;
-		case 2:
-			pNum2.checked = true;
-			break;
-		}
+      <c:forEach items="${list }" var="list">
+      listID.push("${list.id}");
+      </c:forEach>
+      
+      <c:forEach items="${tp }" var="tp">
+      tpBno.push("${tp.tpBno }");
+      tp.push("${tp.tp }");
+      </c:forEach>
+      
+      window.onload = function forListID(){
+         for (i = 0; i < listID.length; i++) {
+            lat.push(document.getElementById("lat" + listID[i]));
+            lon.push(document.getElementById("lon" + listID[i]));
+            time.push(document.getElementById("time" + listID[i]));
+            for (j = 0; j < tp.length; j++) {
+               if (listID[i] == tpBno[j]) {
+                  var checktp = listID[i] + tp[j];
+                  document.getElementById(checktp).checked = checked;
+               }
+            }
+         }
+         latLon();
+         Time();
+      }
+      function latLon(){
+         for(i=0;i<lat.length;i++){
+            if(regTypeLat.test(lat[i].value)){
+               if(regTypeLon.test(lon[i].value)){
+                  
+               } else{
+                  lon[i].focus();
+                  return false;
+               }
+            } else{
+               lat[i].focus();
+               return false;
+            }
+         }
+         return true;
+      }
+      function Time(){
+         for(i=0;i<time.length;i++){
+            if(regTypeTime.test(time[i].value)){
+               
+            } else{
+               time[i].focus();
+               return false;
+            }
+         }
+         return true;
+      }
+      switch(pNum){
+      case 0:
+         pNum0.checked = true;
+         break;
+      case 1:
+         pNum1.checked = true;
+         break;
+      case 2:
+         pNum2.checked = true;
+         break;
+      }
 
-		bWrite.addEventListener('click', function(event) {
-			if(latLon()){
-				if(Time()){
-					if (title.value.trim() != "") {
-						document.getElementById("f").submit();
-					} else {
-						alert("제목을 입력하세요.");
-					}
-				}
-			}
-		});
-		
-		function resize(obj) {
-			obj.style.height = "1px";
-			obj.style.height = (12 + obj.scrollHeight) + "px";
-		}
-		
-		
-		
-	</script>
+      bWrite.addEventListener('click', function(event) {
+         if(latLon()){
+            if(Time()){
+               if (title.value.trim() != "") {
+                  document.getElementById("f").submit();
+               } else {
+                  alert("제목을 입력하세요.");
+               }
+            }
+         }
+      });
+      
+      function resize(obj) {
+         obj.style.height = "1px";
+         obj.style.height = (12 + obj.scrollHeight) + "px";
+      }
+      
+      
+      
+   </script>
 
 
 </body>

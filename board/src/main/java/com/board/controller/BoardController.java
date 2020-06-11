@@ -75,6 +75,10 @@ public class BoardController {
 
 	}
 
+	@RequestMapping(value = "/map", method = RequestMethod.GET)
+	public void map() throws Exception {
+	}
+	
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
 	public void getModify(@RequestParam("bno") int bno, Model model) throws Exception {
 

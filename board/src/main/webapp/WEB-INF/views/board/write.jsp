@@ -10,7 +10,7 @@ pageEncoding="UTF-8"%>
 <meta charset="UTF-8">
 
 <title>게시물 작성</title>
-<link rel="stylesheet" href="/resources/css/write.css">
+<link rel="stylesheet" href="/resources/css/modify.css">
 <link rel="stylesheet" href="/resources/css/top.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 </head>
@@ -35,21 +35,25 @@ pageEncoding="UTF-8"%>
    </div>
 
    
-   <!-- 사용자 로그인 현황 -->
-   <div class="r">
-      <div class="profile">
-         <img src="/resources/imgs/p1.png"/>
-      </div>
-   
-      <div id="log">
-            <c:if test="${session != null }">
-               <%@ include file="../include/navLogin.jsp"%>
+<!-- 사용자 로그인 현황 -->
+      <div class="log">
+            <c:if test="${session != null }"> <!-- 로그인했을때 -->
+	            <div id="r">
+					<div class="profile">
+				    	<a href="/member/myPage?num=1&userID=${session.id }"><img src="${session.mImg }"/>
+				        	${session.mNickname }
+				        </a>
+				   	</div>   	 
+			   		</div>
+				    <div id="writebutton"> <!-- 게시물 작성 버튼-->
+				    	<a href="/board/write"><img src="/resources/imgs/w1.png"/></a>
+				   	</div>  
             </c:if>
-            <c:if test="${session == null }">
-               <%@ include file="../include/navLogout.jsp"%>
+            
+            <c:if test="${session == null }"> <!-- 로그인 안했을때 -->
+		    <a href="/member/login">로그인</a>
             </c:if>
       </div>
-   </div>
 
 
 </div>
