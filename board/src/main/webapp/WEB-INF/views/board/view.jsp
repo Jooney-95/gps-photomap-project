@@ -12,7 +12,6 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 
-
 <body>
 	<!-- 상단 바 -->
 	<div id="header">

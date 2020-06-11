@@ -31,13 +31,13 @@
     </div>
 </div>
 
-   <!-- 사용자 로그인 현황 -->
-   <div class="r">
-      <div class="profile">
-         <a href="/member/myPage?num=1&userID=${session.id }"><img src="${session.mImg }"/>
-         ${session.mNickname }
-         </a>
-      </div>
+<!-- 사용자 로그인 현황 -->
+<div class="r">
+	<div class="profile">
+    	<a href="/member/myPage?num=1&userID=${session.id }"><img src="${session.mImg }"/>
+        	${session.mNickname }
+        </a>
+   	</div>   
       <div id="log">
             <c:if test="${session != null }">
                <%@ include file="../include/navLogin.jsp"%>
@@ -46,7 +46,7 @@
                <%@ include file="../include/navLogout.jsp"%>
             </c:if>
       </div>
-   </div>
+</div>
    
 <!-- 게시물 작성 버튼-->
    <div class="writebutton">

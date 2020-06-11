@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>로그인</title>
 <link rel="stylesheet" href="/resources/css/tRegister.css">
+<link rel="stylesheet" href="/resources/css/top.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 </head>
 
@@ -15,7 +16,7 @@
 <div id="header">
  
   <div class="logo">
-    <a href="#">SAMPLE</a>
+    <a href="/board/listPageSearch?num=1">SAMPLE</a>
   </div>
   
 <div class="wrap">
