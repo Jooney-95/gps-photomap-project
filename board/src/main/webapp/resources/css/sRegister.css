@@ -1,82 +1,6 @@
 @charset "UTF-8";
-/*/////////////헤더/////////////*/
-#header {
-  background: #1CDD9E;
-  font-color:#fff; 
-  width: 100%;/*헤더 가로*/
-  height:100px; /*헤더 높이*/
-  /*상단 고정*/
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index:10;
-}
-/*////////////////////////////*/
 
-
-
-/*///////////로고//////////////*/
-.logo {
-  float: left;/*왼쪽 정렬*/
-  padding: 30px 0 20px;/*로고 위치*/
-}
-.logo a {
-  color: #fff;
-  font-size: 28px;
-  display: block;
-  padding: 0 0 0 20px;
-  text-decoration: none; /*텍스트 밑줄 제거*/
-}
-/*///////////////////////////*/
-
-
-/*///////////////검색창/////////////////*/
-.search {
-  width: 100%;
-  position: relative;
-  display: flex;
-}
-
-.searchTerm {
-  width: 100%;
-  border: 3px solid #10b27d;
-  border-right: none;
-  padding: 10px;
-  height: 50px;
-  border-radius: 5px 0 0 5px;
-  outline: none;
-  color: #9dbfaf;
-}
-
-.searchTerm:focus {
-  color: #000000;/*검색내용텍스트색*/
-}
-
-.searchButton {
-  width: 60px;
-  padding: 10px;
-  height: 50px;
-  border: 1px solid #10b27d;
-  background: #10b27d;
-  text-align: center;
-  color: #fff;
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-  font-size: 20px;
-}
-
-.wrap {
-  width: 500px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
 /*///////////////////////////////*/
-
-
-
 
 
 
@@ -97,12 +21,12 @@ form{
    width:100%;
    
 }
-
+/*가운데 흰색창*/
 .register{
    
    border-radius:10px;
    width:1000px;
-   height:550px;
+   height:800px;
    text-align:center;
    margin:0 auto;
    -webkit-box-shadow: 10px 10px 2px -4px#f8f8f8;
@@ -136,14 +60,16 @@ p{
 
 
 
-/*//////////가운데/////////*/
+/*//////////가운데 속성들/////////*/
 .middle{
    width:800px;;
    margin-top:4px ;
-   height:330px;
+   height:600px;
+   max-height:600px;
    text-align:center;
    display:inline-block;
-  
+   
+   
    
 }
 
@@ -152,23 +78,22 @@ p{
    
    background: #f6ee8;
    border-radius:3px;
-   width:500px;
-   height:50px;
-   text-align:center;
+   width:650px;
+   height:75px;
+   text-align:left;
    display:inline-block;
    margin:13px;
-   
-   
+  
       
    
 }
 
 .middle input[type="text"],
-.middle input[type="password"],
-.middle input[type="email"]{
+.middle input[type="password"]
+{
    
    background: #f6ee8;
-   width:360px;
+   width:370px;
    height:46px;
    border:none;
    transition:0.35s;/*애니메이션을 주기위에 부모 부터 주기*/
@@ -179,43 +104,118 @@ p{
 
 
 .middle input[type="text"]:focus,
-.middle input[type="password"]:focus,
-.middle input[type="email"]:focus{
+.middle input[type="password"]:focus{
    
    background: #fbf5f2;
-   width:400px;
    border:none;
-   
    border-radius: 10px;
    -webkit-box-shadow: 10px 10px 1px -4px #f8f1ed;
     -moz-box-shadow: 10px 10px 1px -4px #f8f1ed;
      box-shadow: 11px 10px 1px -4px #f8f1ed;
 
 }
+
+.middle input[type="email"]{
+   background: #f6ee8;
+   width:200px;
+   height:46px;
+   border:none;
+   transition:0.35s;/*애니메이션을 주기위에 부모 부터 주기*/
+   border-bottom:1px solid #eee3dd;
+   border-radius:10px;
+} 
+/*이메일 @ 뒤 박스 속성*/
+.middle #email2{
+   background: #f6ee8;
+   width:150px;
+   height:46px;
+   border:none;
+   transition:0.35s;/*애니메이션을 주기위에 부모 부터 주기*/
+   border-bottom:1px solid #eee3dd;
+   border-radius:10px;
+} 
+ 
+ .middle input[type="email"]:focus{
+   
+   background: #fbf5f2;
+   border:none;
+   border-radius: 10px;
+   -webkit-box-shadow: 10px 10px 1px -4px #f8f1ed;
+    -moz-box-shadow: 10px 10px 1px -4px #f8f1ed;
+     box-shadow: 11px 10px 1px -4px #f8f1ed;
+
+}
+ 
+ 
+/*중복 확인 버튼*/
+.info button{
+   border-radius:15px;
+   background:#fff;
+   border:1px solid #9fd7bf;
+}
+
+#nicknameCheck, #idCheck{
+   border-radius:15px;
+   background:#fff;
+   border:2px solid #9fd7bf;
+   padding:7px;
+   margin-left:10px;
    
 }
 
 
+#nicknameCheck:hover,
+#idCheck:hover{
+   background:#9fd7bf;
+   color:#fff;
+}
+
+/*중복 및 사용가능 알림 글자*/
+.info #nicknameMsg,
+.info #idMsg,
+.info #pwConfirm{
+   font-size:12px;
+   color:#ff4848;
+   text-align:left;
+   margin-left:25px;
+}
+
+
+select{
+   border-radius:15px;
+   background:#fff;
+   border:2px solid #9fd7bf;
+   padding:7px;
+   margin-left:10px;
+   width:125px;
+   
+
+
+}
 
 
 
-
-/*//////// 아이콘들  ///////////*/
+/*//////// 아이콘  ///////////*/
 
 #icon{
    text-align:center;
 }
-/*//////// 아이콘들  ///////////*/
+/*////////  아이콘들  ///////////*/
 .middle i{
    
    color:#3d5bb6;
    display: inline-block;
    text-align:center;
    padding-right:5px;
+   margin-right:10px;
 
 
 }
 
+.middle #pwHidden{
+   margin-left:10px;
+   
+}
 
 /*/////////////////////////////*/
 
@@ -228,32 +228,31 @@ p{
    margin-top:30px;
    text-align:center;
    display:inline-block;
-   color:#ff3547;
    padding:10px;
+   -webkit-transition: 0.25s;
 
 }
-
+button{
+    transition: 0.25s;
+}
 .low button{
-   color:#000;
-   border:1px solid #008040;
-   border-radius:30px;
-   background:#fff;
-   width:100px;
+    width:100px;
    height:50px;
-   font-size:16px;
-   font-weight:bold;
-   transition:0.27s;
-   padding:10px;
-   
+   border:none;
+   background-color:#f9f7f2;
+   border-bottom: 5px solid #eee9d9;
+   text-shadow: 0px -2px #eee9d9;
+   color:#000;
+   -webkit-transition: 0.25s;
 
 }
    
 .low button:hover{
-   color:#fff;
-   border:none;
-   border-radius:30px;
-   background:#10b27d;
-    box-shadow: 0 0 0 0.2rem #79bd9a;
+    transform: translate(0px,5px);
+    -webkit-transform: translate(0px,5px);
+   border-bottom: 1px solid #eee9d9;
+   cursor:pointer;
+   -webkit-transition: 0.25s;
    
    
 
@@ -294,5 +293,5 @@ div.main input{
 
 /* 비밀번호 보이기/숨기기 아이콘 */
 div.main i {
-	
+   
 }

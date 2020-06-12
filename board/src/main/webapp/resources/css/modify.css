@@ -32,39 +32,28 @@ body {
 /*//////////////////////////////////*/
 
 /*//////////////반반 뷰 작성 틀//////////////////*/
-#aside {
-   float:left;
-   margin-left:30px;
-   text-align: center;
-}
-.main{
-   float:right;
-    text-align:center;
+.mainright{
+   text-align:center;
     width:50%;
-    height:550px;
+    overflow:hidden;
+    height:auto; /* 정렬하려는 요소의 넓이를 반드시 지정 */ 
     border: 2px solid #d7d8d7;  /*테두리*/
     margin:0 auto;  /*페이지의 가운데오게 함*/
+    margin-top:140px;  /*틀 위의 공간*/
+    margin-left:45%;
     border-radius:5px;  /*모서리둥글게*/
     padding-top:20px;
     padding-bottom:50px;
-    margin-right:30px;
-    overflow:scroll;
+    
 }
 /*//////////////////////////////////*/
 /*/////////////제목, 작성자///////////*/
-
-#top{
-   width:100%;
-   margin-top:130px;
-   display: inline-block;
-   text-align:center;
-   margin-bottom:30px;
-}
 #top input{
    width:500px;
    height:50px;
    display: inline-block;
    padding-left:10px;
+   margin-top:20px;
    border: 1px solid #ddfee6;  /*테두리*/
    border-radius:10px;  /*모서리둥글게*/
 }
@@ -127,7 +116,7 @@ body {
 
 
 /*////////////업로드될 타임라인 영역///////////*/
-#middle{
+.middle{
    width:90%;
    overflow:hidden;/*스크롤바 숨기기*/
     min-height:300px;/*최소높이*/
@@ -220,7 +209,7 @@ body {
 .t-2{
    padding:10px;
 }
-.t-2 label img{
+.t-2 img{
    text-align:left;
    width:20x;
    height:20px;

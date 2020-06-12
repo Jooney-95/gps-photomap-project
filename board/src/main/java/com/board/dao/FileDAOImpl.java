@@ -1,5 +1,6 @@
 package com.board.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -19,14 +20,6 @@ public class FileDAOImpl implements FileDAO {
 
 	private static String namespace = "com.board.mappers.board";
 
-	@Override
-	public void write(List<MultipartFile> file, int fileBno, int uesrID) throws Exception {
-		// TODO Auto-generated method stub
-		
-		Files files = new Files();
-	
-		sql.insert(namespace + ".writeFile", files.setFiles(file, fileBno, uesrID));
-	}
 
 	@Override
 	public List<FileVO> viewFile(int bno) throws Exception {
@@ -79,20 +72,15 @@ public class FileDAOImpl implements FileDAO {
 	}
 
 	@Override
-	public void writeClick(int fileBno, String[] id, String[] lat, String[] lon, String[] time, String[] content)
-			throws Exception {
-		// TODO Auto-generated method stub
-		Files f = new Files();
-		FileVO[] fileVO = f.writeClick(fileBno, id, lat, lon, time, content);
-		for(FileVO vo : fileVO) {
-			sql.update(namespace + ".writeClick", vo);
-		}
-	}
-
-	@Override
 	public void beforeunload(int userID) throws Exception {
 		// TODO Auto-generated method stub
 		sql.delete(namespace + ".beforeunload", userID);
+	}
+
+	@Override
+	public void writeClick(HashMap<String, Object> fileMap) throws Exception {
+		// TODO Auto-generated method stub
+		sql.update(namespace + ".writeClick", fileMap);
 	}
 
 }

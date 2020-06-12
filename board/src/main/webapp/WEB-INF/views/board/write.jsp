@@ -6,11 +6,12 @@ pageEncoding="UTF-8"%>
 <head>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="/resources/js/imgPreviewUpload.js?var=4"></script>
+<script src="/resources/js/write.js?var=2"></script>
 <meta charset="UTF-8">
 
 <title>게시물 작성</title>
-<link rel="stylesheet" href="/resources/css/write.css">
+<link rel="stylesheet" href="/resources/css/modify.css?">
+<link rel="stylesheet" href="/resources/css/top.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 </head>
 
@@ -18,29 +19,44 @@ pageEncoding="UTF-8"%>
 <body>
 
 <div id="header">
- 
-  <div class="logo">
-    <a href="#">SAMPLE</a>
-  </div>
-  
-<div class="wrap">
-   <div class="search">
-      <input type="text" class="searchTerm" placeholder="어떤 곳을 찾으시나요?">
-      <button type="submit" class="searchButton">
-        <i class="fa fa-search"></i>
-     </button>
+   <!-- 로고 -->
+     <div class="logo">
+     	<a href="/board/listPageSearch?num=1">SAMPLE</a>
+     </div>
+     
+     <!-- 검색창 -->
+   <div class="wrap">
+         <div class="search">
+            <input type="text" class="searchTerm" placeholder="어떤 곳을 찾으시나요?">
+            <button type="submit" class="searchButton">
+            	<i class="fa fa-search"></i>
+           </button>
+         </div>
    </div>
-</div>
+
    
-<div id="nav">
-    <c:if test="${session != null }">
-         <%@ include file="../include/navLogin.jsp"%>
-    </c:if>
-    <c:if test="${session == null }">
-         <%@ include file="../include/navLogout.jsp"%>
-    </c:if>
-</div>   
+     <!-- 사용자 로그인 현황 -->
+      <div class="log">
+            <c:if test="${session != null }"> <!-- 로그인했을때 -->
+
+               <div id="r">
+               <div class="profile">
+                   <a href="/member/myPage?num=1&userID=${session.id }"><img src="${session.mImg }"/>
+                    </a>
+                    <p>${session.mNickname } 님</p>
+                  </div>       
+               </div>             
+
+            </c:if>
+            
+            <c:if test="${session == null }"> <!-- 로그인 안했을때 -->
+                <a href="/member/login"><img width="50" height="50" src="/resources/imgs/p1.png"></a>
+            </c:if>
+      </div>
+
+
 </div>
+
 
 <form method="post" id="f" enctype="multipart/form-data" >   
 <div class="main">
@@ -63,7 +79,7 @@ pageEncoding="UTF-8"%>
       <p>이미지는 최대 50개까지 선택 가능합니다.</p>
       </div>
       
-      <div id="middle">
+      <div class="middle">
           <div class="img_box"></div>
       </div>
       

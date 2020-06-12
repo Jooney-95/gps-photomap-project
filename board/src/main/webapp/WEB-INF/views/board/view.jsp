@@ -6,115 +6,158 @@
 <head>
 <meta charset="UTF-8">
 <title>게시물 조회</title>
-<link rel="stylesheet" href="/resources/css/write.css">
+<link rel="stylesheet" href="/resources/css/modify.css">
+<link rel="stylesheet" href="/resources/css/top.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 
-
 <body>
-<div id="header">
-  <div class="logo">
-    <a href="#">SAMPLE</a>
-  </div>
-<div class="wrap">
-   <div class="search">
-      <input type="text" class="searchTerm" placeholder="어떤 곳을 찾으시나요?">
-      <button type="submit" class="searchButton">
-        <i class="fa fa-search"></i>
-     </button>
-   </div>
-</div>
-<div id="nav">
-      <c:if test="${session != null }">
-         <%@ include file="../include/navLogin.jsp"%>
-      </c:if>
-      <c:if test="${session == null }">
-         <%@ include file="../include/navLogout.jsp"%>
-      </c:if>
-</div>
-</div>
-
-
-
- <!-- 카카오맵 api 호출 -->
-<div id="map" style="width:500px; height:500px; margin-top:140px; margin-right:50%;"></div>
-
-
-<div class="mainright">
-   <div id="top">
-         <p>제목 <input type="text" name="title" value="${view.title }" readOnly /></p>
-      <p>작성자  <input type="text" name="writer" value="${member.mNickname }" readOnly /></p>
-         <br/>
-   </div>
+   <!-- 상단 바 -->
+   <div id="header">
+      <!-- 로고 -->
+      <div class="logo">
+         <a href="/board/listPageSearch?num=1">SAMPLE</a>
+      </div>
+        
+         <!-- 검색창 -->
+         <div class="wrap">
+          <div class="search">
+              <input type="text" class="searchTerm" placeholder="어떤 곳을 찾으시나요?">
+               <button type="submit" class="searchButton">
+                  <i class="fa fa-search"></i>
+               </button>
+           </div>
+       	 </div>
    
-   
-   <c:forEach items="${list }" var="list">
-   <input type="hidden" name="id" value="${list.id }" />
-   <input type="hidden" id="tblBno" value="${view.bno }" />
-   <input type="hidden" name="userID" value="${session.id }" />
-   
-   
-      <div id="middle">
-
-         <div id="left">
-            <img width="100" height="100" alt="" src="<spring:url value='${list.path }'/>"><br>
-         </div>
-         
-         
-         <div id="right">
-            <div id="one">
-               <input type="text" name="lat" value="${list.latitude }" readOnly />
-               <input type="text" name="lon" value="${list.longitude }" readOnly />
-               <input type="text" name="time" value="${list.timeView }" readOnly />
-            </div>         
-         
-            <div id="two">
-               <textarea cols="40" rows="5" name="content" readOnly >${list.content }</textarea>
-            </div>
+      <!-- 사용자 로그인 현황 -->
+      <div class="log">
+            <c:if test="${session != null }"> <!-- 로그인했을때 -->
+               <div id="r">
+               <div class="profile">
+                   <a href="/member/myPage?num=1&userID=${session.id }"><img src="${session.mImg }"/>
+                    </a>
+                    <p>${session.mNickname } 님</p>
+                  </div>       
+               </div>
             
-            <div id="three">
-                  <c:forEach items="${tp }" var="tp">
-                  <c:choose>
-                  <c:when test="${tp.tpBno eq list.id and tp.tp eq 's' }"> s
-                  </c:when>
-                  <c:when test="${tp.tpBno eq list.id and tp.tp eq 'b' }"> b
-                  </c:when>
-                  <c:when test="${tp.tpBno eq list.id and tp.tp eq 'w' }"> w
-                  </c:when>
-                  </c:choose>
-                  </c:forEach>
+            <div id="writebutton"> <!-- 게시물 작성 버튼-->
+                   <a href="/board/write"><img src="/resources/imgs/w1.png"/></a>
+            </div>  
+            </c:if>
+            
+            <c:if test="${session == null }"> <!-- 로그인 안했을때 -->
+          <a href="/member/login"><img width="50" height="50" src="/resources/imgs/p1.png"></a>
+            </c:if>
+      </div>
 
-            </div>   
-         </div>
-   </div>      
+
+   </div>
+   
+
+
+   <div id="top">
+       <p>제목
+          <input type="text" name="title" value="${view.title }" readOnly /></p>
+        <p>작성자 
+           <input type="text" name="writer" value="${member.mNickname }" readOnly /></p>
+         <br/>
+    </div>
+         
+           
+   <!-- 카카오맵 api 호출 -->
+   <div id="aside">
+      <div id="map" style="width:550px; height:550px;"></div>
+   </div>
+  
+  <div class="main"> 
+         <c:forEach items="${list }" var="list" varStatus="status">
+         <input type="hidden" name="id" value="${list.id }" />
+         <input type="hidden" id="tblBno" value="${view.bno }" />
+         <input type="hidden" name="userID" value="${session.id }" />
+   
+   
+       <div class="middle">
+   
+          <div class="left">
+             <img width="200" height="200" alt="" src="<spring:url value='${list.path }'/>"><br>
+          </div>
                
-   </c:forEach>
+               
+          <div class="right">
+             <div class="one">
+                 <input type="text" id="lat_${status.index }" name="lat" value="${list.latitude }" readOnly />
+                  <input type="text" name="lon" value="${list.longitude }" readOnly />
+                  <input type="text" name="time" value="${list.timeView }" readOnly />
+              </div>         
+               
+              <div class="two">
+                     <textarea  style="width:90%" cols="40" rows="5" name="content" readOnly >${list.content }</textarea>
+               </div>
+
+                  
+              <div class="three">
+                 <div class="t-1"><p>이동수단</p></div>
+                 <div class="t-2">
+                     <c:forEach items="${tp }" var="tp">
+                     <c:choose>
+                     <c:when test="${tp.tpBno eq list.id and tp.tp eq 'sneakers' }">
+                     	<label><img src="/resources/imgs/sneakers.png"></label>
+                     </c:when>
+                     <c:when test="${tp.tpBno eq list.id and tp.tp eq 'bus' }">
+                     	<label><img src="/resources/imgs/bus.png"></label>
+                     </c:when>
+                     <c:when test="${tp.tpBno eq list.id and tp.tp eq 'train' }">
+                     	<label><img src="/resources/imgs/train.png"></label>
+                     </c:when>
+                     <c:when test="${tp.tpBno eq list.id and tp.tp eq 'car' }">
+                     	<label><img src="/resources/imgs/car.png"></label>
+                     </c:when>
+                     <c:when test="${tp.tpBno eq list.id and tp.tp eq 'taxi' }">
+                     	<label><img src="/resources/imgs/taxi.png"></label>
+                     </c:when>
+                     <c:when test="${tp.tpBno eq list.id and tp.tp eq 'bike' }">
+                     	<label><img src="/resources/imgs/bike.png"></label>
+                     </c:when>
+                     <c:when test="${tp.tpBno eq list.id and tp.tp eq 'scooter' }">
+                     	<label><img src="/resources/imgs/scooter.png"></label>
+                     </c:when>
+                     </c:choose>
+                     </c:forEach>
+               </div>   
+              </div>   
+            </div>
+    
+          </div>
+            
+               
+         </c:forEach>
    <br />
 </div>
 <p id="like"></p>
-<br />
 <button type="button" id="bLike">게시글 추천</button>
  
    <c:if test="${session.id eq view.writer }">
-	   <div class="button">
-		   <button class="raise" onclick="location.href='/board/modify?bno=${view.bno}'">게시물 수정</button>
-		   <button class="raise" onclick="location.href='/board/delete?bno=${view.bno}'">게시물 삭제</button>
-	   </div>   
+      <div class="button">
+         <button class="raise" onclick="location.href='/board/modify?bno=${view.bno}'">게시물 수정</button>
+         <button class="raise" onclick="location.href='/board/delete?bno=${view.bno}'">게시물 삭제</button>
+      </div>   
    </c:if>
    
+<!-- 카카오맵 다중마커 정렬 -->
    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dd9fb87d40ab9678af574d3665e02b6e&libraries=services,clusterer"></script>
    <script>
+         
+     //위도, 경도값  배열에 저장
+     var lat = new Array();
+     var lon = new Array();
+
+     <c:forEach items="${list }" var="list">
+        lat.push("${list.latitude}");
+         lon.push("${list.longitude}");
+     </c:forEach>
       
-      //위도, 경도값  배열에 저장
-      var lat = new Array();
-      var lon = new Array();
-      <c:forEach items="${list }" var="list">
-      lat.push("${list.latitude}");
-      lon.push("${list.longitude}");
-      </c:forEach>
-      
-      var MARKER_WIDTH = 36, // 기본, 클릭 마커의 너비
+     var MARKER_WIDTH = 36, // 기본, 클릭 마커의 너비
          MARKER_HEIGHT = 37, // 기본, 클릭 마커의 높이
          OFFSET_X = 13, // 기본, 클릭 마커의 기준 X좌표
          OFFSET_Y = MARKER_HEIGHT, // 기본, 클릭 마커의 기준 Y좌표
@@ -122,93 +165,133 @@
          SPRITE_WIDTH = 44, // 스프라이트 이미지 너비
          SPRITE_HEIGHT = 2254, // 스프라이트 이미지 높이
          SPRITE_GAP = 9.1; // 스프라이트 이미지에서 마커간 간격
+
      var markerSize = new kakao.maps.Size(MARKER_WIDTH, MARKER_HEIGHT), // 기본, 클릭 마커의 크기
          markerOffset = new kakao.maps.Point(OFFSET_X, OFFSET_Y), // 기본, 클릭 마커의 기준좌표
          spriteImageSize = new kakao.maps.Size(SPRITE_WIDTH, SPRITE_HEIGHT); // 스프라이트 이미지의 크기
-     var positions = []; // 위치정보들을 담는 객체 배열 생성 - 안에서 객체들 반복문 돌려 사진업로드 갯수만큼 저장해야한다.
-		// iwContents = []; // 인포윈도우에 출력할 주소값을 담는 배열 생성
-     //selectedMarker = null; // 클릭한 마커를 담을 변수
-     
+
+     // 위치정보들을 담는 객체 배열 생성 - 안에서 객체들 반복문 돌려 사진업로드 갯수만큼 저장해야한다.
+     var positions = []; 
+           
      // 위도값갯수만큼(위도와 경도는 같이 포함되기에 위도갯수만 체크해도 됨) 마커에 위도, 경도값을 저장한다       
      for (var i=0; i<lat.length; i++) { 
         positions.push(new kakao.maps.LatLng(parseFloat(lat[i]), parseFloat(lon[i])));
      }
+     
      // 주소-좌표 변환 객체를 생성합니다
      var geocoder = new kakao.maps.services.Geocoder();
-   	 // 변환된 주소를 저장할 배열을 생성합니다
-   	 var address = [];
-   	 
-   	 // 이미지의 위도경도 좌표값을 좌표값과 일치하는 주소 정보로 변환합니다
-     for (var i=0; i<positions.length; i++) { 
-     	var coord = new kakao.maps.LatLng(parseFloat(lat[i]), parseFloat(lon[i]));
-        var callback = function(result, status) {
-        	if (status === kakao.maps.services.Status.OK) {
-            	
-        		// 좌표값에 해당하는 구주소와 도로명 주소 정보를 요청합니다
-            	address.push('해당 위치의 주소는 ' + result[0].address.address_name + ' 입니다!'); 
-							
-				// 지도 위에 마커를 표시합니다
-			    for (var i = 0, len = positions.length; i < len; i++) {
-			        var gapX = (MARKER_WIDTH + SPRITE_GAP), // 스프라이트 이미지에서 마커로 사용할 이미지 X좌표 간격 값
-			            originY = (MARKER_HEIGHT + SPRITE_GAP) * i, // 스프라이트 이미지에서 기본, 클릭 마커로 사용할 Y좌표 값
-			            normalOrigin = new kakao.maps.Point(0, originY); // 스프라이트 이미지에서 기본 마커로 사용할 영역의 좌상단 좌표
-			        // 마커를 생성하고 지도위에 표시합니다
-			     	addMarker(positions[i], normalOrigin);
-			    }
-			    
-			    // 마커를 생성하고 지도 위에 표시하고 이벤트를 등록하는 함수입니다
-			    function addMarker(position, normalOrigin) {
-			        // 기본 마커이미지를 생성합니다
-			        var normalImage = createMarkerImage(markerSize, markerOffset, normalOrigin);
-			        // 마커를 생성하고 이미지는 기본 마커 이미지를 사용합니다
-			        var marker = new kakao.maps.Marker({ 
-			            map: map,
-			            position: positions[i],
-			            image: normalImage
-			        });
-			        // 마커 객체에 마커아이디와 마커의 기본 이미지를 추가합니다
-			        marker.normalImage = normalImage;
-			                   			        
-			        // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다 - 마우스 오버 이벤트로 인포윈도우 생성하기
-	                var iwContent = '<div style="width:100%;font-size:5px;">' + address[i] + '</div>'; 	
-	              
-	       	        // 마커에 표시할 인포윈도우를 생성합니다
-	       	        var infowindow = new kakao.maps.InfoWindow({
-	       	            content: iwContent // 인포윈도우에 표시할 내용
-	       	        });
-	       	        // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-	       	        // 이벤트 리스너로는 클로저를 만들어 등록합니다 
-	       	        // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-	       	        kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-	       	        kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow)); 
-			    } // addMarker 함수 끝
-				 
-            }
-        };
-          		geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
-     }    
+
+       // 변환된 주소를 저장할 배열을 생성합니다
+       var address = [];
+      
      var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-     	 mapOption = { 
-         	center: new kakao.maps.LatLng(parseFloat(lat[0]), parseFloat(lon[0])), // 지도의 중심좌표
-           	level: 11 // 지도의 확대 레벨
+         mapOption = { 
+            center: new kakao.maps.LatLng(parseFloat(lat[0]), parseFloat(lon[0])), // 지도의 중심좌표는 첫번째 사진을 기준으로 함.
+              level: 11 // 지도의 확대 레벨
          };
  
      // 지도를 생성합니다
      var map = new kakao.maps.Map(mapContainer, mapOption); 
-      
+
+      // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+     var mapTypeControl = new kakao.maps.MapTypeControl();
+          
+    // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+    // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+    map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+   
+    // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+    var zoomControl = new kakao.maps.ZoomControl();
+    map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+     
+      // 마커 클러스터러를 생성합니다 
+     var clusterer = new kakao.maps.MarkerClusterer({
+         map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
+         averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
+         minLevel: 6 // 클러스터 할 최소 지도 레벨 
+     });
+
+
+      // 이미지의 위도경도 좌표값을 좌표값과 일치하는 주소 정보로 변환합니다
+     for (var i=0; i<positions.length; i++) { 
+        var coord = new kakao.maps.LatLng(parseFloat(lat[i]), parseFloat(lon[i]));
+        var callback = function(result, status) {
+           if (status === kakao.maps.services.Status.OK) {
+
+              // 클러스터 마커 개수를 초기화한다
+              clusterer.clear();
+
+              // 좌표값에 해당하는 구주소와 도로명 주소 정보를 요청합니다
+               address.push(result[0].address.address_name); 
+                     
+            // 지도 위에 마커를 표시합니다
+             for (var i = 0, len = positions.length; i < len; i++) {
+                 var gapX = (MARKER_WIDTH + SPRITE_GAP), // 스프라이트 이미지에서 마커로 사용할 이미지 X좌표 간격 값
+                     originY = (MARKER_HEIGHT + SPRITE_GAP) * i, // 스프라이트 이미지에서 기본, 클릭 마커로 사용할 Y좌표 값
+                     normalOrigin = new kakao.maps.Point(0, originY); // 스프라이트 이미지에서 기본 마커로 사용할 영역의 좌상단 좌표
+                 // 마커를 생성하고 지도위에 표시합니다
+                 addMarker(positions[i], normalOrigin);                 
+             }
+             
+             // 마커를 생성하고 지도 위에 표시하고 이벤트를 등록하는 함수입니다
+             function addMarker(position, normalOrigin) {
+                 // 기본 마커이미지를 생성합니다
+                 var normalImage = createMarkerImage(markerSize, markerOffset, normalOrigin);
+
+                 
+                 // 마커를 생성하고 이미지는 기본 마커 이미지를 사용합니다
+                 var marker = new kakao.maps.Marker({ 
+                     map: map,
+                     position: positions[i],
+                     image: normalImage
+                 });
+
+                 // 클러스터러에 마커들을 추가합니다
+                 clusterer.addMarker(marker);
+
+                 // 마커 객체에 마커아이디와 마커의 기본 이미지를 추가합니다
+                 marker.normalImage = normalImage;
+                                             
+                 // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다 - 마우스 오버 이벤트로 인포윈도우 생성하기
+                   var content = '<div style="width:160px;text-align:center;padding:5px;font-size:12px;">' + address[i] + '</div>';    
+                   // 현재 write.css 때문에 인포윈도우 화살표 top이 짤려보이는 현상 발생
+                     
+                     // 마커에 표시할 인포윈도우를 생성합니다
+                     var infowindow = new kakao.maps.InfoWindow({
+                         content: content // 인포윈도우에 표시할 내용
+                     });
+                  
+                     // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+                     // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+                     // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+                     kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+                     kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow)); 
+             } // addMarker 함수 끝
+
+             
+            }
+        };         
+                geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
+     }    
+     
+     
+     
+
      // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
      function makeOverListener(map, marker, infowindow) {
          return function() {
              infowindow.open(map, marker);
          };
      }
+
      // 인포윈도우를 닫는 클로저를 만드는 함수입니다 
      function makeOutListener(infowindow) {
          return function() {
              infowindow.close();
          };
      }
-	  	
+
+        
       // MakrerImage 객체를 생성하여 반환하는 함수입니다
       function createMarkerImage(markerSize, offset, spriteOrigin) {
           var markerImage = new kakao.maps.MarkerImage(
@@ -222,84 +305,85 @@
           );
           return markerImage;
       }
+
       // 마커가 지도 위에 표시되도록 설정합니다
       //marker.setMap(map);
-      
       // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
       // marker.setMap(null);
-      
-      document.getElementById("map").style.marginLeft="50%";
+   </script>
+   <script>   
+      //document.getElementById("map").style.marginLeft="5%";
       
      
       
       $("#bLike").click(
-    		  function(){
-    			  if("${session }" != ""){
-    				  var query = {
-    						  userID : "${session.id}",
-    						  tblBno : "${view.bno}"
-    				  };
-    				  $.ajax({
-    					  url : "/board/likeClick",
-    					  type : "post",
-    					  data : query,
-    					  success : function(count) {
-    						  countLike();
-    						  likeCheck();
-    					  },
-    		    		  error:function(request,status,error){
-    		    		        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-    		    		  }
-    				  });
-    			  } else{
-    				  alert("로그인 후 이용해주세요");
-    			  }
-    		  });
+            function(){
+               if("${session }" != ""){
+                  var query = {
+                        userID : "${session.id}",
+                        tblBno : "${view.bno}"
+                  };
+                  $.ajax({
+                     url : "/board/likeClick",
+                     type : "post",
+                     data : query,
+                     success : function(count) {
+                        countLike();
+                        likeCheck();
+                     },
+                      error:function(request,status,error){
+                            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                      }
+                  });
+               } else{
+                  alert("로그인 후 이용해주세요");
+               }
+            });
       
       window.onload = function(){
-    	  countLike();
-    	  likeCheck();
+         countLike();
+         likeCheck();
       }
-    	  function countLike(){
-    	  var query = {
-    			  tblBno : "${view.bno}"
-    	  };
-    	  $.ajax({
-			  url : "/board/likeCount",
-			  type : "post",
-			  data : query,
-			  success : function(count) {
-				  $("#like").text("추천수 :" + count);
-				  
-			  },
-    		  error:function(request,status,error){
-    		        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-    		  }
-		  });
+         function countLike(){
+         var query = {
+               tblBno : "${view.bno}"
+         };
+         $.ajax({
+           url : "/board/likeCount",
+           type : "post",
+           data : query,
+           success : function(count) {
+              $("#like").text("추천수 :" + count);
+              
+           },
+            error:function(request,status,error){
+                  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+        });
       }
-    	  
-    	  function likeCheck(){
-    		  if("${session }" != ""){
-        	  var query = {
-        			  userID : "${session.id}",
-        			  tblBno : "${view.bno}"
-        	  };
-        	  $.ajax({
-    			  url : "/board/likeCheck",
-    			  type : "post",
-    			  data : query,
-    			  success : function(check) {
-    				  if(check == 1){
-    					  $("#bLike").text("추천 취소");
-    				  } else{
-    					  $("#bLike").text("게시글 추천");
-    				  }
-    			  },
-        		  error:function(request,status,error){
-        		        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-        		  }
-    		  });
-    		  }
+         
+         function likeCheck(){
+            if("${session }" != ""){
+             var query = {
+                   userID : "${session.id}",
+                   tblBno : "${view.bno}"
+             };
+             $.ajax({
+               url : "/board/likeCheck",
+               type : "post",
+               data : query,
+               success : function(check) {
+                  if(check == 1){
+                     $("#bLike").text("추천 취소");
+                  } else{
+                     $("#bLike").text("게시글 추천");
+                  }
+               },
+                error:function(request,status,error){
+                      alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                }
+            });
+            }
           }
   
       

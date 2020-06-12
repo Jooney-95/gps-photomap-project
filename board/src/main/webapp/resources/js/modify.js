@@ -1,6 +1,7 @@
 var sel_files;
 var MAX_W = 300;
 var MAX_H = 300;
+var i;
 var j;
 var index;
 var del_files;
@@ -9,9 +10,11 @@ var checkLoad = true;
 $(document).ready(
 		function() {
 			sel_files = [];
-			del_files = [];
-			j = 0;
-			index = 0;
+			del_files = [ -1 ];
+			index = document.getElementsByName("imgDiv").length;
+			i = 0;
+			j = index;
+			console.log(j);
 			$("#input_imgs").on("change", handleImgFileSelect);
 			$(window).bind("beforeunload", function() {
 				if (checkLoad == true) {
@@ -93,29 +96,52 @@ function handleImgFileSelect(e) {
 						canvasContext.drawImage(this, 0, 0, canvas.width,
 								canvas.height);
 						var dataURI = canvas.toDataURL('image/jpeg');
-						var img_html = '<div id="div'
+						var img_html = '<div class="middle" id="middle_'
 								+ index
-								+ '" name="imgDiv"><input type="hidden" id="id'
+								+ '" name="imgDiv"><div class="left"><input type="hidden" id="id_'
 								+ index
 								+ '" name="id"><img onclick="del('
 								+ index
-								+ ')" id="img'
+								+ ')" id="img_'
 								+ index
 								+ '" name="filesList" src="'
 								+ dataURI
-								+ '" />위도 : <input type="text" id="lat'
+								+ '" /></div><div class="right"><div class="one"><input type="text" id="lat_'
 								+ index
-								+ '" name="lat" />경도 : <input type="text" id="lon'
+								+ '" name="lat" /><input type="text" id="lon_'
 								+ index
-								+ '" name="lon" />시간 : <input type="text" id="time'
+								+ '" name="lon" /><input type="text" id="time_'
 								+ index
-								+ '" name="time" />내용 : <textarea cols="50" rows="5" id="textarea'
+								+ '" name="time" /></div><div class="two"><textarea cols="50" rows="5" id="textarea_'
 								+ index
-								+ '" name="content" ></textarea><br/><div>'
-
+								+ '" name="content" ></textarea><br/><div><div id="three"><div class="t-1"></div><div class="t-2" id="tp_'
+								+ index
+								+ '">'
+								+ '<input type="checkbox" id="sneakers_'
+								+ index
+								+ '" name="tp" value="sneakers" /><label><img src="/resources/imgs/sneakers.png"></label>'
+								+ ' <input type="checkbox" id="bus_'
+								+ index
+								+ '" name="tp" value="bus" /><label><img src="/resources/imgs/bus.png"></label>'
+								+ ' <input type="checkbox" id="train_'
+								+ index
+								+ '" name="tp" value="train" /><label><img src="/resources/imgs/train.png"></label>'
+								+ ' <br>'
+								+ ' <input type="checkbox" id="car_'
+								+ index
+								+ '" name="tp" value="car" /><label><img src="/resources/imgs/car.png"></label>'
+								+ '  <input type="checkbox" id="taxi_'
+								+ index
+								+ '" name="tp" value="taxi" /><label><img src="/resources/imgs/taxi.png"></label>'
+								+ ' <input type="checkbox" id="bike_'
+								+ index
+								+ '" name="tp" value="bike" /><label><img src="/resources/imgs/bike.png"></label>'
+								+ ' <input type="checkbox" id="scooter_'
+								+ index
+								+ '" name="tp" value="scooter" /><label><img src="/resources/imgs/scooter.png"></label>'
+						'</div></div></div>'
 						$(".img_box").append(img_html);
 						index++;
-
 					}
 				}
 				reader.readAsDataURL(f);
@@ -126,13 +152,13 @@ function handleImgFileSelect(e) {
 function del(index) {
 	// sel_files.splice(index, 1);
 
-	$("#div" + index).css("opacity", 0.5);
-	$("#img" + index).attr("onclick", "undel("+index+")");
+	$("#middle_" + index).css("opacity", 0.5);
+	$("#img_" + index).attr("onclick", "undel(" + index + ")");
 }
 
-function undel(index){
-	$("#div" + index).css("opacity", "");
-	$("#img" + index).attr("onclick", "del("+index+")");
+function undel(index) {
+	$("#middle_" + index).css("opacity", "");
+	$("#img_" + index).attr("onclick", "del(" + index + ")");
 }
 
 $(document).on(
@@ -173,29 +199,46 @@ $(document).on(
 
 $(document).on(
 		'click',
-		'#bWrite',
+		'#bModify',
 		function() {
 			if ($("#title").val().trim() != "") {
+				
+		
 				var id = [];
 				var lat = [];
 				var lon = [];
 				var time = [];
 				var content = [];
-
+				var tp = [];
+				var bno = $("#bno").val();
+				var size = 0;
+					
 				for (var i = 0; i < $("input[name='id']").length; i++) {
-					if($("div[name='imgDiv']")[i].style.opacity == 0.5 && $("input[name='id']")[i].value != ""){
+					if ($("div[name='imgDiv']")[i].style.opacity == 0.5
+							&& $("input[name='id']")[i].value != "") {
 						del_files.push($("input[name='id']")[i].value);
+						console.log(del_files);
 					}
-					if($("div[name='imgDiv']")[i].style.opacity == "" && $("input[name='id']")[i].value != ""){
+					if ($("div[name='imgDiv']")[i].style.opacity == ""
+							&& $("input[name='id']")[i].value != "") {
+						size++;
 						id.push($("input[name='id']")[i].value);
 						lat.push($("input[name='lat']")[i].value);
 						lon.push($("input[name='lon']")[i].value);
 						time.push($("input[name='time']")[i].value);
 						content.push($("textarea[name='content']")[i].value);
+						var tp_sub = [];
+						$("#tp_" + [ i ] + " input:checked").each(function() {
+							tp_sub.push($(this).val());
+						});
+						tp.push(tp_sub);
 					}
-					
+
 				}
+				console.log(tp);
+				console.log(id);
 				var query = {
+					bno : bno,
 					title : $("#title").val().trim(),
 					userID : $("#userID").val(),
 					pNum : $("input[name='pNum']:checked").val(),
@@ -204,11 +247,14 @@ $(document).on(
 					lon : lon,
 					time : time,
 					content : content,
-					del : del_files
+					del : del_files,
+					tp : tp,
+					size : size
 				};
+				
 				$.ajax({
 					type : "post",
-					url : "/board/writeClick",
+					url : "/board/modifyClick",
 					traditional : true,
 					data : query,
 					success : function(data) {
@@ -223,6 +269,7 @@ $(document).on(
 				});
 			} else {
 				alert("제목을 입력하세요.");
+				$("#title").focus();
 			}
 		});
 
@@ -233,10 +280,11 @@ function imgPrint(obj) {
 	var id = document.getElementsByName("id");
 
 	while (j < lat.length) {
-		lat[j].value = obj[j].latitude;
-		lon[j].value = obj[j].longitude;
-		time[j].value = obj[j].timeView;
-		id[j].value = obj[j].id;
+		lat[j].value = obj[i].latitude;
+		lon[j].value = obj[i].longitude;
+		time[j].value = obj[i].timeView;
+		id[j].value = obj[i].id;
 		j++;
+		i++;
 	}
 }

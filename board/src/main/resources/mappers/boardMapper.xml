@@ -124,15 +124,7 @@
 	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
 	<!-- file_board start -->
 
-	<!-- 파일 추가 -->
-	<insert id="writeFile" parameterType="hashMap">
-		update file_board
-		set
-		fileBno = #{fileBno},
-		userID = #{userID}
-		where fileBno = 0 and userID = -1
-	</insert>
-	
+	<!-- 파일 추가 -->	
 	<insert id="imgUpload" parameterType="hashMap">
 		insert into
 		file_board(latitude, longitude, timeView, fileName, path, userID)
@@ -175,16 +167,18 @@
 		where id = #{id}
 	</update>
 	
-	<!-- 파일 수정 -->
-	<update id="writeClick" parameterType="com.board.domain.FileVO">
+	<!-- 파일 추가 -->	
+	<update id="writeClick" parameterType="hashMap">
+	<foreach collection="fileVOList" item="item" separator=" ; ">
 		update file_board
 		set
-		fileBno = #{fileBno},
-		timeView = #{timeView},
-		latitude = #{latitude},
-		longitude = #{longitude},
-		content = #{content}
-		where id = #{id}
+		fileBno = #{item.fileBno},
+		timeView = #{item.timeView},
+		latitude = #{item.latitude},
+		longitude = #{item.longitude},
+		content = #{item.content}
+		where id = #{item.id}
+		</foreach>
 	</update>
 
 	<!-- 파일 삭제 -->
@@ -205,7 +199,7 @@
 	<delete id="beforeunload" parameterType="int">
 		delete
 		from file_board
-		where userID = #{userID}
+		where userID = #{userID} and fileBno = 0
 	</delete>
 
 	<!-- 파일 이름 불러오기 -->
@@ -226,7 +220,7 @@
 		insert into
 		reg_board(mID, mPW, mNickname, mEmail, mImg)
 		values(
-		#{mID}, #{mPW}, #{mNickname}, #{mEmail}, "/resources/imgs/unnamed.png"
+		#{mID}, #{mPW}, #{mNickname}, #{mEmail}, "/resources/imgs/p1.png"
 		)
 	</insert>
 

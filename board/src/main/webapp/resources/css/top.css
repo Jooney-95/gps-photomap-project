@@ -1,0 +1,160 @@
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: sans-serif;
+  font-size: 18px;
+}
+
+
+/*/////////////   /////////////*/
+#header {
+  background: #1CDD9E;
+  font-color:#fff; 
+  width: 100%;/*        */
+  height:100px; /*        */
+  /*        */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index:10;
+}
+/*////////////////////////////*/
+
+
+
+/*/////////// ΰ //////////////*/
+.logo {
+  float: left;/*         */
+  padding: 30px 0 20px;/* ΰ    ġ*/
+}
+.logo a {
+  color: #fff;
+  font-size: 28px;
+  display: block;
+  padding: 0 0 0 20px;
+  text-decoration: none; /* ؽ Ʈ          */
+}
+/*///////////////////////////*/
+
+
+/*/////////////// ˻ â/////////////////*/
+.search {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 3px solid #10b27d;
+  border-right: none;
+  padding: 10px;
+  height: 50px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9dbfaf;
+}
+
+.searchTerm:focus {
+  color: #000000;/* ˻      ؽ Ʈ  */
+}
+
+.searchButton {
+  width: 60px;
+  padding: 10px;
+  height: 50px;
+  border: 1px solid #10b27d;
+  background: #10b27d;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.wrap {
+  width: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+/*///////////////////////////////*/
+
+.log{ 
+  display: inline-block;
+  vertical-align: middle;
+  height: 100px;
+  width: 200px;
+  float:right;
+  padding:10px;
+  font-size: 15px;
+  margin-right:10px;
+}
+
+
+/*///////////로그인전 프로필 위치///////*/
+#rr{
+  width: 80px;
+  height:80px;
+  text-align:center;
+  float:right;
+}
+#rr img{
+   width:50px;
+   height:50px;
+   margin-top:15px;
+}
+/*///////////////////////////////*/
+
+
+/*//////////로그인 후 오른쪽 버튼 위치////*/
+#r{
+  width: 80px;
+  height:80px;
+  font-size: 14px;
+  text-align:center;
+  float:right;
+}
+
+.profile{
+  width: 80px;
+  margin-top:6px;
+  text-align:center;
+}
+
+.profile img{
+   width:45px;
+   height:45px;
+   border: 2px solid #10b27d;
+   border-radius: 77%;
+}
+
+
+#writebutton{
+  display: inline-block;
+  vertical-align: middle;
+  width: 80px;
+  height:80px;
+  text-align:center;
+  float:right;
+}
+
+#writebutton img{
+   width:52px;
+   height:52px;
+   padding: 6px;
+   border: 2px solid #10b27d;
+   border-radius: 77%;
+   margin-top:15px;
+}
+/*////////////////////*/

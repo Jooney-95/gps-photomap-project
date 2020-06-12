@@ -1,5 +1,6 @@
 package com.board.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -8,11 +9,7 @@ import com.board.domain.FileVO;
 
 public interface FileService {
 
-	public void write(List<MultipartFile> file, int fileBno, int uesrID) throws Exception;
-
 	public List<FileVO> viewFile(int bno) throws Exception;
-
-	public void modifyFile(String[] str_id, String[] latitude, String[] longitude, String[] time, String[] content) throws Exception;
 
 	public void deleteFile(String[] delete) throws Exception;
 
@@ -22,8 +19,8 @@ public interface FileService {
 
 	public List<FileVO> imgSelect(int userID) throws Exception;
 
-	public void writeClick(int fileBno, String[] id, String[] lat, String[] lon, String[] time, String[] content) throws Exception;
-
 	public void beforeunload(int userID) throws Exception;
+
+	public void writeClick(HashMap<String, Object> fileMap) throws Exception;
 
 }

@@ -41,7 +41,7 @@
             <div class="right_icons">
                 <c:if test="${session != null }">
 					<%@ include file="./include/navLogin.jsp"%>
-				</c:if><div class="sprite_camera_icon"></div></a>
+				</c:if><div class="sprite_camera_icon"></div>
                 
                 <a href="login.html"><div class="sprite_compass_icon"></div></a>
                 <a href="follow.html"><div class="sprite_heart_icon_outline"></div></a>

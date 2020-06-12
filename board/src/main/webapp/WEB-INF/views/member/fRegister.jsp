@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>로그인</title>
 <link rel="stylesheet" href="/resources/css/fRegister.css">
+<link rel="stylesheet" href="/resources/css/top.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 </head>
 
@@ -15,7 +16,7 @@
 <div id="header">
  
   <div class="logo">
-    <a href="#">SAMPLE</a>
+    <a href="/board/listPageSearch?num=1">SAMPLE</a>
   </div>
   
 <div class="wrap">
@@ -120,34 +121,34 @@
 
 </form>
 
-	<script>
-		var ch1 = document.getElementById("ch1");
-		var ch2 = document.getElementById("ch2");
-		var ch3 = document.getElementById("ch3");
-		var bBack = document.getElementById("bBack");
-		var bNext = document.getElementById("bNext");
+   <script>
+      var ch1 = document.getElementById("ch1");
+      var ch2 = document.getElementById("ch2");
+      var ch3 = document.getElementById("ch3");
+      var bBack = document.getElementById("bBack");
+      var bNext = document.getElementById("bNext");
 
-		bBack.addEventListener('click', function(event) {
-			location.href = "/member/login";
-		});
+      bBack.addEventListener('click', function(event) {
+         location.href = "/member/login";
+      });
 
-		bNext.addEventListener('click', function(event) {
+      bNext.addEventListener('click', function(event) {
 
-			if (ch1.checked) {
-				if (ch2.checked) {
-					if (ch3.checked) {
-						document.getElementById("f").submit();
-					} else {
-						alert("위치 정보 동의");
-					}
-				} else {
-					alert("개인정보 수집 및 이용 동의");
-				}
-			} else {
-				alert("이용약관 동의");
-			}
-		});
-	</script>
+         if (ch1.checked) {
+            if (ch2.checked) {
+               if (ch3.checked) {
+                  document.getElementById("f").submit();
+               } else {
+                  alert("위치 정보 동의");
+               }
+            } else {
+               alert("개인정보 수집 및 이용 동의");
+            }
+         } else {
+            alert("이용약관 동의");
+         }
+      });
+   </script>
 </body>
 </html>
 
