@@ -23,8 +23,12 @@
 <!-- 검색창 -->
 <div class="wrap">
 	<div class="search">
-        <input type="text" class="searchTerm" placeholder="어떤 곳을 찾으시나요?">
-        <button type="submit" class="searchButton">
+	<select name="searchType">
+	    		<option value="writer">작성자</option>
+				<option value="title">제목</option>
+			</select>
+        <input type="text" class="searchTerm" name="keyword" placeholder="어떤 곳을 찾으시나요?">
+        <button type="button" class="searchButton" id="searchBtn">
         	<i class="fa fa-search"></i>
         </button>
     </div>
@@ -124,14 +128,6 @@
 			<span>[ <a href="/board/listPageSearch?num=${page.endPageNum + 1}">다음</a> ]</span>
 		</c:if>
 		
-		<div>
-	    	<select name="searchType">
-	    		<option value="writer">작성자</option>
-				<option value="title">제목</option>
-			</select>
-        	<input type="text" name="keyword" />
-			<button type="button" id="searchBtn">검색</button>
- 		</div>
 		<script>
 		
 			var mImg = new Array();
@@ -149,7 +145,7 @@
 			</c:forEach>
 			
 			for(i=0;i<bno.length;i++){
-				document.getElementById(bno[i]).innerHTML = '<img width="100" height="100" alt="" src=' + mImg[i] + '><br/><a href="/member/myPage?num=1&userID=' + userID[i] + '">' + mNickname[i] + '</a>';	
+				document.getElementById(bno[i]).innerHTML = '<a href="/member/myPage?num=1&userID=' + userID[i] + '"><img width="100" height="100" alt="" src=' + mImg[i] + '><br/>' + mNickname[i] + '</a>';	
 			}
 
 			document.getElementById("searchBtn").onclick = function() {

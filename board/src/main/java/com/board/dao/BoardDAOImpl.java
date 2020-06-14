@@ -129,4 +129,10 @@ public class BoardDAOImpl implements BoardDAO {
 		sql.update(namespace + ".likeDownTbl", vo);
 	}
 
+	@Override
+	public int count(int userID) throws Exception {
+		// TODO Auto-generated method stub
+		return sql.selectOne(namespace + ".countMyPage", userID);
+	}
+
 }

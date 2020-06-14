@@ -36,4 +36,6 @@ public interface BoardService {
 	
 	public void likeDownTbl(LikeVO vo) throws Exception;
 
+	public int count(int userID) throws Exception;
+
 }

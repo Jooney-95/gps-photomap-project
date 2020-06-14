@@ -59,11 +59,11 @@
 	<select id="count" resultType="int">
 		select count(bno) from tbl_board
 	</select>
-
+	
 	<!-- 작성자의 게시글 총 갯수 -->
 	<select id="countMyPage" parameterType="int" resultType="int">
 		select count(bno) from tbl_board
-		where writer = #{id}
+		where writer = #{userID}
 	</select>
 
 	<!-- 게시물 목록 + 페이징 + 검색 -->
@@ -362,7 +362,25 @@
 	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
 	<!-- fol_board start -->
 	
-	<!-- 팔로잉 검색 -->
+	<!-- 팔로우 목록 검색 -->
+	<select id="userFollow" parameterType="int" resultType="com.board.domain.FollowVO">
+		select
+		id, userID, following, fforf 
+		from
+		fol_board
+		where userID = #{userID}
+	</select>
+	
+	<!-- 팔로잉 목록 검색 -->
+	<select id="userFollowing" parameterType="int" resultType="com.board.domain.FollowVO">
+		select
+		id, userID, following, fforf 
+		from
+		fol_board
+		where following = #{userID}
+	</select>
+	
+	<!-- 맞팔로잉 검색 -->
 	<select id="followingCheck" parameterType="com.board.domain.FollowVO" resultType="com.board.domain.FollowVO">
 		select
 		id, userID, following, fforf 

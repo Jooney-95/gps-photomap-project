@@ -202,15 +202,25 @@ public class MemberController {
 			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) throws Exception {
 		
 		Page page = new Page();
-		
+		int count = boardService.count(userID);
 		
 		page.setNum(num);
-		page.setCount(service.countMyPage(userID));
+		page.setCount(count);
 		
 		List<BoardVO> list = null;
 		
 		list = boardService.MyPageSearch(userID, page.getDisplayPost(), page.getPostNum(), searchType, keyword);
 
+		
+		
+		List<FollowVO> follow = new ArrayList<FollowVO>();
+		List<FollowVO> following = new ArrayList<FollowVO>();
+		follow = service.userFollow(userID);
+		following = service.userFollowing(userID);
+		
+		int countFollow = follow.size();
+		int countFollowing = following.size();
+		
 		List<FileVO> fList = new ArrayList<FileVO>();
 		List<ArrayList<FileVO>> fileList = new ArrayList<ArrayList<FileVO>>();
 		MemberVO m = new MemberVO();
@@ -230,6 +240,11 @@ public class MemberController {
 		model.addAttribute("select", num);
 		model.addAttribute("member", mList);
 		model.addAttribute("userID", userID);
+		model.addAttribute("count", count);
+		model.addAttribute("follow", follow);
+		model.addAttribute("following", following);
+		model.addAttribute("countFollow", countFollow);
+		model.addAttribute("countFollowing", countFollowing);
 	}
 
 	@ResponseBody

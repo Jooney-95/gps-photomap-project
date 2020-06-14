@@ -1,5 +1,7 @@
 package com.board.dao;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -67,13 +69,7 @@ public class MemberDAOImpl implements MemberDAO {
 		// TODO Auto-generated method stub
 		sql.update(namespace + ".password", vo);
 	}
-
-	@Override
-	public int countMyPage(int id) throws Exception {
-		// TODO Auto-generated method stub
-		return sql.selectOne(namespace + ".countMyPage", id);
-	}
-
+	
 	@Override
 	public MemberVO memberVO(int id) throws Exception {
 		// TODO Auto-generated method stub
@@ -108,6 +104,18 @@ public class MemberDAOImpl implements MemberDAO {
 	public void unFforf(FollowVO fVo) throws Exception {
 		// TODO Auto-generated method stub
 		sql.update(namespace + ".unFforf", fVo);
+	}
+
+	@Override
+	public List<FollowVO> userFollow(int userID) throws Exception {
+		// TODO Auto-generated method stub
+		return sql.selectList(namespace + ".userFollow", userID);
+	}
+
+	@Override
+	public List<FollowVO> userFollowing(int userID) throws Exception {
+		// TODO Auto-generated method stub
+		return sql.selectList(namespace + ".userFollowing", userID);
 	}
 
 }

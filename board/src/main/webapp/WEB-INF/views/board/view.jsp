@@ -8,8 +8,10 @@
 <title>게시물 조회</title>
 <link rel="stylesheet" href="/resources/css/modify.css">
 <link rel="stylesheet" href="/resources/css/top.css">
+<link rel="stylesheet" href="/resources/dist/css/lightbox.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="/resources/dist/js/lightbox.js"></script>
 </head>
 
 <body>
@@ -80,7 +82,7 @@
        <div class="middle">
    
           <div class="left">
-             <img width="200" height="200" alt="" src="<spring:url value='${list.path }'/>"><br>
+             <a href="<spring:url value='${list.path }'/>" data-lightbox="image-1" data-title="My caption"><img width="200" height="200" alt="" src="<spring:url value='${list.path }'/>"></a>
           </div>
                
                
@@ -148,6 +150,8 @@
    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dd9fb87d40ab9678af574d3665e02b6e&libraries=services,clusterer"></script>
    <script>
          
+
+   
      //위도, 경도값  배열에 저장
      var lat = new Array();
      var lon = new Array();
@@ -192,7 +196,7 @@
  
      // 지도를 생성합니다
      var map = new kakao.maps.Map(mapContainer, mapOption); 
-
+     
       // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
      var mapTypeControl = new kakao.maps.MapTypeControl();
           
@@ -313,81 +317,101 @@
    </script>
    <script>   
       //document.getElementById("map").style.marginLeft="5%";
-      
-     
-      
-      $("#bLike").click(
-            function(){
-               if("${session }" != ""){
-                  var query = {
-                        userID : "${session.id}",
-                        tblBno : "${view.bno}"
-                  };
-                  $.ajax({
-                     url : "/board/likeClick",
-                     type : "post",
-                     data : query,
-                     success : function(count) {
-                        countLike();
-                        likeCheck();
-                     },
-                      error:function(request,status,error){
-                            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-                      }
-                  });
-               } else{
-                  alert("로그인 후 이용해주세요");
-               }
-            });
-      
-      window.onload = function(){
-         countLike();
-         likeCheck();
-      }
-         function countLike(){
-         var query = {
-               tblBno : "${view.bno}"
-         };
-         $.ajax({
-           url : "/board/likeCount",
-           type : "post",
-           data : query,
-           success : function(count) {
-              $("#like").text("추천수 :" + count);
-              
-           },
-            error:function(request,status,error){
-                  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-            }
-        });
-      }
+ 
          
-         function likeCheck(){
-            if("${session }" != ""){
-             var query = {
-                   userID : "${session.id}",
-                   tblBno : "${view.bno}"
-             };
-             $.ajax({
-               url : "/board/likeCheck",
-               type : "post",
-               data : query,
-               success : function(check) {
-                  if(check == 1){
-                     $("#bLike").text("추천 취소");
-                  } else{
-                     $("#bLike").text("게시글 추천");
-                  }
-               },
-                error:function(request,status,error){
-                      alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-                }
-            });
-            }
-          }
-  
-      
-   </script>
+   function relayout() {
+
+		// 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
+		// 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
+		// window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
+		map.relayout();
+	}
+
+	function resizeMap() {
+		var mapContainer = document.getElementById('map');
+		mapContainer.style.width = '1000px';
+		mapContainer.style.height = '1000px';
+	}
+			
+	resizeMap();
+	relayout();
+				$("#bLike").click(
+						function() {
+							if ("${session }" != "") {
+								var query = {
+									userID : "${session.id}",
+									tblBno : "${view.bno}"
+								};
+								$.ajax({
+									url : "/board/likeClick",
+									type : "post",
+									data : query,
+									success : function(count) {
+										countLike();
+										likeCheck();
+									},
+									error : function(request, status, error) {
+										alert("code:" + request.status + "\n"
+												+ "message:"
+												+ request.responseText + "\n"
+												+ "error:" + error);
+									}
+								});
+							} else {
+								alert("로그인 후 이용해주세요");
+							}
+						});
+
+				window.onload = function() {
+					countLike();
+					likeCheck();
+				}
+				function countLike() {
+					var query = {
+						tblBno : "${view.bno}"
+					};
+					$.ajax({
+						url : "/board/likeCount",
+						type : "post",
+						data : query,
+						success : function(count) {
+							$("#like").text("추천수 :" + count);
+
+						},
+						error : function(request, status, error) {
+							alert("code:" + request.status + "\n" + "message:"
+									+ request.responseText + "\n" + "error:"
+									+ error);
+						}
+					});
+				}
+
+				function likeCheck() {
+					if ("${session }" != "") {
+						var query = {
+							userID : "${session.id}",
+							tblBno : "${view.bno}"
+						};
+						$.ajax({
+							url : "/board/likeCheck",
+							type : "post",
+							data : query,
+							success : function(check) {
+								if (check == 1) {
+									$("#bLike").text("추천 취소");
+								} else {
+									$("#bLike").text("게시글 추천");
+								}
+							},
+							error : function(request, status, error) {
+								alert("code:" + request.status + "\n"
+										+ "message:" + request.responseText
+										+ "\n" + "error:" + error);
+							}
+						});
+					}
+				}
+			</script>
      
    
  <script>
