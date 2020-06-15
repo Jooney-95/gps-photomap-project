@@ -34,9 +34,28 @@
 		</c:if>
 		<c:if test="${session.id eq userID }"><a href="/member/profile">프로필 수정</a></c:if>
 		<br/>
-		게시글 : ${count } 팔로워 : ${countFollow } 팔로잉 : ${countFollowing }
+		게시글 : ${count } 서로이웃 : ${countFollow } 이웃신청 : ${countFollowing }
 		<br/>
 		<c:if test="${session.id ne userID }"><button id="bFollow"></button></c:if>
+	</div>
+	<br/>
+	<div>
+	서로이웃
+	
+	<c:forEach items="${follow }" var="follow">
+		<a href="/member/myPage?num=1&userID=${follow.id }"><img width="100" height="100" alt="" src="<spring:url value='${follow.mImg }'/>">
+		${follow.mNickname }</a>
+	</c:forEach>
+
+	</div>
+	<div>
+	이웃신청
+	
+	<c:forEach items="${following }" var="following">
+		<a href="/member/myPage?num=1&userID=${following.id }"><img width="100" height="100" alt="" src="<spring:url value='${following.mImg }'/>">
+		${following.mNickname }</a>
+	</c:forEach>
+	
 	</div>
 	<table>
 		<thead>
@@ -166,11 +185,11 @@
 	    			  data : query,
 	    			  success : function(check) {
 	    				  if(check == 1){
-	    					  $("#bFollow").text("팔로잉");
+	    					  $("#bFollow").text("요청됨");
 	    				  } else if(check == 2){
-	    					  $("#bFollow").text("맞팔로우");
+	    					  $("#bFollow").text("서로이웃");
 	    				  } else{
-	    					  $("#bFollow").text("팔로우");
+	    					  $("#bFollow").text("이웃추가");
 	    				  }
 	    			  },
 	        		  error:function(request,status,error){

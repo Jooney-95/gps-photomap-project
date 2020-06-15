@@ -114,5 +114,11 @@ public class MemberServiceImpl implements MemberService {
 		return dao.userFollowing(userID);
 	}
 
+	@Override
+	public List<MemberVO> followMemberVO(List<FollowVO> follow) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.followMemberVO(follow);
+	}
+
 
 }

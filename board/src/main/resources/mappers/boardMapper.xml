@@ -246,6 +246,19 @@
 		id = #{id}
 	</select>
 	
+		<!-- 회원정보 가져오기 -->
+	<select id="followMemberVO" parameterType="hashMap"
+		resultType="com.board.domain.MemberVO">
+		select
+		id, mID, mPW, mNickname, mEmail, mImg
+		from
+		reg_board
+		where id in
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item.userID}
+		</foreach>
+	</select>
+	
 	<!-- 아이디 확인 -->
 	<select id="idCheck" parameterType="string"
 		resultType="com.board.domain.MemberVO">
@@ -368,7 +381,7 @@
 		id, userID, following, fforf 
 		from
 		fol_board
-		where userID = #{userID}
+		where following = #{userID} and fforf = 1
 	</select>
 	
 	<!-- 팔로잉 목록 검색 -->
@@ -377,7 +390,7 @@
 		id, userID, following, fforf 
 		from
 		fol_board
-		where following = #{userID}
+		where following = #{userID} and fforf = 0
 	</select>
 	
 	<!-- 맞팔로잉 검색 -->

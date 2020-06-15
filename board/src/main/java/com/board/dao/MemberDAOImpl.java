@@ -1,5 +1,6 @@
 package com.board.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -116,6 +117,14 @@ public class MemberDAOImpl implements MemberDAO {
 	public List<FollowVO> userFollowing(int userID) throws Exception {
 		// TODO Auto-generated method stub
 		return sql.selectList(namespace + ".userFollowing", userID);
+	}
+
+	@Override
+	public List<MemberVO> followMemberVO(List<FollowVO> follow) throws Exception {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("list", follow);
+		return sql.selectList(namespace + ".followMemberVO", map);
 	}
 
 }
