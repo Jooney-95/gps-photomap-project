@@ -114,7 +114,7 @@ function handleImgFileSelect(e) {
 								+ index
 								+ '" name="time" /></div><div class="two"><textarea cols="50" rows="5" id="textarea_'
 								+ index
-								+ '" name="content" ></textarea><br/><div><div id="three"><div class="t-1"></div><div class="t-2" id="tp_'
+								+ '" name="content" ></textarea><br/></div><div class="three"><div class="t-1"></div><div class="t-2" id="tp_'
 								+ index
 								+ '">'
 								+ '<input type="checkbox" id="sneakers_'
@@ -202,8 +202,7 @@ $(document).on(
 		'#bModify',
 		function() {
 			if ($("#title").val().trim() != "") {
-				
-		
+
 				var id = [];
 				var lat = [];
 				var lon = [];
@@ -212,7 +211,7 @@ $(document).on(
 				var tp = [];
 				var bno = $("#bno").val();
 				var size = 0;
-					
+
 				for (var i = 0; i < $("input[name='id']").length; i++) {
 					if ($("div[name='imgDiv']")[i].style.opacity == 0.5
 							&& $("input[name='id']")[i].value != "") {
@@ -251,7 +250,7 @@ $(document).on(
 					tp : tp,
 					size : size
 				};
-				
+
 				$.ajax({
 					type : "post",
 					url : "/board/modifyClick",

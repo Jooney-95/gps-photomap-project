@@ -106,6 +106,7 @@
             </div>   
                                  
             <div class="three">
+            <div class="t-1"></div>
                 <div class="t-2" id="tp_${status.index }" >
                      <input type="checkbox" id="sneakers_${status.index }" name="tp" value="sneakers" /><label><img src="/resources/imgs/sneakers.png"></label>
                      <input type="checkbox" id="bus_${status.index }" name="tp" value="bus" /><label><img src="/resources/imgs/bus.png"></label>

@@ -67,6 +67,7 @@
 		<thead>
 			<tr>
 				<th>작성자</th>
+				<th>작성자</th>
 				<th>공개범위</th>
 				<th>제목</th>
 				<th>작성일</th>
@@ -79,6 +80,7 @@
 			<c:forEach items="${list}" var="list">
 				<tr>
 					<td id="writer${list.bno }"></td>
+					<td id="nickname${list.bno }"></td>
 					<td id="pNum${list.pNum }"><c:choose>
                   		<c:when test="${list.pNum eq -1 }"> [공개]
                  		</c:when>
@@ -141,11 +143,12 @@
 				userID.push("${member.id}");
 			</c:forEach>
 			<c:forEach items="${list}" var="list">
-				bno.push("writer${list.bno }");
+				bno.push("${list.bno }");
 			</c:forEach>
 			
 			for(i=0;i<bno.length;i++){
-				document.getElementById(bno[i]).innerHTML = '<a href="/member/myPage?num=1&userID=' + userID[i] + '"><img width="100" height="100" alt="" src=' + mImg[i] + '><br/>' + mNickname[i] + '</a>';	
+				document.getElementById("writer"+bno[i]).innerHTML = '<a href="/member/myPage?num=1&userID=' + userID[i] + '"><img alt="" src=' + mImg[i] + '></a>';
+				document.getElementById("nickname"+bno[i]).innerHTML = '<a href="/member/myPage?num=1&userID=' + userID[i] + '">' + mNickname[i] + '</a>';
 			}
 
 			document.getElementById("searchBtn").onclick = function() {
