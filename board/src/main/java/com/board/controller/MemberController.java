@@ -202,15 +202,37 @@ public class MemberController {
 			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) throws Exception {
 		
 		Page page = new Page();
-		
+		int count = boardService.count(userID);
 		
 		page.setNum(num);
-		page.setCount(service.countMyPage(userID));
+		page.setCount(count);
 		
 		List<BoardVO> list = null;
 		
 		list = boardService.MyPageSearch(userID, page.getDisplayPost(), page.getPostNum(), searchType, keyword);
 
+		
+		
+		List<FollowVO> follow = new ArrayList<FollowVO>();
+		List<FollowVO> following = new ArrayList<FollowVO>();
+		follow = service.userFollow(userID);
+		following = service.userFollowing(userID);
+		
+		
+		
+		
+		int countFollow = follow.size();
+		int countFollowing = following.size();
+		
+		if(countFollow > 0) {
+			List<MemberVO> followMVO = service.followMemberVO(follow);
+			model.addAttribute("follow", followMVO);
+		}
+		if(countFollowing > 0) {
+			List<MemberVO> followingMVO = service.followMemberVO(following);
+			model.addAttribute("following", followingMVO);
+		}
+		
 		List<FileVO> fList = new ArrayList<FileVO>();
 		List<ArrayList<FileVO>> fileList = new ArrayList<ArrayList<FileVO>>();
 		MemberVO m = new MemberVO();
@@ -230,6 +252,10 @@ public class MemberController {
 		model.addAttribute("select", num);
 		model.addAttribute("member", mList);
 		model.addAttribute("userID", userID);
+		model.addAttribute("count", count);
+		model.addAttribute("countFollow", countFollow);
+		model.addAttribute("countFollowing", countFollowing);
+		
 	}
 
 	@ResponseBody
@@ -241,20 +267,16 @@ public class MemberController {
 		FollowVO suVo = new FollowVO();
 		suVo.setUserID(sessionID);
 		suVo.setFollowing(userID);
-		
-		FollowVO usVo = new FollowVO();
-		usVo.setUserID(userID);
-		usVo.setFollowing(sessionID);
+
 		
 		FollowVO suCheck = service.followingCheck(suVo);
-		FollowVO usCheck = service.followingCheck(usVo);
 		
 		int result = 0;
-		if (suCheck == null && usCheck != null) {
-			result = 2;
-		}
-		else if(suCheck != null) {
+		if(suCheck != null) {
 			result = 1;
+			if(suCheck.getFforf() == 1) {
+				result = 2;
+			}
 		}
 
 		return result;
@@ -277,19 +299,20 @@ public class MemberController {
 		FollowVO suCheck = service.followingCheck(suVo);
 		FollowVO usCheck = service.followingCheck(usVo);
 		
-		if (suCheck == null && usCheck == null) {
-			service.follow(suVo);
-		}
-		else if(suCheck != null && usCheck == null) {
-			service.unFollow(suVo);
-		}
-		else if(suCheck == null && usCheck != null) {
-			service.follow(suVo);
-			service.fforf(suVo);
-		}
-		else if(suCheck != null && usCheck != null) {
-			service.unFollow(suVo);
-			service.unFforf(usVo);
+		if(usCheck != null) {
+			if(suCheck == null) {
+				service.follow(suVo);
+				service.fforf(suVo);
+			} else {
+				service.unFollow(suVo);
+				service.unFforf(usVo);
+			}
+		} else {
+			if(suCheck == null) {
+				service.follow(suVo);
+			} else {
+				service.unFollow(suVo);
+			}
 		}
 		
 	}

@@ -14,13 +14,13 @@ body {
 }
 
 
-/*/////////////«Ï¥ı/////////////*/
+/*/////////////   /////////////*/
 #header {
   background: #1CDD9E;
   font-color:#fff; 
-  width: 100%;/*«Ï¥ı ∞°∑Œ*/
-  height:100px; /*«Ï¥ı ≥Ù¿Ã*/
-  /*ªÛ¥‹ ∞Ì¡§*/
+  width: 100%;/*        */
+  height:100px; /*        */
+  /*        */
   position: fixed;
   top: 0;
   left: 0;
@@ -31,22 +31,22 @@ body {
 
 
 
-/*///////////∑Œ∞Ì//////////////*/
+/*/////////// Œ∞ //////////////*/
 .logo {
-  float: left;/*øﬁ¬  ¡§∑ƒ*/
-  padding: 30px 0 20px;/*∑Œ∞Ì ¿ßƒ°*/
+  float: left;/*         */
+  padding: 30px 0 20px;/* Œ∞    ƒ°*/
 }
 .logo a {
   color: #fff;
   font-size: 28px;
   display: block;
   padding: 0 0 0 20px;
-  text-decoration: none; /*≈ÿΩ∫∆Æ πÿ¡Ÿ ¡¶∞≈*/
+  text-decoration: none; /* ÿΩ ∆Æ          */
 }
 /*///////////////////////////*/
 
 
-/*///////////////∞Àªˆ√¢/////////////////*/
+/*/////////////// Àª √¢/////////////////*/
 .search {
   width: 100%;
   position: relative;
@@ -65,7 +65,7 @@ body {
 }
 
 .searchTerm:focus {
-  color: #000000;/*∞Àªˆ≥ªøÎ≈ÿΩ∫∆Æªˆ*/
+  color: #000000;/* Àª      ÿΩ ∆Æ  */
 }
 
 .searchButton {
@@ -90,11 +90,40 @@ body {
 }
 /*///////////////////////////////*/
 
+.log{ 
+  display: inline-block;
+  vertical-align: middle;
+  height: 100px;
+  width: 200px;
+  float:right;
+  padding:10px;
+  font-size: 15px;
+  margin-right:10px;
+}
+
+
+/*///////////Î°úÍ∑∏Ïù∏Ï†Ñ ÌîÑÎ°úÌïÑ ÏúÑÏπò///////*/
+#rr{
+  width: 80px;
+  height:80px;
+  text-align:center;
+  float:right;
+}
+#rr img{
+   width:50px;
+   height:50px;
+   margin-top:15px;
+}
+/*///////////////////////////////*/
+
+
+/*//////////Î°úÍ∑∏Ïù∏ ÌõÑ Ïò§Î•∏Ï™Ω Î≤ÑÌäº ÏúÑÏπò////*/
 #r{
- width: 80px;
-  height:25px;
+  width: 80px;
+  height:80px;
   font-size: 14px;
   text-align:center;
+  float:right;
 }
 
 .profile{
@@ -104,27 +133,19 @@ body {
 }
 
 .profile img{
-    width:45px;
+   width:45px;
    height:45px;
    border: 2px solid #10b27d;
-    border-radius: 77%;
+   border-radius: 77%;
 }
 
-.log{ 
-  display: inline-block;
-  vertical-align: middle;
-  height: 100px;
-  width: 100px;
-  float:right;
-  padding:10px;
-  font-size: 15px;
-  margin-right:10px;
-}
 
 #writebutton{
   display: inline-block;
   vertical-align: middle;
-  width: 50px;
+  width: 80px;
+  height:80px;
+  text-align:center;
   float:right;
 }
 
@@ -133,6 +154,7 @@ body {
    height:52px;
    padding: 6px;
    border: 2px solid #10b27d;
-    border-radius: 77%;
-    margin-top:5px;
+   border-radius: 77%;
+   margin-top:15px;
 }
+/*////////////////////*/

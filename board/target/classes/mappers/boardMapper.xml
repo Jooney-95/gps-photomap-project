@@ -59,11 +59,11 @@
 	<select id="count" resultType="int">
 		select count(bno) from tbl_board
 	</select>
-
+	
 	<!-- 작성자의 게시글 총 갯수 -->
 	<select id="countMyPage" parameterType="int" resultType="int">
 		select count(bno) from tbl_board
-		where writer = #{id}
+		where writer = #{userID}
 	</select>
 
 	<!-- 게시물 목록 + 페이징 + 검색 -->
@@ -124,15 +124,7 @@
 	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
 	<!-- file_board start -->
 
-	<!-- 파일 추가 -->
-	<insert id="writeFile" parameterType="hashMap">
-		update file_board
-		set
-		fileBno = #{fileBno},
-		userID = #{userID}
-		where fileBno = 0 and userID = -1
-	</insert>
-	
+	<!-- 파일 추가 -->	
 	<insert id="imgUpload" parameterType="hashMap">
 		insert into
 		file_board(latitude, longitude, timeView, fileName, path, userID)
@@ -175,16 +167,18 @@
 		where id = #{id}
 	</update>
 	
-	<!-- 파일 수정 -->
-	<update id="writeClick" parameterType="com.board.domain.FileVO">
+	<!-- 파일 추가 -->	
+	<update id="writeClick" parameterType="hashMap">
+	<foreach collection="fileVOList" item="item" separator=" ; ">
 		update file_board
 		set
-		fileBno = #{fileBno},
-		timeView = #{timeView},
-		latitude = #{latitude},
-		longitude = #{longitude},
-		content = #{content}
-		where id = #{id}
+		fileBno = #{item.fileBno},
+		timeView = #{item.timeView},
+		latitude = #{item.latitude},
+		longitude = #{item.longitude},
+		content = #{item.content}
+		where id = #{item.id}
+		</foreach>
 	</update>
 
 	<!-- 파일 삭제 -->
@@ -205,7 +199,7 @@
 	<delete id="beforeunload" parameterType="int">
 		delete
 		from file_board
-		where userID = #{userID}
+		where userID = #{userID} and fileBno = 0
 	</delete>
 
 	<!-- 파일 이름 불러오기 -->
@@ -250,6 +244,19 @@
 		reg_board
 		where
 		id = #{id}
+	</select>
+	
+		<!-- 회원정보 가져오기 -->
+	<select id="followMemberVO" parameterType="hashMap"
+		resultType="com.board.domain.MemberVO">
+		select
+		id, mID, mPW, mNickname, mEmail, mImg
+		from
+		reg_board
+		where id in
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item.userID}
+		</foreach>
 	</select>
 	
 	<!-- 아이디 확인 -->
@@ -368,7 +375,25 @@
 	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
 	<!-- fol_board start -->
 	
-	<!-- 팔로잉 검색 -->
+	<!-- 팔로우 목록 검색 -->
+	<select id="userFollow" parameterType="int" resultType="com.board.domain.FollowVO">
+		select
+		id, userID, following, fforf 
+		from
+		fol_board
+		where following = #{userID} and fforf = 1
+	</select>
+	
+	<!-- 팔로잉 목록 검색 -->
+	<select id="userFollowing" parameterType="int" resultType="com.board.domain.FollowVO">
+		select
+		id, userID, following, fforf 
+		from
+		fol_board
+		where following = #{userID} and fforf = 0
+	</select>
+	
+	<!-- 맞팔로잉 검색 -->
 	<select id="followingCheck" parameterType="com.board.domain.FollowVO" resultType="com.board.domain.FollowVO">
 		select
 		id, userID, following, fforf 

@@ -116,11 +116,11 @@ body {
 
 
 /*////////////업로드될 타임라인 영역///////////*/
-#middle{
+.middle{
    width:90%;
    overflow:hidden;/*스크롤바 숨기기*/
     min-height:300px;/*최소높이*/
-   cols="100";
+    cols="100";
     rows="5";
    border: 1px solid #efeadc; /* 테두리*/
    border-radius:20px;  /*모서리둥글게*/
@@ -140,43 +140,62 @@ body {
 
 
 /*/////////////타임라인 왼쪽/////////////*/
-#left{
+.left{
    float:left;
    width:50%;
    
 }
-#left img{
-   width:100%;
-   border-radius:10px;
-   cursor: pointer
+.left img{
+   display: block;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+   
+   text-align:center;
+   margin-left:auto;/*div 안 이미지 가운데 */
+    margin-right:auto;
+    
+    border-radius:10px;
+   cursor: pointer;
 }
 
 /*/////////////타임라인 오른쪽/////////////*/
-#right{
+.right{
    float:right;
    width:50%;
    text-align:center;
 }
-
-#one input{
+.one{
+   
+   width:100%;
    display:inline-block;
-   width:90px;
+}
+
+.one input{
+   display:inline-block;
+   width:50px;
    height:20px;
    padding:5px;
    margin-right:5px;
    max-width:90px;
 }
-#two{
+
+.two{
    
    width:100%;
+   height:140px;
    display:inline-block;
+  
    
 }
-#two textarea{
-   height:120px;
+   
+
+.two textarea{
+   height:160px;
    padding:10px;
    margin-top:10px;
-   margin-bottom:10px;
+   margin-bottom:5px;
    display:inline-block;
    resize:none;
    border-radius:5px;
@@ -184,39 +203,57 @@ body {
    background:#f9f7f2;
 }
 
-#three{
+.three{
    text-align:center;
    border:none;
-   border-radius:10px;
    background:#f9f7f2;
    width:90%;
-   height:120px;
+   height:140px;
    display:inline-block;
+   /*border:1px solid #000; /**/
+   border-radius:10px;
+  
  
    
 
 }
 /*//////이동수단 p부분////////*/
-#t-1{
+.t-1{
    border:none;
-   border-radius:10px;
+   border-top-left-radius:10px;
+   border-top-right-radius:10px;
    background:#eee9d9;
    text-align:center;
    margin:0px;
-   padding:5px;
-   font-size:15px;
+   padding:7px;
+   height:30px;
+   display:block;
+   
 }
-#t-2{
+.t-1 p{
+   font-size:12px;
+   margin:2px;
+   display:block;
+}
+.t-2{
    padding:10px;
-}
-#t-2 img{
-   text-align:left;
-   width:20x;
-   height:20px;
-   margin-left:5px;
-}
-#three checkbox{
    background:#f9f7f2;
+   border-bottom-left-radius:10px;
+   border-bottom-right-radius:10px;
+   text-align:center;display:block;
+   
+}
+.t-2 img{
+   text-align:left;
+   width:27x;
+   height:27px;
+   margin-left:5px;
+  
+}
+.three checkbox{
+   background:#f9f7f2;
+   width:5px;
+   height:5px;
    
    
 }
@@ -227,13 +264,25 @@ body {
 
 /*////////////////삭제////////////////*/
 .down{
+   width:300px;
+   height:65px;
+   margin-top:30px;
+   text-align:center;
    display:inline-block;
-   width:100%;
-   margin-top:20px;
    padding:10px;
+   -webkit-transition: 0.25s;
+   
+   /*width:100%;
+   margin-top:20px;
+   padding:10px;*/
+   border:1px solid #000;
    
 }
-.down button{
+button{
+    transition: 0.25s;
+    
+}
+ .down button{
    width:100px;
    height:50px;
    border:none;
@@ -241,6 +290,9 @@ body {
    border-bottom: 5px solid #eee9d9;
    text-shadow: 0px -2px #eee9d9;
    color:#000;
+   -webkit-transition: 0.25s;
+   text-align:center;
+    display:inline-block;
    }
 .down button:hover{ /*마우스를 눌렀을 때 효과를 주려면 active로 변경*/
 

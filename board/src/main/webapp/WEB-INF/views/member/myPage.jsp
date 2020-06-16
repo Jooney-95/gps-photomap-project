@@ -12,6 +12,19 @@
 </head>
 
 <body>
+<!-- 검색창 -->
+<div class="wrap">
+	<div class="search">
+	<select name="searchType">
+	    		<option value="writer">작성자</option>
+				<option value="title">제목</option>
+			</select>
+        <input type="text" class="searchTerm" name="keyword" placeholder="어떤 곳을 찾으시나요?">
+        <button type="button" class="searchButton" id="searchBtn">
+        	<i class="fa fa-search"></i>
+        </button>
+    </div>
+</div>
 	<div id="nav">
 		<c:if test="${session != null }">
 			<%@ include file="../include/navLogin.jsp"%>
@@ -19,11 +32,36 @@
 		<c:if test="${session == null }">
 			<%@ include file="../include/navLogout.jsp"%>
 		</c:if>
+		
+		  <!-- 마이페이지 프로필 -->
+	      <img alt="" src="<spring:url value='${session.mImg }'/>">
+	      <br/>
+	      ${session.mNickname }
+		
 		<c:if test="${session.id eq userID }"><a href="/member/profile">프로필 수정</a></c:if>
 		<br/>
-		게시글: 팔로워: 팔로잉:
+		게시글 : ${count } 서로이웃 : ${countFollow } 이웃신청 : ${countFollowing }
 		<br/>
 		<c:if test="${session.id ne userID }"><button id="bFollow"></button></c:if>
+	</div>
+	<br/>
+	<div>
+	서로이웃
+	
+	<c:forEach items="${follow }" var="follow">
+		<a href="/member/myPage?num=1&userID=${follow.id }"><img width="100" height="100" alt="" src="<spring:url value='${follow.mImg }'/>"></a>
+		<a href="/member/myPage?num=1&userID=${follow.id }">${follow.mNickname }</a>
+	</c:forEach>
+
+	</div>
+	<div>
+	이웃신청
+	
+	<c:forEach items="${following }" var="following">
+		<a href="/member/myPage?num=1&userID=${following.id }"><img width="100" height="100" alt="" src="<spring:url value='${following.mImg }'/>"></a>
+		<a href="/member/myPage?num=1&userID=${following.id }">${following.mNickname }</a>
+	</c:forEach>
+	
 	</div>
 	<table>
 		<thead>
@@ -91,14 +129,7 @@
 			<span>[ <a href="/board/listPageSearch?num=${page.endPageNum + 1}">다음</a> ]</span>
 		</c:if>
 		
-		<div>
-	    	<select name="searchType">
-	    		<option value="writer">작성자</option>
-				<option value="title">제목</option>
-			</select>
-        	<input type="text" name="keyword" />
-			<button type="button" id="searchBtn">검색</button>
- 		</div>
+	
 		<script>
 		
 			var mImg = new Array();
@@ -160,11 +191,11 @@
 	    			  data : query,
 	    			  success : function(check) {
 	    				  if(check == 1){
-	    					  $("#bFollow").text("팔로잉");
+	    					  $("#bFollow").text("요청됨");
 	    				  } else if(check == 2){
-	    					  $("#bFollow").text("맞팔로우");
+	    					  $("#bFollow").text("서로이웃");
 	    				  } else{
-	    					  $("#bFollow").text("팔로우");
+	    					  $("#bFollow").text("이웃추가");
 	    				  }
 	    			  },
 	        		  error:function(request,status,error){

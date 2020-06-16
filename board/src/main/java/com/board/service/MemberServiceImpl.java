@@ -1,9 +1,12 @@
 package com.board.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 
 import com.board.dao.MemberDAO;
 import com.board.domain.FollowVO;
@@ -64,12 +67,6 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int countMyPage(int id) throws Exception {
-		// TODO Auto-generated method stub
-		return dao.countMyPage(id);
-	}
-
-	@Override
 	public MemberVO memberVO(int id) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.memberVO(id);
@@ -103,6 +100,24 @@ public class MemberServiceImpl implements MemberService {
 	public void unFforf(FollowVO fVo) throws Exception {
 		// TODO Auto-generated method stub
 		dao.unFforf(fVo);
+	}
+
+	@Override
+	public List<FollowVO> userFollow(int userID) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.userFollow(userID);
+	}
+
+	@Override
+	public List<FollowVO> userFollowing(int userID) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.userFollowing(userID);
+	}
+
+	@Override
+	public List<MemberVO> followMemberVO(List<FollowVO> follow) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.followMemberVO(follow);
 	}
 
 

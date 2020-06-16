@@ -5,12 +5,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>게시물 조회</title>
-<link rel="stylesheet" href="/resources/css/write.css">
+<link rel="stylesheet" href="/resources/css/view.css">
 <link rel="stylesheet" href="/resources/css/top.css">
+<link rel="stylesheet" href="/resources/dist/css/lightbox.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="/resources/dist/js/lightbox.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&display=swap');
+#infowindow {
+	font-family: 'Noto Serif KR', serif;
+}
+</style>
 </head>
+
 
 <body>
    <!-- 상단 바 -->
@@ -20,54 +30,88 @@
          <a href="/board/listPageSearch?num=1">SAMPLE</a>
       </div>
         
-         <!-- 검색창 -->
-         <div class="wrap">
-          <div class="search">
-              <input type="text" class="searchTerm" placeholder="어떤 곳을 찾으시나요?">
-               <button type="submit" class="searchButton">
-                  <i class="fa fa-search"></i>
-               </button>
-           </div>
-       	 </div>
+<!-- 검색창 -->
+<div class="wrap">
+   <div class="search">
+   <select name="searchType">
+   			<option value="title">제목</option>
+            <option value="writer">작성자</option>           
+         </select>
+        <input type="text" class="searchTerm" name="keyword" placeholder="어떤 곳을 찾으시나요?">
+        <button type="button" class="searchButton" id="searchBtn">
+           <i class="fa fa-search"></i>
+        </button>
+    </div>
+</div>
    
-      <!-- 사용자 로그인 현황 -->
+     <!-- 사용자 로그인 현황 -->
       <div class="log">
             <c:if test="${session != null }"> <!-- 로그인했을때 -->
-	            <div id="r">
-					<div class="profile">
-				    	<a href="/member/myPage?num=1&userID=${session.id }"><img src="${session.mImg }"/>
-				        	${session.mNickname }
-				        </a>
-				   	</div>   	 
-			   		</div>
-				    <div id="writebutton"> <!-- 게시물 작성 버튼-->
-				    	<a href="/board/write"><img src="/resources/imgs/w1.png"/></a>
-				   	</div>  
+               <div id="r">
+               <div class="profile">
+                   <a href="/member/myPage?num=1&userID=${session.id }"><img src="${session.mImg }"/>
+                    </a>
+                    <p>${session.mNickname } 님</p>
+                  </div>       
+               </div>
+            
+            <div id="writebutton"> <!-- 게시물 작성 버튼-->
+                   <a href="/board/write"><img src="/resources/imgs/w1.png"/></a>
+            </div>  
             </c:if>
             
             <c:if test="${session == null }"> <!-- 로그인 안했을때 -->
-		    <a href="/member/login">로그인</a>
+            <div id="rr">
+          <a href="/member/login"><img src="/resources/imgs/p1.png"></a>
+          </div>
             </c:if>
       </div>
-
 
    </div>
    
 
 
    <div id="top">
-       <p>제목
-          <input type="text" name="title" value="${view.title }" readOnly /></p>
-        <p>작성자 
-           <input type="text" name="writer" value="${member.mNickname }" readOnly /></p>
-         <br/>
+    <div id="abc">
+      <div id="ab">
+   
+     <ul>
+       <li>
+       <!-- 제목 -->
+       
+       <div id="a" >
+       <p>Title</p>
+        <input type="text" name="title" value="${view.title }" readOnly />
+       </div>
+        <!-- 공감버튼 -->
+      
+         <div id="b">
+         <i class="fas fa-paw fa-2x " id="bLike" ></i>
+         <p id="like"></p>
+         </div>
+      
+      
+     </li>
+     <li>
+         <!-- 작성자 -->   
+          <div id="c">
+          <img src="${member.mImg }"/><!-- 작성자 프로필 이미지 -->
+         <input type="text" name="writer" value="${member.mNickname }" readOnly />
+        <!-- 작성일자 넣어주떼요 -->
+         </div>
+        
+    </li>
+  </ul> 
+  </div>
+    </div>      
+      
     </div>
          
-           
    <!-- 카카오맵 api 호출 -->
    <div id="aside">
       <div id="map" style="width:550px; height:550px;"></div>
-   </div>
+   </div>   
+
   
   <div class="main"> 
          <c:forEach items="${list }" var="list">
@@ -76,43 +120,50 @@
          <input type="hidden" name="userID" value="${session.id }" />
    
    
-       <div id="middle">
+       <div class="middle">
    
-          <div id="left">
-             <img width="200" height="200" alt="" src="<spring:url value='${list.path }'/>"><br>
+          <div class="left">
+             <a href="<spring:url value='${list.path }'/>" data-lightbox="image-1" data-title="My caption"><img width="200" height="200" alt="" src="<spring:url value='${list.path }'/>"></a>
           </div>
                
                
-          <div id="right">
-             <div id="one">
-                 <input type="text" name="lat" value="${list.latitude }" readOnly />
+          <div class="right">
+             <div class="one">
+                 <input type="text" id="lat_${status.index }" name="lat" value="${list.latitude }" readOnly />
                   <input type="text" name="lon" value="${list.longitude }" readOnly />
                   <input type="text" name="time" value="${list.timeView }" readOnly />
               </div>         
                
-              <div id="two">
+              <div class="two">
                      <textarea  style="width:90%" cols="40" rows="5" name="content" readOnly >${list.content }</textarea>
                </div>
 
                   
-              <div id="three">
-                 <div id="t-1"><p>이동수단</p></div>
-                 <div id="t-2">
+              <div class="three">
+                 <div class="t-1"><p>이동수단</p></div>
+                 <div class="t-2">
                      <c:forEach items="${tp }" var="tp">
                      <c:choose>
-                     <c:when test="${tp.tpBno eq list.id and tp.tp eq 'd' }"> d
-                       </c:when>
-                     <c:when test="${tp.tpBno eq list.id and tp.tp eq 's' }"> s
+                     <c:when test="${tp.tpBno eq list.id and tp.tp eq 'sneakers' }">
+                        <label><img src="/resources/imgs/sneakers.png"></label>
                      </c:when>
-                     <c:when test="${tp.tpBno eq list.id and tp.tp eq 'b' }"> b
+                     <c:when test="${tp.tpBno eq list.id and tp.tp eq 'bus' }">
+                        <label><img src="/resources/imgs/bus.png"></label>
                      </c:when>
-                     <c:when test="${tp.tpBno eq list.id and tp.tp eq 'w' }"> w
+                     <c:when test="${tp.tpBno eq list.id and tp.tp eq 'train' }">
+                        <label><img src="/resources/imgs/train.png"></label>
                      </c:when>
-                     <c:when test="${tp.tpBno eq list.id and tp.tp eq 't' }"> t
+                     <c:when test="${tp.tpBno eq list.id and tp.tp eq 'car' }">
+                        <label><img src="/resources/imgs/car.png"></label>
                      </c:when>
-                     <c:when test="${tp.tpBno eq list.id and tp.tp eq 'c' }"> c
+                     <c:when test="${tp.tpBno eq list.id and tp.tp eq 'taxi' }">
+                        <label><img src="/resources/imgs/taxi.png"></label>
                      </c:when>
-                     <c:when test="${tp.tpBno eq list.id and tp.tp eq 'm' }"> m
+                     <c:when test="${tp.tpBno eq list.id and tp.tp eq 'bike' }">
+                        <label><img src="/resources/imgs/bike.png"></label>
+                     </c:when>
+                     <c:when test="${tp.tpBno eq list.id and tp.tp eq 'scooter' }">
+                        <label><img src="/resources/imgs/scooter.png"></label>
                      </c:when>
                      </c:choose>
                      </c:forEach>
@@ -126,8 +177,10 @@
          </c:forEach>
    <br />
 </div>
-<p id="like"></p>
-<button type="button" id="bLike">게시글 추천</button>
+            
+               
+       
+
  
    <c:if test="${session.id eq view.writer }">
       <div class="button">
@@ -149,14 +202,14 @@
          lon.push("${list.longitude}");
      </c:forEach>
       
-     var MARKER_WIDTH = 36, // 기본, 클릭 마커의 너비
-         MARKER_HEIGHT = 37, // 기본, 클릭 마커의 높이
-         OFFSET_X = 13, // 기본, 클릭 마커의 기준 X좌표
+     var MARKER_WIDTH = 100, // 기본, 클릭 마커의 너비
+         MARKER_HEIGHT = 50, // 기본, 클릭 마커의 높이
+         OFFSET_X = 46, // 기본, 클릭 마커의 기준 X좌표
          OFFSET_Y = MARKER_HEIGHT, // 기본, 클릭 마커의 기준 Y좌표
          SPRITE_MARKER_URL = '/resources/imgs/markers.png', // 스프라이트 마커 이미지 URL
-         SPRITE_WIDTH = 44, // 스프라이트 이미지 너비
-         SPRITE_HEIGHT = 2254, // 스프라이트 이미지 높이
-         SPRITE_GAP = 9.1; // 스프라이트 이미지에서 마커간 간격
+         SPRITE_WIDTH = 100, // 스프라이트 이미지 너비
+         SPRITE_HEIGHT = 4835, // 스프라이트 이미지 높이
+         SPRITE_GAP = -1.7; // 스프라이트 이미지에서 마커간 간격
 
      var markerSize = new kakao.maps.Size(MARKER_WIDTH, MARKER_HEIGHT), // 기본, 클릭 마커의 크기
          markerOffset = new kakao.maps.Point(OFFSET_X, OFFSET_Y), // 기본, 클릭 마커의 기준좌표
@@ -179,7 +232,7 @@
      var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
          mapOption = { 
             center: new kakao.maps.LatLng(parseFloat(lat[0]), parseFloat(lon[0])), // 지도의 중심좌표는 첫번째 사진을 기준으로 함.
-              level: 11 // 지도의 확대 레벨
+              level: 9 // 지도의 확대 레벨
          };
  
      // 지도를 생성합니다
@@ -200,7 +253,17 @@
      var clusterer = new kakao.maps.MarkerClusterer({
          map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
          averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
-         minLevel: 6 // 클러스터 할 최소 지도 레벨 
+         minLevel: 10, // 클러스터 할 최소 지도 레벨 
+         styles: [{
+				width: '50px', height: '50px',
+				background: 'rgba(051, 153, 102, .8)',
+				borderRadius: '25px',
+				color: '#fff',
+				textAlign: 'center',
+				fontWeight: 'bold',
+				lineHeight: '45px',
+				fontSize: '30px'
+             }]
      });
 
 
@@ -245,7 +308,7 @@
                  marker.normalImage = normalImage;
                                              
                  // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다 - 마우스 오버 이벤트로 인포윈도우 생성하기
-                   var content = '<div style="width:160px;text-align:center;padding:5px;font-size:12px;">' + address[i] + '</div>';    
+                   var content = '<div id="infowindow" style="width:160px;text-align:center;padding:5px;font-size:12px;">' + address[i] + '</div>';    
                    // 현재 write.css 때문에 인포윈도우 화살표 top이 짤려보이는 현상 발생
                      
                      // 마커에 표시할 인포윈도우를 생성합니다
@@ -306,6 +369,7 @@
    <script>   
       //document.getElementById("map").style.marginLeft="5%";
       
+      
      
       
       $("#bLike").click(
@@ -345,7 +409,8 @@
            type : "post",
            data : query,
            success : function(count) {
-              $("#like").text("추천수 :" + count);
+              $("#like").text(count);
+              
               
            },
             error:function(request,status,error){
@@ -366,9 +431,10 @@
                data : query,
                success : function(check) {
                   if(check == 1){
-                     $("#bLike").text("추천 취소");
+                     $("#bLike").css("color","#fdb330");
                   } else{
-                     $("#bLike").text("게시글 추천");
+                     $("#bLike").css("color","#e8dfe2");
+                    
                   }
                },
                 error:function(request,status,error){
@@ -378,7 +444,9 @@
             }
           }
   
-      
+       
+         
+         
    </script>
      
    

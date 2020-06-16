@@ -37,4 +37,6 @@ public interface BoardDAO {
 	
 	public void likeDownTbl(LikeVO vo) throws Exception;
 
+	public int count(int userID) throws Exception;
+
 }

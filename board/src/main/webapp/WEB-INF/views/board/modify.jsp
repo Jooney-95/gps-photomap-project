@@ -5,6 +5,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="/resources/js/modify.js?var=2"></script>
 <meta charset="UTF-8">
 <title>게시물 수정</title>
 <link rel="stylesheet" href="/resources/css/modify.css">
@@ -36,23 +38,22 @@
          </div>
    </div>
 
-   <!-- 사용자 로그인 현황 -->
+       <!-- 사용자 로그인 현황 -->
       <div class="log">
             <c:if test="${session != null }"> <!-- 로그인했을때 -->
-	            <div id="r">
-					<div class="profile">
-				    	<a href="/member/myPage?num=1&userID=${session.id }"><img src="${session.mImg }"/>
-				        	${session.mNickname }
-				        </a>
-				   	</div>   	 
-			   		</div>
-				    <div id="writebutton"> <!-- 게시물 작성 버튼-->
-				    	<a href="/board/write"><img src="/resources/imgs/w1.png"/></a>
-				   	</div>  
+
+               <div id="r">
+               <div class="profile">
+                   <a href="/member/myPage?num=1&userID=${session.id }"><img src="${session.mImg }"/>
+                    </a>
+                    <p>${session.mNickname } 님</p>
+                  </div>       
+               </div>             
+
             </c:if>
             
             <c:if test="${session == null }"> <!-- 로그인 안했을때 -->
-		    <a href="/member/login">로그인</a>
+                <a href="/member/login"><img width="50" height="50" src="/resources/imgs/p1.png"></a>
             </c:if>
       </div>
 
@@ -64,9 +65,9 @@
 <div class="main">
 
    <div id="top">
-      <input type="hidden" name="bno" value="${view.bno }" />
+      <input type="hidden" id="bno" name="bno" value="${view.bno }" />
       <p>제목     <input type="text" id="title" name="title" value="${view.title }"/></p>
-      <input type="hidden" name="writer" value="${session.id }" />
+      <input type="hidden" id="userID" name="writer" value="${session.id }" />
       <p>작성자  <input type="text" value="${session.mNickname }" readOnly/></p>
       <br/>
    </div>
@@ -76,7 +77,7 @@
            <span class="label">
              내 라이브러리
            </span>
-             <input type="file" name="filesList" id="input_imgs" class="upload-box" placeholder="Upload File"accept=".jpg, .jpeg" multiple/></p>
+             <input type="file" name="imgList" id="input_imgs" class="upload-box" placeholder="Upload File"accept=".jpg, .jpeg" multiple/></p>
    </div>
    
    <div id="text">
@@ -84,60 +85,62 @@
    </div>
    
    
-   <c:forEach items="${list }" var="list">
-     <input type="hidden" name="id" value="${list.id }" />
+   <c:forEach items="${list }" var="list" varStatus="status">
+     <input type="hidden" id="id_${status.index }" name="id" value="${list.id }" />
       
-      <div id="middle">
+      <div class="middle" id="middle_${status.index }" name="imgDiv">
       
-         <div id="left">
-            <img width="100" height="100" alt="" src="<spring:url value='${list.path }'/>"><br>
+         <div class="left">
+            <img width="100" height="100" alt="" onclick="del(${status.index })" id="img_${status.index }" name="filesList" src="<spring:url value='${list.path }'/>">
          </div>         
 
-         
-         <div id="right">
-            <div id="one">
-               <input type="text" id="lat${list.id }" name="lat" value="${list.latitude }"/>
-               <input type="text" id="lon${list.id }" name="lon" value="${list.longitude }"/>
-               <input type="text" id="time${list.id }" name="time" value="${list.timeView }"/>
+         <div class="right">
+            <div class="one">
+               <input type="text" id="lat_${status.index }" name="lat" value="${list.latitude }"/>
+               <input type="text" id="lon_${status.index }" name="lon" value="${list.longitude }"/>
+               <input type="text" id="time_${status.index }" name="time" value="${list.timeView }"/>
             </div>
             
-            <div id="two">
-               <textarea style="width:90%" cols="50" rows="5" name="content" >${list.content  }</textarea>
+            <div class="two">
+               <textarea style="width:90%" cols="50" rows="5" id="textarea_${status.index }" name="content" >${list.content  }</textarea>
             </div>   
                                  
-            <div id="three">
-                <div id="t-2" >
-                     <input type="checkbox" id="${list.id }w" name="${list.id }" value="d" /><label><img src="/resources/imgs/sneakers.png"></label>
-                     <input type="checkbox" id="${list.id }s" name="${list.id }" value="s" /><label><img src="/resources/imgs/bus.png"></label>
-                     <input type="checkbox" id="${list.id }b" name="${list.id }" value="b" /><label><img src="/resources/imgs/train.png"></label>
+            <div class="three">
+            <div class="t-1"><p>이동수단</p></div>
+                <div class="t-2" id="tp_${status.index }" >
+                     <input type="checkbox" id="sneakers_${status.index }" name="tp" value="sneakers" /><label><img src="/resources/imgs/sneakers.png"></label>
+                     <input type="checkbox" id="bus_${status.index }" name="tp" value="bus" /><label><img src="/resources/imgs/bus.png"></label>
+                     <input type="checkbox" id="train_${status.index }" name="tp" value="train" /><label><img src="/resources/imgs/train.png"></label>
                      <br>
-                     <input type="checkbox" id="${list.id }w" name="${list.id }" value="w" /><label><img src="/resources/imgs/car.png"></label>
-                      <input type="checkbox" id="${list.id }t" name="${list.id }" value="t" /><label><img src="/resources/imgs/taxi.png"></label>
-                     <input type="checkbox" id="${list.id }c" name="${list.id }" value="c" /><label><img src="/resources/imgs/bike.png"></label>
-                     <input type="checkbox" id="${list.id }m" name="${list.id }" value="m" /><label><img src="/resources/imgs/scooter.png"></label>
+                     <input type="checkbox" id="car_${status.index }" name="tp" value="car" /><label><img src="/resources/imgs/car.png"></label>
+                      <input type="checkbox" id="taxi_${status.index }" name="tp" value="taxi" /><label><img src="/resources/imgs/taxi.png"></label>
+                     <input type="checkbox" id="bike_${status.index }" name="tp" value="bike" /><label><img src="/resources/imgs/bike.png"></label>
+                     <input type="checkbox" id="scooter_${status.index }" name="tp" value="scooter" /><label><img src="/resources/imgs/scooter.png"></label>
                </div>
 
             </div>
          
           </div>
-         
-         <div class="down">
-            <input type="checkbox" id="del${list.id }" name="del" value="${list.id }">삭제
-         </div>
       </div>
       
    </c:forEach>
    
-   <div id="bottom">
-            <input type="radio" id="pNum0" name="pNum" value="0" /> 전체공개
-            <input type="radio" id="pNum1" name="pNum" value="1" /> 이웃공개
-            <input type="radio" id="pNum2" name="pNum" value="2" /> 비공개
-   </div>
+   <div class="middle">
+          <div class="img_box"></div>
+      </div>
+   
+  <div id="bottom">
+         공개 범위 
+         <input type="radio" name="pNum" value="-1" checked="checked">  전체공개
+         <input type="radio" name="pNum" value="-2">  비공개
+         <input type="radio" name="pNum" value="${session.id }">  맞팔공개
+      </div>   
    
 </div>
 
 <div class="button">
-   <button class="raise" id="bWrite" type="button">완료</button>
+   <button class="raise" id="bModify" type="button">완료</button>
+   <button class="raise" id="bImgUpload" type="button">이미지 업로드</button>
 </div>   
 
 </form>
@@ -174,21 +177,19 @@
       </c:forEach>
       
       window.onload = function forListID(){
-         for (i = 0; i < listID.length; i++) {
-            lat.push(document.getElementById("lat" + listID[i]));
-            lon.push(document.getElementById("lon" + listID[i]));
-            time.push(document.getElementById("time" + listID[i]));
-            for (j = 0; j < tp.length; j++) {
+         for (var i = 0; i < listID.length; i++) {
+            lat.push(document.getElementById("lat_" + [i]));
+            lon.push(document.getElementById("lon_" + [i]));
+            time.push(document.getElementById("time_" + [i]));
+            for (var j = 0; j < tp.length; j++) {
                if (listID[i] == tpBno[j]) {
-                  var checktp = listID[i] + tp[j];
-                  document.getElementById(checktp).checked = checked;
+                  var checktp = tp[j]+"_"+[i];
+                  document.getElementById(checktp).checked = true;
                }
             }
          }
-         latLon();
-         Time();
       }
-      function latLon(){
+    /*   function latLon(){
          for(i=0;i<lat.length;i++){
             if(regTypeLat.test(lat[i].value)){
                if(regTypeLon.test(lon[i].value)){
@@ -214,20 +215,20 @@
             }
          }
          return true;
-      }
+      } */
       switch(pNum){
-      case 0:
+      case -1:
          pNum0.checked = true;
          break;
-      case 1:
+      case -2:
          pNum1.checked = true;
          break;
-      case 2:
+      default:
          pNum2.checked = true;
          break;
       }
 
-      bWrite.addEventListener('click', function(event) {
+     /*  bWrite.addEventListener('click', function(event) {
          if(latLon()){
             if(Time()){
                if (title.value.trim() != "") {
@@ -237,7 +238,7 @@
                }
             }
          }
-      });
+      }); */
       
       function resize(obj) {
          obj.style.height = "1px";

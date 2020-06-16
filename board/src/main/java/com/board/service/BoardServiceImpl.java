@@ -102,4 +102,10 @@ public class BoardServiceImpl implements BoardService {
 		dao.likeDownTbl(vo);
 	}
 
+	@Override
+	public int count(int userID) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.count(userID);
+	}
+
 }
