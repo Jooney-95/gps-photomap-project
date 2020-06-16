@@ -28,15 +28,19 @@
        <a href="/board/listPageSearch?num=1">SAMPLE</a>
      </div>
      
-     <!-- 검색창 -->
-   <div class="wrap">
-         <div class="search">
-            <input type="text" class="searchTerm" placeholder="어떤 곳을 찾으시나요?">
-            <button type="submit" class="searchButton">
-              <i class="fa fa-search"></i>
-           </button>
-         </div>
-   </div>
+<!-- 검색창 -->
+<div class="wrap">
+   <div class="search">
+   <select class="ss" name="searchType">
+   			<option value="title">제목</option>
+            <option value="writer">작성자</option>           
+         </select>
+        <input type="text" class="searchTerm" name="keyword" placeholder="어떤 곳을 찾으시나요?">
+        <button type="button" class="searchButton" id="searchBtn">
+           <i class="fa fa-search"></i>
+        </button>
+    </div>
+</div>
 
        <!-- 사용자 로그인 현황 -->
       <div class="log">

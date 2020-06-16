@@ -238,11 +238,12 @@ ul li{
    width:90%;
    overflow:hidden;/*스크롤바 숨기기*/
     min-height:300px;/*최소높이*/
+    height:500px;
     cols="100";
     rows="5";
    border: 1px solid #efeadc; /* 테두리*/
    border-radius:20px;  /*모서리둥글게*/
-   padding: 20px;
+   padding:20px 15px 15px 15px;
    margin-top:20px;
    display:inline-block;
    box-shadow:5px 5px 2px 2px #efeadc;/*그림자효괴*/
@@ -255,86 +256,124 @@ ul li{
 }*/
 /*//////////////////////////////////*/
 
-
-
-/*/////////////타임라인 왼쪽/////////////*/
-.left{
-   float:left;
-   width:50%;
+/*//////////위치 & 이동수단 /////////////////*/
+.m1{
+   display:inline-block;/*위치랑 이동수단 같은 줄!*/
+   /*border:1px solid #000;*/
+   width:100%;
+   margion-top:50px;
    
 }
-.left img{
-   display: block;
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
+/*//위치//*/
+.m1-1{
+   display:inline-block;
+   float:left;
+   padding:5px;
+      
    
-   text-align:center;
-   margin-left:auto;/*div 안 이미지 가운데 */
-    margin-right:auto;
+}
+.m1-1 input{
+   width:50px;
+   height:30px;
+}
+/*//이동수단//*/
+.m1-2{
+   display:inline-block;
+   float:right;
+   
+   
+}
+
+.m1-2 .t-2{
+   
+   /*border:1px solid #000;*/
+   
+   
+}
+.m1-2  img{
+    width:28x;
+   height:28px;
+   display:inline-block;
+   margin-top:7px;
+   
+}
+/*/////////////사진/////////////*/
+.m2{
+   display:block;
+   text-algin:center;
+   border-radius:10px;
+   border:2px solid #f9f7f2;*/
+    max-width:90%;
+    min-height:290px;
+    max-height:290px;/*사진 틀 고정! 이미지만 크기 수정 하기*/
+    margin-top:10px; 
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     
+}
+
+.m2 img{
+    max-width: initial;
+  margin-left: 50%;
+
+    text-align:center;
+    margin-top:10px;
+    margin-bottom:10px;
+    margin-left:auto;/*div 안 이미지 가운데 */
+    margin-right:auto;
     border-radius:10px;
    cursor: pointer;
+ 
+
 }
 
 /*/////////////타임라인 오른쪽/////////////*/
-.right{
-   float:right;
-   width:50%;
+
+
+
+
+.m3{
+   
+   
+   height:80px;
+   display:block;
    text-align:center;
-}
-.one{
-   
-   width:100%;
-   display:inline-block;
-}
-
-.one input{
-   display:inline-block;
-   width:50px;
-   height:20px;
-   padding:5px;
-   margin-right:5px;
-   max-width:90px;
-}
-
-.two{
-   
-   width:100%;
-   height:150px;
-   display:inline-block;
-   
+   /*border:1px solid #000;*/
+   margin-top:20px;
+   padding:0px;
    
 }
    
-.two textarea{
-   height:120px;
-   padding:10px;
-   margin-top:10px;
-   margin-bottom:5px;
+.m3 textarea{
+   
+   
+   height:90px;
    display:inline-block;
    resize:none;
-   border-radius:5px;
+   border-radius:10px;
    border:2px solid #f9f7f2;
    background:#f9f7f2;
+   display:block;
+   padding:10px;
 }
 
-.three{
+/*.m1-2{
    text-align:center;
    border:none;
    background:#f9f7f2;
    width:90%;
    height:100px;
    display:inline-block;
-   /*border:1px solid #000; /**/
-border-radius:10px;
-   border-top-right-radius:10px;
+   /*border:1px solid #000; /*
+   border-radius:10px;
+   border-top-right-radius:10px;*/
  
    
 
 }
-/*//////이동수단 p부분////////*/
+/*//////이동수단 p부분///
 .t-1{
    border:none;
    border-top-left-radius:10px;
@@ -373,7 +412,7 @@ border-radius:10px;
    
    
 }
-
+/////*/
 
 
 

@@ -48,9 +48,19 @@ body {
 
 /*/////////////// ˻ â/////////////////*/
 .search {
-  width: 100%;
+  width: 500px;
   position: relative;
   display: flex;
+}
+
+.ss{
+  width:100px;
+  border: 3px solid #10b27d;
+  padding: 10px;
+  height: 50px;
+  border-radius: 5px;
+  color: #9dbfaf;
+  margin-right:5px;
 }
 
 .searchTerm {

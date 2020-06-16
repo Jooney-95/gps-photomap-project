@@ -23,7 +23,7 @@
 <!-- 검색창 -->
 <div class="wrap">
    <div class="search">
-   <select name="searchType">
+   <select class="ss" name="searchType">
    			<option value="title">제목</option>
             <option value="writer">작성자</option>           
          </select>

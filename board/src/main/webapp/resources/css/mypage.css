@@ -1,0 +1,144 @@
+.main{
+   width:100%;
+   margin-top:140px;
+}
+
+.ff{
+   overflow: hidden;
+    display: flex;
+    align-items: center;
+    width: 250px;
+    height: 250px;
+    border: 3px solid #9dbfaf;
+    border-radius: 77%;
+   margin:0 auto;  /*페이지의 가운데오게 함*/
+}
+
+.ff img{
+   width:250px;
+   height:250px;
+}
+
+.modify{
+   text-align:center;
+   width:50px;
+   height:50px;
+   padding:5px;
+    position:relative;
+   top:240px;
+   left:690px;
+}
+
+i{
+   color:#8bbfff;
+}
+
+.one{
+   width:200px;
+   height:50px;
+   text-align:center;
+   margin:0 auto;  /*페이지의 가운데오게 함*/
+   margin-top:20px;
+   font-size:25px;
+   border: 1px solid #000;
+}
+
+#nav{
+   width:70px;
+   height:500px;
+   float:left;
+   background:#10b27d;
+}
+
+.in{
+    text-align:center;
+    width:90%;
+    overflow:hidden;
+    height:auto; /*      Ϸ             ̸   ݵ        */ 
+    border: 2px solid #d7d8d7;  /* ׵θ */
+    margin:0 auto;  /*                   */
+    margin-top:40px;  /*Ʋ          */
+    margin-bottom:50px;
+    border-radius:5px;  /* 𼭸  ձ۰ */
+    padding-top:20px;
+    padding-bottom:50px;
+}
+
+#list{
+   width:250px;
+   margin:0 auto;  /*                   */
+   text-align:center;
+   margin-top:10px;
+}
+
+#table{
+   width:450px;
+   height:350px;
+    border: 1px solid #efeadc; /*  ׵θ */
+    border-radius:20px;  /* 𼭸  ձ۰ */
+    box-shadow:5px 5px 2px 2px #efeadc;/* ׸   ȿ  */
+    background:#fff;
+   margin-top:40px;
+   padding:10px;
+    float:left;
+    margin-left:30px;
+    display: inline-block;
+}
+
+#ttt{
+   width:400px;
+   height:180px;
+   border: 1px solid #000;
+   margin:0 auto;  /*                   */
+   float:left;
+}
+
+
+
+#rrr{
+   width:255px;
+   height:180px;
+   border: 1px solid #000;
+}
+
+.pNum{
+   border: 1px solid #000;
+   width:50px;
+   height:50px;
+   float: left;
+}
+
+#date{
+   border: 1px solid #000;
+   width:50px;
+   height:50px;
+   float: left;
+}
+
+#viewCnt{
+   border: 1px solid #000;
+   width:50px;
+   height:50px;
+   float: left;   
+}
+
+#likeCnt{
+   border: 1px solid #000;
+   width:50px;
+   height:50px;
+   float: left;   
+}
+
+#title{
+   border: 1px solid #000;
+   width:200px;
+   height:50px;
+   text-align:left;
+   margin-top:100px;
+   padding:10px;
+   
+}
+
+#inimg{
+   border: 1px solid #000;
+}

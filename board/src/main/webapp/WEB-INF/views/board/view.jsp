@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 
 <title>게시물 조회</title>
-<link rel="stylesheet" href="/resources/css/view.css">
+<link rel="stylesheet" href="/resources/css/view.css?var=1">
 <link rel="stylesheet" href="/resources/css/top.css">
 <link rel="stylesheet" href="/resources/dist/css/lightbox.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
@@ -16,7 +16,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&display=swap');
 #infowindow {
-	font-family: 'Noto Serif KR', serif;
+   font-family: 'Noto Serif KR', serif;
 }
 </style>
 </head>
@@ -33,7 +33,7 @@
 <!-- 검색창 -->
 <div class="wrap">
    <div class="search">
-   <select name="searchType">
+   <select class="ss" name="searchType">
    			<option value="title">제목</option>
             <option value="writer">작성자</option>           
          </select>
@@ -120,27 +120,16 @@
          <input type="hidden" name="userID" value="${session.id }" />
    
    
-       <div class="middle">
-   
-          <div class="left">
-             <a href="<spring:url value='${list.path }'/>" data-lightbox="image-1" data-title="My caption"><img width="200" height="200" alt="" src="<spring:url value='${list.path }'/>"></a>
-          </div>
-               
-               
-          <div class="right">
-             <div class="one">
+     <div class="middle">
+       <div class="m1">
+        <div class="m1-1">
                  <input type="text" id="lat_${status.index }" name="lat" value="${list.latitude }" readOnly />
                   <input type="text" name="lon" value="${list.longitude }" readOnly />
                   <input type="text" name="time" value="${list.timeView }" readOnly />
-              </div>         
-               
-              <div class="two">
-                     <textarea  style="width:90%" cols="40" rows="5" name="content" readOnly >${list.content }</textarea>
-               </div>
-
-                  
-              <div class="three">
-                 <div class="t-1"><p>이동수단</p></div>
+         </div>   
+         
+         <div class="m1-2">
+                
                  <div class="t-2">
                      <c:forEach items="${tp }" var="tp">
                      <c:choose>
@@ -168,10 +157,23 @@
                      </c:choose>
                      </c:forEach>
                </div>   
-              </div>   
-            </div>
-    
+              </div>       
+           </div>   
+           
+          <div class="m2">
+             <a href="<spring:url value='${list.path }'/>" data-lightbox="image-1" data-title="My caption"><img alt="" src="<spring:url value='${list.path }'/>"></a>
           </div>
+              
+               
+              
+           <div class="m3">
+                     <textarea  style="width:100%" cols="40" rows="5" name="content" readOnly >${list.content }</textarea>
+            </div>
+
+                  
+             
+    
+       </div> 
             
                
          </c:forEach>
@@ -208,7 +210,7 @@
          OFFSET_Y = MARKER_HEIGHT, // 기본, 클릭 마커의 기준 Y좌표
          SPRITE_MARKER_URL = '/resources/imgs/markers.png', // 스프라이트 마커 이미지 URL
          SPRITE_WIDTH = 100, // 스프라이트 이미지 너비
-         SPRITE_HEIGHT = 4835, // 스프라이트 이미지 높이
+         SPRITE_HEIGHT = 2420, // 스프라이트 이미지 높이, // 스프라이트 이미지 높이
          SPRITE_GAP = -1.7; // 스프라이트 이미지에서 마커간 간격
 
      var markerSize = new kakao.maps.Size(MARKER_WIDTH, MARKER_HEIGHT), // 기본, 클릭 마커의 크기
@@ -255,14 +257,14 @@
          averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
          minLevel: 10, // 클러스터 할 최소 지도 레벨 
          styles: [{
-				width: '50px', height: '50px',
-				background: 'rgba(051, 153, 102, .8)',
-				borderRadius: '25px',
-				color: '#fff',
-				textAlign: 'center',
-				fontWeight: 'bold',
-				lineHeight: '45px',
-				fontSize: '30px'
+            width: '50px', height: '50px',
+            background: 'rgba(051, 153, 102, .8)',
+            borderRadius: '25px',
+            color: '#fff',
+            textAlign: 'center',
+            fontWeight: 'bold',
+            lineHeight: '45px',
+            fontSize: '30px'
              }]
      });
 
