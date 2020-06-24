@@ -191,8 +191,7 @@
       for (i = 0; i < bno.length; i++) {
          document.getElementById("writer" + bno[i]).innerHTML = '<a href="/member/myPage?num=1&userID='
                + userID[i] + '"><img alt="" src=' + mImg[i] + '></a>';
-         document.getElementById("nickname" + bno[i]).innerHTML = '<a href="/member/myPage?num=1&userID='
-               + userID[i] + '">' + mNickname[i] + ' 님</a>';
+         document.getElementById("nickname" + bno[i]).innerHTML = mNickname[i] + ' 님';
          document.getElementById("date" + bno[i]).innerHTML = getTimeStamp(document
                .getElementById("time" + bno[i]).value);
       }
