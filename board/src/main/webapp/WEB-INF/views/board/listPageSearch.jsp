@@ -42,9 +42,12 @@
             <!-- 로그인했을때 -->
             <div id="r">
                <div class="profile">
-                  <a href="/member/myPage?num=1&userID=${session.id }"><img
-                     src="${session.mImg }" /> </a>
+               	  <img src="${session.mImg }" onclick="loginPopup()"/>
                   <p>${session.mNickname }님</p>
+               </div>
+               <div id="loginPopup" style="display:none">
+                  <a href="/member/myPage?num=1&userID=${session.id }">마이페이지</a>
+                  <a href="/member/logout">로그아웃</a>
                </div>
             </div>
 
@@ -243,6 +246,13 @@
                      + "분전";
             }
          }
+      }
+      function loginPopup(){
+    	  if(document.getElementById("loginPopup").style.display == "none"){
+    	  	document.getElementById("loginPopup").style.display = "";
+    	  } else{
+    		  document.getElementById("loginPopup").style.display = "none";
+    	  }
       }
    </script>
 
