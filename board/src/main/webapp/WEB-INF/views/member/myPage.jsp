@@ -1,5 +1,6 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,6 +12,7 @@
    <link rel="stylesheet" href="/resources/css/top.css">
    <link rel="stylesheet" href="/resources/css/mypage.css">
    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 
 <body>
@@ -44,20 +46,19 @@
           </div>
             </c:if>
       </div>
-   
-
-   
-
 </div>
 
-<div class="main">
-      <c:if test="${session != null }">
+<div class="out">
+       <c:if test="${session != null }">
          <%@ include file="../include/navLogin.jsp"%>
       </c:if>
       <c:if test="${session == null }">
          <%@ include file="../include/navLogout.jsp"%>
       </c:if>
-      
+</div> 
+  
+<div class="main"> 
+             
       <div class="modify">
          <c:if test="${session.id eq userID }"><a href="/member/profile"><i class="fas fa-cog fa-3x"></i></a></c:if>
       </div>
@@ -69,15 +70,13 @@
       
       <div class="one">${session.mNickname } 님</div>
       
-      게시글 : ${count } 서로이웃 : ${countFollow } 이웃신청 : ${countFollowing }
-      <br/>
+      <div class="show">게시글 : ${count } 서로이웃 : ${countFollow } <c:if test="${session.id eq userID }">이웃신청 : ${countFollowing }</c:if></div>
+
       <c:if test="${session.id ne userID }"><button id="bFollow"></button></c:if>
-   
-   
+<!--     
    <div>
-   서로이웃
-   
-   <c:forEach items="${follow }" var="follow">
+      서로이웃
+      <c:forEach items="${follow }" var="follow">
       <a href="/member/myPage?num=1&userID=${follow.id }"><img width="100" height="100" alt="" src="<spring:url value='${follow.mImg }'/>"></a>
       <a href="/member/myPage?num=1&userID=${follow.id }">${follow.mNickname }</a>
    </c:forEach>
@@ -91,115 +90,133 @@
       <a href="/member/myPage?num=1&userID=${following.id }">${following.mNickname }</a>
    </c:forEach>   
    </div>
+-->
    
-   
-   
+<div class="all">
+   <div class="nav">
+              <div class="o"><a href="#"><i class="fas fa-clipboard fa-2x"></i></a></div>
+              <div class="t"><a href="#"><i class="fas fa-users fa-2x"></i></a></div>
+              <c:if test="${session.id eq userID }"><div class="th"><a href="#"><i class="fas fa-user-plus fa-2x"></i></a></div></c:if>
+    </div>
 <div class="in">
-      <nav id="nav">
-          <ul>
-              <li><a href="#">나의 게시물</a></li>
-              <li><a href="#">이웃 목록</a></li>
-              <li><a href="#">이웃 요청</a></li>
-           </ul>
-    </nav>
+      
    <c:forEach items="${list}" var="list">
- 
    
-      <div id="table">
-         <div id="ttt">                           
-               
+ <div id="table">
+         <div id="up">       
+         
+                  
+         
+         
+            <div id="right">
+            <ul>
+            <!--  날짜 or 시간    -->
+            <li>
+            <div class="r-1">
+               <input  type="hidden" id="time${list.bno }"
+                     value='<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${list.regDate}" />' />
+                  <div id="date${list.bno }" class="date"></div>
+                       
+            </div>
+            </li>
+            <li>
+            <!-- 아이디 & 공감수 & 조회수 & 공개 범위 -->
+            <div class="r-2">
+            
+            <div id="title">
+               <i class="fas fa-caret-right fa-2x"></i> 
+               <a href="/board/view?bno=${list.bno}">${list.title}</a>
+              </div>
                <div class="pNum" id="pNum${list.pNum }">               
                   <c:choose>
-                           <c:when test="${list.pNum eq -1 }"> [공개]
+                           <c:when test="${list.pNum eq -1 }"><i class="fas fa-globe-americas"></i>
                           </c:when>
-                           <c:when test="${list.pNum eq -2 }"> [비공개]
+                           <c:when test="${list.pNum eq -2 }"><i class="fas fa-lock"></i>
                            </c:when>
-                          <c:otherwise>
-                          [맞팔공개]   
+                          <c:otherwise><i class="fas fa-user-friends"></i>   
                           </c:otherwise>
                         </c:choose>                     
-               </div>                     
-                              
-               <div id="date">${list.regDate}</div>               
-               <div id="viewCnt">${list.viewCnt}</div>               
-               <div id ="likeCnt">${list.likeCnt}</div>
-               
-               <div id="title"><a href="/board/view?bno=${list.bno}">${list.title}</a></div>
+               </div> 
+               <div id="viewCnt">${list.viewCnt}</div>                             
+               <div id ="likeCnt"><i class="fas fa-paw" ></i>${list.likeCnt}</div>
+            </div> 
+            </li>
+            </ul>
+            </div>
+            
             
          </div>         
                
-         <div id="inimg">
-            <c:forEach items="${fileList }" var="fileList">
-               <c:forEach items="${fileList }" var="fileList" end="2">
-                  <c:if test="${fileList.fileBno == list.bno}">
-                     <img width="100" height="100" alt="" src="<spring:url value='${fileList.path }'/>">                  
-                  </c:if>
+         <div id="downimg">
+         
+               <c:forEach items="${fileList }" var="fileList">
+                  <c:forEach items="${fileList }" var="fileList" end="3">
+                     <c:if test="${fileList.fileBno == list.bno}">
+                        <img width="100" height="100" alt=""
+                           src="<spring:url value='${fileList.path }'/>">
+                     </c:if>
+                  </c:forEach>
                </c:forEach>
-            </c:forEach>
+               </div>
+
+
          </div>
-                  
-
-      </div>                           
-   </c:forEach>
-
-
-
-
-
-
-   <div>
-      <c:if test="${page.prev}">
-         <span>[ <a href="/board/listPageSearch?num=${page.startPageNum - 1}">이전</a> ]</span>
-      </c:if>
-
-      <c:forEach begin="${page.startPageNum}" end="${page.endPageNum}" var="num">
-         <span>
-
-            <c:if test="${select != num}">
-               <a href="/board/listPageSearch?num=${num}">${num}</a>
-            </c:if>
-
-            <c:if test="${select == num}">
-               <b>${num}</b>
-            </c:if>
-
-         </span>
       </c:forEach>
 
-      <c:if test="${page.next}">
-         <span>[ <a href="/board/listPageSearch?num=${page.endPageNum + 1}">다음</a> ]</span>
-      </c:if>
+
+
+
+      <div id="pagelist">
+         <c:if test="${page.prev}">
+            <span><a
+               href="/board/listPageSearch?num=${page.startPageNum - 1}">◀ </a></span>
+         </c:if>
+
+         <c:forEach begin="${page.startPageNum}" end="${page.endPageNum}"
+            var="num">
+            <span> <c:if test="${select != num}">
+                  <a href="/board/listPageSearch?num=${num}">${num}</a>
+               </c:if> <c:if test="${select == num}">
+                  <b>${num}</b>
+               </c:if>
+
+            </span>
+         </c:forEach>
+
+         <c:if test="${page.next}">
+            <span><a
+               href="/board/listPageSearch?num=${page.endPageNum + 1}">▶</a></span>
+         </c:if>
+
       
    </div>
 </div>
-
+</div>
 </div>
    
 <script>
       
-   var mImg = new Array();
-   var mNickname = new Array();
    var bno = new Array();
          
-   <c:forEach items="${member }" var="member">
-      mImg.push("${member.mImg }");
-      mNickname.push("${member.mNickname }");
-   </c:forEach>
    <c:forEach items="${list}" var="list">
-      bno.push("writer${list.bno }");
+      bno.push("${list.bno }");
    </c:forEach>
       
-   for(i=0;i<bno.length;i++){
-      document.getElementById(bno[i]).innerHTML = '<img width="100" height="100" alt="" src=' + mImg[i] + '><br/>' + mNickname[i] + '';   
-   }
-      document.getElementById("searchBtn").onclick = function() {
+   for (i = 0; i < bno.length; i++) {
+       
+      
+       document.getElementById("date" + bno[i]).innerHTML = getTimeStamp(document
+             .getElementById("time" + bno[i]).value);
+    }
+
+      /* document.getElementById("searchBtn").onclick = function() {
 
       let searchType = document.getElementsByName("searchType")[0].value;
       let keyword = document.getElementsByName("keyword")[0].value;
 
       location.href = "/board/listPageSearch?num=1" + "&searchType="
             + searchType + "&keyword=" + keyword;
-   };
+   }; */
          
     window.onload = function(){
        followCheck();
@@ -247,6 +264,49 @@
                   }
               });
               }
+    }
+   
+   
+   
+   
+   function getTimeStamp(time) {
+       console.log(time)
+       var curTime = new Date();
+       var d = new Date(time);
+       var year;
+       var month;
+       var day;
+       console.log((curTime.getTime() - d.getTime())
+             / (1000 * 60 * 60 * 24));
+       if ((curTime.getTime() - d.getTime()) / (1000 * 60 * 60 * 24) >= 1) {
+
+          year = d.getFullYear() + '-';
+
+          if (d.getMonth() < 10) {
+             month = "0" + d.getMonth() + '-';
+          } else {
+             month = d.getMonth() + '-';
+          }
+
+          if (d.getDate() < 10) {
+             day = "0" + d.getDate();
+          } else {
+             day = d.getDate();
+          }
+
+          return year + month + day;
+
+       } else {
+          if ((curTime.getTime() - d.getTime()) / (1000 * 60 * 60) >= 1) {
+             return Math.round((curTime.getTime() - d.getTime())
+                   / (1000 * 60 * 60))
+                   + "시간전";
+          } else {
+             return Math.round((curTime.getTime() - d.getTime())
+                   / (1000 * 60))
+                   + "분전";
+          }
+       }
     }
          
 </script>

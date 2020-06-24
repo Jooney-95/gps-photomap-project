@@ -19,7 +19,7 @@ body {
 /*//////////////게시물 작성 틀//////////////////*/
 .main{
    text-align:center;
-    width:60%;
+    width:70%;
     overflow:hidden;
     height:auto; /* 정렬하려는 요소의 넓이를 반드시 지정 */ 
     border: 2px solid #d7d8d7;  /*테두리*/
@@ -112,7 +112,20 @@ body {
 
 
 
-
+.m{
+   width:90%;
+   overflow:hidden;/*스크롤바 숨기기*/
+    min-height:300px;/*최소높이*/
+    cols="100";
+    rows="5";
+   border: 1px solid #efeadc; /* 테두리*/
+   border-radius:20px;  /*모서리둥글게*/
+   padding: 20px;
+   margin-top:20px;
+   display:inline-block;
+   box-shadow:5px 5px 2px 2px #efeadc;/*그림자효괴*/
+   background:#fff;
+}
 
 
 /*////////////업로드될 타임라인 영역///////////*/
@@ -143,33 +156,45 @@ body {
 .left{
    float:left;
    width:50%;
+   float:left;
+   width:50%;
+   border:1px dashed #f9f7f2;
+  
+   height:347px;
+   border-radius:5px;
+   /*가운데 사진*/
+   display:flex;
+   justify-content:center;
+   align-items:center;
    
 }
 .left img{
-   display: block;
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
+  /*가운데 사진*/
+   max-width:100%;
+   max-height:100%;
+  
+     /*width: auto;
     height: auto;
-   
+   display:block;
    text-align:center;
-   margin-left:auto;/*div 안 이미지 가운데 */
-    margin-right:auto;
-    
-    border-radius:10px;
-   cursor: pointer;
-}
+   margin:0px auto;/*div 안 이미지 가운데 */
+   border-radius:10px;
+   cursor: pointer;}
 
 /*/////////////타임라인 오른쪽/////////////*/
 .right{
    float:right;
    width:50%;
+   height:347px;
    text-align:center;
 }
 .one{
    
+    
    width:100%;
+   max-height:30px;
    display:inline-block;
+   white-space:nowrap;/*줄바꿈 금지!!!!!!!!!!!!!*/
 }
 
 .one input{
@@ -183,18 +208,20 @@ body {
 
 .two{
    
-   width:100%;
-   height:150px;
+  width:100%;
+   height:190x;
+   max-height:190px;
    display:inline-block;
+   overflow: hidden;/*박스 div요소안에서 안넘어감*/
    
    
 }
 
 .two textarea{
-   height:150px;
+   height:170px;
    padding:10px;
    margin-top:10px;
-   margin-bottom:5px;
+   margin-bottom:10px;
    display:inline-block;
    resize:none;
    border-radius:5px;
@@ -203,19 +230,28 @@ body {
 }
 
 .three{
+  display:inline-block;
+  /* border:1px solid blue;/**/
+   width:100%;
+   
+   border-bottom-left-radius:10px;
+   border-bottom-right-radius:10px;
+   height:140px;
+   max-height:140px;
    text-align:center;
-   border:none;
-   background:#f9f7f2;
-   width:90%;
-   height:70px;
-   display:inline-block;
    /*border:1px solid #000; /**/
- border-radius:10px;
- 
-
+   overflow: hidden;/*박스 div요소안에서 안넘어감*/
+  
  
    
 
+}
+.t{
+   overflow: hidden;/*박스 div요소안에서 안넘어감*/
+   border-radius:10px;
+   width:90%;
+   display:inline-block;
+   backgorund:#f9f7f2;
 }
 /*//////이동수단 p부분////////*/
 .t-1{
@@ -227,26 +263,32 @@ body {
    margin:0px;
    padding:7px;
    height:30px;
-   display:block;
+   display:inline-block;
+   width:100%;
    
 }
 .t-1 p{
    font-size:12px;
    margin:2px;
-   display:block;
+   display:inline-block;
 }
 .t-2{
    padding:10px;
    background:#f9f7f2;
    border-bottom-left-radius:10px;
    border-bottom-right-radius:10px;
-   text-align:center;display:block;
+   text-align:center;
+   display:inline-block;
+   width:100%;
+   height:90px;
+   overflow: hidden;/*박스 div 안에 이미지 벗어나지 않음*/
 }
 .t-2 img{
    text-align:left;
    width:27x;
    height:27px;
    margin-left:5px;
+  
 }
 .three checkbox{
    background:#f9f7f2;
@@ -264,12 +306,14 @@ body {
 .down{
    display:inline-block;
    width:100%;
-   margin-top:20px;
+   height:auto;
    padding:10px;
+   text-align:center;
+   margin-top:20px;
    
 }
 .down button{
-   width:100px;
+   width:110px;
    height:50px;
    border:none;
    background-color:#f9f7f2;

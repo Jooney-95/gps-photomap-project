@@ -32,7 +32,7 @@
 <div class="wrap">
    <div class="search">
    <select class="ss" name="searchType">
-   			<option value="title">제목</option>
+            <option value="title">제목</option>
             <option value="writer">작성자</option>           
          </select>
         <input type="text" class="searchTerm" name="keyword" placeholder="어떤 곳을 찾으시나요?">
@@ -95,7 +95,7 @@
       <div class="middle" id="middle_${status.index }" name="imgDiv">
       
          <div class="left">
-            <img width="100" height="100" alt="" onclick="del(${status.index })" id="img_${status.index }" name="filesList" src="<spring:url value='${list.path }'/>">
+            <img alt="" id="img_${status.index }" name="filesList" src="<spring:url value='${list.path }'/>">
          </div>         
 
          <div class="right">
@@ -109,9 +109,10 @@
                <textarea style="width:90%" cols="50" rows="5" id="textarea_${status.index }" name="content" >${list.content  }</textarea>
             </div>   
                                  
-            <div class="three">
-            <div class="t-1"><p>이동수단</p></div>
-                <div class="t-2" id="tp_${status.index }" >
+            <div class="three" >
+            <div class="t">
+            <div class="t-1" onclick="tpAdd(${status.index })"><p>이동수단</p></div>
+                <div class="t-2" id="tp_${status.index }" style="display:none" >
                      <input type="checkbox" id="sneakers_${status.index }" name="tp" value="sneakers" /><label><img src="/resources/imgs/sneakers.png"></label>
                      <input type="checkbox" id="bus_${status.index }" name="tp" value="bus" /><label><img src="/resources/imgs/bus.png"></label>
                      <input type="checkbox" id="train_${status.index }" name="tp" value="train" /><label><img src="/resources/imgs/train.png"></label>
@@ -121,23 +122,26 @@
                      <input type="checkbox" id="bike_${status.index }" name="tp" value="bike" /><label><img src="/resources/imgs/bike.png"></label>
                      <input type="checkbox" id="scooter_${status.index }" name="tp" value="scooter" /><label><img src="/resources/imgs/scooter.png"></label>
                </div>
+               </div>
 
             </div>
          
           </div>
+          <div class="down">
+          <button type="button" id="b_${status.index }" onclick="del(${status.index })">삭제</button></div>
       </div>
       
    </c:forEach>
    
-   <div class="middle">
-          <div class="img_box"></div>
-      </div>
    
-  <div id="bottom">
+   <div class="img_box"></div>      
+      
+   
+ <div id="bottom">
          공개 범위 
          <input type="radio" name="pNum" value="-1" checked="checked">  전체공개
          <input type="radio" name="pNum" value="-2">  비공개
-         <input type="radio" name="pNum" value="${session.id }">  맞팔공개
+         <input type="radio" name="pNum" value="${session.id }">  서로이웃공개
       </div>   
    
 </div>
@@ -148,6 +152,7 @@
 </div>   
 
 </form>
+
 
 
 
@@ -249,7 +254,7 @@
          obj.style.height = (12 + obj.scrollHeight) + "px";
       }
       
-      
+    
       
    </script>
 

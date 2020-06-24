@@ -1,4 +1,4 @@
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
+\<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -34,7 +34,7 @@
 <div class="wrap">
    <div class="search">
    <select class="ss" name="searchType">
-   			<option value="title">제목</option>
+            <option value="title">제목</option>
             <option value="writer">작성자</option>           
          </select>
         <input type="text" class="searchTerm" name="keyword" placeholder="어떤 곳을 찾으시나요?">
@@ -71,17 +71,20 @@
    
 
 
-   <div id="top">
-    <div id="abc">
-      <div id="ab">
-   
-     <ul>
-       <li>
+<div id="top">
+    
+    <div id ="ab">
        <!-- 제목 -->
-       
+     <ul>
+      <li> 
        <div id="a" >
-       <p>Title</p>
+       <div id="a-1">
+       <a href="/member/myPage?num=1&userID=${member.id }"><img src="${member.mImg }"/></a><!-- 작성자 프로필 이미지 -->
+       <input type="text" name="writer" value="${member.mNickname }" readOnly />
+       </div>
+       <div id="a-2">
         <input type="text" name="title" value="${view.title }" readOnly />
+       </div>
        </div>
         <!-- 공감버튼 -->
       
@@ -89,23 +92,11 @@
          <i class="fas fa-paw fa-2x " id="bLike" ></i>
          <p id="like"></p>
          </div>
-      
-      
-     </li>
-     <li>
-         <!-- 작성자 -->   
-          <div id="c">
-          <img src="${member.mImg }"/><!-- 작성자 프로필 이미지 -->
-         <input type="text" name="writer" value="${member.mNickname }" readOnly />
-        <!-- 작성일자 넣어주떼요 -->
-         </div>
-        
-    </li>
-  </ul> 
-  </div>
-    </div>      
-      
-    </div>
+        </li> 
+       
+  </ul>  
+ </div>
+    </div>   
          
    <!-- 카카오맵 api 호출 -->
    <div id="aside">
@@ -167,10 +158,8 @@
                
               
            <div class="m3">
-                     <textarea  style="width:100%" cols="40" rows="5" name="content" readOnly >${list.content }</textarea>
-            </div>
-
-                  
+                     <textarea cols="40" rows="5" name="content" readOnly >${list.content }</textarea>
+            </div>                 
              
     
        </div> 

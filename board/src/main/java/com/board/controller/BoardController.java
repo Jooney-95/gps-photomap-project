@@ -1,5 +1,6 @@
 package com.board.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -131,9 +132,12 @@ public class BoardController {
 		List<ArrayList<FileVO>> fileList = new ArrayList<ArrayList<FileVO>>();
 		MemberVO m = new MemberVO();
 		List<MemberVO> mList = new ArrayList<MemberVO>();
+		SimpleDateFormat format1;
+		format1 = new SimpleDateFormat("yyyy-MM-dd");
 
+		
 		// 占쏙옙 占쏙옙호占쏙옙 占쌔댐옙占싹댐옙 占싱뱄옙占쏙옙 占쌨아울옙占쏙옙
-		for (BoardVO vo : list) {
+		for (BoardVO vo : list) {			
 			fList = fileService.viewFile(vo.getBno());
 			m = memberService.memberVO(vo.getWriter());
 			fileList.add((ArrayList<FileVO>) fList);

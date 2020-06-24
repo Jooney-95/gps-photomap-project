@@ -8,39 +8,119 @@
 <meta charset="EUC-KR">
 <title>프로필 설정</title>
 <link rel="stylesheet" href="/resources/css/profile.css">
+<link rel="stylesheet" href="/resources/css/top.css">
 <link rel="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="/resources/js/profile.js"></script>
+
 </head>
 <body>
+
+<!-- 상단 바 -->
+<div id="header">
+   <!-- 로고 -->
+     <div class="logo">
+       <a href="/board/listPageSearch?num=1">SAMPLE</a>
+     </div>     
+
+     <!-- 사용자 로그인 현황 -->
+      <div class="log">
+            <c:if test="${session != null }"> <!-- 로그인했을때 -->
+               <div id="r">
+               <div class="profile">
+                   <a href="/member/myPage?num=1&userID=${session.id }"><img src="${session.mImg }"/>
+                    </a>
+                    <p>${session.mNickname } 님</p>
+                  </div>       
+               </div>
+            
+            <div id="writebutton"> <!-- 게시물 작성 버튼-->
+                   <a href="/board/write"><img src="/resources/imgs/w1.png"/></a>
+            </div>  
+            </c:if>
+            
+            <c:if test="${session == null }"> <!-- 로그인 안했을때 -->
+            <div id="rr">
+          <a href="/member/login"><img src="/resources/imgs/p1.png"></a>
+          </div>
+            </c:if>
+      </div>
+
+</div>
 	<form method="post" id="f" enctype="multipart/form-data">
+	
+	<div class="wrapper">    
+    <div class="nav" >
+      <ul>
+      <li>
+      <div class="o"><a href="#">프로필 편집</a></div>
+      </li>
+      <li>
+      <div class="s"><div class="s"><a href="/member/password" id="bPW" type="button">비밀번호 변경</a></div>
+      </div>
+       </li>
+      </ul>
+   </div>
+   <div class="main" >
+   <ul>
+    <li>
+      <div class="f">
+	
+	
 		<input type="hidden" name="mID" value="${session.mID }" />
-	 	<c:choose>
+		
+		  <!-- 프로필 사진 -->
+       <div id="ff">    
+		
+		
+	 	 <c:choose>
         <c:when test="${session.mImg eq null }">
-        <img id="pImg" width="100" height="100" alt="" src="/resources/imgs/unnamed.png">
+        <img id="pImg" width="150" height="150" alt="" src="/resources/imgs/unnamed.png">
         </c:when>
         <c:otherwise>
-        <img id="pImg" width="100" height="100" alt="" src="<spring:url value='${session.mImg }'/>">
+        <img id="pImg" width="150" height="150" alt="" src="<spring:url value='${session.mImg }'/>">
         </c:otherwise>
         </c:choose>
         <input type="file" id="upload" name="Img" accept=".jpg, .jpeg, .png" style="display:none" />
-		<button type="button" id="bImg" >프로필 사진 변경</button>
-		<br/>
-		영어, 한글, 숫자를 사용할 수 있습니다.<br/> 
-		<input type="text" id="nickname" name="mNickname" value="${session.mNickname }" />
-		<button type="button" id="nicknameCheck">닉네임 중복 확인</button>
-      	<p id="nicknameMsg" ></p>
-      	
-		<input type="text" id="email" name="mEmail" value="${session.mEmail }" />
-		<br/>
-		
-		
-		
-		<button id="bBack" type="button">이전</button>
-		<button id="bSub" type="button">확인</button>
-		<button id="bPW" type="button">비밀번호 변경</button>
-		
-	</form>
+      </div>
+     <!-- 프로필 사진 변경 버튼 부분 -->
+      
+      <button type="button" id="bImg" ><i class="fas fa-camera fa-2x"></i></button>
+      
+      </div>    
+      </li>
+     <li>
+      <div class="t">
+       <i class="far fa-user fa-lg"></i>
+      <input type="text" id="nickname" name="mNickname" value="${session.mNickname }" placeholder="영어, 한글, 숫자를 사용할 수 있습니다."/>
+      <button type="button" id="nicknameCheck">닉네임 중복 확인</button>
+         <p id="nicknameMsg" ></p>
+       </div> 
+      </li>
+      <li>
+      
+       <div class="t">
+       <i class="far fa-envelope fa-lg"></i>
+         <input type="text" id="email" name="mEmail" value="${session.mEmail }" />
+     </div>
+     </li>   
+   </ul>
+        
+       
+        <div class="low">
+        <button id="bBack" type="button">이전</button>
+        <button id="bSub" type="button">확인</button>
+        </div>
+        
+      
+      
+   
+</div>
+
+</div>   
+   </form>
+
 
 	<script>
 		var regTypeNickname = /[^a-z0-9ㄱ-ㅎ가-힣0-9]/gi;	

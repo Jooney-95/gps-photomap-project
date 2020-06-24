@@ -236,21 +236,21 @@ public class MemberController {
 		List<FileVO> fList = new ArrayList<FileVO>();
 		List<ArrayList<FileVO>> fileList = new ArrayList<ArrayList<FileVO>>();
 		MemberVO m = new MemberVO();
-		List<MemberVO> mList = new ArrayList<MemberVO>();
-
+		
+		m = service.memberVO(userID);
+		
 		// 글 번호에 해당하는 이미지 받아오기
 		for (BoardVO vo : list) {
 			fList = fileService.viewFile(vo.getBno());
-			m = service.memberVO(vo.getWriter());
 			fileList.add((ArrayList<FileVO>) fList);
-			mList.add(m);
+			
 		}
 
 		model.addAttribute("fileList", fileList);
 		model.addAttribute("list", list);
 		model.addAttribute("page", page);
 		model.addAttribute("select", num);
-		model.addAttribute("member", mList);
+		model.addAttribute("member", m);
 		model.addAttribute("userID", userID);
 		model.addAttribute("count", count);
 		model.addAttribute("countFollow", countFollow);

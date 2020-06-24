@@ -387,10 +387,11 @@
 	<!-- 팔로잉 목록 검색 -->
 	<select id="userFollowing" parameterType="int" resultType="com.board.domain.FollowVO">
 		select
-		id, userID, following, fforf 
+		id, userID, following, fforf, folDate
 		from
 		fol_board
 		where following = #{userID} and fforf = 0
+		order by folDate desc
 	</select>
 	
 	<!-- 맞팔로잉 검색 -->
