@@ -64,11 +64,11 @@
       </div>
       
       <div class="ff">
-            <img alt="" src="<spring:url value='${session.mImg }'/>">
+            <img alt="" src="<spring:url value='${member.mImg }'/>">
       </div>
       
       
-      <div class="one">${session.mNickname } 님</div>
+      <div class="one">${member.mNickname } 님</div>
       
       <div class="show">게시글 : ${count } 서로이웃 : ${countFollow } <c:if test="${session.id eq userID }">이웃신청 : ${countFollowing }</c:if></div>
 
