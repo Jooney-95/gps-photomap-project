@@ -7,6 +7,13 @@ window.onload = function() {
 		getPageList(1);
 }
 
+
+$(window).scroll(function(){ 
+	if($(window).scrollTop() >= ($(document).height() - $(window).height() - 10)  && pageNumber < page.endPageNum){
+		getPageList(++pageNumber);
+	}
+});
+
 function getPageList(pageNum) {
 	
 	var query = {
@@ -24,7 +31,7 @@ function getPageList(pageNum) {
 			member = JSON.parse(data.member);
 			page = JSON.parse(data.page);
 			pageNumber = page.num;
-			console.log(pageNumber);
+			
 			addListPage(data)
 		},
 		error : function(request, status, error) {
@@ -35,7 +42,7 @@ function getPageList(pageNum) {
 }
 
 function addListPage(data) {
-	$(".listPage").empty();
+	// $(".main").empty();
 	pageNumber = page.num;
 	var count = 0;
 	for (var i = 0; i < list.length; i++) {
@@ -60,18 +67,12 @@ function addListPage(data) {
 				+ list[i].title
 				+ '</a></div></li></ul></div></div><div class="downimg" id="img_'
 				+ list[i].bno + '"></div></div>';
-		$(".listPage").append(innerList);
+		$(".main").append(innerList);
 		getPNum(list[i].pNum, list[i].bno);
 		getMember(list[i].bno, count);
 		getImg(list[i].bno, count);
 		count++;
 	}
-	var pageList;
-	pageList = ' <div id="pagelist"></div>';
-	$(".listPage").append(pageList);
-	getPagePrev(page.prev);
-	getPageNumList(page.startPageNum, page.endPageNum);
-	getPageNext(page.next);
 }
 
 function getTimeStamp(time) {
@@ -144,28 +145,6 @@ function getImg(bno, count) {
 	}
 }
 
-function getPagePrev(prev) {
-	if (prev) {
-		$("#pagelist").append('<span onclick="getPageList('+page.startPageNum - 1+')">◀</span>');
-	}
-}
-
-function getPageNumList(start, end) {
-	for (var i = start; i <= end; i++) {
-		if (pageNumber != i) {
-			$("#pagelist").append(
-					'<span onclick="getPageList('+i+')">' + i + '</span>');
-		} else {
-			$("#pagelist").append('<span><b>' + i + '</b></span>');
-		}
-	}
-}
-
-function getPageNext(next) {
-	if (next) {
-		$("#pagelist").append('<span onclick="getPageList('+page.endPageNum + 1+')">▶</span>');
-	}
-}
 
 function loginPopup() {
 	if (document.getElementById("loginPopup").style.display == "none") {

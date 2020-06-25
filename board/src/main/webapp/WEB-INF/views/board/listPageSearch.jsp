@@ -79,8 +79,7 @@
       <span>인기순</span> | 
       <span id="new" onclick="getPageList(1)">최신순</span> | 
       <span>이웃게시물</span>
-      <div class="listPage">
-      </div>
+      
    </div>
    </div>
    <script>
