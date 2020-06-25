@@ -240,7 +240,7 @@ font-size:20px;
    text-shadow: 0 0 24px;
 }
 
-#downimg{
+.downimg{
  
  display:block;
 /* border:1px solid #000;/**/
@@ -253,7 +253,7 @@ padding-left:22px;
  
    
 }
-#downimg img{
+.downimg img{
 float:left;
 width:80px;
 height:80px;
@@ -265,7 +265,7 @@ margin-top:18px;
 /*border: 2px solid #dfddc5;*/
  
  }
- #downimg img:hover{
+ .downimg img:hover{
  transition: transform .35s;  
 -o-transition: transform .35s;
 -moz-transition: transform .35s;

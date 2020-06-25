@@ -1,7 +1,7 @@
 package com.board.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -115,40 +115,6 @@ public class BoardController {
 	public void getListPageSearch(Model model, HttpSession session, @RequestParam("num") int num,
 			@RequestParam(value = "searchType", required = false, defaultValue = "title") String searchType,
 			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) throws Exception {
-
-		if (session != null) {
-
-		}
-		Page page = new Page();
-
-		page.setNum(num);
-		page.setCount(service.count());
-
-		List<BoardVO> list = null;
-		// list = service.listPage(page.getDisplayPost(), page.getPostNum());
-		list = service.listPageSearch(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
-
-		List<FileVO> fList = new ArrayList<FileVO>();
-		List<ArrayList<FileVO>> fileList = new ArrayList<ArrayList<FileVO>>();
-		MemberVO m = new MemberVO();
-		List<MemberVO> mList = new ArrayList<MemberVO>();
-		SimpleDateFormat format1;
-		format1 = new SimpleDateFormat("yyyy-MM-dd");
-
-		
-		// 占쏙옙 占쏙옙호占쏙옙 占쌔댐옙占싹댐옙 占싱뱄옙占쏙옙 占쌨아울옙占쏙옙
-		for (BoardVO vo : list) {			
-			fList = fileService.viewFile(vo.getBno());
-			m = memberService.memberVO(vo.getWriter());
-			fileList.add((ArrayList<FileVO>) fList);
-			mList.add(m);
-		}
-
-		model.addAttribute("fileList", fileList);
-		model.addAttribute("list", list);
-		model.addAttribute("page", page);
-		model.addAttribute("select", num);
-		model.addAttribute("member", mList);
 
 	}
 
@@ -335,6 +301,49 @@ public class BoardController {
 		
 
 		return "/board/view?bno=" + bno;
+	}
+	
+
+	@ResponseBody
+	@RequestMapping(value = "/getListPage", method = RequestMethod.POST)
+	public HashMap<String, Object> getListPage(HttpServletRequest req) throws Exception {
+		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
+		System.out.println(pageNum);
+		Page page = new Page();
+
+		page.setNum(pageNum);
+		page.setCount(service.count());
+
+		List<BoardVO> list = null;
+		// list = service.listPage(page.getDisplayPost(), page.getPostNum());
+		list = service.listPageSearch(page.getDisplayPost(), page.getPostNum(), "", "");
+
+		List<FileVO> fList = new ArrayList<FileVO>();
+		List<ArrayList<FileVO>> fileList = new ArrayList<ArrayList<FileVO>>();
+		MemberVO m = new MemberVO();
+		List<MemberVO> mList = new ArrayList<MemberVO>();
+
+		
+		// 占쏙옙 占쏙옙호占쏙옙 占쌔댐옙占싹댐옙 占싱뱄옙占쏙옙 占쌨아울옙占쏙옙
+		for (BoardVO vo : list) {			
+			fList = fileService.viewFile(vo.getBno());
+			m = memberService.memberVO(vo.getWriter());
+			fileList.add((ArrayList<FileVO>) fList);
+			mList.add(m);
+		}
+		Gson gson = new Gson();
+		String jsonList = gson.toJson(list);
+		String jsonMList = gson.toJson(mList);
+		String jsonFileList = gson.toJson(fileList);
+		String jsonPage = gson.toJson(page);
+		
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		data.put("board", jsonList);
+		data.put("file", jsonFileList);
+		data.put("member", jsonMList);
+		data.put("page", jsonPage);
+
+		return data;
 	}
 
 }
