@@ -3,7 +3,9 @@ var file;
 var member;
 var page;
 var pageNumber;
+
 window.onload = function() {
+	console.log(sessionStorage.getItem("flag"))
 	switch(sessionStorage.getItem("flag")){
 	case "like":
 		$(".listBold")[0].style.fontWeight = "bold";
@@ -13,9 +15,13 @@ window.onload = function() {
 		break;
 	case "fol":
 		if($("#userID").val() == ""){
+			console.log($("#userID").val())
 			sessionStorage.setItem("flag", "new");
 			$(".listBold")[1].style.fontWeight = "bold";
+		} else{
+			$(".listBold")[2].style.fontWeight = "bold";
 		}
+		break;
 	default:
 		sessionStorage.setItem("flag", "new");
 		$(".listBold")[1].style.fontWeight = "bold";
@@ -69,12 +75,15 @@ function getPageList(pageNum) {
 		url : "/board/getPage",
 		data : query,
 		success : function(data) {
+			
+			if(Object.keys(data).includes('board')){
 			list = JSON.parse(data.board);
 			file = JSON.parse(data.file);
 			member = JSON.parse(data.member);
 			page = JSON.parse(data.page);
 			pageNumber = page.num;
 			addListPage(data)
+			}
 		},
 		error : function(request, status, error) {
 			alert("code:" + request.status + "\n" + "message:"
