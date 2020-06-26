@@ -4,34 +4,76 @@ var member;
 var page;
 var pageNumber;
 window.onload = function() {
-		getPageList(1);
-}
-
-
-$(window).scroll(function(){ 
-	if($(window).scrollTop() >= ($(document).height() - $(window).height() - 10)  && pageNumber < page.endPageNum){
-		getPageList(++pageNumber);
+	switch(sessionStorage.getItem("flag")){
+	case "like":
+		$(".listBold")[0].style.fontWeight = "bold";
+		break;
+	case "new":
+		$(".listBold")[1].style.fontWeight = "bold";
+		break;
+	case "fol":
+		if($("#userID").val() == ""){
+			sessionStorage.setItem("flag", "new");
+			$(".listBold")[1].style.fontWeight = "bold";
+		}
+	default:
+		sessionStorage.setItem("flag", "new");
+		$(".listBold")[1].style.fontWeight = "bold";
 	}
+	
+	getPageList(1, sessionStorage.getItem("flag"));
+}
+$(document).on('click', '.listBold', function() {
+	$(this).css('font-weight', 'bold')
+	$(".listBold").not($(this)).css('font-weight', '400');
 });
 
+$(window).scroll(
+		function() {
+			if ($(window).scrollTop() >= ($(document).height()
+					- $(window).height() - 10)
+					&& pageNumber < page.endPageNum) {
+				getPageList(++pageNumber, sessionStorage.getItem("flag"));
+			}
+		});
+
+function getList(value) {
+	$("#pageList").empty();
+	switch (value) {
+	case 1:
+		sessionStorage.setItem("flag", "like");
+		break;
+	case 2:
+		sessionStorage.setItem("flag", "new");
+		break;
+	default:
+		if ($("#userID").val() != "") {
+			sessionStorage.setItem("flag", "fol");
+		} else {
+			alert("로그인하세요");
+			location.href = "/member/login"
+		}
+	}
+	getPageList(1);
+}
+
 function getPageList(pageNum) {
-	
+
 	var query = {
-		pageNum : pageNum
+		pageNum : pageNum,
+		flag : sessionStorage.getItem("flag")
 	};
 
 	$.ajax({
 		type : "post",
-		url : "/board/getListPage",
+		url : "/board/getPage",
 		data : query,
 		success : function(data) {
-
 			list = JSON.parse(data.board);
 			file = JSON.parse(data.file);
 			member = JSON.parse(data.member);
 			page = JSON.parse(data.page);
 			pageNumber = page.num;
-			
 			addListPage(data)
 		},
 		error : function(request, status, error) {
@@ -67,7 +109,7 @@ function addListPage(data) {
 				+ list[i].title
 				+ '</a></div></li></ul></div></div><div class="downimg" id="img_'
 				+ list[i].bno + '"></div></div>';
-		$(".main").append(innerList);
+		$("#pageList").append(innerList);
 		getPNum(list[i].pNum, list[i].bno);
 		getMember(list[i].bno, count);
 		getImg(list[i].bno, count);
@@ -144,7 +186,6 @@ function getImg(bno, count) {
 		}
 	}
 }
-
 
 function loginPopup() {
 	if (document.getElementById("loginPopup").style.display == "none") {

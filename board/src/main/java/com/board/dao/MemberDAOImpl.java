@@ -127,4 +127,10 @@ public class MemberDAOImpl implements MemberDAO {
 		return sql.selectList(namespace + ".followMemberVO", map);
 	}
 
+	@Override
+	public List<FollowVO> fforfList(int id) throws Exception {
+		// TODO Auto-generated method stub
+		return sql.selectList(namespace + ".fforfList", id);
+	}
+
 }

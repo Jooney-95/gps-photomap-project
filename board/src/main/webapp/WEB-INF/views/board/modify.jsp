@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dd9fb87d40ab9678af574d3665e02b6e&libraries=services,clusterer"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="/resources/js/modify.js?var=2"></script>
 <meta charset="UTF-8">

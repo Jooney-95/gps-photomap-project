@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.board.domain.BoardVO;
+import com.board.domain.FollowVO;
 import com.board.domain.LikeVO;
 
 
@@ -133,6 +134,39 @@ public class BoardDAOImpl implements BoardDAO {
 	public int count(int userID) throws Exception {
 		// TODO Auto-generated method stub
 		return sql.selectOne(namespace + ".countMyPage", userID);
+	}
+
+	@Override
+	public List<BoardVO> getPage(int displayPost, int postNum, String flag) throws Exception {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		  
+		data.put("displayPost", displayPost);
+		data.put("postNum", postNum);
+		data.put("flag", flag);
+		if(flag.equals("like")) {
+			return sql.selectList(namespace + ".getLikePage", data);
+		} else {
+			return sql.selectList(namespace + ".getNewPage", data);
+		}
+	}
+
+	@Override
+	public List<BoardVO> getPage(int displayPost, int postNum, String flag, List<FollowVO> fforfList) throws Exception {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		
+		data.put("displayPost", displayPost);
+		data.put("postNum", postNum);
+		data.put("flag", flag);
+		data.put("fforfList", fforfList);
+		if(flag.equals("like")) {
+			return sql.selectList(namespace + ".getUserLikePage", data);
+		} else if(flag.equals("new")){
+			return sql.selectList(namespace + ".getUserNewPage", data);
+		} else {
+			return sql.selectList(namespace + ".getUserFolPage", data);
+		}
 	}
 
 }

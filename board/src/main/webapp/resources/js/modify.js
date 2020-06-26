@@ -311,7 +311,7 @@ function imgPrint(obj) {
 		lon[j].value = obj[i].longitude;
 		time[j].value = obj[i].timeView;
 		id[j].value = obj[i].id;
-		
+		console.log("j " + j)
 		getLoc(obj[i].latitude, obj[i].longitude, j);
 		
 		j++;

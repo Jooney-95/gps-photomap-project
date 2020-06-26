@@ -76,12 +76,16 @@
 
    <div class="main">
    <div id="list">
-      <span>인기순</span> | 
-      <span id="new" onclick="getPageList(1)">최신순</span> | 
-      <span>이웃게시물</span>
+      <span class="listBold"onclick="getList(1)">인기순</span> | 
+      <span class="listBold" onclick="getList(2)">최신순</span> | 
+      <span class="listBold" onclick="getList(3)">이웃게시물</span>
       
    </div>
+   
+   <div id="pageList">
    </div>
+   </div>
+   <input type="hidden" id="userID" value="${session.id }" />
    <script>
    document.getElementById("searchBtn").onclick = function() {
 

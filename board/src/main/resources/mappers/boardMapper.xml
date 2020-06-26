@@ -82,6 +82,78 @@
 		limit #{displayPost}, #{postNum}
 	</select>
 	
+	<!-- 게시물 좋아요 목록 -->
+	<select id="getLikePage" parameterType="hashMap"
+		resultType="com.board.domain.BoardVO">
+		select
+		bno, title, writer, regDate, viewCnt, pNum, likeCnt
+		from tbl_board
+		where pNum = -1
+		order by likeCnt desc, bno desc
+		limit #{displayPost}, #{postNum}
+	</select>
+	
+	<!-- 게시물 최신 목록 -->
+	<select id="getNewPage" parameterType="hashMap"
+		resultType="com.board.domain.BoardVO">
+		select
+		bno, title, writer, regDate, viewCnt, pNum, likeCnt
+		from tbl_board
+		where pNum = -1
+		order by bno desc
+		limit #{displayPost}, #{postNum}
+	</select>
+	
+		<!-- 게시물 좋아요 목록 -->
+	<select id="getUserLikePage" parameterType="hashMap"
+		resultType="com.board.domain.BoardVO">
+		select
+		bno, title, writer, regDate, viewCnt, pNum, likeCnt
+		from tbl_board
+		where pNum in
+		<foreach collection="fforfList" item="item" open="(" close="" separator=",">
+			#{item.following}
+		</foreach>
+		, "-1")
+		order by likeCnt desc, bno desc
+		limit #{displayPost}, #{postNum}
+	</select>
+	
+	<!-- 게시물 최신 목록 -->
+	<select id="getUserNewPage" parameterType="hashMap"
+		resultType="com.board.domain.BoardVO">
+		select
+		bno, title, writer, regDate, viewCnt, pNum, likeCnt
+		from tbl_board
+		where pNum in
+		<foreach collection="fforfList" item="item" open="(" close="" separator=",">
+			#{item.following}
+		</foreach>
+		, "-1")
+		order by bno desc
+		limit #{displayPost}, #{postNum}
+	</select>
+	
+	<!-- 이웃 게시물 목록 -->
+	<select id="getUserFolPage" parameterType="hashMap"
+		resultType="com.board.domain.BoardVO">
+		select
+		bno, title, writer, regDate, viewCnt, pNum, likeCnt
+		from tbl_board
+		where writer in
+		<foreach collection="fforfList" item="item" open="(" close=")" separator=",">
+			#{item.following}
+		</foreach>
+		and pNum in
+		<foreach collection="fforfList" item="item" open="(" close="" separator=",">
+			#{item.following}
+		</foreach>
+		, "-1")
+		order by bno desc
+		limit #{displayPost}, #{postNum}
+		
+	</select>
+	
 	<!-- 좋아요 증가 -->
 	<update id="likeUpTbl" parameterType="com.board.domain.LikeVO">
 		update tbl_board
@@ -401,6 +473,15 @@
 		from
 		fol_board
 		where userID = #{userID} and following = #{following}
+	</select>
+	
+	<!-- 맞팔리스트 -->
+	<select id="fforfList" parameterType="int" resultType="com.board.domain.FollowVO">
+		select
+		id, userID, following, fforf 
+		from
+		fol_board
+		where userID = #{id} and fforf = 1
 	</select>
 	
 	<!-- 팔로우 -->

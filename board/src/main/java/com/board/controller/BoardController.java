@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.board.domain.BoardVO;
 import com.board.domain.FileVO;
+import com.board.domain.FollowVO;
 import com.board.domain.LikeVO;
 import com.board.domain.MemberVO;
 import com.board.domain.Page;
@@ -305,19 +306,35 @@ public class BoardController {
 	
 
 	@ResponseBody
-	@RequestMapping(value = "/getListPage", method = RequestMethod.POST)
-	public HashMap<String, Object> getListPage(HttpServletRequest req) throws Exception {
+	@RequestMapping(value = "/getPage", method = RequestMethod.POST)
+	public HashMap<String, Object> getLikePage(HttpServletRequest req, HttpSession session) throws Exception {
 		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
-		System.out.println(pageNum);
+		String flag = req.getParameter("flag");
+		MemberVO login = (MemberVO)session.getAttribute("session");
+		
 		Page page = new Page();
 
 		page.setNum(pageNum);
 		page.setCount(service.count());
 
 		List<BoardVO> list = null;
-		// list = service.listPage(page.getDisplayPost(), page.getPostNum());
-		list = service.listPageSearch(page.getDisplayPost(), page.getPostNum(), "", "");
-
+		
+		if(login != null) {
+				List<FollowVO> fforfList = null;
+				System.out.println(login.getId());
+				fforfList = memberService.fforfList(login.getId());
+				if(fforfList.size() > 0) {
+					System.out.println(fforfList);
+					list = service.getPage(page.getDisplayPost(), page.getPostNum(), flag, fforfList);
+				}
+		} else {
+			if(!flag.equals("fol")) {
+				list = service.getPage(page.getDisplayPost(), page.getPostNum(), flag);
+			}
+		}
+		
+		
+		
 		List<FileVO> fList = new ArrayList<FileVO>();
 		List<ArrayList<FileVO>> fileList = new ArrayList<ArrayList<FileVO>>();
 		MemberVO m = new MemberVO();

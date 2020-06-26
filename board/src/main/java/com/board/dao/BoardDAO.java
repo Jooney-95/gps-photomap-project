@@ -3,6 +3,7 @@ package com.board.dao;
 import java.util.List;
 
 import com.board.domain.BoardVO;
+import com.board.domain.FollowVO;
 import com.board.domain.LikeVO;
 
 public interface BoardDAO {
@@ -38,5 +39,9 @@ public interface BoardDAO {
 	public void likeDownTbl(LikeVO vo) throws Exception;
 
 	public int count(int userID) throws Exception;
+
+	public List<BoardVO> getPage(int displayPost, int postNum, String flag) throws Exception;
+
+	public List<BoardVO> getPage(int displayPost, int postNum, String flag, List<FollowVO> fforfList) throws Exception;
 
 }

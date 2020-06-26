@@ -43,5 +43,7 @@ public interface MemberService {
 
 	public List<MemberVO> followMemberVO(List<FollowVO> follow) throws Exception;
 
-	
+	public List<FollowVO> fforfList(int id) throws Exception;
+
+
 }

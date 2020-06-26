@@ -120,5 +120,11 @@ public class MemberServiceImpl implements MemberService {
 		return dao.followMemberVO(follow);
 	}
 
+	@Override
+	public List<FollowVO> fforfList(int id) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.fforfList(id);
+	}
+
 
 }
