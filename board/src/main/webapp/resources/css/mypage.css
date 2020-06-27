@@ -4,12 +4,6 @@
    margin-bottom:100px;
 }
 
-.out{
-   width:100px;
-   height:30px;
-   float:right;
-}
-
 .ff{
    overflow: hidden;
     display: flex;
@@ -174,7 +168,7 @@ ul li{
 #right{
   margin:0 auto;
    width:450px;
-   height:130px;
+   height:100px;
  
 }
 /*/////////////////////날짜 or 시간///////////////////////*/
@@ -200,13 +194,10 @@ ul li{
 }
 
 /*/////////////아이디 & 공감수 & 조회수 & 공개 범위//////////////*/
-.r-2{
-   
+.r-2{  
    margin-top:5px;
    width:450px;
-   height:40px;
-   
-   
+   height:40px;   
 }
 
 /*공감수*/
@@ -216,7 +207,7 @@ ul li{
    height:40px;
    float: right;
    color:#fdb330;   
-  
+   margin-right:10px; 
 }
 #likeCnt i{
 color:border-radius:50px;
@@ -229,11 +220,18 @@ box-shadow: 0px 0px 2px 1px  #f4f1e8;
 margin-right:5px;
 }
 /*조회수*/
+.r-3{  
+   width:450px;
+   height:20px;   
+}
 #viewCnt{
     padding-top:5px;
-    width:50px;
-   height:40px;
-   float: right;   
+    width:100px;
+   height:20px;
+   float: right;
+   font-size:12px;
+   margin-right:20px;
+   text-align:right;     
 }
 /*공개범위*/
 .pNum{
@@ -243,7 +241,7 @@ margin-right:5px;
    float: right;
    margin:0 auto;
    margin-right:15px;
-font-size:20px;
+   font-size:20px;
   /*div안에 아이콘 가운데 오게 하기*/
 }
 .pNum i{
@@ -252,14 +250,14 @@ font-size:20px;
 
 
 #title{
-   width:200px;
+   width:300px;
    height:40px;
    text-align:left;
-   float: left;
+   float:left;
    padding-left:40px;
    padding-top:5px;
    font-size:18px;
-    color:#3b3f58;
+   color:#3b3f58;
 }
 #title i{
    font-size:20px;
@@ -290,13 +288,9 @@ font-size:20px;
  display:block;
 /* border:1px solid #000;/**/
  width:450px;
- height:120px;
-padding-left:22px;
-
- 
-  
- 
-   
+ height:100px;
+ padding-left:22px;
+ margin-top:10px;
 }
 #downimg img{
 float:left;

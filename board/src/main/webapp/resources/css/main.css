@@ -60,17 +60,15 @@ a{
    border:1px soolid #000;
    width:450px;
    height:130px;
-   margin:0 auto;  /*                   */
-  
-
+   margin:0 auto;
 }
 
 #left{
    float:left;
    width:130px;
-   height:130px;
+   height:120px;
    margin:0 auto;
-   
+   margin-top:5px;
 }
 
 .writer{
@@ -82,14 +80,15 @@ a{
     border: 1.5px dashed #c6da9c;
     border-radius: 77%;
     margin:0 auto;
-    margin-top:15px;
-   
+    margin-top:15px;  
 }
 
 #table .writer a img{
    width:100px;
    height:100px;
+   margin:0 auto;
 }
+
 ul li{
    list-style:none;
 }
@@ -123,23 +122,20 @@ ul li{
 }
 
 /*/////////////아이디 & 공감수 & 조회수 & 공개 범위//////////////*/
-.r-2{
-   
+.r-2{  
    margin-top:5px;
    width:320px;
-   height:40px;
-   
-   
+   height:40px;  
 }
 .name{
   
-   width:120px;
+   width:180px;
    height:40px;
    text-align:left;
    float: left;
    padding-left:5px;
    padding-top:5px;
-   font-size:17px;
+   font-size:15px;
     color:#3b3f58;
  
    
@@ -168,8 +164,9 @@ ul li{
    padding-top:4px;
    width:50px;
    height:40px;
-   float: left;
-   color:#fdb330;   
+   float: right;
+   color:#fdb330;
+   margin-right:10px;   
   
 }
 #likeCnt i{
@@ -187,7 +184,9 @@ margin-right:5px;
     padding-top:5px;
     width:50px;
    height:40px;
-   float: left;   
+   float: right;
+   font-size:10px;
+   margin-right:5px;   
 }
 /*공개범위*/
 .pNum{
@@ -212,7 +211,7 @@ font-size:20px;
    text-align:left;
    padding-top:5px;
    padding-left:5px;
-   font-size:15px;
+   font-size:17px;
    flaot:left;
 }
 #title i{
@@ -222,9 +221,8 @@ font-size:20px;
 
 #title a{
    text-decoration:none;
-   color:#0000000;
-  
-   
+   color:#0000000; 
+   margin-left:5px;
 }
 
 /*********링크 방문 후*********/
