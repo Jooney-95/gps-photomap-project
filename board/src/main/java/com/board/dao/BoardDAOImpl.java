@@ -86,9 +86,6 @@ public class BoardDAOImpl implements BoardDAO {
 		data.put("displayPost", displayPost);
 		data.put("postNum", postNum);
 	  
-		data.put("searchType", searchType);
-		data.put("keyword", keyword);
-	  
 		return sql.selectList(namespace + ".MyPageSearch", data);
 	}
 

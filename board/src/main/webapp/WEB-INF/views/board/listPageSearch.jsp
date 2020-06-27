@@ -72,7 +72,7 @@
 
    <div class="main">
    <div id="list">
-      <span class="listBold"onclick="getList(1)">인기순</span> | 
+      <span class="listBold" onclick="getList(1)">인기순</span> | 
       <span class="listBold" onclick="getList(2)">최신순</span> | 
       <span class="listBold" onclick="getList(3)">이웃게시물</span>
       

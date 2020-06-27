@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +28,33 @@
      </button>
    </div>
 </div>
-</div>
+ <!-- 사용자 로그인 현황 -->
+      <div class="log">
+            <c:if test="${session != null }"> <!-- 로그인했을때 -->
+                <div id="r">
+               <div class="profile">
+                    <img src="${session.mImg }" onclick="loginPopup()"/>
+                  <p>${session.mNickname }님</p>
+               </div>
+            </div>
+            
+            <div id="writebutton"> <!-- 게시물 작성 버튼-->
+                   <a href="/board/write"><img src="/resources/imgs/w1.png"/></a>
+            </div>  
+            </c:if>
+            
+            <c:if test="${session == null }"> <!-- 로그인 안했을때 -->
+            <div id="rr">
+          <a href="/member/login"><img src="/resources/imgs/p1.png"></a>
+          </div>
+            </c:if>
+      </div>
+<div class="pop" id="loginPopup" style="display:none">               
+                <div class="pi"><a href="/member/myPage?num=1&userID=${session.id }"><i class="fas fa-user-cog"></i>  마이페이지</a></div>
+                <div class="pii"><a href="/member/logout"><i class="fas fa-power-off"></i>  로그아웃</a></div>
+            </div>
+   </div>
+
 
    <form method="post" id="f">
    <div class="wrapper">
@@ -132,6 +159,15 @@
 					});
 				}
 			});
+	
+
+    function loginPopup() {
+        if (document.getElementById("loginPopup").style.display == "none") {
+           document.getElementById("loginPopup").style.display = "";
+        } else {
+           document.getElementById("loginPopup").style.display = "none";
+        }
+     }
 	</script>
 	
 </body>

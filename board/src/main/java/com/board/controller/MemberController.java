@@ -34,13 +34,13 @@ public class MemberController {
 
 	@Inject
 	MemberService service;
-	
+
 	@Inject
 	BoardService boardService;
 
 	@Inject
 	FileService fileService;
-	
+
 	@Inject
 	BCryptPasswordEncoder pwdEncoder;
 
@@ -130,7 +130,7 @@ public class MemberController {
 		}
 		return result;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/nicknameCheck", method = RequestMethod.POST)
 	public int postNicknameCheck(HttpServletRequest req) throws Exception {
@@ -142,19 +142,19 @@ public class MemberController {
 		}
 		return result;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/pwCheck", method = RequestMethod.POST)
 	public int postPwCheck(HttpServletRequest req) throws Exception {
 		String mID = req.getParameter("mID");
 		String curPW = req.getParameter("curPW");
-		
+
 		MemberVO pwCheck = service.pwCheck(mID);
-		
+
 		int result = 0;
 		if (pwCheck != null) {
 			boolean matchPW = pwdEncoder.matches(curPW, pwCheck.getmPW());
-			if(matchPW) {
+			if (matchPW) {
 				result = 1;
 			}
 		}
@@ -163,11 +163,12 @@ public class MemberController {
 
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public void getProfile() throws Exception {
-		
+
 	}
-	
+
 	@RequestMapping(value = "/profile", method = RequestMethod.POST)
-	public String postProfile(MemberVO vo, MultipartHttpServletRequest request, HttpServletRequest req) throws Exception {
+	public String postProfile(MemberVO vo, MultipartHttpServletRequest request, HttpServletRequest req)
+			throws Exception {
 
 		MultipartFile file = request.getFile("Img");
 		if (file.getSize() != 0) {
@@ -175,77 +176,72 @@ public class MemberController {
 		} else {
 			service.profile(vo);
 		}
-		
+
 		MemberVO login = service.login(vo);
 		HttpSession session = req.getSession();
 		session.setAttribute("session", login);
-		
+
 		return "redirect:/";
 	}
-	
+
 	@RequestMapping(value = "/password", method = RequestMethod.GET)
 	public void getPassword() throws Exception {
-		
+
 	}
-	
+
 	@RequestMapping(value = "/password", method = RequestMethod.POST)
 	public String postPassword(MemberVO vo, HttpSession session) throws Exception {
 		vo.setmPW(pwdEncoder.encode(vo.getmPW()));
 		service.password(vo);
-		
+
 		session.invalidate();
-		
+
 		return "redirect:/member/login";
 	}
-	
+
 	@RequestMapping(value = "/myPage", method = RequestMethod.GET)
 	public void getMyPage(Model model, @RequestParam("userID") int userID, @RequestParam("num") int num,
 			@RequestParam(value = "searchType", required = false, defaultValue = "title") String searchType,
 			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) throws Exception {
-		
+
 		Page page = new Page();
 		int count = boardService.count(userID);
-		
+
 		page.setNum(num);
 		page.setCount(count);
-		
+
 		List<BoardVO> list = null;
-		
+
 		list = boardService.MyPageSearch(userID, page.getDisplayPost(), page.getPostNum(), searchType, keyword);
 
-		
-		
 		List<FollowVO> follow = new ArrayList<FollowVO>();
 		List<FollowVO> following = new ArrayList<FollowVO>();
 		follow = service.userFollow(userID);
 		following = service.userFollowing(userID);
-		
-		
-		
-		
+
 		int countFollow = follow.size();
 		int countFollowing = following.size();
-		
-		if(countFollow > 0) {
+
+		if (countFollow > 0) {
 			List<MemberVO> followMVO = service.followMemberVO(follow);
 			model.addAttribute("follow", followMVO);
 		}
-		if(countFollowing > 0) {
+		if (countFollowing > 0) {
 			List<MemberVO> followingMVO = service.followMemberVO(following);
 			model.addAttribute("following", followingMVO);
 		}
-		
+
 		List<FileVO> fList = new ArrayList<FileVO>();
 		List<ArrayList<FileVO>> fileList = new ArrayList<ArrayList<FileVO>>();
 		MemberVO m = new MemberVO();
-		
+
 		m = service.memberVO(userID);
-		
+
 		// 글 번호에 해당하는 이미지 받아오기
 		for (BoardVO vo : list) {
 			fList = fileService.viewFile(vo.getBno());
 			fileList.add((ArrayList<FileVO>) fList);
-			
+
 		}
 
 		model.addAttribute("fileList", fileList);
@@ -257,7 +253,7 @@ public class MemberController {
 		model.addAttribute("count", count);
 		model.addAttribute("countFollow", countFollow);
 		model.addAttribute("countFollowing", countFollowing);
-		
+
 	}
 
 	@ResponseBody
@@ -265,44 +261,43 @@ public class MemberController {
 	public int postFollowCheck(HttpServletRequest req) throws Exception {
 		int sessionID = Integer.parseInt(req.getParameter("sessionID"));
 		int userID = Integer.parseInt(req.getParameter("userID"));
-		
+
 		FollowVO suVo = new FollowVO();
 		suVo.setUserID(sessionID);
 		suVo.setFollowing(userID);
 
-		
 		FollowVO suCheck = service.followingCheck(suVo);
-		
+
 		int result = 0;
-		if(suCheck != null) {
+		if (suCheck != null) {
 			result = 1;
-			if(suCheck.getFforf() == 1) {
+			if (suCheck.getFforf() == 1) {
 				result = 2;
 			}
 		}
 
 		return result;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/followClick", method = RequestMethod.POST)
 	public void postFollowClick(HttpServletRequest req) throws Exception {
 		int sessionID = Integer.parseInt(req.getParameter("sessionID"));
 		int userID = Integer.parseInt(req.getParameter("userID"));
-		
+
 		FollowVO suVo = new FollowVO();
 		suVo.setUserID(sessionID);
 		suVo.setFollowing(userID);
-		
+
 		FollowVO usVo = new FollowVO();
 		usVo.setUserID(userID);
 		usVo.setFollowing(sessionID);
-		
+
 		FollowVO suCheck = service.followingCheck(suVo);
 		FollowVO usCheck = service.followingCheck(usVo);
-		
-		if(usCheck != null) {
-			if(suCheck == null) {
+
+		if (usCheck != null) {
+			if (suCheck == null) {
 				service.follow(suVo);
 				service.fforf(suVo);
 			} else {
@@ -310,31 +305,30 @@ public class MemberController {
 				service.unFforf(usVo);
 			}
 		} else {
-			if(suCheck == null) {
+			if (suCheck == null) {
 				service.follow(suVo);
 			} else {
 				service.unFollow(suVo);
 			}
 		}
-		
+
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/getMyPage", method = RequestMethod.POST)
 	public HashMap<String, Object> getMyPage(HttpServletRequest req) throws Exception {
 		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
 		int userID = Integer.parseInt(req.getParameter("userID"));
 		// String flag = req.getParameter("flag");
-
+		HashMap<String, Object> data = new HashMap<String, Object>();
 		Page page = new Page();
+		int count = boardService.count(userID);
 
 		page.setNum(pageNum);
-		page.setCount(boardService.count());
+		page.setCount(count);
 
 		List<BoardVO> list = null;
 		list = boardService.MyPageSearch(userID, page.getDisplayPost(), page.getPostNum(), "", "");
-			
-		
 
 		List<FileVO> fList = new ArrayList<FileVO>();
 		List<ArrayList<FileVO>> fileList = new ArrayList<ArrayList<FileVO>>();
@@ -351,76 +345,106 @@ public class MemberController {
 			String jsonFileList = gson.toJson(fileList);
 			String jsonPage = gson.toJson(page);
 
-			HashMap<String, Object> data = new HashMap<String, Object>();
+			
 			data.put("board", jsonList);
 			data.put("file", jsonFileList);
 			data.put("page", jsonPage);
 
 			return data;
-			
+
 		} else {
-			HashMap<String, Object> data = new HashMap<String, Object>();
+			
 			System.out.println(data);
 			return data;
 		}
 
 	}
-	/*
+
 	@ResponseBody
-	@RequestMapping(value = "/getMyFol", method = RequestMethod.POST)
-	public HashMap<String, Object> getMyFol(HttpServletRequest req) throws Exception {
+	@RequestMapping(value = "/getFforf", method = RequestMethod.POST)
+	public HashMap<String, Object> getFforf(HttpServletRequest req) throws Exception {
 		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
 		int userID = Integer.parseInt(req.getParameter("userID"));
 		// String flag = req.getParameter("flag");
-
+		HashMap<String, Object> data = new HashMap<String, Object>();
 		Page page = new Page();
 
 		page.setNum(pageNum);
-		page.setCount(boardService.count());
-
-		List<BoardVO> list = null;
-		
-		
-			List<FollowVO> fforfList = null;
-			fforfList = service.fforfList(userID);
-			
-			list = boardService.MyPageSearch(userID, page.getDisplayPost(), page.getPostNum(), "", "");
-			
 		
 
-		List<FileVO> fList = new ArrayList<FileVO>();
-		List<ArrayList<FileVO>> fileList = new ArrayList<ArrayList<FileVO>>();
+		List<FollowVO> fforfList = null;
+		fforfList = service.fforfList(userID);
+
 		MemberVO m = new MemberVO();
 		List<MemberVO> mList = new ArrayList<MemberVO>();
-		
+		System.out.println(fforfList);
 
-		if (list != null) {
-			// 占쏙옙 占쏙옙호占쏙옙 占쌔댐옙占싹댐옙 占싱뱄옙占쏙옙 占쌨아울옙占쏙옙
-			for (BoardVO vo : list) {
-				fList = fileService.viewFile(vo.getBno());
-				m = memberService.memberVO(vo.getWriter());
-				fileList.add((ArrayList<FileVO>) fList);
+		if (fforfList != null) {
+			int i = 0;
+			for (FollowVO f : fforfList) {
+				System.out.println(f.getFollowing());
+				m = service.memberVO(f.getFollowing());
 				mList.add(m);
+				i++;
 			}
+			page.setCount(i);
 			Gson gson = new Gson();
-			String jsonList = gson.toJson(list);
 			String jsonMList = gson.toJson(mList);
-			String jsonFileList = gson.toJson(fileList);
 			String jsonPage = gson.toJson(page);
-
-			HashMap<String, Object> data = new HashMap<String, Object>();
-			data.put("board", jsonList);
-			data.put("file", jsonFileList);
+			
 			data.put("member", jsonMList);
 			data.put("page", jsonPage);
 
 			return data;
+			
 		} else {
-			HashMap<String, Object> data = new HashMap<String, Object>();
-			System.out.println(data);
+			
 			return data;
 		}
-
 	}
-	*/
+
+	/*
+	 * @ResponseBody
+	 * 
+	 * @RequestMapping(value = "/getMyFol", method = RequestMethod.POST) public
+	 * HashMap<String, Object> getMyFol(HttpServletRequest req) throws Exception {
+	 * int pageNum = Integer.parseInt(req.getParameter("pageNum")); int userID =
+	 * Integer.parseInt(req.getParameter("userID")); // String flag =
+	 * req.getParameter("flag");
+	 * 
+	 * Page page = new Page();
+	 * 
+	 * page.setNum(pageNum); page.setCount(boardService.count());
+	 * 
+	 * List<BoardVO> list = null;
+	 * 
+	 * 
+	 * List<FollowVO> fforfList = null; fforfList = service.fforfList(userID);
+	 * 
+	 * list = boardService.MyPageSearch(userID, page.getDisplayPost(),
+	 * page.getPostNum(), "", "");
+	 * 
+	 * 
+	 * 
+	 * List<FileVO> fList = new ArrayList<FileVO>(); List<ArrayList<FileVO>>
+	 * fileList = new ArrayList<ArrayList<FileVO>>(); MemberVO m = new MemberVO();
+	 * List<MemberVO> mList = new ArrayList<MemberVO>();
+	 * 
+	 * 
+	 * if (list != null) { // 占쏙옙 占쏙옙호占쏙옙 占쌔댐옙占싹댐옙 占싱뱄옙占쏙옙 占쌨아울옙占쏙옙 for (BoardVO vo
+	 * : list) { fList = fileService.viewFile(vo.getBno()); m =
+	 * memberService.memberVO(vo.getWriter()); fileList.add((ArrayList<FileVO>)
+	 * fList); mList.add(m); } Gson gson = new Gson(); String jsonList =
+	 * gson.toJson(list); String jsonMList = gson.toJson(mList); String jsonFileList
+	 * = gson.toJson(fileList); String jsonPage = gson.toJson(page);
+	 * 
+	 * HashMap<String, Object> data = new HashMap<String, Object>();
+	 * data.put("board", jsonList); data.put("file", jsonFileList);
+	 * data.put("member", jsonMList); data.put("page", jsonPage);
+	 * 
+	 * return data; } else { HashMap<String, Object> data = new HashMap<String,
+	 * Object>(); System.out.println(data); return data; }
+	 * 
+	 * }
+	 */
 }

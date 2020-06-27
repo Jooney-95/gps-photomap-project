@@ -5,7 +5,6 @@ var page;
 var pageNumber;
 
 window.onload = function() {
-   console.log(sessionStorage.getItem("flag"))
    switch(sessionStorage.getItem("flag")){
    case "like":
       $(".listBold")[0].style.fontWeight = "bold";
@@ -15,7 +14,6 @@ window.onload = function() {
       break;
    case "fol":
       if($("#userID").val() == ""){
-         console.log($("#userID").val())
          sessionStorage.setItem("flag", "new");
          $(".listBold")[1].style.fontWeight = "bold";
       } else{

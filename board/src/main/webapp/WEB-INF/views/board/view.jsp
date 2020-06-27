@@ -455,7 +455,13 @@
             }
           }
   
-       
+         function loginPopup() {
+             if (document.getElementById("loginPopup").style.display == "none") {
+                document.getElementById("loginPopup").style.display = "";
+             } else {
+                document.getElementById("loginPopup").style.display = "none";
+             }
+          }
          
          
    </script>

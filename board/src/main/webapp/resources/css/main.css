@@ -37,6 +37,11 @@ body {
    margin-top:10px;
    
 }
+
+#list .listBold{
+   cursor:pointer;
+}
+
 a{
    text-decoration:none;
 }

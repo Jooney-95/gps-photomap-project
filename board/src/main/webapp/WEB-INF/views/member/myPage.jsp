@@ -63,6 +63,7 @@
 
 	<div class="main">
 <input type="hidden" id="userID" value="${member.id }"/>
+<input type="hidden" id="sessionID" value="${session.id }"/>
 		<div class="modify">
 			<c:if test="${session.id eq userID }">
 				<a href="/member/profile"><i class="fas fa-cog fa-3x"></i></a>
@@ -86,78 +87,40 @@
 
 		<div class="all">
 			<div class="nav">
-				<div class="o" title="내 게시물">
+				<div class="myPageNav" id="o" title="내 게시물" onclick="getMyPageNav(1)">
 					<a href="#"><i class="fas fa-clipboard fa-2x"></i></a>
 				</div>
-				<div class="t" title="이웃목록">
+				<div class="myPageNav" id="t" title="이웃목록" onclick="getMyPageNav(2)">
 					<a href="#"><i class="fas fa-users fa-2x"></i></a>
 				</div>
 				<c:if test="${session.id eq userID }">
-					<div class="th" title="이웃요청">
+					<div class="myPageNav" id="th" title="이웃요청" onclick="getMyPageNav(3)">
 						<a href="#"><i class="fas fa-user-plus fa-2x"></i></a>
 					</div>
 				</c:if>
 			</div>
-			<div class="in"></div>
+			<div class="in">
+			<!--     <div class="neighbor">
+               <div class="pro"></div>
+               <div class="nickname"></div>
+            </div>
+            
+             
+             <div class="nplus">
+               <div class="pro"></div>
+               <div class="nickname"></div>
+               <div class="check">
+                  <button type="submit">수락</button>
+                  <button type="submit">거절</button>
+               </div>
+            </div>
+            -->
+			</div>
 		</div>
 	</div>
 
 	<script>
-		window.onload = function() {
-			followCheck();
-		}
-
-		$("#bFollow").click(
-				function() {
-					var query = {
-						sessionID : "${session.id}",
-						userID : "${userID}"
-					};
-					$.ajax({
-						url : "/member/followClick",
-						type : "post",
-						data : query,
-						success : function() {
-							followCheck();
-						},
-						error : function(request, status, error) {
-							alert("code:" + request.status + "\n" + "message:"
-									+ request.responseText + "\n" + "error:"
-									+ error);
-						}
-					});
-				});
-
-		function followCheck() {
-			if ("${session }" != "") {
-				var query = {
-					sessionID : "${session.id}",
-					userID : "${userID}"
-				};
-				$.ajax({
-					url : "/member/followingCheck",
-					type : "post",
-					data : query,
-					success : function(check) {
-						if (check == 1) {
-							$("#bFollow").attr("class",
-									"fas fa-user-clock fa-2x");
-						} else if (check == 2) {
-							$("#bFollow").attr("class",
-									"fas fa-user-check fa-2x");
-						} else {
-							$("#bFollow").attr("class",
-									"fas fa-user-plus fa-2x");
-						}
-					},
-					error : function(request, status, error) {
-						alert("code:" + request.status + "\n" + "message:"
-								+ request.responseText + "\n" + "error:"
-								+ error);
-					}
-				});
-			}
-		}
+		
 	</script>
 
 </body>

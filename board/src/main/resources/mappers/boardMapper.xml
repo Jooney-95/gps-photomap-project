@@ -181,12 +181,7 @@
 		select
 		bno, title, writer, regDate, viewCnt, pNum, likeCnt
 		from tbl_board
-		<if test='searchType.equals("title")'>
-			WHERE title LIKE concat('%', #{keyword}, '%') and writer = #{writer}
-		</if>
-		<if test='searchType.equals("writer")'>
-			WHERE writer LIKE concat('%', #{keyword}, '%') and writer = #{writer}
-		</if>
+		where writer = #{writer}
 		order by bno desc
 		limit #{displayPost}, #{postNum}
 	</select>
@@ -482,6 +477,7 @@
 		from
 		fol_board
 		where userID = #{id} and fforf = 1
+		order by folDate desc
 	</select>
 	
 	<!-- 팔로우 -->
