@@ -25,14 +25,15 @@ form{
 .register{
    
    border-radius:10px;
-   width:1000px;
-   height:800px;
+   width:700px;
+   height:600px;
    text-align:center;
    margin:0 auto;
    -webkit-box-shadow: 10px 10px 2px -4px#f8f8f8;
     -moz-box-shadow: 10px 10px 2px -4px #f8f8f8;
     box-shadow: 10px 10px 2px -4px #f8f8f8;
     background:#fff;
+    margin-bottom:40px;
 }
 
 
@@ -42,13 +43,14 @@ form{
 .top{
    text-align:center;
    font-weight:bold;
-   padding:4px;
+   padding-top:20px;
+   padding-bottom:10px;
    
    
 }
 
 p{
-   font-size:25px;
+   font-size:20px;
    color:#4c4c4c;
    text-align:center;
    font-weight:bold;
@@ -62,13 +64,13 @@ p{
 
 /*//////////가운데 속성들/////////*/
 .middle{
-   width:800px;;
-   margin-top:4px ;
-   height:600px;
+   /*width:800px;;*/
+   margin-top:23px ;
+   /*height:600px;*/
    max-height:600px;
    text-align:center;
    display:inline-block;
-   
+ margin-left:25px;
    
    
 }
@@ -78,29 +80,43 @@ p{
    
    background: #f6ee8;
    border-radius:3px;
-   width:650px;
-   height:75px;
+   width:580px;
+   height:45px;
    text-align:left;
    display:inline-block;
-   margin:13px;
+   margin:15px;
+   margin-bottom:17px;
   
       
    
 }
 
-.middle input[type="text"],
-.middle input[type="password"]
+.middle input[type="text"]
+
 {
    
    background: #f6ee8;
-   width:370px;
-   height:46px;
+   width:350px;
+   height:40px;
    border:none;
    transition:0.35s;/*애니메이션을 주기위에 부모 부터 주기*/
    border-bottom:1px solid #eee3dd;
    border-radius:10px;
+   font-size:12px;   
+   padding-left:15px;
 }
-
+.middle input[type="password"]{
+   
+    background: #f6ee8;
+   width:358px;
+   height:40px;
+   border:none;
+   transition:0.35s;/*애니메이션을 주기위에 부모 부터 주기*/
+   border-bottom:1px solid #eee3dd;
+   border-radius:10px;
+   font-size:12px;   
+   padding-left:15px;
+}
 
 
 .middle input[type="text"]:focus,
@@ -117,12 +133,14 @@ p{
 
 .middle input[type="email"]{
    background: #f6ee8;
-   width:200px;
+   width:185px;
    height:46px;
    border:none;
    transition:0.35s;/*애니메이션을 주기위에 부모 부터 주기*/
    border-bottom:1px solid #eee3dd;
    border-radius:10px;
+   padding-left:15px;
+   font-size:12px;
 } 
 /*이메일 @ 뒤 박스 속성*/
 .middle #email2{
@@ -133,6 +151,8 @@ p{
    transition:0.35s;/*애니메이션을 주기위에 부모 부터 주기*/
    border-bottom:1px solid #eee3dd;
    border-radius:10px;
+   padding-left:15px;
+   font-size:12px;
 } 
  
  .middle input[type="email"]:focus{
@@ -158,8 +178,9 @@ p{
    border-radius:15px;
    background:#fff;
    border:2px solid #9fd7bf;
-   padding:7px;
-   margin-left:10px;
+   padding:5px;
+   margin-left:15px;
+   font-size:12px;
    
 }
 
@@ -177,7 +198,9 @@ p{
    font-size:12px;
    color:#ff4848;
    text-align:left;
-   margin-left:25px;
+   margin-left: 48px;
+   margin-top: 5px;
+}
 }
 
 
@@ -185,9 +208,13 @@ select{
    border-radius:15px;
    background:#fff;
    border:2px solid #9fd7bf;
-   padding:7px;
-   margin-left:10px;
-   width:125px;
+   padding:5px;
+   padding-left:10px;
+   margin-left:15px;
+  font-size:12px;
+  width: 95px;
+  top: 593px;
+    position: absolute;
    
 
 
@@ -223,7 +250,7 @@ select{
 
 /*//////// 버튼  ///////////*/
 .low{
-   width:300px;
+   width:265px;
    height:65px;
    margin-top:30px;
    text-align:center;
@@ -236,7 +263,7 @@ button{
     transition: 0.25s;
 }
 .low button{
-    width:100px;
+  width:80px;
    height:50px;
    border:none;
    background-color:#f9f7f2;
@@ -244,15 +271,15 @@ button{
    text-shadow: 0px -2px #eee9d9;
    color:#000;
    -webkit-transition: 0.25s;
+   
 
 }
    
 .low button:hover{
-    transform: translate(0px,5px);
-    -webkit-transform: translate(0px,5px);
+   transform: translate(0px,5px);
+   -webkit-transform: translate(0px,5px);
    border-bottom: 1px solid #eee9d9;
    cursor:pointer;
-   -webkit-transition: 0.25s;
    
    
 
@@ -265,7 +292,6 @@ button{
 }
 .pg{
    text-align:center;
-   
    
    
 }

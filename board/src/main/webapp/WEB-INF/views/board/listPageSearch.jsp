@@ -22,7 +22,7 @@
    <div id="header">
       <!-- 로고 -->
       <div class="logo">
-         <a href="/board/listPageSearch?num=1">SAMPLE</a>
+         <a href="/board/listPageSearch?num=1">Plus+</a>
       </div>
       <!-- 검색창 -->
       <div class="wrap">
@@ -44,12 +44,8 @@
             <!-- 로그인했을때 -->
             <div id="r">
                <div class="profile">
-               	  <img src="${session.mImg }" onclick="loginPopup()"/>
+                    <img src="${session.mImg }" onclick="loginPopup()"/>
                   <p>${session.mNickname }님</p>
-               </div>
-               <div id="loginPopup" style="display:none">
-                  <a href="/member/myPage?num=1&userID=${session.id }">마이페이지</a>
-                  <a href="/member/logout">로그아웃</a>
                </div>
             </div>
 
@@ -64,13 +60,13 @@
             <div id="rr">
                <a href="/member/login"><img src="/resources/imgs/p1.png"></a>
             </div>
-         </c:if>
+         </c:if>         
       </div>
-
-
-
-
-   </div>
+            <div class="pop" id="loginPopup" style="display:none">               
+                <div class="pi"><a href="/member/myPage?num=1&userID=${session.id }"><i class="fas fa-user-cog"></i>  마이페이지</a></div>
+                <div class="pii"><a href="/member/logout"><i class="fas fa-power-off"></i>  로그아웃</a></div>
+            </div>
+  </div>
 
 
 

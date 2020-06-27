@@ -182,11 +182,12 @@ margin-right:5px;
 /*조회수*/
 #viewCnt{
     padding-top:5px;
-    width:50px;
+    width:100px;
    height:40px;
    float: right;
    font-size:10px;
-   margin-right:5px;   
+   margin-right:5px; 
+   text-align:right;  
 }
 /*공개범위*/
 .pNum{

@@ -1,6 +1,7 @@
-\<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,13 +48,12 @@
      <!-- 사용자 로그인 현황 -->
       <div class="log">
             <c:if test="${session != null }"> <!-- 로그인했을때 -->
-               <div id="r">
+                <div id="r">
                <div class="profile">
-                   <a href="/member/myPage?num=1&userID=${session.id }"><img src="${session.mImg }"/>
-                    </a>
-                    <p>${session.mNickname } 님</p>
-                  </div>       
+                    <img src="${session.mImg }" onclick="loginPopup()"/>
+                  <p>${session.mNickname }님</p>
                </div>
+            </div>
             
             <div id="writebutton"> <!-- 게시물 작성 버튼-->
                    <a href="/board/write"><img src="/resources/imgs/w1.png"/></a>
@@ -66,7 +66,10 @@
           </div>
             </c:if>
       </div>
-
+<div class="pop" id="loginPopup" style="display:none">               
+                <div class="pi"><a href="/member/myPage?num=1&userID=${session.id }"><i class="fas fa-user-cog"></i>  마이페이지</a></div>
+                <div class="pii"><a href="/member/logout"><i class="fas fa-power-off"></i>  로그아웃</a></div>
+            </div>
    </div>
    
 
@@ -98,9 +101,18 @@
  </div>
     </div>   
          
+         <div class="time">
+         <div><p>조회수  <input type="text" id="viewCnt" value="${view.viewCnt }"/></p></div>
+         <input type="text" id="date" value="<fmt:formatDate value='${view.regDate }'  pattern='yyyy-MM-dd hh시 mm분' />"/>
+        
+          
+         </div>
+         
+        <div class="mainwrapper">
+         
    <!-- 카카오맵 api 호출 -->
-   <div id="aside">
-      <div id="map" style="width:550px; height:550px;"></div>
+   <div id="aside"  style="width:480px; height:430px; float:left" >
+      <div id="map" style="width:480px; height:430px;"></div>
    </div>   
 
   
@@ -121,7 +133,7 @@
          
          <div class="m1-2">
                 
-                 <div class="t-2">
+                <div class="t-2">
                      <c:forEach items="${tp }" var="tp">
                      <c:choose>
                      <c:when test="${tp.tpBno eq list.id and tp.tp eq 'sneakers' }">
@@ -148,6 +160,7 @@
                      </c:choose>
                      </c:forEach>
                </div>   
+                  
               </div>       
            </div>   
            
@@ -168,16 +181,23 @@
          </c:forEach>
    <br />
 </div>
-            
+</div>             
                
        
 
  
    <c:if test="${session.id eq view.writer }">
-      <div class="button">
+     <div class="button">
+       <div id="upload">
          <button class="raise" onclick="location.href='/board/modify?bno=${view.bno}'">게시물 수정</button>
+       </div>
+       <div id="upload">
          <button class="raise" onclick="location.href='/board/delete?bno=${view.bno}'">게시물 삭제</button>
+       </div>
       </div>   
+     
+     
+     
    </c:if>
    
 <!-- 카카오맵 다중마커 정렬 -->

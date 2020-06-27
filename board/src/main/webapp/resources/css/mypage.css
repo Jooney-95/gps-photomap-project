@@ -4,6 +4,11 @@
    margin-bottom:100px;
 }
 
+.out{
+   width:80px;
+   height:20px;
+   margin-top:3px;
+}
 .ff{
    overflow: hidden;
     display: flex;
@@ -33,6 +38,18 @@
       color:#c5c0c0;
 }
 
+.bFollow{
+   text-align:center;
+   width:50px;
+   height:50px;
+   padding:5px;
+   position:relative;
+   top:240px;
+   left:690px;
+}
+.bFollow i{
+      color:#feec77;
+}
 
 .one{
    width:200px;
@@ -48,6 +65,7 @@
    height:40px;
    margin:0 auto;
    margin-top:10px;
+   text-align:center;
 }
 
 .follow{

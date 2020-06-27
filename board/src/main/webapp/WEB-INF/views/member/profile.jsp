@@ -26,14 +26,13 @@
 
      <!-- 사용자 로그인 현황 -->
       <div class="log">
-            <c:if test="${session != null }"> <!-- 로그인했을때 -->
-               <div id="r">
+            <c:if test="${session != null }"><!-- 로그인했을때 -->
+            <div id="r">
                <div class="profile">
-                   <a href="/member/myPage?num=1&userID=${session.id }"><img src="${session.mImg }"/>
-                    </a>
-                    <p>${session.mNickname } 님</p>
-                  </div>       
+                    <img src="${session.mImg }" onclick="loginPopup()"/>
+                  <p>${session.mNickname }님</p>
                </div>
+            </div>
             
             <div id="writebutton"> <!-- 게시물 작성 버튼-->
                    <a href="/board/write"><img src="/resources/imgs/w1.png"/></a>
@@ -46,6 +45,10 @@
           </div>
             </c:if>
       </div>
+      <div class="pop" id="loginPopup" style="display:none">               
+                <div class="pi"><a href="/member/myPage?num=1&userID=${session.id }"><i class="fas fa-user-cog"></i>  마이페이지</a></div>
+                <div class="pii"><a href="/member/logout"><i class="fas fa-power-off"></i>  로그아웃</a></div>
+            </div>
 
 </div>
 	<form method="post" id="f" enctype="multipart/form-data">
@@ -204,6 +207,14 @@
 						});
 					}
 				});
+		
+		function loginPopup() {
+			   if (document.getElementById("loginPopup").style.display == "none") {
+			      document.getElementById("loginPopup").style.display = "";
+			   } else {
+			      document.getElementById("loginPopup").style.display = "none";
+			   }
+			}
 	</script>
 </body>
 </html>

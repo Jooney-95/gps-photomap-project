@@ -45,13 +45,12 @@ pageEncoding="UTF-8"%>
       <div class="log">
             <c:if test="${session != null }"> <!-- 로그인했을때 -->
 
-               <div id="r">
+              <div id="r">
                <div class="profile">
-                   <a href="/member/myPage?num=1&userID=${session.id }"><img src="${session.mImg }"/>
-                    </a>
-                    <p>${session.mNickname } 님</p>
-                  </div>       
-               </div>             
+                    <img src="${session.mImg }" onclick="loginPopup()"/>
+                  <p>${session.mNickname }님</p>
+               </div>
+            </div>
 
             </c:if>
             
@@ -59,6 +58,10 @@ pageEncoding="UTF-8"%>
                 <a href="/member/login"><img width="50" height="50" src="/resources/imgs/p1.png"></a>
             </c:if>
       </div>
+      <div class="pop" id="loginPopup" style="display:none">               
+                <div class="pi"><a href="/member/myPage?num=1&userID=${session.id }"><i class="fas fa-user-cog"></i>  마이페이지</a></div>
+                <div class="pii"><a href="/member/logout"><i class="fas fa-power-off"></i>  로그아웃</a></div>
+            </div>
 
 </div>
 
@@ -71,7 +74,6 @@ pageEncoding="UTF-8"%>
       <div id="top">
          <p>제목     <input type="text" id="title" name="title" placeholder="제목을 입력하세요."/></p>
          <input type="hidden" id="userID" name="writer" value="${session.id }" />
-          <p>작성자  <input type="text" value="${session.mNickname }" readOnly /></p>
       </div>
       
       <div class="button-wrapper">
@@ -93,17 +95,19 @@ pageEncoding="UTF-8"%>
       <div id="bottom">
          공개 범위 
          <input type="radio" name="pNum" value="-1" checked="checked">  전체공개
+         <input type="radio" name="pNum" value="${session.id }">  이웃공개
          <input type="radio" name="pNum" value="-2">  비공개
-         <input type="radio" name="pNum" value="${session.id }">  서로이웃공개
       </div>   
       
 </div>
-      
-<div class="button">
+      <div class=button>
+   <div class="upload" style="float:left">
    <button class="raise" id="bWrite" type="button">작성</button>
+</div>   
+<div class="upload"  style="float:right">   
    <button class="raise" id="bImgUpload" type="button">이미지 업로드</button>
 </div>   
-      
+      </div>
 </form>   
 
  <!-- 카카오맵 api 호출 -->

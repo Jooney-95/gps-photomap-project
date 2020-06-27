@@ -45,15 +45,13 @@
 
        <!-- 사용자 로그인 현황 -->
       <div class="log">
-            <c:if test="${session != null }"> <!-- 로그인했을때 -->
-
-               <div id="r">
+            <c:if test="${session != null }"><!-- 로그인했을때 -->
+            <div id="r">
                <div class="profile">
-                   <a href="/member/myPage?num=1&userID=${session.id }"><img src="${session.mImg }"/>
-                    </a>
-                    <p>${session.mNickname } 님</p>
-                  </div>       
-               </div>             
+                    <img src="${session.mImg }" onclick="loginPopup()"/>
+                  <p>${session.mNickname }님</p>
+               </div>
+            </div>
 
             </c:if>
             
@@ -61,7 +59,10 @@
                 <a href="/member/login"><img width="50" height="50" src="/resources/imgs/p1.png"></a>
             </c:if>
       </div>
-
+<div class="pop" id="loginPopup" style="display:none">               
+                <div class="pi"><a href="/member/myPage?num=1&userID=${session.id }"><i class="fas fa-user-cog"></i>  마이페이지</a></div>
+                <div class="pii"><a href="/member/logout"><i class="fas fa-power-off"></i>  로그아웃</a></div>
+            </div>
 
 </div>
 
@@ -73,8 +74,7 @@
       <input type="hidden" id="bno" name="bno" value="${view.bno }" />
       <p>제목     <input type="text" id="title" name="title" value="${view.title }"/></p>
       <input type="hidden" id="userID" name="writer" value="${session.id }" />
-      <p>작성자  <input type="text" value="${session.mNickname }" readOnly/></p>
-      <br/>
+       <br/>
    </div>
    
    <div class="button-wrapper">
@@ -110,18 +110,23 @@
                <textarea style="width:90%" cols="50" rows="5" id="textarea_${status.index }" name="content" >${list.content  }</textarea>
             </div>   
                                  
+                                 
             <div class="three" >
             <div class="t">
-            <div class="t-1" onclick="tpAdd(${status.index })"><p>이동수단</p></div>
+            <!-- <div class="tooltip">Click Here</div> -->
+            <div class="t-1" onclick="tpAdd(${status.index })"><p>이동수단</p></div> 
+            
+            
                 <div class="t-2" id="tp_${status.index }" style="display:none" >
-                     <input type="checkbox" id="sneakers_${status.index }" name="tp" value="sneakers" /><label><img src="/resources/imgs/sneakers.png"></label>
-                     <input type="checkbox" id="bus_${status.index }" name="tp" value="bus" /><label><img src="/resources/imgs/bus.png"></label>
-                     <input type="checkbox" id="train_${status.index }" name="tp" value="train" /><label><img src="/resources/imgs/train.png"></label>
-                     <br>
-                     <input type="checkbox" id="car_${status.index }" name="tp" value="car" /><label><img src="/resources/imgs/car.png"></label>
-                      <input type="checkbox" id="taxi_${status.index }" name="tp" value="taxi" /><label><img src="/resources/imgs/taxi.png"></label>
-                     <input type="checkbox" id="bike_${status.index }" name="tp" value="bike" /><label><img src="/resources/imgs/bike.png"></label>
-                     <input type="checkbox" id="scooter_${status.index }" name="tp" value="scooter" /><label><img src="/resources/imgs/scooter.png"></label>
+                <ul>
+                     <li class="b"><label><input type="checkbox" id="sneakers_${status.index }" name="tp" value="sneakers" /><img src="/resources/imgs/sneakers.png">도보</label></li>
+                      <li class="b"><label><input type="checkbox" id="bus_${status.index }" name="tp" value="bus" /><img src="/resources/imgs/bus.png">버스</label></li>
+                     <li class="a"> <label><input type="checkbox" id="train_${status.index }" name="tp" value="train" /><img src="/resources/imgs/train.png">지하철</label></li>
+                     <li class="a"><label><input type="checkbox" id="car_${status.index }" name="tp" value="car" /><img src="/resources/imgs/car.png">자동차</label></li>
+                      <li class="b"> <label><input type="checkbox" id="taxi_${status.index }" name="tp" value="taxi" /><img src="/resources/imgs/taxi.png">택시</label></li>
+                      <li class="a"><label><input type="checkbox" id="bike_${status.index }" name="tp" value="bike" /><img src="/resources/imgs/bike.png">자전거</label></li>
+                      <li class="a"><label><input type="checkbox" id="scooter_${status.index }" name="tp" value="scooter" /><img src="/resources/imgs/scooter.png">스쿠터</label></li>
+               </ul>
                </div>
                </div>
 
@@ -141,16 +146,21 @@
  <div id="bottom">
          공개 범위 
          <input type="radio" name="pNum" value="-1" checked="checked">  전체공개
+         <input type="radio" name="pNum" value="${session.id }">  이웃공개
          <input type="radio" name="pNum" value="-2">  비공개
-         <input type="radio" name="pNum" value="${session.id }">  서로이웃공개
+         
       </div>   
    
 </div>
 
-<div class="button">
-   <button class="raise" id="bModify" type="button">완료</button>
+   <div class=button>
+   <div class="upload" style="float:left">
+   <button class="raise" id="bModify" type="button">작성</button>
+</div>   
+<div class="upload"  style="float:right">   
    <button class="raise" id="bImgUpload" type="button">이미지 업로드</button>
 </div>   
+      </div>
 
 </form>
 

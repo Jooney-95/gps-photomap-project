@@ -168,3 +168,38 @@ body {
    margin-top:15px;
 }
 /*////////////////////*/
+
+.pop{
+   width:140px;
+   height:100px;
+   background:#fff;
+    margin-left:89%;
+   margin-top:100px;
+   border: 1px solid #fff;
+    border-radius: 10px;
+    text-align:center;
+    box-shadow: 5px 5px 5px #dddddd;
+}
+.pop div{
+   width:140px;
+   height:50px;
+   text-align:center;
+   padding-top:15px;
+   font-size:15px;
+   border: 1px solid #fff;
+    border-radius: 10px;
+}
+.pop div:hover{
+      background:#f4f1e8;
+}
+
+.pop a{
+   text-decoration:none;
+    color:#dddddd;
+}
+.pop a:hover{
+   color:#000;
+}
+.pop i{
+   color:#fdb330;
+}
