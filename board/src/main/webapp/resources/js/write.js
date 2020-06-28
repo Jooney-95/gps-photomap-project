@@ -122,20 +122,20 @@ function handleImgFileSelect(e) {
                               canvas.width, canvas.height);
                         var dataURI = canvas.toDataURL('image/jpeg');
                         var img_html = '<div class="middle" id="middle_'
-                              + index
-                              + '" name="imgDiv"><div class="left"><input type="hidden" id="id_'
-                              + index
-                              + '" name="id"><img id="img_'
-                              + index
-                              + '" name="filesList" src="'
-                              + dataURI
-                              + '" /></div><div class="right"><div class="one"><input type="text" name="loc" id="loc_'
-                              + index
-                              + '"><input type="hidden" id="lat_'
-                              + index
-                              + '" name="lat" /><input type="hidden" id="lon_'
-                              + index
-                              + '" name="lon" /><input type="text" id="time_'
+                            +index
+                             +'" name="imgDiv"><div class="left"><ul><li><div class="leftone"><i class="fas fa-map-marker-alt"></i> <input type="text" id="loc_'
+                            +index
+                            +'"><input type="hidden" id="lat_'
+                            +index
+                            +'" name="lat" /><input type="hidden" id="lon_'
+                            +index
+                            +'" name="lon" /></div></li><li><div class="lefttwo"><input type="hidden" id="id_'
+                            +index
+                            +'" name="id"><img id="img_'
+                            +index
+                             +'" name="filesList" src="'
+                            + dataURI
+                              + '" /></div></li></ul></div><div class="right"><div class="one"><input type="text" id="time_'
                               + index
                               + '" name="time" /></div><div class="two"><textarea style="width:90%" cols="30" rows="5" id="textarea_'
                               + index
@@ -143,7 +143,7 @@ function handleImgFileSelect(e) {
                               + index
                               + ')"><p>이동수단</p></div><div class="t-2" id="tp_'
                               + index
-                              + '" style="display:none"><ul>'
+                              + '" ><ul>'
                               + '<li class="b"><label><input type="checkbox" id="sneakers_'
                               + index
                               + '" name="tp" value="sneakers" /><img src="/resources/imgs/sneakers.png">도 보</label></li>'
@@ -171,6 +171,7 @@ function handleImgFileSelect(e) {
                               + '" onclick="del('
                               + index
                               + ')">삭제</button></div>'
+
                         $(".m").remove();
                         $(".img_box").append(img_html);
 

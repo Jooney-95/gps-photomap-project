@@ -276,6 +276,7 @@ body {
    height:30px;
    width:100%;
    cursor:pointer;
+   
 }
 .t-1 p{
    font-size:12px;
@@ -335,7 +336,6 @@ li.a,li.b{
    width:100%;
    height:auto;
    margin-top:20px;
-   
    text-align:center;
    display:inline-block;
    padding:10px;
@@ -343,14 +343,15 @@ li.a,li.b{
      
 }
  .down button{
-
-   width:100px;
-   height:50px;
+ border-radius:5px;
+   width:85px;
+   height:45px;
    border:none;
-   background-color:#f9f7f2;
-   border-bottom: 5px solid #eee9d9;
-   text-shadow: 0px -2px #eee9d9;
+   background-color:#f8f8f8;
+   border-bottom: 5px solid #eee;
+   /*text-shadow: 0px -2px #a2d89f;*/
    color:#000;
+   
    -webkit-transition: 0.25s;
    text-align:center;
     display:inline-block;
@@ -359,7 +360,9 @@ li.a,li.b{
 
    transform: translate(0px,5px);
   -webkit-transform: translate(0px,5px);
-   border-bottom: 1px solid #eee9d9;
+  color:#000;
+   background:#f3d2d3;
+   border-bottom: 2px solid #ebb6b7;
    cursor:pointer;
    
 }
@@ -413,15 +416,14 @@ button{
 }
 .upload button{
    font-size:15px;
-   font-weight:bold;
+  
    width:130px;
    height:55px;
    border:none;
-   background-color:#daebeb ;
-   border-bottom: 6px solid #a6cdcd;
+   background-color:#f8f8f8;
+   border-bottom: 6px solid #eee;
    border-radius:5px;
-   text-shadow: 0px -2px #daebeb;
-   color:#fff;
+   color:#000;
    -webkit-transition: 0.25s;
    
 }
@@ -429,7 +431,7 @@ button{
    
    transform: translate(0px,5px);
    -webkit-transform: translate(0px,5px);
-   border-bottom: 2px solid #a6cdcd;
+   border-bottom: 2px solid #eee;
    cursor:pointer;
    
    

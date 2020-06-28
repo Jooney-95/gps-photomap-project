@@ -101,11 +101,11 @@ pageEncoding="UTF-8"%>
       
 </div>
       <div class=button>
-   <div class="upload" style="float:left">
-   <button class="raise" id="bWrite" type="button">작성</button>
-</div>   
-<div class="upload"  style="float:right">   
+      <div class="upload"  style="float:left">   
    <button class="raise" id="bImgUpload" type="button">이미지 업로드</button>
+</div> 
+   <div class="upload" style="float:right">
+   <button class="raise" id="bWrite" type="button">작성</button>
 </div>   
       </div>
 </form>   

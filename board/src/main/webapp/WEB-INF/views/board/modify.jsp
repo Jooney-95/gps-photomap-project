@@ -8,7 +8,7 @@
 <head>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dd9fb87d40ab9678af574d3665e02b6e&libraries=services,clusterer"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script src="/resources/js/modify.js?var=2"></script>
+<script src="/resources/js/modify.js?var=3"></script>
 <meta charset="UTF-8">
 <title>게시물 수정</title>
 <link rel="stylesheet" href="/resources/css/modify.css">
@@ -119,7 +119,7 @@
             <div class="t-1" onclick="tpAdd(${status.index })"><p>이동수단</p></div> 
             
             
-                <div class="t-2" id="tp_${status.index }" style="display:none" >
+                <div class="t-2" id="tp_${status.index }" >
                 <ul>
                      <li class="b"><label><input type="checkbox" id="sneakers_${status.index }" name="tp" value="sneakers" /><img src="/resources/imgs/sneakers.png">도보</label></li>
                       <li class="b"><label><input type="checkbox" id="bus_${status.index }" name="tp" value="bus" /><img src="/resources/imgs/bus.png">버스</label></li>
@@ -156,11 +156,11 @@
 </div>
 
    <div class=button>
-   <div class="upload" style="float:left">
-   <button class="raise" id="bModify" type="button">작성</button>
-</div>   
-<div class="upload"  style="float:right">   
+   <div class="upload"  style="float:left">   
    <button class="raise" id="bImgUpload" type="button">이미지 업로드</button>
+</div> 
+   <div class="upload" style="float:right">
+   <button class="raise" id="bModify" type="button">작성</button>
 </div>   
       </div>
 

@@ -155,21 +155,49 @@ body {
 
 /*/////////////타임라인 왼쪽/////////////*/
 .left{
-   float:left;
-   width:50%;
-   float:left;
-   width:50%;
-   border:1px dashed #f9f7f2;
   
-   height:347px;
+   float:left;
+   width:50%;
+    height:347px;
+  
+}
+.leftone{
+   float:left;
+   width:100%;
+   height:30px;
+   
+   
+}
+.leftone i{
+   float:left;
+   font-size:20px;
+   padding-left:8px;
+   padding-top:4px;
+   color:#10b27d;
+}
+.leftone input{
+   float:left;
+   font-size:14px;
+   width:225px;
+   width:225px;
+   margin-top:9px;
+   padding-left:13px;
+   border:none;
+   
+}
+.lefttwo{
+   
+   float:left;
+   width:100%;
+   border:1px dashed #f9f7f2;
+   height:317px;
    border-radius:5px;
    /*가운데 사진*/
    display:flex;
    justify-content:center;
    align-items:center;
-   
 }
-.left img{
+.lefttwo img{
   /*가운데 사진*/
    max-width:100%;
    max-height:100%;
@@ -191,20 +219,27 @@ body {
 }
 .one{
    
-    
+   color:#909090;
    width:100%;
+   height:30px;
    max-height:30px;
    display:inline-block;
    white-space:nowrap;/*줄바꿈 금지!!!!!!!!!!!!!*/
 }
+.one i{
+   color:#10b27d;
+}
 
 .one input{
+   margin-top:9px;
+    color:#909090;
+   text-align:right;
    display:inline-block;
-   width:50px;
-   height:20px;
-   padding:5px;
-   margin-right:5px;
-   max-width:90px;
+   width:100%;
+   padding-right:16px;
+   border:none;
+   
+  
 }
 
 .two{
@@ -219,9 +254,9 @@ body {
 }
 
 .two textarea{
-   height:170px;
+   height:176px;
    padding:10px;
-   margin-top:10px;
+   margin-top:0px;
    margin-bottom:10px;
    display:inline-block;
    resize:none;
@@ -331,22 +366,24 @@ li.a,li.b{
    
 }
 .down button{
-   width:110px;
-   height:50px;
+   border-radius:5px;
+   width:85px;
+   height:45px;
    border:none;
-   background-color:#f9f7f2;
-   border-bottom: 5px solid #eee9d9;
-   text-shadow: 0px -2px #eee9d9;
+   background-color:#f8f8f8;
+   border-bottom: 5px solid #eee;
    color:#000;
    cursor: pointer;
    }
 .down button:hover{ /*마우스를 눌렀을 때 효과를 주려면 active로 변경*/
 
+   
    transform: translate(0px,5px);
   -webkit-transform: translate(0px,5px);
-   border-bottom: 1px solid #eee9d9;
+  color:#000;
+   background:#f3d2d3;
+   border-bottom: 2px solid #ebb6b7;
    cursor:pointer;
-   
 }
 
 /*//////////////////////////////////*/
@@ -391,15 +428,12 @@ button{
 }
 .upload button{
    font-size:15px;
-   font-weight:bold;
    width:130px;
    height:55px;
    border:none;
-   background-color:#daebeb ;
-   border-bottom: 6px solid #a6cdcd;
+   background-color:#f8f8f8 ;
+   border-bottom: 6px solid #eee;
    border-radius:5px;
-   text-shadow: 0px -2px #daebeb;
-   color:#fff;
    -webkit-transition: 0.25s;
    
 }
@@ -407,7 +441,7 @@ button{
    
    transform: translate(0px,5px);
    -webkit-transform: translate(0px,5px);
-   border-bottom: 2px solid #a6cdcd;
+   border-bottom: 2px solid #eee;
    cursor:pointer;
    
    

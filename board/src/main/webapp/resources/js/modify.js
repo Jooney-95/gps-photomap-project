@@ -107,7 +107,7 @@ function handleImgFileSelect(e) {
                            + index
                            + '" name="filesList" src="'
                            + dataURI
-                           + '" /></div><div class="right"><div class="one"><input type="text" id="loc_'
+                           + '" /></div><div class="right"><div class="one"><input type="text" name="loc" id="loc_'
                            + index
                            + '"><input type="hidden" id="lat_'
                            + index
@@ -121,7 +121,7 @@ function handleImgFileSelect(e) {
                            + index
                            + ')"><p>이동수단</p></div><div class="t-2" id="tp_'
                            + index
-                           + '" style="display:none">'
+                           + '" >'
                            + '<input type="checkbox" id="sneakers_'
                            + index
                            + '" name="tp" value="sneakers" /><label><img src="/resources/imgs/sneakers.png"></label>'
@@ -143,11 +143,11 @@ function handleImgFileSelect(e) {
                            + '" name="tp" value="bike" /><label><img src="/resources/imgs/bike.png"></label>'
                            + ' <input type="checkbox" id="scooter_'
                            + index
-                           + '" name="tp" value="scooter" /><label><img src="/resources/imgs/scooter.png"></label></div></div></div></div><button type="button" id="b_'
+                           + '" name="tp" value="scooter" /><label><img src="/resources/imgs/scooter.png"></label></div></div></div></div><div class="down"><button type="button" id="b_'
                            + index
                            + '" onclick="del('
                            + index
-                           + ')">삭제</button>'
+                           + ')">삭제</button></div>'
                         
                         $(".img_box").append(img_html);
                         index++;

@@ -73,8 +73,19 @@
 
 
 <div id="top">
-    
-    <div id ="ab">
+		<c:choose>
+			<c:when test="${view.pNum eq '-1' }">
+                        <i class="fas fa-globe-americas"></i>
+                     </c:when>
+			<c:when test="${view.pNum eq '-2' }">
+                        <i class="fas fa-lock"></i>
+                     </c:when>
+			<c:otherwise>
+                    	<i class="fas fa-user-friends"></i>
+                    </c:otherwise>
+		</c:choose>
+
+		<div id ="ab">
        <!-- 제목 -->
      <ul>
       <li> 
