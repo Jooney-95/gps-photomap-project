@@ -64,6 +64,9 @@
 	<div class="main">
 <input type="hidden" id="userID" value="${member.id }"/>
 <input type="hidden" id="sessionID" value="${session.id }"/>
+		<div class="ff">
+			<img alt="" src="<spring:url value='${member.mImg }'/>">
+		</div>
 		<div class="modify">
 			<c:if test="${session.id eq userID }">
 				<a href="/member/profile"><i class="fas fa-cog fa-3x"></i></a>
@@ -75,9 +78,7 @@
 			</c:if>
 		</div>
 
-		<div class="ff">
-			<img alt="" src="<spring:url value='${member.mImg }'/>">
-		</div>
+		
 
 
 		<div class="one">${member.mNickname }님</div>
@@ -100,21 +101,7 @@
 				</c:if>
 			</div>
 			<div class="in">
-			<!--     <div class="neighbor">
-               <div class="pro"></div>
-               <div class="nickname"></div>
-            </div>
-            
-             
-             <div class="nplus">
-               <div class="pro"></div>
-               <div class="nickname"></div>
-               <div class="check">
-                  <button type="submit">수락</button>
-                  <button type="submit">거절</button>
-               </div>
-            </div>
-            -->
+			
 			</div>
 		</div>
 	</div>

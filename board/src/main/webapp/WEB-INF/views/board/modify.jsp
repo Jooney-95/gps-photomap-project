@@ -97,14 +97,26 @@
       <div class="middle" id="middle_${status.index }" name="imgDiv">
       
          <div class="left">
+           <ul>
+           <li>
+           <div class="leftone">
+            <i class="fas fa-map-marker-alt"></i> 
+              <input type="text" id="loc_${status.index }" name="loc" value="${list.place }" readOnly />
+              <input type="hidden" id="lat_${status.index }" name="lat" value="${list.latitude }" readOnly />
+              <input type="hidden" name="lon" value="${list.longitude }" readOnly />
+           </div>
+           </li>
+           <li>
+            <div class="lefttwo">
             <img alt="" id="img_${status.index }" name="filesList" src="<spring:url value='${list.path }'/>">
+            </div>
+            </li>
+            </ul>
          </div>         
 
          <div class="right">
             <div class="one">
-                <input type="text" id="loc_${status.index }" name="loc" value="${list.place }" readOnly />
-                 <input type="hidden" id="lat_${status.index }" name="lat" value="${list.latitude }" readOnly />
-                  <input type="hidden" name="lon" value="${list.longitude }" readOnly />
+               
                <input type="text" id="time_${status.index }" name="time" value="${list.timeView }"/>
             </div>
             

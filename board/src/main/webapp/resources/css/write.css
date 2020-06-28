@@ -402,6 +402,8 @@ li.a,li.b{
 
 
 /*////////////업로드  버튼///////////*/
+button:focus { outline:none; }
+
 .button{
    width:320px;;
    height:65px;
@@ -410,6 +412,7 @@ li.a,li.b{
    margin-bottom:100px;
    margin-top:50px;
    text-align:center;
+   
    
 }
 .upload{

@@ -123,7 +123,7 @@ function handleImgFileSelect(e) {
                         var dataURI = canvas.toDataURL('image/jpeg');
                         var img_html = '<div class="middle" id="middle_'
                             +index
-                             +'" name="imgDiv"><div class="left"><ul><li><div class="leftone"><i class="fas fa-map-marker-alt"></i> <input type="text" id="loc_'
+                             +'" name="imgDiv"><div class="left"><ul><li><div class="leftone"><i class="fas fa-map-marker-alt"></i> <input type="text" name="loc" id="loc_'
                             +index
                             +'"><input type="hidden" id="lat_'
                             +index

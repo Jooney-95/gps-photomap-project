@@ -100,54 +100,55 @@ function handleImgFileSelect(e) {
                               canvas.width, canvas.height);
                         var dataURI = canvas.toDataURL('image/jpeg');
                         var img_html = '<div class="middle" id="middle_'
-                           + index
-                           + '" name="imgDiv"><div class="left"><input type="hidden" id="id_'
-                           + index
-                           + '" name="id"><img id="img_'
-                           + index
-                           + '" name="filesList" src="'
-                           + dataURI
-                           + '" /></div><div class="right"><div class="one"><input type="text" name="loc" id="loc_'
-                           + index
-                           + '"><input type="hidden" id="lat_'
-                           + index
-                           + '" name="lat" /><input type="hidden" id="lon_'
-                           + index
-                           + '" name="lon" /><input type="text" id="time_'
-                           + index
-                           + '" name="time" /></div><div class="two"><textarea style="width:90%" cols="30" rows="5" id="textarea_'
-                           + index
-                           + '" name="content" ></textarea><br/></div><div id="three"><div class="t"><div class="t-1" onclick="tpAdd('
-                           + index
-                           + ')"><p>이동수단</p></div><div class="t-2" id="tp_'
-                           + index
-                           + '" >'
-                           + '<input type="checkbox" id="sneakers_'
-                           + index
-                           + '" name="tp" value="sneakers" /><label><img src="/resources/imgs/sneakers.png"></label>'
-                           + ' <input type="checkbox" id="bus_'
-                           + index
-                           + '" name="tp" value="bus" /><label><img src="/resources/imgs/bus.png"></label>'
-                           + ' <input type="checkbox" id="train_'
-                           + index
-                           + '" name="tp" value="train" /><label><img src="/resources/imgs/train.png"></label>'
-                           + ' <br>'
-                           + ' <input type="checkbox" id="car_'
-                           + index
-                           + '" name="tp" value="car" /><label><img src="/resources/imgs/car.png"></label>'
-                           + '  <input type="checkbox" id="taxi_'
-                           + index
-                           + '" name="tp" value="taxi" /><label><img src="/resources/imgs/taxi.png"></label>'
-                           + ' <input type="checkbox" id="bike_'
-                           + index
-                           + '" name="tp" value="bike" /><label><img src="/resources/imgs/bike.png"></label>'
-                           + ' <input type="checkbox" id="scooter_'
-                           + index
-                           + '" name="tp" value="scooter" /><label><img src="/resources/imgs/scooter.png"></label></div></div></div></div><div class="down"><button type="button" id="b_'
-                           + index
-                           + '" onclick="del('
-                           + index
-                           + ')">삭제</button></div>'
+                            +index
+                             +'" name="imgDiv"><div class="left"><ul><li><div class="leftone"><i class="fas fa-map-marker-alt"></i> <input type="text" name="loc" id="loc_'
+                            +index
+                            +'"><input type="hidden" id="lat_'
+                            +index
+                            +'" name="lat" /><input type="hidden" id="lon_'
+                            +index
+                            +'" name="lon" /></div></li><li><div class="lefttwo"><input type="hidden" id="id_'
+                            +index
+                            +'" name="id"><img id="img_'
+                            +index
+                             +'" name="filesList" src="'
+                            + dataURI
+                              + '" /></div></li></ul></div><div class="right"><div class="one"><input type="text" id="time_'
+                              + index
+                              + '" name="time" /></div><div class="two"><textarea style="width:90%" cols="30" rows="5" id="textarea_'
+                              + index
+                              + '" name="content" ></textarea><br/></div><div id="three"><div class="t"><div class="t-1" onclick="tpAdd('
+                              + index
+                              + ')"><p>이동수단</p></div><div class="t-2" id="tp_'
+                              + index
+                              + '" ><ul>'
+                              + '<li class="b"><label><input type="checkbox" id="sneakers_'
+                              + index
+                              + '" name="tp" value="sneakers" /><img src="/resources/imgs/sneakers.png">도 보</label></li>'
+                              + ' <li class="b"><label><input type="checkbox" id="bus_'
+                              + index
+                              + '" name="tp" value="bus" /><img src="/resources/imgs/bus.png">버 스</label></li>'
+                              + ' <li class="a"><label><input type="checkbox" id="train_'
+                              + index
+                              + '" name="tp" value="train" /><img src="/resources/imgs/train.png">지하철</label></li>'
+                              + ' '
+                              + ' <li class="a"><label><input type="checkbox" id="car_'
+                              + index
+                              + '" name="tp" value="car" /><img src="/resources/imgs/car.png">자동차</label></li>'
+                              + '  <li class="b"><label><input type="checkbox" id="taxi_'
+                              + index
+                              + '" name="tp" value="taxi" /><img src="/resources/imgs/taxi.png">택 시</label></li>'
+                              + ' <li class="a"><label><input type="checkbox" id="bike_'
+                              + index
+                              + '" name="tp" value="bike" /><img src="/resources/imgs/bike.png">자전거</label></li>'
+                              + ' <li class="a"><label><input type="checkbox" id="scooter_'
+                              + index
+                              + '" name="tp" value="scooter" /><img src="/resources/imgs/scooter.png">스쿠터</label></li></ul></div></div></div></div>'
+                              +'<div class="down"><button type="button" id="b_'
+                              + index
+                              + '" onclick="del('
+                              + index
+                              + ')">삭제</button></div>'
                         
                         $(".img_box").append(img_html);
                         index++;

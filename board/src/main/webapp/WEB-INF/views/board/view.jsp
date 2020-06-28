@@ -73,19 +73,19 @@
 
 
 <div id="top">
-		<c:choose>
-			<c:when test="${view.pNum eq '-1' }">
+      <c:choose>
+         <c:when test="${view.pNum eq '-1' }">
                         <i class="fas fa-globe-americas"></i>
                      </c:when>
-			<c:when test="${view.pNum eq '-2' }">
+         <c:when test="${view.pNum eq '-2' }">
                         <i class="fas fa-lock"></i>
                      </c:when>
-			<c:otherwise>
-                    	<i class="fas fa-user-friends"></i>
+         <c:otherwise>
+                       <i class="fas fa-user-friends"></i>
                     </c:otherwise>
-		</c:choose>
+      </c:choose>
 
-		<div id ="ab">
+      <div id ="ab">
        <!-- 제목 -->
      <ul>
       <li> 
@@ -135,10 +135,20 @@
      <div class="middle">
        <div class="m1">
         <div class="m1-1">
+        <ul><li>
+        <div class="leftone">
+                 <i class="fas fa-map-marker-alt"></i> 
                  <input type="text" name="loc" value="${list.place }" readOnly />
                  <input type="hidden" name="lat" value="${list.latitude }" readOnly />
                   <input type="hidden" name="lon" value="${list.longitude }" readOnly />
+         </div>
+         </li>
+         <li>
+         <div class="one">
                   <input type="text" name="time" value="${list.timeView }" readOnly />
+        </div>
+        </li>
+        </ul>
          </div>   
          
          <div class="m1-2">
@@ -466,12 +476,12 @@
           }
   
          function loginPopup() {
-        	   if (document.getElementById("loginPopup").style.display == "none") {
-        	      document.getElementById("loginPopup").style.display = "";
-        	   } else {
-        	      document.getElementById("loginPopup").style.display = "none";
-        	   }
-        	}
+              if (document.getElementById("loginPopup").style.display == "none") {
+                 document.getElementById("loginPopup").style.display = "";
+              } else {
+                 document.getElementById("loginPopup").style.display = "none";
+              }
+           }
          
          
    </script>

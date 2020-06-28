@@ -292,7 +292,7 @@ li{
     rows="5";
    border: 1px solid #efeadc; /* 테두리*/
    border-radius:20px;  /*모서리둥글게*/
-   padding:20px 15px 15px 15px;
+   padding:16px 15px 15px 15px;
    margin-top:20px;
    display:inline-block;
    box-shadow:5px 5px 2px 2px #efeadc;/*그림자효괴*/
@@ -304,7 +304,9 @@ li{
    box-shadow:2px 2px #d7d8d7;
 }*/
 /*//////////////////////////////////*/
-
+ul li{
+   float:left;
+}
 /*//////////위치 & 이동수단 /////////////////*/
 .m1{
    display:inline-block;/*위치랑 이동수단 같은 줄!*/
@@ -318,17 +320,42 @@ li{
    display:inline-block;
    float:left;
    padding:5px;
+   height:56px;
+   width:280px;
       
    
 }
-.m1-1 input{
-   width:50px;
-   height:30px;
+.m1-1 .leftone{
+   float:left;
+}
+.m1-1 .leftone i{
+    float:left;
+   font-size:20px;
+   
+   color:#10b27d;
+}
+.m1-1 .leftone input{
+   font-size:14px;
+   width:225px;
+   margin-left:7px;
+   border:none;
+}
+.m1-1 .one{
+   
+}
+.m1-1 .one input{
+   width:225px;
+   font-size:14px;
+   color:#909090;
+   margin-left:23px;
+   border:none;
+   
 }
 /*//이동수단//*/
 .m1-2{
    display:inline-block;
    float:right;
+   max-width:140px;
    
    
 }
