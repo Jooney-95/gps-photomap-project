@@ -201,14 +201,18 @@ function getMember(bno, count) {
 }
 
 function getImg(bno, count) {
-	for (var i = 0; i < 3; i++) {
+	for (var i = 0; i < 4; i++) {
 		if (file[count][i] != undefined) {
 			$("#img_" + bno).append(
 					'<a href="/board/view?bno=' + bno
-							+ '"><img width="100" height="100" alt="" src='
-							+ file[count][i].path + '></a>');
+							+ '"><img width="100" height="100" id="img_' + bno
+							+ '_' + i + '" alt="" src=' + file[count][i].path
+							+ '></a>');
 		} else {
 			break;
+		}
+		if (file[count].length > 4) {
+			console.log("+" + (file[count].length - 4));
 		}
 	}
 }

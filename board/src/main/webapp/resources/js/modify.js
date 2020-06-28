@@ -226,10 +226,10 @@ $(document).on(
       '#bModify',
       function() {
          if ($("#title").val().trim() != "") {
-
             var id = [];
             var lat = [];
             var lon = [];
+            var loc = [];
             var time = [];
             var content = [];
             var tp = [];
@@ -248,6 +248,7 @@ $(document).on(
                   id.push($("input[name='id']")[i].value);
                   lat.push($("input[name='lat']")[i].value);
                   lon.push($("input[name='lon']")[i].value);
+                  loc.push($("input[name='loc']")[i].value);
                   time.push($("input[name='time']")[i].value);
                   content.push($("textarea[name='content']")[i].value);
                   var tp_sub = [];
@@ -258,6 +259,7 @@ $(document).on(
                }
                
             }
+            
             if(size != 0){
             console.log(tp);
             console.log(id);
@@ -269,6 +271,7 @@ $(document).on(
                id : id,
                lat : lat,
                lon : lon,
+               loc : loc,
                time : time,
                content : content,
                del : del_files,

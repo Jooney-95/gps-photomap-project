@@ -285,7 +285,7 @@ $(document).on(
                }
 
             }
-            console.log(loc);
+            
             if (size != 0) {
 
                var query = {

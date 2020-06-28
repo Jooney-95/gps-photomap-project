@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <title>메인</title>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script src="/resources/js/listPage.js"></script>
+<script src="/resources/js/listPage.js?var=2"></script>
 <link rel="stylesheet" href="/resources/css/top.css">
 <link rel="stylesheet" href="/resources/css/main.css">
 <link rel="stylesheet"

@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 
 <title>게시물 조회</title>
-<link rel="stylesheet" href="/resources/css/view.css?var=1">
+<link rel="stylesheet" href="/resources/css/view.css?var=2">
 <link rel="stylesheet" href="/resources/css/top.css">
 <link rel="stylesheet" href="/resources/dist/css/lightbox.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
@@ -44,28 +44,26 @@
         </button>
     </div>
 </div>
-   
-     <!-- 사용자 로그인 현황 -->
+    <!-- 사용자 로그인 현황 -->
       <div class="log">
-            <c:if test="${session != null }"> <!-- 로그인했을때 -->
-                <div id="r">
+            <c:if test="${session != null }"><!-- 로그인했을때 -->
+            <div id="r">
                <div class="profile">
                     <img src="${session.mImg }" onclick="loginPopup()"/>
                   <p>${session.mNickname }님</p>
                </div>
             </div>
-            
-            <div id="writebutton"> <!-- 게시물 작성 버튼-->
-                   <a href="/board/write"><img src="/resources/imgs/w1.png"/></a>
-            </div>  
+
             </c:if>
             
             <c:if test="${session == null }"> <!-- 로그인 안했을때 -->
-            <div id="rr">
-          <a href="/member/login"><img src="/resources/imgs/p1.png"></a>
-          </div>
+                <a href="/member/login"><img width="50" height="50" src="/resources/imgs/p1.png"></a>
             </c:if>
       </div>
+<div class="pop" id="loginPopup" style="display:none">               
+                <div class="pi"><a href="/member/myPage?num=1&userID=${session.id }"><i class="fas fa-user-cog"></i>  마이페이지</a></div>
+                <div class="pii"><a href="/member/logout"><i class="fas fa-power-off"></i>  로그아웃</a></div>
+            </div>
 <div class="pop" id="loginPopup" style="display:none">               
                 <div class="pi"><a href="/member/myPage?num=1&userID=${session.id }"><i class="fas fa-user-cog"></i>  마이페이지</a></div>
                 <div class="pii"><a href="/member/logout"><i class="fas fa-power-off"></i>  로그아웃</a></div>
@@ -126,8 +124,8 @@
      <div class="middle">
        <div class="m1">
         <div class="m1-1">
-        <input type="text" id="loc_${status.index }" name="loc" value="${list.place }" readOnly />
-                 <input type="hidden" id="lat_${status.index }" name="lat" value="${list.latitude }" readOnly />
+                 <input type="text" name="loc" value="${list.place }" readOnly />
+                 <input type="hidden" name="lat" value="${list.latitude }" readOnly />
                   <input type="hidden" name="lon" value="${list.longitude }" readOnly />
                   <input type="text" name="time" value="${list.timeView }" readOnly />
          </div>   
@@ -192,8 +190,8 @@
        <div id="upload">
          <button class="raise" onclick="location.href='/board/modify?bno=${view.bno}'">게시물 수정</button>
        </div>
-       <div id="upload">
-         <button class="raise" onclick="location.href='/board/delete?bno=${view.bno}'">게시물 삭제</button>
+       <div id="upload-2">
+         <button  class="raise" onclick="location.href='/board/delete?bno=${view.bno}'">게시물 삭제</button>
        </div>
       </div>   
      
@@ -457,12 +455,12 @@
           }
   
          function loginPopup() {
-             if (document.getElementById("loginPopup").style.display == "none") {
-                document.getElementById("loginPopup").style.display = "";
-             } else {
-                document.getElementById("loginPopup").style.display = "none";
-             }
-          }
+        	   if (document.getElementById("loginPopup").style.display == "none") {
+        	      document.getElementById("loginPopup").style.display = "";
+        	   } else {
+        	      document.getElementById("loginPopup").style.display = "none";
+        	   }
+        	}
          
          
    </script>
