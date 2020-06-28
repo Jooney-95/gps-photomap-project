@@ -129,7 +129,7 @@ function handleImgFileSelect(e) {
                               + index
                               + '" name="filesList" src="'
                               + dataURI
-                              + '" /></div><div class="right"><div class="one"><input type="text" id="loc_'
+                              + '" /></div><div class="right"><div class="one"><input type="text" name="loc" id="loc_'
                               + index
                               + '"><input type="hidden" id="lat_'
                               + index
@@ -257,6 +257,7 @@ $(document).on(
             var id = [];
             var lat = [];
             var lon = [];
+            var loc = [];
             var time = [];
             var content = [];
             var tp = [];
@@ -273,6 +274,7 @@ $(document).on(
                   id.push($("input[name='id']")[i].value);
                   lat.push($("input[name='lat']")[i].value);
                   lon.push($("input[name='lon']")[i].value);
+                  loc.push($("input[name='loc']")[i].value);
                   time.push($("input[name='time']")[i].value);
                   content.push($("textarea[name='content']")[i].value);
                   var tp_sub = [];
@@ -283,7 +285,7 @@ $(document).on(
                }
 
             }
-            console.log(size);
+            console.log(loc);
             if (size != 0) {
 
                var query = {
@@ -293,6 +295,7 @@ $(document).on(
                   id : id,
                   lat : lat,
                   lon : lon,
+                  loc : loc,
                   time : time,
                   content : content,
                   del : del_files,

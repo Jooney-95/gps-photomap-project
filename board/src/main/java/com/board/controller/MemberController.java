@@ -332,7 +332,6 @@ public class MemberController {
 
 		List<FileVO> fList = new ArrayList<FileVO>();
 		List<ArrayList<FileVO>> fileList = new ArrayList<ArrayList<FileVO>>();
-		System.out.println(list);
 
 		if (list != null) {
 			// 占쏙옙 占쏙옙호占쏙옙 占쌔댐옙占싹댐옙 占싱뱄옙占쏙옙 占쌨아울옙占쏙옙
@@ -345,7 +344,6 @@ public class MemberController {
 			String jsonFileList = gson.toJson(fileList);
 			String jsonPage = gson.toJson(page);
 
-			
 			data.put("board", jsonList);
 			data.put("file", jsonFileList);
 			data.put("page", jsonPage);
@@ -353,8 +351,7 @@ public class MemberController {
 			return data;
 
 		} else {
-			
-			System.out.println(data);
+
 			return data;
 		}
 
@@ -370,19 +367,17 @@ public class MemberController {
 		Page page = new Page();
 
 		page.setNum(pageNum);
-		
 
 		List<FollowVO> fforfList = null;
 		fforfList = service.fforfList(userID);
 
 		MemberVO m = new MemberVO();
 		List<MemberVO> mList = new ArrayList<MemberVO>();
-		System.out.println(fforfList);
 
 		if (fforfList != null) {
 			int i = 0;
 			for (FollowVO f : fforfList) {
-				System.out.println(f.getFollowing());
+
 				m = service.memberVO(f.getFollowing());
 				mList.add(m);
 				i++;
@@ -391,60 +386,58 @@ public class MemberController {
 			Gson gson = new Gson();
 			String jsonMList = gson.toJson(mList);
 			String jsonPage = gson.toJson(page);
-			
+
 			data.put("member", jsonMList);
 			data.put("page", jsonPage);
 
 			return data;
-			
+
 		} else {
-			
+
 			return data;
 		}
 	}
 
-	/*
-	 * @ResponseBody
-	 * 
-	 * @RequestMapping(value = "/getMyFol", method = RequestMethod.POST) public
-	 * HashMap<String, Object> getMyFol(HttpServletRequest req) throws Exception {
-	 * int pageNum = Integer.parseInt(req.getParameter("pageNum")); int userID =
-	 * Integer.parseInt(req.getParameter("userID")); // String flag =
-	 * req.getParameter("flag");
-	 * 
-	 * Page page = new Page();
-	 * 
-	 * page.setNum(pageNum); page.setCount(boardService.count());
-	 * 
-	 * List<BoardVO> list = null;
-	 * 
-	 * 
-	 * List<FollowVO> fforfList = null; fforfList = service.fforfList(userID);
-	 * 
-	 * list = boardService.MyPageSearch(userID, page.getDisplayPost(),
-	 * page.getPostNum(), "", "");
-	 * 
-	 * 
-	 * 
-	 * List<FileVO> fList = new ArrayList<FileVO>(); List<ArrayList<FileVO>>
-	 * fileList = new ArrayList<ArrayList<FileVO>>(); MemberVO m = new MemberVO();
-	 * List<MemberVO> mList = new ArrayList<MemberVO>();
-	 * 
-	 * 
-	 * if (list != null) { // 占쏙옙 占쏙옙호占쏙옙 占쌔댐옙占싹댐옙 占싱뱄옙占쏙옙 占쌨아울옙占쏙옙 for (BoardVO vo
-	 * : list) { fList = fileService.viewFile(vo.getBno()); m =
-	 * memberService.memberVO(vo.getWriter()); fileList.add((ArrayList<FileVO>)
-	 * fList); mList.add(m); } Gson gson = new Gson(); String jsonList =
-	 * gson.toJson(list); String jsonMList = gson.toJson(mList); String jsonFileList
-	 * = gson.toJson(fileList); String jsonPage = gson.toJson(page);
-	 * 
-	 * HashMap<String, Object> data = new HashMap<String, Object>();
-	 * data.put("board", jsonList); data.put("file", jsonFileList);
-	 * data.put("member", jsonMList); data.put("page", jsonPage);
-	 * 
-	 * return data; } else { HashMap<String, Object> data = new HashMap<String,
-	 * Object>(); System.out.println(data); return data; }
-	 * 
-	 * }
-	 */
+	@ResponseBody
+	@RequestMapping(value = "/getFol", method = RequestMethod.POST)
+	public HashMap<String, Object> getFol(HttpServletRequest req) throws Exception {
+		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
+		int userID = Integer.parseInt(req.getParameter("userID"));
+		// String flag = req.getParameter("flag");
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		Page page = new Page();
+
+		page.setNum(pageNum);
+
+		List<FollowVO> folList = null;
+		folList = service.userFollowing(userID);
+
+		MemberVO m = new MemberVO();
+		List<MemberVO> mList = new ArrayList<MemberVO>();
+
+		if (folList != null) {
+			int i = 0;
+			for (FollowVO f : folList) {
+				m = service.memberVO(f.getUserID());
+				mList.add(m);
+				i++;
+			}
+			page.setCount(i);
+			Gson gson = new Gson();
+			String jsonMList = gson.toJson(mList);
+			String jsonPage = gson.toJson(page);
+			String jsonFolList = gson.toJson(folList);
+
+			data.put("member", jsonMList);
+			data.put("page", jsonPage);
+			data.put("following", jsonFolList);
+
+			return data;
+
+		} else {
+
+			return data;
+		}
+	}
+
 }

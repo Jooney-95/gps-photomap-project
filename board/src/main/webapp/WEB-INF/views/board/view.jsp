@@ -126,8 +126,9 @@
      <div class="middle">
        <div class="m1">
         <div class="m1-1">
-                 <input type="text" id="lat_${status.index }" name="lat" value="${list.latitude }" readOnly />
-                  <input type="text" name="lon" value="${list.longitude }" readOnly />
+        <input type="text" id="loc_${status.index }" name="loc" value="${list.place }" readOnly />
+                 <input type="hidden" id="lat_${status.index }" name="lat" value="${list.latitude }" readOnly />
+                  <input type="hidden" name="lon" value="${list.longitude }" readOnly />
                   <input type="text" name="time" value="${list.timeView }" readOnly />
          </div>   
          

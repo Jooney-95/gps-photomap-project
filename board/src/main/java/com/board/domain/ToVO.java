@@ -45,8 +45,8 @@ public class ToVO {
 		return vo;
 	}
 	
-	public HashMap<String, Object> writeClick(int fileBno, String[] id, String[] lat, String[] lon, String[] time, String[] content, int size) {
-		// TODO Auto-generated method stub
+	public HashMap<String, Object> writeClick(int fileBno, String[] id, String[] lat, String[] lon, String[] loc, String[] time, String[] content, int size) {
+		// TODO Auto-generated method stub fileBno, id, lat, lon, loc, time, content, size
 		List<FileVO> fileVOList = new ArrayList<FileVO>();
 		FileVO[] fileVO = new FileVO[size];
 		
@@ -57,6 +57,7 @@ public class ToVO {
 				fileVO[i].setId(Integer.parseInt(id[i]));
 				fileVO[i].setLatitude(lat[i].trim());
 				fileVO[i].setLongitude(lon[i].trim());
+				fileVO[i].setPlace(loc[i].trim());
 				fileVO[i].setTimeView(time[i].trim());
 				fileVO[i].setContent(content[i]);
 				fileVOList.add(fileVO[i]);

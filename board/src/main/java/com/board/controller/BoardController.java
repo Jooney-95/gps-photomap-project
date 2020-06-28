@@ -77,9 +77,6 @@ public class BoardController {
 
 	}
 
-	@RequestMapping(value = "/map", method = RequestMethod.GET)
-	public void map() throws Exception {
-	}
 
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
 	public void getModify(@RequestParam("bno") int bno, Model model) throws Exception {
@@ -215,10 +212,11 @@ public class BoardController {
 			String id[] = req.getParameterValues("id");
 			String lat[] = req.getParameterValues("lat");
 			String lon[] = req.getParameterValues("lon");
+			String loc[] = req.getParameterValues("loc");
 			String time[] = req.getParameterValues("time");
 			String content[] = req.getParameterValues("content");
 			String tp[] = req.getParameterValues("tp");
-
+			System.out.println(loc);
 			tpService.reset(id);
 
 			for (int i = 0; i < id.length; i++) {
@@ -231,7 +229,7 @@ public class BoardController {
 				}
 			}
 
-			fileService.writeClick(toVO.writeClick(fileBno, id, lat, lon, time, content, size));
+			fileService.writeClick(toVO.writeClick(fileBno, id, lat, lon, loc, time, content, size));
 
 			if (id.length > 49) {
 				String del_id[] = new String[id.length - 50];
@@ -270,6 +268,7 @@ public class BoardController {
 			String id[] = req.getParameterValues("id");
 			String lat[] = req.getParameterValues("lat");
 			String lon[] = req.getParameterValues("lon");
+			String loc[] = req.getParameterValues("loc");
 			String time[] = req.getParameterValues("time");
 			String content[] = req.getParameterValues("content");
 			String tp[] = req.getParameterValues("tp");
@@ -286,7 +285,7 @@ public class BoardController {
 				}
 			}
 
-			fileService.writeClick(toVO.writeClick(bno, id, lat, lon, time, content, size));
+			fileService.writeClick(toVO.writeClick(bno, id, lat, lon, loc, time, content, size));
 
 			if (id.length > 49) {
 				String del_id[] = new String[id.length - 50];
@@ -360,7 +359,7 @@ public class BoardController {
 			return data;
 		} else {
 			HashMap<String, Object> data = new HashMap<String, Object>();
-			System.out.println(data);
+			
 			return data;
 		}
 

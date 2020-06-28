@@ -2,12 +2,17 @@ var list;
 var file;
 var member;
 var page;
+var following;
 var pageNumber;
 
 // color:#feec77;
 // text-shadow: 0 0 24px;
 
 window.onload = function() {
+	sessionStorage.setItem("nav", "list");
+	setNav(1);
+	unSetNav(1);
+	/*
 	switch (sessionStorage.getItem("nav")) {
 	case "list":
 		$(".myPageNav > a > i")[0].style.color = "#feec77";
@@ -23,8 +28,8 @@ window.onload = function() {
 			$(".myPageNav > a > i")[0].style.color = "#feec77";
 			$(".myPageNav > a > i")[0].style.textShadow = "0 0 24px";
 		} else {
-			$(".myPageNav > a > i")[3].style.color = "#feec77";
-			$(".myPageNav > a > i")[3].style.textShadow = "0 0 24px";
+			$(".myPageNav > a > i")[2].style.color = "#feec77";
+			$(".myPageNav > a > i")[2].style.textShadow = "0 0 24px";
 		}
 		break;
 	default:
@@ -32,10 +37,19 @@ window.onload = function() {
 		$(".myPageNav > a > i")[0].style.color = "#feec77";
 		$(".myPageNav > a > i")[0].style.textShadow = "0 0 24px";
 	}
-
+*/
 	getMyPageList(1);
 	followCheck();
 }
+
+$(window).scroll(
+	      function() {
+	         if ($(window).scrollTop() >= ($(document).height()
+	               - $(window).height() - 10)
+	               && pageNumber < page.endPageNum) {
+	        	 getMyPageList(++pageNumber);
+	         }
+	      });
 
 function setNav(nav) {
 	$(".myPageNav > a > i")[nav - 1].style.color = "#feec77";
@@ -44,14 +58,18 @@ function setNav(nav) {
 function unSetNav(nav) {
 	switch (nav) {
 	case 1:
-		$(".myPageNav > a > i")[2].style.color = "";
-		$(".myPageNav > a > i")[2].style.textShadow = "";
+		if ($("#userID").val() == $("#sessionID").val()) {
+			$(".myPageNav > a > i")[2].style.color = "";
+			$(".myPageNav > a > i")[2].style.textShadow = "";
+		}
 		$(".myPageNav > a > i")[1].style.color = "";
 		$(".myPageNav > a > i")[1].style.textShadow = "";
 		break;
 	case 2:
-		$(".myPageNav > a > i")[2].style.color = "";
-		$(".myPageNav > a > i")[2].style.textShadow = "";
+		if ($("#userID").val() == $("#sessionID").val()) {
+			$(".myPageNav > a > i")[2].style.color = "";
+			$(".myPageNav > a > i")[2].style.textShadow = "";
+		}
 		$(".myPageNav > a > i")[0].style.color = "";
 		$(".myPageNav > a > i")[0].style.textShadow = "";
 		break;
@@ -170,6 +188,14 @@ function getMyPageList(pageNum) {
 					addListMyFforf(data);
 				}
 				break;
+			case "fol":
+				if (Object.keys(data).includes('member')) {
+					member = JSON.parse(data.member);
+					page = JSON.parse(data.page);
+					following = JSON.parse(data.following);
+					pageNumber = page.num;
+					addListMyFol(data);
+				}
 			}
 
 		},
@@ -188,10 +214,12 @@ function addListMyPage(data) {
 				+ list[i].bno
 				+ '" class="date">'
 				+ getTimeStamp(list[i].regDate)
-				+ '</div></div></li><li><!-- 아이디 & 공감수 & 조회수 & 공개 범위 --><div class="r-2"><!-- 제목 --><div id="title"><i class="fas fa-caret-right fa-2x"></i> <a href="/board/view?bno='
+				+ '</div></div></li><li><!-- 아이디 & 공감수 & 조회수 & 공개 범위 --><div class="r-2"><!-- 제목 --><div id="title" title="'
+				+ list[i].title
+				+ '"><i class="fas fa-caret-right fa-2x"></i> <a href="/board/view?bno='
 				+ list[i].bno
 				+ '">'
-				+ list[i].title
+				+ textOverCut(list[i].title, "title")
 				+ '</a></div><div class="pNum" id="pNum_'
 				+ list[i].bno
 				+ '"></div><div id ="likeCnt"><i class="fas fa-paw" ></i>'
@@ -210,10 +238,40 @@ function addListMyPage(data) {
 function addListMyFforf(data) {
 	for (var i = 0; i < member.length; i++) {
 		var innerList;
-		innerList = '<div class="neighbor"><div class="pro"><img width="100" height="100" alt="" src=' + member[i].mImg
-				+ ' /></div><div class="nickname">' + member[i].mNickname
-				+ '</div></div>';
+		innerList = '<div class="neighbor"><div class="pro"><a href="/member/myPage?num=1&userID='+member[i].id+'"><img width="100" height="100" alt="" src='
+				+ member[i].mImg
+				+ ' /></a></div><div class="nickname">'
+				+ textOverCut(member[i].mNickname,"nickname") + '</div></div>';
 		$(".in").append(innerList);
+	}
+}
+
+function addListMyFol(data) {
+	for (var i = 0; i < member.length; i++) {
+		var innerList;
+		innerList = '<div class="nplus">'
+				+ getTimeStamp(following[i].folDate)
+				+ '<div class="pro"><a href="/member/myPage?num=1&userID='+member[i].id+'"><img width="100" height="100" alt="" src='
+				+ member[i].mImg
+				+ ' /></a></div><div class="nickname">'
+				+ textOverCut(member[i].mNickname,"nickname")
+				+ '</div><div class="check"><button type="button">수락</button><button type="button">거절</button></div></div>';
+		$(".in").append(innerList);
+	}
+}
+
+function textOverCut(text, type) {
+	var lastText = "...";
+
+	if(type == "title"){
+		var len = 15;
+	} else{
+		var len = 10;
+	}
+	if (text.length > len) {
+		return text.substr(0, len) + lastText;
+	} else {
+		return text;
 	}
 }
 
@@ -224,7 +282,7 @@ function getTimeStamp(time) {
 	var year;
 	var month;
 	var day;
-
+	if(sessionStorage.getItem("nav") == "list"){
 	if ((curTime.getTime() - d.getTime()) / (1000 * 60 * 60 * 24) >= 1) {
 
 		year = d.getFullYear() + '-';
@@ -253,7 +311,25 @@ function getTimeStamp(time) {
 					+ "분전";
 		}
 	}
+	} else{
+		if((curTime.getTime() - d.getTime()) / (1000 * 60 * 60 * 24) < 1){
+			if ((curTime.getTime() - d.getTime()) / (1000 * 60 * 60) >= 1) {
+				return Math.round((curTime.getTime() - d.getTime())
+						/ (1000 * 60 * 60))
+						+ "시간전";
+			} else {
+				return Math.round((curTime.getTime() - d.getTime()) / (1000 * 60))
+						+ "분전";
+			}
+		} else if((curTime.getTime() - d.getTime()) / (1000 * 60 * 60 * 24) < 7) {
+			return Math.floor((curTime.getTime() - d.getTime()) / (1000 * 60 * 60 * 24)) + "일전";
+		} else {
+			return Math.floor((curTime.getTime() - d.getTime()) / (1000 * 60 * 60 * 24) / 7) + "주전";
+		}
+	}
 }
+
+
 
 function getPNum(pNum, bno) {
 	switch (pNum) {

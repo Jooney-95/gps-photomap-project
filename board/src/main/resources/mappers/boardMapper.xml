@@ -206,7 +206,7 @@
 	<select id="viewFile" parameterType="int"
 		resultType="com.board.domain.FileVO">
 		select
-		id, fileBno, latitude, longitude, timeView, path, content
+		id, fileBno, latitude, longitude, timeView, path, content, place
 		from
 		file_board
 		where fileBno = #{bno}
@@ -243,6 +243,7 @@
 		timeView = #{item.timeView},
 		latitude = #{item.latitude},
 		longitude = #{item.longitude},
+		place = #{item.place},
 		content = #{item.content}
 		where id = #{item.id}
 		</foreach>

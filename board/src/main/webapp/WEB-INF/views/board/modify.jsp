@@ -1,4 +1,5 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
@@ -101,8 +102,9 @@
 
          <div class="right">
             <div class="one">
-               <input type="text" id="lat_${status.index }" name="lat" value="${list.latitude }"/>
-               <input type="text" id="lon_${status.index }" name="lon" value="${list.longitude }"/>
+                <input type="text" id="loc_${status.index }" name="loc" value="${list.place }" readOnly />
+                 <input type="hidden" id="lat_${status.index }" name="lat" value="${list.latitude }" readOnly />
+                  <input type="hidden" name="lon" value="${list.longitude }" readOnly />
                <input type="text" id="time_${status.index }" name="time" value="${list.timeView }"/>
             </div>
             
