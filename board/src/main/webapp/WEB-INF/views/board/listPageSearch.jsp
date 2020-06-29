@@ -51,7 +51,7 @@
 
             <div id="writebutton">
                <!-- 게시물 작성 버튼-->
-               <a href="/board/write"><img src="/resources/imgs/w1.png" /></a>
+               <a href="/board/write" title="게시물 작성"><i class="far fa-edit"></i></a>
             </div>
          </c:if>
 

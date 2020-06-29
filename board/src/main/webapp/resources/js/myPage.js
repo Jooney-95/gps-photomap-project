@@ -13,20 +13,20 @@ window.onload = function() {
    setNav(1);
    unSetNav(1);
    /*
-	 * switch (sessionStorage.getItem("nav")) { case "list": $(".myPageNav > a >
-	 * i")[0].style.color = "#feec77"; $(".myPageNav > a >
-	 * i")[0].style.textShadow = "0 0 24px"; break; case "fforf": $(".myPageNav >
-	 * a > i")[1].style.color = "#feec77"; $(".myPageNav > a >
-	 * i")[1].style.textShadow = "0 0 24px"; break; case "fol": if
-	 * ($("#userID").val() == "") { sessionStorage.setItem("nav", "list");
-	 * $(".myPageNav > a > i")[0].style.color = "#feec77"; $(".myPageNav > a >
-	 * i")[0].style.textShadow = "0 0 24px"; } else { $(".myPageNav > a >
-	 * i")[2].style.color = "#feec77"; $(".myPageNav > a >
-	 * i")[2].style.textShadow = "0 0 24px"; } break; default:
-	 * sessionStorage.setItem("nav", "list"); $(".myPageNav > a >
-	 * i")[0].style.color = "#feec77"; $(".myPageNav > a >
-	 * i")[0].style.textShadow = "0 0 24px"; }
-	 */
+    * switch (sessionStorage.getItem("nav")) { case "list": $(".myPageNav > a >
+    * i")[0].style.color = "#feec77"; $(".myPageNav > a >
+    * i")[0].style.textShadow = "0 0 24px"; break; case "fforf": $(".myPageNav >
+    * a > i")[1].style.color = "#feec77"; $(".myPageNav > a >
+    * i")[1].style.textShadow = "0 0 24px"; break; case "fol": if
+    * ($("#userID").val() == "") { sessionStorage.setItem("nav", "list");
+    * $(".myPageNav > a > i")[0].style.color = "#feec77"; $(".myPageNav > a >
+    * i")[0].style.textShadow = "0 0 24px"; } else { $(".myPageNav > a >
+    * i")[2].style.color = "#feec77"; $(".myPageNav > a >
+    * i")[2].style.textShadow = "0 0 24px"; } break; default:
+    * sessionStorage.setItem("nav", "list"); $(".myPageNav > a >
+    * i")[0].style.color = "#feec77"; $(".myPageNav > a >
+    * i")[0].style.textShadow = "0 0 24px"; }
+    */
    getMyPageList(1);
    followCheck();
 }
@@ -76,9 +76,9 @@ $(document).on(
       'click',
       '#bFollow',
       function() {
-         var query = {
-            sessionID : $("#sessionID").val(),
-            userID : $("#userID").val()
+            var query = {
+               sessionID : $("#sessionID").val(),
+               userID : $("#userID").val()
          };
          $.ajax({
             url : "/member/followClick",
@@ -95,7 +95,7 @@ $(document).on(
       });
 
 function followCheck() {
-   if ("${session }" != "") {
+   if ($("#sessionID").val() != "") {
       var query = {
          sessionID : $("#sessionID").val(),
          userID : $("#userID").val()
@@ -211,7 +211,7 @@ function addListMyPage(data) {
             + textOverCut(list[i].title, "title")
             + '</a></div><div class="pNum" id="pNum_'
             + list[i].bno
-            + '"></div><div id ="likeCnt"><i class="fas fa-paw" ></i>'
+            + '"></div><div id ="likeCnt"><i class="far fa-thumbs-up"></i>'
             + list[i].likeCnt
             + '</div></div></li><li></ul><div id="r-3"><div id="viewCnt">조회수 '
             + list[i].viewCnt
@@ -225,29 +225,71 @@ function addListMyPage(data) {
 }
 
 function addListMyFforf(data) {
-	   for (var i = 0; i < member.length; i++) {
-	      var innerList;
-	      innerList = '<div class="neighbor"><div class="pro"><a href="/member/myPage?num=1&userID='+member[i].id+'"><img width="100" height="100" alt="" src='
-	            + member[i].mImg
-	            + ' /></a></div><div class="nickname">'
-	            + textOverCut(member[i].mNickname,"nickname") + '님</div></div>';
-	      $(".in").append(innerList);
-	   }
-	}
+      for (var i = 0; i < member.length; i++) {
+         var innerList;
+         innerList = '<div class="neighbor"><div class="pro"><a href="/member/myPage?num=1&userID='+member[i].id+'"><img width="100" height="100" alt="" src='
+               + member[i].mImg
+               + ' /></a></div><div class="nickname">'
+               + textOverCut(member[i].mNickname,"nickname") + '님</div></div>';
+         $(".in").append(innerList);
+      }
+   }
 
-	function addListMyFol(data) {
-	   for (var i = 0; i < member.length; i++) {
-	      var innerList;
-	      innerList = '<div class="nplus"><div class="prof"><a href="/member/myPage?num=1&userID='+member[i].id+'"><img width="100" height="100" alt="" src='
-	            + member[i].mImg
-	            + ' /></a></div><div class="dh"><div class="ti">'
-	            + getTimeStamp(following[i].folDate)
-	            + '</div><div class="nicknamee">'
-	            + textOverCut(member[i].mNickname,"nickname")
-	            + '님</div><p>회원님에게 이웃 요청을 보냈습니다</p><div class="check"><button class="yes" type="button">수락</button><button class="no" type="button">거절</button></div></div>';
-	      $(".in").append(innerList);
-	   }
-	}
+   function addListMyFol(data) {
+      for (var i = 0; i < member.length; i++) {
+         var innerList;
+         innerList = '<div id="member_'+i+'" class="nplus"><input type="hidden" id="folUserID_'+i+'" value="'+member[i].id+'"><div class="prof"><a href="/member/myPage?num=1&userID='+member[i].id+'"><img width="100" height="100" alt="" src='
+               + member[i].mImg
+               + ' /></a></div><div class="dh"><div class="ti">'
+               + getTimeStamp(following[i].folDate)
+               + '</div><div class="nicknamee">'
+               + textOverCut(member[i].mNickname,"nickname")
+               + '님</div><p>회원님에게 이웃 요청을 보냈습니다</p><div class="check"><button class="yes" type="button" onclick="follow('+i+')">수락</button><button class="no" type="button" onclick="unFollow('+i+')">거절</button></div></div>';
+         $(".in").append(innerList);
+      }
+   }
+   
+function follow(i){
+   if ($("#sessionID").val() != "") {
+         var query = {
+            sessionID : $("#sessionID").val(),
+            userID : $("#folUserID_"+i).val()
+         };
+         $.ajax({
+            url : "/member/follow",
+            type : "post",
+            data : query,
+            success : function() {
+               $("#member_"+i).remove();
+            },
+            error : function(request, status, error) {
+               alert("code:" + request.status + "\n" + "message:"
+                     + request.responseText + "\n" + "error:" + error);
+            }
+         });
+      }
+}
+
+function unFollow(i){
+   if ($("#sessionID").val() != "") {
+         var query = {
+            sessionID : $("#sessionID").val(),
+            userID : $("#folUserID_"+i).val()
+         };
+         $.ajax({
+            url : "/member/unFollow",
+            type : "post",
+            data : query,
+            success : function() {
+               $("#member_"+i).remove();
+            },
+            error : function(request, status, error) {
+               alert("code:" + request.status + "\n" + "message:"
+                     + request.responseText + "\n" + "error:" + error);
+            }
+         });
+      }
+}
 
 function textOverCut(text, type) {
    var lastText = "...";
@@ -337,15 +379,15 @@ function getImg(bno, count) {
    for (var i = 0; i < 4; i++) {
       if (file[count][i] != undefined) {
          $("#img_" + bno).append(
-        		 '<a href="/board/view?bno=' + bno
-					+ '"><img width="100" height="100" id="img_' + bno
-					+ '_' + i + '" alt="" src=' + file[count][i].path
-					+ '></a>');
+               '<a href="/board/view?bno=' + bno
+               + '"><img width="100" height="100" id="img_' + bno
+               + '_' + i + '" alt="" src=' + file[count][i].path
+               + '></a>');
       } else {
          break;
       }
       if(file[count].length > 4){
-    	  console.log("+"+ (file[count].length - 4));
+         console.log("+"+ (file[count].length - 4));
       }
    }
 }

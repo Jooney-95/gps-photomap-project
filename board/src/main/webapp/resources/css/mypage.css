@@ -1,3 +1,5 @@
+button:focus { outline:none; }
+
 .main{
    width:100%;
    margin-top:130px;
@@ -58,7 +60,7 @@
 }
 .bFollow i{
    font-size:25px;   
-      color:#feec77;
+      color:#fdb330;
       border:2px solid #f5f5f5;
       border-radius:50%;
       padding-top:7px;
@@ -71,10 +73,9 @@
 
 .one{
    width:500px;
-   height:50px;
+   height:45px;
    text-align:center;
    margin:0 auto;  /*페이지의 가운데오게 함*/
-   margin-top:20px;
    font-size:25px;
 }
 

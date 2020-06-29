@@ -28,7 +28,7 @@
    <div id="header">
       <!-- 로고 -->
       <div class="logo">
-         <a href="/board/listPageSearch?num=1">SAMPLE</a>
+         <a href="/board/listPageSearch?num=1">Plus+</a>
       </div>
         
 <!-- 검색창 -->
@@ -53,6 +53,11 @@
                   <p>${session.mNickname }님</p>
                </div>
             </div>
+            
+            <div id="writebutton">
+               <!-- 게시물 작성 버튼-->
+               <a href="/board/write" title="게시물 작성"><i class="far fa-edit"></i></a>
+            </div>
 
             </c:if>
             
@@ -73,7 +78,43 @@
 
 
 <div id="top">
-      <c:choose>
+      
+
+      <div id ="ab">
+       <!-- 제목 -->
+     <ul>
+      <li> 
+      <div id="aaa">
+      
+      </div>
+       <div id="a" >
+       <div id="a-1">
+       <a href="/member/myPage?num=1&userID=${member.id }"><img src="${member.mImg }"/></a><!-- 작성자 프로필 이미지 -->
+       <input type="text" name="writer" value="${member.mNickname } 님" readOnly />
+       </div>
+       <div id="a-2">
+        <input type="text" name="title" value="${view.title }" readOnly />
+       </div>
+       </div>
+        <!-- 공감버튼 -->
+      
+         <div id="b">
+           <i class="far fa-thumbs-up " id="bLike"></i>
+           <p id="like"></p>
+         </div>
+        </li> 
+       
+  </ul>  
+ </div>
+    </div>   
+         
+         <div class="time">
+         <div class="time1"><p>조회수  <input type="text" id="viewCnt" value="${view.viewCnt }"/></p></div>
+         <div class="time3">
+         <input type="text" id="date" value="<fmt:formatDate value='${view.regDate }'  pattern='yyyy-MM-dd hh시 mm분' />"/>
+        </div>
+        <div class="time2">
+         <c:choose>
          <c:when test="${view.pNum eq '-1' }">
                         <i class="fas fa-globe-americas"></i>
                      </c:when>
@@ -84,36 +125,7 @@
                        <i class="fas fa-user-friends"></i>
                     </c:otherwise>
       </c:choose>
-
-      <div id ="ab">
-       <!-- 제목 -->
-     <ul>
-      <li> 
-       <div id="a" >
-       <div id="a-1">
-       <a href="/member/myPage?num=1&userID=${member.id }"><img src="${member.mImg }"/></a><!-- 작성자 프로필 이미지 -->
-       <input type="text" name="writer" value="${member.mNickname }" readOnly />
-       </div>
-       <div id="a-2">
-        <input type="text" name="title" value="${view.title }" readOnly />
-       </div>
-       </div>
-        <!-- 공감버튼 -->
-      
-         <div id="b">
-         <i class="fas fa-paw fa-2x " id="bLike" ></i>
-         <p id="like"></p>
-         </div>
-        </li> 
-       
-  </ul>  
- </div>
-    </div>   
-         
-         <div class="time">
-         <div><p>조회수  <input type="text" id="viewCnt" value="${view.viewCnt }"/></p></div>
-         <input type="text" id="date" value="<fmt:formatDate value='${view.regDate }'  pattern='yyyy-MM-dd hh시 mm분' />"/>
-        
+      </div>
           
          </div>
          
@@ -185,8 +197,8 @@
            </div>   
            
           <div class="m2">
-             <a href="<spring:url value='${list.path }'/>" data-lightbox="image-1" data-title="My caption"><img alt="" src="<spring:url value='${list.path }'/>"></a>
-          </div>
+             <a href="<spring:url value='${list.path }'/>" data-lightbox="image-1" data-title="${list.place }"><img alt="" src="<spring:url value='${list.path }'/>"></a>
+           </div>
               
                
               

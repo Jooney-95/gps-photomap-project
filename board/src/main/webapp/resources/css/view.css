@@ -1,4 +1,5 @@
 @charset "UTF-8";
+button:focus { outline:none; }
 
 *,
 *:before,
@@ -13,8 +14,8 @@
 body {
   font-family: sans-serif;
   font-size: 18px;
+  
 }
-
 
 /*올린 시간 & 조회수*/
 .time{
@@ -25,26 +26,42 @@ body {
    text-align:center;
    color:#909090;
 }
-.time input,.time p{
+.time1{
+   font-size:12px;
+   padding-top:10px;
    float:right;
-   border:none;
-}
-
-.time input{
-   margin-top:1px;
-   width:142px;
-   color:#909090;
-
-}
-#viewCnt{
+   height:30px;
    margin-left:5px;
+}
+.time1 input{
    width:25px;
    max-width:50px;
-}
-.time p{
    font-size:12px;
+   color:#909090;
+   border:none;
 }
-
+.time2{
+   font-size:15px;
+   height:30px;
+   float:right;
+}
+.time2 i {
+   padding-top:10px;
+}
+.time3{
+   
+   
+   float:right;
+   height:30px;
+   }
+.time3 input{
+   width:128px;
+   border:none;   
+   padding-top:10px;
+   font-size:12px;
+   color:#909090;
+   text-align:right;
+}
 /*//////////////게시물 작성 틀//////////////////*/
 
 .mainwrapper{
@@ -97,18 +114,22 @@ body {
 }
 
  .main::-webkit-scrollbar {
-    width: 10px;
+    width: 15px;
+   
   }
   .main::-webkit-scrollbar-thumb {
-    background-color: #2f3542;
+    background-color: #dfdfdf;
     border-radius: 10px;
     background-clip: padding-box;
     border: 2px solid transparent;
+    
   }
   .main::-webkit-scrollbar-track {
-    background-color: grey;
+  border:1px solid #eee;
+    background-color:#f6f6f6 ;
     border-radius: 10px;
-    box-shadow: inset 0px 0px 5px white;
+    box-shadow: inset 0px 0px 5px #fff;
+    
   }
 
 /*//////////////////////////////////*/
@@ -128,7 +149,7 @@ body {
    
 }
 #top #ab{
-   
+   height:80px;
    width:600px;
    padding-top:20px;
    padding-bottom:5px;
@@ -143,6 +164,8 @@ body {
    width:520px;
    float:left;
    text-align:center;
+  
+   
 }
 /*/////////작성자//////////////*/
 #top #a-1{
@@ -150,6 +173,7 @@ body {
    
    float:left;
    width:auto;
+   
 }
 /*작성자 프로필 사진*/
 #top #a-1 img{
@@ -164,15 +188,15 @@ body {
 /*작성자 아이디*/
 #top #a-1 input{
    font-size:13px;
-   text-align:left;
+   text-align:right;
    float:left;
    background:none;
    border:#fff;
-   margin-top:18px;
-   margin-left:5px;
+   margin-top:20px;
+  
    border:none;;
    width:90px;
-   margin-left:10px;
+   
   
 }
 /*////////제목//////////*/
@@ -203,21 +227,27 @@ body {
     height:50px;
    text-align:center;
    display:inline-block;
-   
+   cursor:pointer;
+   padding-top:5px;
+   position:relative;
+   left:10px;
  /* border:1px solid #f5f5f5;  /**/
    
 }
 
 /*공감 아이콘*/
 #top #b i {
+cursor:pointer;
 border-radius:50px;
-padding:5px;
+padding:7px;
 background-color:#fff;
 color:#fdb330;
 border:1px solid #f4f1e8;
 box-shadow: 0px 0px 2px 1px  #f4f1e8;
 float:left;
 margin-right:10px;
+font-size:20px;
+margin-top:6px;
 }
 
 /*공감 숫자*/

@@ -19,7 +19,7 @@
 <div id="header">
    <!-- 로고 -->
      <div class="logo">
-       <a href="/board/listPageSearch?num=1">SAMPLE</a>
+       <a href="/board/listPageSearch?num=1">Plus+</a>
      </div>     
 
      <!-- 사용자 로그인 현황 -->
@@ -32,8 +32,9 @@
                </div>
             </div>
             
-            <div id="writebutton"> <!-- 게시물 작성 버튼-->
-                   <a href="/board/write"><img src="/resources/imgs/w1.png"/></a>
+            <div id="writebutton">
+               <!-- 게시물 작성 버튼-->
+               <a href="/board/write" title="게시물 작성"><i class="far fa-edit"></i></a>
             </div>  
             </c:if>
             
