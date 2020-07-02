@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import org.apache.commons.io.FilenameUtils;
 import org.apache.tika.Tika;
 import org.springframework.web.multipart.MultipartFile;
 

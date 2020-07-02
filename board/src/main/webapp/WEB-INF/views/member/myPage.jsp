@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script src="/resources/js/myPage.js?var=1"></script>
+<script src="/resources/js/myPage.js"></script>
 <title>insert title here</title>
 <link rel="stylesheet" href="/resources/css/top.css">
 <link rel="stylesheet" href="/resources/css/mypage.css">

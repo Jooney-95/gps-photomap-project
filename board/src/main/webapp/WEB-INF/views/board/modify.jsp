@@ -159,10 +159,9 @@
    
  <div id="bottom">
          공개 범위 
-         <input type="radio" id="pNum0" name="pNum" value="-1" checked="checked">  전체공개
+         <input type="radio" id="pNum0" name="pNum" value="-1">  전체공개
          <input type="radio" id="pNum1" name="pNum" value="${session.id }">  이웃공개
          <input type="radio" id="pNum2" name="pNum" value="-2">  비공개
-         
       </div>   
    
 </div>
@@ -252,15 +251,15 @@
       } */
       switch(pNum){
       case -1:
-         pNum0.checked = "checked";
-         break;
-      case -2:
-         pNum1.checked = "checked";
-         break;
-      default:
-         pNum2.checked = "checked";
-         break;
-      }
+          pNum0.checked = "checked";
+          break;
+       case -2:
+          pNum1.checked = "checked";
+          break;
+       default:
+          pNum2.checked = "checked";
+          break;
+       }
 
      /*  bWrite.addEventListener('click', function(event) {
          if(latLon()){

@@ -1,5 +1,5 @@
 @charset "UTF-8";
-button:focus { outline:none; }
+*:focus { outline:none; }
 
 /*///////////////////////////////*/
 
@@ -202,10 +202,18 @@ p{
    margin-left: 48px;
    margin-top: 5px;
 }
+.infos{
+    background: #f6ee8;
+   border-radius:3px;
+   width:580px;
+   height:45px;
+   text-align:left;
+   display:inline-block;
+   margin:15px;
+   margin-bottom:17px;
+  
 }
-
-
-select{
+select {
    border-radius:15px;
    background:#fff;
    border:2px solid #9fd7bf;
@@ -264,22 +272,22 @@ button{
     transition: 0.25s;
 }
 .low button{
-    width:70px;
-   height:40px;
+  width:80px;
+   height:50px;
    border:none;
    background-color:#f8f8f8;
    border-bottom: 5px solid #eee;
    color:#000;
    -webkit-transition: 0.25s;
+   
 
 }
    
 .low button:hover{
-    transform: translate(0px,5px);
-    -webkit-transform: translate(0px,5px);
+   transform: translate(0px,5px);
+   -webkit-transform: translate(0px,5px);
    border-bottom: 1px solid #eee;
    cursor:pointer;
-   -webkit-transition: 0.25s;
    
    
 
