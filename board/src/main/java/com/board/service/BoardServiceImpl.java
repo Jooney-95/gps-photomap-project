@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.board.domain.BoardVO;
+import com.board.domain.FollowVO;
 import com.board.domain.LikeVO;
 import com.board.dao.BoardDAO;
 
@@ -106,6 +107,18 @@ public class BoardServiceImpl implements BoardService {
 	public int count(int userID) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.count(userID);
+	}
+
+	@Override
+	public List<BoardVO> getPage(int displayPost, int postNum, String flag) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.getPage(displayPost, postNum, flag);
+	}
+
+	@Override
+	public List<BoardVO> getPage(int displayPost, int postNum, String flag, List<FollowVO> fforfList) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.getPage(displayPost, postNum, flag, fforfList);
 	}
 
 }

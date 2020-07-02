@@ -1,6 +1,7 @@
 package com.board.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.board.domain.BoardVO;
 import com.board.domain.FileVO;
+import com.board.domain.FollowVO;
 import com.board.domain.LikeVO;
 import com.board.domain.MemberVO;
 import com.board.domain.Page;
@@ -47,7 +49,7 @@ public class BoardController {
 
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public void getWrite(HttpSession session, Model model) throws Exception {
-		
+
 	}
 
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
@@ -75,9 +77,6 @@ public class BoardController {
 
 	}
 
-	@RequestMapping(value = "/map", method = RequestMethod.GET)
-	public void map() throws Exception {
-	}
 
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
 	public void getModify(@RequestParam("bno") int bno, Model model) throws Exception {
@@ -98,7 +97,7 @@ public class BoardController {
 
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	public void postModify() throws Exception {
-		
+
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
@@ -115,37 +114,6 @@ public class BoardController {
 			@RequestParam(value = "searchType", required = false, defaultValue = "title") String searchType,
 			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) throws Exception {
 
-		if (session != null) {
-
-		}
-		Page page = new Page();
-
-		page.setNum(num);
-		page.setCount(service.count());
-
-		List<BoardVO> list = null;
-		// list = service.listPage(page.getDisplayPost(), page.getPostNum());
-		list = service.listPageSearch(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
-
-		List<FileVO> fList = new ArrayList<FileVO>();
-		List<ArrayList<FileVO>> fileList = new ArrayList<ArrayList<FileVO>>();
-		MemberVO m = new MemberVO();
-		List<MemberVO> mList = new ArrayList<MemberVO>();
-
-		// 占쏙옙 占쏙옙호占쏙옙 占쌔댐옙占싹댐옙 占싱뱄옙占쏙옙 占쌨아울옙占쏙옙
-		for (BoardVO vo : list) {
-			fList = fileService.viewFile(vo.getBno());
-			m = memberService.memberVO(vo.getWriter());
-			fileList.add((ArrayList<FileVO>) fList);
-			mList.add(m);
-		}
-
-		model.addAttribute("fileList", fileList);
-		model.addAttribute("list", list);
-		model.addAttribute("page", page);
-		model.addAttribute("select", num);
-		model.addAttribute("member", mList);
-
 	}
 
 	@ResponseBody
@@ -155,7 +123,7 @@ public class BoardController {
 		int tblBno = Integer.parseInt(req.getParameter("tblBno"));
 
 		ToVO toVO = new ToVO();
-		
+
 		LikeVO likeVO = toVO.likeVO(tblBno, userID);
 		LikeVO likeCheck = service.likeCheck(likeVO);
 
@@ -186,7 +154,6 @@ public class BoardController {
 		int tblBno = Integer.parseInt(req.getParameter("tblBno"));
 		int check = 0;
 
-		
 		ToVO toVO = new ToVO();
 		LikeVO likeVO = toVO.likeVO(tblBno, userID);
 		LikeVO likeCheck = service.likeCheck(likeVO);
@@ -204,7 +171,7 @@ public class BoardController {
 	public void postBeforeunload(HttpServletRequest req) throws Exception {
 		int userID = Integer.parseInt(req.getParameter("userID"));
 
-			fileService.beforeunload(userID);
+		fileService.beforeunload(userID);
 	}
 
 	@ResponseBody
@@ -245,13 +212,13 @@ public class BoardController {
 			String id[] = req.getParameterValues("id");
 			String lat[] = req.getParameterValues("lat");
 			String lon[] = req.getParameterValues("lon");
+			String loc[] = req.getParameterValues("loc");
 			String time[] = req.getParameterValues("time");
 			String content[] = req.getParameterValues("content");
 			String tp[] = req.getParameterValues("tp");
-	
-	
+			System.out.println(loc);
 			tpService.reset(id);
-	
+
 			for (int i = 0; i < id.length; i++) {
 				if (tp[i].length() != 0) {
 					String[] tp_str = tp[i].split(",");
@@ -261,22 +228,21 @@ public class BoardController {
 					}
 				}
 			}
-			
-			fileService.writeClick(toVO.writeClick(fileBno, id, lat, lon, time, content, size));
-			
-			if(id.length > 49) {
-				String del_id[] = new String[id.length-50];
-				for(int i = 50; i < id.length; i++) {
-					del_id[i-50] = id[i];
+
+			fileService.writeClick(toVO.writeClick(fileBno, id, lat, lon, loc, time, content, size));
+
+			if (id.length > 49) {
+				String del_id[] = new String[id.length - 50];
+				for (int i = 50; i < id.length; i++) {
+					del_id[i - 50] = id[i];
 				}
 				fileService.deleteFile(del_id);
 			}
 		}
-		
 
 		return "/board/view?bno=" + fileBno;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/modifyClick", method = RequestMethod.POST)
 	public String postModifyClick(HttpServletRequest req) throws Exception {
@@ -284,12 +250,12 @@ public class BoardController {
 		int pNum = Integer.parseInt(req.getParameter("pNum"));
 		int bno = Integer.parseInt(req.getParameter("bno"));
 		int size = Integer.parseInt(req.getParameter("size"));
-		
+
 		String title = req.getParameter("title");
 		String del[] = req.getParameterValues("del");
-		
+
 		ToVO toVO = new ToVO();
-		
+
 		BoardVO boardVO = toVO.boardVO(title, userID, pNum, bno);
 
 		service.modify(boardVO);
@@ -302,12 +268,13 @@ public class BoardController {
 			String id[] = req.getParameterValues("id");
 			String lat[] = req.getParameterValues("lat");
 			String lon[] = req.getParameterValues("lon");
+			String loc[] = req.getParameterValues("loc");
 			String time[] = req.getParameterValues("time");
 			String content[] = req.getParameterValues("content");
 			String tp[] = req.getParameterValues("tp");
-	
+
 			tpService.reset(id);
-	
+
 			for (int i = 0; i < id.length; i++) {
 				if (tp[i].length() != 0) {
 					String[] tp_str = tp[i].split(",");
@@ -317,20 +284,85 @@ public class BoardController {
 					}
 				}
 			}
-			
-			fileService.writeClick(toVO.writeClick(bno, id, lat, lon, time, content, size));
-			
-			if(id.length > 49) {
-				String del_id[] = new String[id.length-50];
-				for(int i = 50; i < id.length; i++) {
-					del_id[i-50] = id[i];
+
+			fileService.writeClick(toVO.writeClick(bno, id, lat, lon, loc, time, content, size));
+
+			if (id.length > 49) {
+				String del_id[] = new String[id.length - 50];
+				for (int i = 50; i < id.length; i++) {
+					del_id[i - 50] = id[i];
 				}
 				fileService.deleteFile(del_id);
 			}
 		}
-		
 
 		return "/board/view?bno=" + bno;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/getPage", method = RequestMethod.POST)
+	public HashMap<String, Object> getLikePage(HttpServletRequest req, HttpSession session) throws Exception {
+		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
+		String flag = req.getParameter("flag");
+		MemberVO login = (MemberVO) session.getAttribute("session");
+
+		Page page = new Page();
+
+		page.setNum(pageNum);
+		page.setCount(service.count());
+
+		List<BoardVO> list = null;
+		
+		if (login != null) {
+			List<FollowVO> fforfList = null;
+
+			fforfList = memberService.fforfList(login.getId());
+			if (fforfList.size() > 0) {
+				list = service.getPage(page.getDisplayPost(), page.getPostNum(), flag, fforfList);
+			} else {
+				if (!flag.equals("fol")) {
+					list = service.getPage(page.getDisplayPost(), page.getPostNum(), flag);
+				}
+			}
+		} else {
+			if (!flag.equals("fol")) {
+				list = service.getPage(page.getDisplayPost(), page.getPostNum(), flag);
+			}
+		}
+
+		List<FileVO> fList = new ArrayList<FileVO>();
+		List<ArrayList<FileVO>> fileList = new ArrayList<ArrayList<FileVO>>();
+		MemberVO m = new MemberVO();
+		List<MemberVO> mList = new ArrayList<MemberVO>();
+		
+
+		if (list != null) {
+			// 占쏙옙 占쏙옙호占쏙옙 占쌔댐옙占싹댐옙 占싱뱄옙占쏙옙 占쌨아울옙占쏙옙
+			for (BoardVO vo : list) {
+				fList = fileService.viewFile(vo.getBno());
+				m = memberService.memberVO(vo.getWriter());
+				fileList.add((ArrayList<FileVO>) fList);
+				mList.add(m);
+			}
+			Gson gson = new Gson();
+			String jsonList = gson.toJson(list);
+			String jsonMList = gson.toJson(mList);
+			String jsonFileList = gson.toJson(fileList);
+			String jsonPage = gson.toJson(page);
+
+			HashMap<String, Object> data = new HashMap<String, Object>();
+			data.put("board", jsonList);
+			data.put("file", jsonFileList);
+			data.put("member", jsonMList);
+			data.put("page", jsonPage);
+
+			return data;
+		} else {
+			HashMap<String, Object> data = new HashMap<String, Object>();
+			
+			return data;
+		}
+
 	}
 
 }

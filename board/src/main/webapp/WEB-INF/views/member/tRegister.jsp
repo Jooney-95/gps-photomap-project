@@ -16,17 +16,10 @@
 <div id="header">
  
   <div class="logo">
-    <a href="/board/listPageSearch?num=1">SAMPLE</a>
+    <a href="/board/listPageSearch?num=1">Plus+</a>
   </div>
   
-<div class="wrap">
-   <div class="search">
-      <input type="text" class="searchTerm" placeholder="어떤 곳을 찾으시나요?">
-      <button type="submit" class="searchButton">
-        <i class="fa fa-search"></i>
-     </button>
-   </div>
-</div>
+
    
 </div>
 

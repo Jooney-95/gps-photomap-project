@@ -1,157 +1,241 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>게시물 조회</title>
-<link rel="stylesheet" href="/resources/css/modify.css">
+<link rel="stylesheet" href="/resources/css/view.css?var=2">
 <link rel="stylesheet" href="/resources/css/top.css">
 <link rel="stylesheet" href="/resources/dist/css/lightbox.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="/resources/dist/js/lightbox.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&display=swap');
+#infowindow {
+   font-family: 'Noto Serif KR', serif;
+}
+</style>
 </head>
+
 
 <body>
    <!-- 상단 바 -->
    <div id="header">
       <!-- 로고 -->
       <div class="logo">
-         <a href="/board/listPageSearch?num=1">SAMPLE</a>
+         <a href="/board/listPageSearch?num=1">Plus+</a>
       </div>
         
-         <!-- 검색창 -->
-         <div class="wrap">
-          <div class="search">
-              <input type="text" class="searchTerm" placeholder="어떤 곳을 찾으시나요?">
-               <button type="submit" class="searchButton">
-                  <i class="fa fa-search"></i>
-               </button>
-           </div>
-       	 </div>
-   
-      <!-- 사용자 로그인 현황 -->
+<!-- 검색창 -->
+<div class="wrap">
+   <div class="search">
+   <select class="ss" name="searchType">
+            <option value="title">제목</option>
+            <option value="writer">작성자</option>           
+         </select>
+        <input type="text" class="searchTerm" name="keyword" placeholder="어떤 곳을 찾으시나요?">
+        <button type="button" class="searchButton" id="searchBtn">
+           <i class="fa fa-search"></i>
+        </button>
+    </div>
+</div>
+    <!-- 사용자 로그인 현황 -->
       <div class="log">
-            <c:if test="${session != null }"> <!-- 로그인했을때 -->
-               <div id="r">
+            <c:if test="${session != null }"><!-- 로그인했을때 -->
+            <div id="r">
                <div class="profile">
-                   <a href="/member/myPage?num=1&userID=${session.id }"><img src="${session.mImg }"/>
-                    </a>
-                    <p>${session.mNickname } 님</p>
-                  </div>       
+                    <img src="${session.mImg }" onclick="loginPopup()"/>
+                  <p>${session.mNickname }님</p>
                </div>
+            </div>
             
-            <div id="writebutton"> <!-- 게시물 작성 버튼-->
-                   <a href="/board/write"><img src="/resources/imgs/w1.png"/></a>
-            </div>  
+            <div id="writebutton">
+               <!-- 게시물 작성 버튼-->
+               <a href="/board/write" title="게시물 작성"><i class="far fa-edit"></i></a>
+            </div>
+
             </c:if>
             
             <c:if test="${session == null }"> <!-- 로그인 안했을때 -->
-          <a href="/member/login"><img width="50" height="50" src="/resources/imgs/p1.png"></a>
+                <a href="/member/login"><img width="50" height="50" src="/resources/imgs/p1.png"></a>
             </c:if>
       </div>
-
-
+<div class="pop" id="loginPopup" style="display:none">               
+                <div class="pi"><a href="/member/myPage?num=1&userID=${session.id }"><i class="fas fa-user-cog"></i>  마이페이지</a></div>
+                <div class="pii"><a href="/member/logout"><i class="fas fa-power-off"></i>  로그아웃</a></div>
+            </div>
+<div class="pop" id="loginPopup" style="display:none">               
+                <div class="pi"><a href="/member/myPage?num=1&userID=${session.id }"><i class="fas fa-user-cog"></i>  마이페이지</a></div>
+                <div class="pii"><a href="/member/logout"><i class="fas fa-power-off"></i>  로그아웃</a></div>
+            </div>
    </div>
    
 
 
-   <div id="top">
-       <p>제목
-          <input type="text" name="title" value="${view.title }" readOnly /></p>
-        <p>작성자 
-           <input type="text" name="writer" value="${member.mNickname }" readOnly /></p>
-         <br/>
-    </div>
+<div id="top">
+      
+
+      <div id ="ab">
+       <!-- 제목 -->
+     <ul>
+      <li> 
+      <div id="aaa">
+      
+      </div>
+       <div id="a" >
+       <div id="a-1">
+       <a href="/member/myPage?num=1&userID=${member.id }"><img src="${member.mImg }"/></a><!-- 작성자 프로필 이미지 -->
+       <input type="text" name="writer" value="${member.mNickname } 님" readOnly />
+       </div>
+       <div id="a-2">
+        <input type="text" name="title" value="${view.title }" readOnly />
+       </div>
+       </div>
+        <!-- 공감버튼 -->
+      
+         <div id="b">
+           <i class="far fa-thumbs-up " id="bLike"></i>
+           <p id="like"></p>
+         </div>
+        </li> 
+       
+  </ul>  
+ </div>
+    </div>   
          
-           
+         <div class="time">
+         <div class="time1"><p>조회수  <input type="text" id="viewCnt" value="${view.viewCnt }"/></p></div>
+         <div class="time3">
+         <input type="text" id="date" value="<fmt:formatDate value='${view.regDate }'  pattern='yyyy-MM-dd hh시 mm분' />"/>
+        </div>
+        <div class="time2">
+         <c:choose>
+         <c:when test="${view.pNum eq '-1' }">
+                        <i class="fas fa-globe-americas"></i>
+                     </c:when>
+         <c:when test="${view.pNum eq '-2' }">
+                        <i class="fas fa-lock"></i>
+                     </c:when>
+         <c:otherwise>
+                       <i class="fas fa-user-friends"></i>
+                    </c:otherwise>
+      </c:choose>
+      </div>
+          
+         </div>
+         
+        <div class="mainwrapper">
+         
    <!-- 카카오맵 api 호출 -->
-   <div id="aside">
-      <div id="map" style="width:550px; height:550px;"></div>
-   </div>
+   <div id="aside"  style="width:480px; height:430px; float:left" >
+      <div id="map" style="width:480px; height:430px;"></div>
+   </div>   
+
   
   <div class="main"> 
-         <c:forEach items="${list }" var="list" varStatus="status">
+         <c:forEach items="${list }" var="list">
          <input type="hidden" name="id" value="${list.id }" />
          <input type="hidden" id="tblBno" value="${view.bno }" />
          <input type="hidden" name="userID" value="${session.id }" />
    
    
-       <div class="middle">
-   
-          <div class="left">
-             <a href="<spring:url value='${list.path }'/>" data-lightbox="image-1" data-title="My caption"><img width="200" height="200" alt="" src="<spring:url value='${list.path }'/>"></a>
-          </div>
-               
-               
-          <div class="right">
-             <div class="one">
-                 <input type="text" id="lat_${status.index }" name="lat" value="${list.latitude }" readOnly />
-                  <input type="text" name="lon" value="${list.longitude }" readOnly />
+     <div class="middle">
+       <div class="m1">
+        <div class="m1-1">
+        <ul><li>
+        <div class="leftone">
+                 <i class="fas fa-map-marker-alt"></i> 
+                 <input type="text" name="loc" value="${list.place }" readOnly />
+                 <input type="hidden" name="lat" value="${list.latitude }" readOnly />
+                  <input type="hidden" name="lon" value="${list.longitude }" readOnly />
+         </div>
+         </li>
+         <li>
+         <div class="one">
                   <input type="text" name="time" value="${list.timeView }" readOnly />
-              </div>         
-               
-              <div class="two">
-                     <textarea  style="width:90%" cols="40" rows="5" name="content" readOnly >${list.content }</textarea>
-               </div>
-
-                  
-              <div class="three">
-                 <div class="t-1"><p>이동수단</p></div>
-                 <div class="t-2">
+        </div>
+        </li>
+        </ul>
+         </div>   
+         
+         <div class="m1-2">
+                
+                <div class="t-2">
                      <c:forEach items="${tp }" var="tp">
                      <c:choose>
                      <c:when test="${tp.tpBno eq list.id and tp.tp eq 'sneakers' }">
-                     	<label><img src="/resources/imgs/sneakers.png"></label>
+                        <label><img src="/resources/imgs/sneakers.png"></label>
                      </c:when>
                      <c:when test="${tp.tpBno eq list.id and tp.tp eq 'bus' }">
-                     	<label><img src="/resources/imgs/bus.png"></label>
+                        <label><img src="/resources/imgs/bus.png"></label>
                      </c:when>
                      <c:when test="${tp.tpBno eq list.id and tp.tp eq 'train' }">
-                     	<label><img src="/resources/imgs/train.png"></label>
+                        <label><img src="/resources/imgs/train.png"></label>
                      </c:when>
                      <c:when test="${tp.tpBno eq list.id and tp.tp eq 'car' }">
-                     	<label><img src="/resources/imgs/car.png"></label>
+                        <label><img src="/resources/imgs/car.png"></label>
                      </c:when>
                      <c:when test="${tp.tpBno eq list.id and tp.tp eq 'taxi' }">
-                     	<label><img src="/resources/imgs/taxi.png"></label>
+                        <label><img src="/resources/imgs/taxi.png"></label>
                      </c:when>
                      <c:when test="${tp.tpBno eq list.id and tp.tp eq 'bike' }">
-                     	<label><img src="/resources/imgs/bike.png"></label>
+                        <label><img src="/resources/imgs/bike.png"></label>
                      </c:when>
                      <c:when test="${tp.tpBno eq list.id and tp.tp eq 'scooter' }">
-                     	<label><img src="/resources/imgs/scooter.png"></label>
+                        <label><img src="/resources/imgs/scooter.png"></label>
                      </c:when>
                      </c:choose>
                      </c:forEach>
                </div>   
-              </div>   
-            </div>
+                  
+              </div>       
+           </div>   
+           
+          <div class="m2">
+             <a href="<spring:url value='${list.path }'/>" data-lightbox="image-1" data-title="${list.place }"><img alt="" src="<spring:url value='${list.path }'/>"></a>
+           </div>
+              
+               
+              
+           <div class="m3">
+                     <textarea cols="40" rows="5" name="content" readOnly >${list.content }</textarea>
+            </div>                 
+             
     
-          </div>
+       </div> 
             
                
          </c:forEach>
    <br />
 </div>
-<p id="like"></p>
-<button type="button" id="bLike">게시글 추천</button>
+</div>             
+               
+       
+
  
    <c:if test="${session.id eq view.writer }">
-      <div class="button">
+     <div class="button">
+       <div id="upload">
          <button class="raise" onclick="location.href='/board/modify?bno=${view.bno}'">게시물 수정</button>
-         <button class="raise" onclick="location.href='/board/delete?bno=${view.bno}'">게시물 삭제</button>
+       </div>
+       <div id="upload-2">
+         <button  class="raise" onclick="location.href='/board/delete?bno=${view.bno}'">게시물 삭제</button>
+       </div>
       </div>   
+     
+     
+     
    </c:if>
    
 <!-- 카카오맵 다중마커 정렬 -->
    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dd9fb87d40ab9678af574d3665e02b6e&libraries=services,clusterer"></script>
    <script>
          
-
-   
      //위도, 경도값  배열에 저장
      var lat = new Array();
      var lon = new Array();
@@ -161,14 +245,14 @@
          lon.push("${list.longitude}");
      </c:forEach>
       
-     var MARKER_WIDTH = 36, // 기본, 클릭 마커의 너비
-         MARKER_HEIGHT = 37, // 기본, 클릭 마커의 높이
-         OFFSET_X = 13, // 기본, 클릭 마커의 기준 X좌표
+     var MARKER_WIDTH = 100, // 기본, 클릭 마커의 너비
+         MARKER_HEIGHT = 50, // 기본, 클릭 마커의 높이
+         OFFSET_X = 46, // 기본, 클릭 마커의 기준 X좌표
          OFFSET_Y = MARKER_HEIGHT, // 기본, 클릭 마커의 기준 Y좌표
          SPRITE_MARKER_URL = '/resources/imgs/markers.png', // 스프라이트 마커 이미지 URL
-         SPRITE_WIDTH = 44, // 스프라이트 이미지 너비
-         SPRITE_HEIGHT = 2254, // 스프라이트 이미지 높이
-         SPRITE_GAP = 9.1; // 스프라이트 이미지에서 마커간 간격
+         SPRITE_WIDTH = 100, // 스프라이트 이미지 너비
+         SPRITE_HEIGHT = 2420, // 스프라이트 이미지 높이, // 스프라이트 이미지 높이
+         SPRITE_GAP = -1.7; // 스프라이트 이미지에서 마커간 간격
 
      var markerSize = new kakao.maps.Size(MARKER_WIDTH, MARKER_HEIGHT), // 기본, 클릭 마커의 크기
          markerOffset = new kakao.maps.Point(OFFSET_X, OFFSET_Y), // 기본, 클릭 마커의 기준좌표
@@ -191,12 +275,12 @@
      var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
          mapOption = { 
             center: new kakao.maps.LatLng(parseFloat(lat[0]), parseFloat(lon[0])), // 지도의 중심좌표는 첫번째 사진을 기준으로 함.
-              level: 11 // 지도의 확대 레벨
+              level: 9 // 지도의 확대 레벨
          };
  
      // 지도를 생성합니다
      var map = new kakao.maps.Map(mapContainer, mapOption); 
-     
+
       // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
      var mapTypeControl = new kakao.maps.MapTypeControl();
           
@@ -212,7 +296,17 @@
      var clusterer = new kakao.maps.MarkerClusterer({
          map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
          averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
-         minLevel: 6 // 클러스터 할 최소 지도 레벨 
+         minLevel: 10, // 클러스터 할 최소 지도 레벨 
+         styles: [{
+            width: '50px', height: '50px',
+            background: 'rgba(051, 153, 102, .8)',
+            borderRadius: '25px',
+            color: '#fff',
+            textAlign: 'center',
+            fontWeight: 'bold',
+            lineHeight: '45px',
+            fontSize: '30px'
+             }]
      });
 
 
@@ -257,7 +351,7 @@
                  marker.normalImage = normalImage;
                                              
                  // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다 - 마우스 오버 이벤트로 인포윈도우 생성하기
-                   var content = '<div style="width:160px;text-align:center;padding:5px;font-size:12px;">' + address[i] + '</div>';    
+                   var content = '<div id="infowindow" style="width:160px;text-align:center;padding:5px;font-size:12px;">' + address[i] + '</div>';    
                    // 현재 write.css 때문에 인포윈도우 화살표 top이 짤려보이는 현상 발생
                      
                      // 마커에 표시할 인포윈도우를 생성합니다
@@ -317,101 +411,92 @@
    </script>
    <script>   
       //document.getElementById("map").style.marginLeft="5%";
- 
+      
+      
+     
+      
+      $("#bLike").click(
+            function(){
+               if("${session }" != ""){
+                  var query = {
+                        userID : "${session.id}",
+                        tblBno : "${view.bno}"
+                  };
+                  $.ajax({
+                     url : "/board/likeClick",
+                     type : "post",
+                     data : query,
+                     success : function(count) {
+                        countLike();
+                        likeCheck();
+                     },
+                      error:function(request,status,error){
+                            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                      }
+                  });
+               } else{
+                  alert("로그인 후 이용해주세요");
+               }
+            });
+      
+      window.onload = function(){
+         countLike();
+         likeCheck();
+      }
+         function countLike(){
+         var query = {
+               tblBno : "${view.bno}"
+         };
+         $.ajax({
+           url : "/board/likeCount",
+           type : "post",
+           data : query,
+           success : function(count) {
+              $("#like").text(count);
+              
+              
+           },
+            error:function(request,status,error){
+                  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+        });
+      }
          
-   function relayout() {
-
-		// 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
-		// 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
-		// window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
-		map.relayout();
-	}
-
-	function resizeMap() {
-		var mapContainer = document.getElementById('map');
-		mapContainer.style.width = '1000px';
-		mapContainer.style.height = '1000px';
-	}
-			
-	resizeMap();
-	relayout();
-				$("#bLike").click(
-						function() {
-							if ("${session }" != "") {
-								var query = {
-									userID : "${session.id}",
-									tblBno : "${view.bno}"
-								};
-								$.ajax({
-									url : "/board/likeClick",
-									type : "post",
-									data : query,
-									success : function(count) {
-										countLike();
-										likeCheck();
-									},
-									error : function(request, status, error) {
-										alert("code:" + request.status + "\n"
-												+ "message:"
-												+ request.responseText + "\n"
-												+ "error:" + error);
-									}
-								});
-							} else {
-								alert("로그인 후 이용해주세요");
-							}
-						});
-
-				window.onload = function() {
-					countLike();
-					likeCheck();
-				}
-				function countLike() {
-					var query = {
-						tblBno : "${view.bno}"
-					};
-					$.ajax({
-						url : "/board/likeCount",
-						type : "post",
-						data : query,
-						success : function(count) {
-							$("#like").text("추천수 :" + count);
-
-						},
-						error : function(request, status, error) {
-							alert("code:" + request.status + "\n" + "message:"
-									+ request.responseText + "\n" + "error:"
-									+ error);
-						}
-					});
-				}
-
-				function likeCheck() {
-					if ("${session }" != "") {
-						var query = {
-							userID : "${session.id}",
-							tblBno : "${view.bno}"
-						};
-						$.ajax({
-							url : "/board/likeCheck",
-							type : "post",
-							data : query,
-							success : function(check) {
-								if (check == 1) {
-									$("#bLike").text("추천 취소");
-								} else {
-									$("#bLike").text("게시글 추천");
-								}
-							},
-							error : function(request, status, error) {
-								alert("code:" + request.status + "\n"
-										+ "message:" + request.responseText
-										+ "\n" + "error:" + error);
-							}
-						});
-					}
-				}
-			</script>
+         function likeCheck(){
+            if("${session }" != ""){
+             var query = {
+                   userID : "${session.id}",
+                   tblBno : "${view.bno}"
+             };
+             $.ajax({
+               url : "/board/likeCheck",
+               type : "post",
+               data : query,
+               success : function(check) {
+                  if(check == 1){
+                     $("#bLike").css("color","#fdb330");
+                  } else{
+                     $("#bLike").css("color","#e8dfe2");
+                    
+                  }
+               },
+                error:function(request,status,error){
+                      alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                }
+            });
+            }
+          }
+  
+         function loginPopup() {
+              if (document.getElementById("loginPopup").style.display == "none") {
+                 document.getElementById("loginPopup").style.display = "";
+              } else {
+                 document.getElementById("loginPopup").style.display = "none";
+              }
+           }
+         
+         
+   </script>
      
    
  <script>

@@ -1,12 +1,14 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dd9fb87d40ab9678af574d3665e02b6e&libraries=services,clusterer"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script src="/resources/js/modify.js?var=2"></script>
+<script src="/resources/js/modify.js?var=3"></script>
 <meta charset="UTF-8">
 <title>게시물 수정</title>
 <link rel="stylesheet" href="/resources/css/modify.css">
@@ -25,30 +27,32 @@
 <div id="header">
    <!-- 로고 -->
      <div class="logo">
-       <a href="/board/listPageSearch?num=1">SAMPLE</a>
+       <a href="/board/listPageSearch?num=1">Plus+</a>
      </div>
      
-     <!-- 검색창 -->
-   <div class="wrap">
-         <div class="search">
-            <input type="text" class="searchTerm" placeholder="어떤 곳을 찾으시나요?">
-            <button type="submit" class="searchButton">
-              <i class="fa fa-search"></i>
-           </button>
-         </div>
-   </div>
+<!-- 검색창 -->
+<div class="wrap">
+   <div class="search">
+   <select class="ss" name="searchType">
+            <option value="title">제목</option>
+            <option value="writer">작성자</option>           
+         </select>
+        <input type="text" class="searchTerm" name="keyword" placeholder="어떤 곳을 찾으시나요?">
+        <button type="button" class="searchButton" id="searchBtn">
+           <i class="fa fa-search"></i>
+        </button>
+    </div>
+</div>
 
        <!-- 사용자 로그인 현황 -->
       <div class="log">
-            <c:if test="${session != null }"> <!-- 로그인했을때 -->
-
-               <div id="r">
+            <c:if test="${session != null }"><!-- 로그인했을때 -->
+            <div id="r">
                <div class="profile">
-                   <a href="/member/myPage?num=1&userID=${session.id }"><img src="${session.mImg }"/>
-                    </a>
-                    <p>${session.mNickname } 님</p>
-                  </div>       
-               </div>             
+                    <img src="${session.mImg }" onclick="loginPopup()"/>
+                  <p>${session.mNickname }님</p>
+               </div>
+            </div>
 
             </c:if>
             
@@ -56,7 +60,10 @@
                 <a href="/member/login"><img width="50" height="50" src="/resources/imgs/p1.png"></a>
             </c:if>
       </div>
-
+<div class="pop" id="loginPopup" style="display:none">               
+                <div class="pi"><a href="/member/myPage?num=1&userID=${session.id }"><i class="fas fa-user-cog"></i>  마이페이지</a></div>
+                <div class="pii"><a href="/member/logout"><i class="fas fa-power-off"></i>  로그아웃</a></div>
+            </div>
 
 </div>
 
@@ -68,8 +75,7 @@
       <input type="hidden" id="bno" name="bno" value="${view.bno }" />
       <p>제목     <input type="text" id="title" name="title" value="${view.title }"/></p>
       <input type="hidden" id="userID" name="writer" value="${session.id }" />
-      <p>작성자  <input type="text" value="${session.mNickname }" readOnly/></p>
-      <br/>
+       <br/>
    </div>
    
    <div class="button-wrapper">
@@ -91,13 +97,26 @@
       <div class="middle" id="middle_${status.index }" name="imgDiv">
       
          <div class="left">
-            <img width="100" height="100" alt="" onclick="del(${status.index })" id="img_${status.index }" name="filesList" src="<spring:url value='${list.path }'/>">
+           <ul>
+           <li>
+           <div class="leftone">
+            <i class="fas fa-map-marker-alt"></i> 
+              <input type="text" id="loc_${status.index }" name="loc" value="${list.place }" readOnly />
+              <input type="hidden" id="lat_${status.index }" name="lat" value="${list.latitude }" readOnly />
+              <input type="hidden" name="lon" value="${list.longitude }" readOnly />
+           </div>
+           </li>
+           <li>
+            <div class="lefttwo">
+            <img alt="" id="img_${status.index }" name="filesList" src="<spring:url value='${list.path }'/>">
+            </div>
+            </li>
+            </ul>
          </div>         
 
          <div class="right">
             <div class="one">
-               <input type="text" id="lat_${status.index }" name="lat" value="${list.latitude }"/>
-               <input type="text" id="lon_${status.index }" name="lon" value="${list.longitude }"/>
+               
                <input type="text" id="time_${status.index }" name="time" value="${list.timeView }"/>
             </div>
             
@@ -105,45 +124,60 @@
                <textarea style="width:90%" cols="50" rows="5" id="textarea_${status.index }" name="content" >${list.content  }</textarea>
             </div>   
                                  
-            <div class="three">
-            <div class="t-1"></div>
+                                 
+            <div class="three" >
+            <div class="t">
+            <!-- <div class="tooltip">Click Here</div> -->
+            <div class="t-1" onclick="tpAdd(${status.index })"><p>이동수단</p></div> 
+            
+            
                 <div class="t-2" id="tp_${status.index }" >
-                     <input type="checkbox" id="sneakers_${status.index }" name="tp" value="sneakers" /><label><img src="/resources/imgs/sneakers.png"></label>
-                     <input type="checkbox" id="bus_${status.index }" name="tp" value="bus" /><label><img src="/resources/imgs/bus.png"></label>
-                     <input type="checkbox" id="train_${status.index }" name="tp" value="train" /><label><img src="/resources/imgs/train.png"></label>
-                     <br>
-                     <input type="checkbox" id="car_${status.index }" name="tp" value="car" /><label><img src="/resources/imgs/car.png"></label>
-                      <input type="checkbox" id="taxi_${status.index }" name="tp" value="taxi" /><label><img src="/resources/imgs/taxi.png"></label>
-                     <input type="checkbox" id="bike_${status.index }" name="tp" value="bike" /><label><img src="/resources/imgs/bike.png"></label>
-                     <input type="checkbox" id="scooter_${status.index }" name="tp" value="scooter" /><label><img src="/resources/imgs/scooter.png"></label>
+                <ul>
+                     <li class="b"><label><input type="checkbox" id="sneakers_${status.index }" name="tp" value="sneakers" /><img src="/resources/imgs/sneakers.png">도보</label></li>
+                      <li class="b"><label><input type="checkbox" id="bus_${status.index }" name="tp" value="bus" /><img src="/resources/imgs/bus.png">버스</label></li>
+                     <li class="a"> <label><input type="checkbox" id="train_${status.index }" name="tp" value="train" /><img src="/resources/imgs/train.png">지하철</label></li>
+                     <li class="a"><label><input type="checkbox" id="car_${status.index }" name="tp" value="car" /><img src="/resources/imgs/car.png">자동차</label></li>
+                      <li class="b"> <label><input type="checkbox" id="taxi_${status.index }" name="tp" value="taxi" /><img src="/resources/imgs/taxi.png">택시</label></li>
+                      <li class="a"><label><input type="checkbox" id="bike_${status.index }" name="tp" value="bike" /><img src="/resources/imgs/bike.png">자전거</label></li>
+                      <li class="a"><label><input type="checkbox" id="scooter_${status.index }" name="tp" value="scooter" /><img src="/resources/imgs/scooter.png">스쿠터</label></li>
+               </ul>
+               </div>
                </div>
 
             </div>
          
           </div>
+          <div class="down">
+          <button type="button" id="b_${status.index }" onclick="del(${status.index })">삭제</button></div>
       </div>
       
    </c:forEach>
    
-   <div class="middle">
-          <div class="img_box"></div>
-      </div>
    
-  <div id="bottom">
+   <div class="img_box"></div>      
+      
+   
+ <div id="bottom">
          공개 범위 
-         <input type="radio" name="pNum" value="-1" checked="checked">  전체공개
-         <input type="radio" name="pNum" value="-2">  비공개
-         <input type="radio" name="pNum" value="${session.id }">  맞팔공개
+         <input type="radio" id="pNum0" name="pNum" value="-1" checked="checked">  전체공개
+         <input type="radio" id="pNum1" name="pNum" value="${session.id }">  이웃공개
+         <input type="radio" id="pNum2" name="pNum" value="-2">  비공개
+         
       </div>   
    
 </div>
 
-<div class="button">
-   <button class="raise" id="bModify" type="button">완료</button>
+   <div class=button>
+   <div class="upload"  style="float:left">   
    <button class="raise" id="bImgUpload" type="button">이미지 업로드</button>
+</div> 
+   <div class="upload" style="float:right">
+   <button class="raise" id="bModify" type="button">작성</button>
 </div>   
+      </div>
 
 </form>
+
 
 
 
@@ -218,13 +252,13 @@
       } */
       switch(pNum){
       case -1:
-         pNum0.checked = true;
+         pNum0.checked = "checked";
          break;
       case -2:
-         pNum1.checked = true;
+         pNum1.checked = "checked";
          break;
       default:
-         pNum2.checked = true;
+         pNum2.checked = "checked";
          break;
       }
 
@@ -245,7 +279,7 @@
          obj.style.height = (12 + obj.scrollHeight) + "px";
       }
       
-      
+    
       
    </script>
 

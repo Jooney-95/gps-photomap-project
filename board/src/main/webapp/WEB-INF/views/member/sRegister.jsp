@@ -18,17 +18,9 @@
 <div id="header">
  
   <div class="logo">
-    <a href="/board/listPageSearch?num=1">SAMPLE</a>
+    <a href="/board/listPageSearch?num=1">Plus+</a>
   </div>
   
-<div class="wrap">
-   <div class="search">
-      <input type="text" class="searchTerm" placeholder="어떤 곳을 찾으시나요?">
-      <button type="submit" class="searchButton">
-        <i class="fa fa-search"></i>
-     </button>
-   </div>
-</div>
    
 </div>
 
@@ -83,13 +75,14 @@
      
      <div class="info">
        <i class="far fa-envelope fa-lg"></i>
-       <input type="email" id="email" name="mEmail" placeholder="이메일">@
+       <input type="hidden" id="mEmail" name="mEmail" >
+       <input type="email" id="email" placeholder="이메일">@
        <input class="" id="email2" type="email" class="box">
 
       <select id="emailSelection" name="emailSelection">
          <option value="1" selected="selected">직접입력</option>
          <option value="naver.com">naver.com</option>
-         <option value="naver.com">daum.com</option>
+         <option value="daum.net">daum.net</option>
          <option value="gmail.com">gmail.com</option>
          <option value="hanmail.net">hanmail.net</option>
       </select>
@@ -133,6 +126,8 @@
       var id = document.getElementById("id");
       var idMsg = document.getElementById("idMsg");
       var email = document.getElementById("email");
+      var email2 = document.getElementById("email2");
+      var mEmail = document.getElementById("mEmail");
       var pw = document.getElementById("pw");
       var pwRepeat = document.getElementById("pwRepeat");
       var pwConfirm = document.getElementById("pwConfirm");
@@ -146,13 +141,18 @@
       bNext.addEventListener('click', function(event) {
          if (nMsg.value == "check") {
             if (idMsg.value == "check") {
-               if (email.value.trim() != "") {
+               if (email.value.trim() != "" && email2.value.trim() != "") {
+                  mEmail.value = email.value + "@" + email2.value;
                   if (pw.value.trim() != "") {
-                     if (pwRepeat.value == pw.value) {
-                        document.getElementById("f").submit();
-                     } else {
-                        alert("비밀번호가 다릅니다.");
-                        pwRepeat.focus();
+                     if (regTypePW.test(pw.value)){
+                        if (pwRepeat.value == pw.value) {
+                           document.getElementById("f").submit();
+                        } else {
+                           alert("비밀번호가 다릅니다.");
+                           pwRepeat.focus();
+                        }
+                     } else{
+                        alert("비밀번호 양식을 맞춰주세요.");
                      }
                   } else {
                      alert("비밀번호를 입력해주세요");

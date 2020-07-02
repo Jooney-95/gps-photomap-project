@@ -214,12 +214,30 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.9.6</version>
 		</dependency>
-		
+
 		<dependency>
-	<groupId>com.google.code.gson</groupId>
-	 <artifactId>gson</artifactId>
-	 <version>2.8.0</version>
-</dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.0</version>
+		</dependency>
+
+
+
+
+
+		<dependency>
+
+			<groupId>org.apache.tika</groupId>
+
+			<artifactId>tika-parsers</artifactId>
+
+			<version>1.18</version>
+
+		</dependency>
+
+
+
+
 
 	</dependencies>
 	<build>

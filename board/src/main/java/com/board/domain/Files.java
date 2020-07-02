@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.tika.Tika;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.drew.imaging.jpeg.JpegMetadataReader;
@@ -28,14 +29,14 @@ public class Files {
 	private int i = 0;
 	private int fBno = 0;
 	private int userID = 0;
-	
+
 	private List<MultipartFile> files = null;
 	private String latitude[];
 	private String longitude[];
 	private String timeView[];
 	private String path[];
 	private String fileName[];
-	
+
 	private List<FileVO> fileVOList = new ArrayList<FileVO>();
 
 	SimpleDateFormat formatView = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -44,7 +45,7 @@ public class Files {
 	public HashMap<String, Object> setFiles(List<MultipartFile> filesList, int fileBno, int userID) throws Exception {
 		this.files = filesList;
 		this.userID = userID;
-		// �뙆�씪 �닔 �꽕�젙
+		// 뙆 씪 닔 꽕 젙
 		SIZE = filesList.size();
 		fBno = fileBno;
 
@@ -58,11 +59,11 @@ public class Files {
 
 		return fileVOSet();
 	}
-	
+
 	public HashMap<String, Object> imgUpload(List<MultipartFile> filesList, int userID) throws Exception {
 		this.files = filesList;
 		this.userID = userID;
-		// �뙆�씪 �닔 �꽕�젙
+		// 뙆 씪 닔 꽕 젙
 		SIZE = filesList.size();
 
 		latitude = new String[SIZE];
@@ -80,7 +81,7 @@ public class Files {
 		// TODO Auto-generated method stub
 		FileVO[] fileVO = new FileVO[SIZE];
 		for (int j = 0; j < SIZE; j++) {
-			if(fileName[j] == null) {
+			if (fileName[j] == null) {
 				break;
 			}
 			fileVO[j] = new FileVO();
@@ -114,25 +115,21 @@ public class Files {
 	private void fileWirteEXIF(List<MultipartFile> multipart) throws Exception {
 
 		for (MultipartFile mF : multipart) {
-			String originalName = mF.getOriginalFilename().toLowerCase();
-			if (originalName.endsWith(".jpg") || originalName.endsWith(".jpeg")) {
-				String saveFileName = getRandomString();
-				fileWrite(mF, saveFileName);
-				File convFile = new File(saveFileName);
-				mF.transferTo(convFile);
-				fileEXIF(convFile, saveFileName);
-			} else {
-				System.out.println("jpg,jpeg 만 업로드 가능");
-			}
-		}
 
+			String saveFileName = getRandomString();
+			fileWrite(mF, saveFileName);
+			File convFile = new File(saveFileName);
+			mF.transferTo(convFile);
+			fileEXIF(convFile, saveFileName);
+		}
 	}
 
 	private void fileEXIF(File file, String saveFileName) throws JpegProcessingException {
 		try {
-			
-			String extension = FilenameUtils.getExtension(file.getPath());
-			if (extension.equals("jpg") || extension.equals("jpeg")) {
+
+			String mimeType = new Tika().detect(file);
+			System.out.println("확장자 : " + mimeType);
+			if (mimeType.equals("image/jpeg")) {
 				Metadata metadata = JpegMetadataReader.readMetadata(file);
 				GpsDirectory gpsDirectory = metadata.getDirectory(GpsDirectory.class);
 				ExifSubIFDDirectory directory = metadata.getDirectory(ExifSubIFDDirectory.class);
@@ -144,6 +141,8 @@ public class Files {
 						fView = formatView.format(date);
 						timeView[i] = fView;
 
+					} else {
+						timeView[i] = "";
 					}
 				} else {
 					timeView[i] = "";
@@ -175,7 +174,8 @@ public class Files {
 		}
 	}
 
-	public FileVO[] modifyFile(String[] str_id, String[] latitude, String[] longitude, String[] time, String[] content) {
+	public FileVO[] modifyFile(String[] str_id, String[] latitude, String[] longitude, String[] time,
+			String[] content) {
 		// TODO Auto-generated method stub
 		int size = str_id.length;
 
@@ -200,7 +200,7 @@ public class Files {
 	}
 
 	public String getRandomString() {
-		
+
 		String fileName;
 		String saveFileName = UUID.randomUUID().toString().replaceAll("-", "") + ".jpg";
 
@@ -220,10 +220,10 @@ public class Files {
 	public FileVO[] writeClick(int fileBno, String[] id, String[] lat, String[] lon, String[] time, String[] content) {
 		// TODO Auto-generated method stub
 		int size = id.length;
-		
+
 		FileVO[] modifyVO = new FileVO[size];
 		for (int j = 0; j < size; j++) {
-			if(id[j] != "") {
+			if (id[j] != "") {
 				modifyVO[j] = new FileVO();
 				modifyVO[j].setFileBno(fileBno);
 				modifyVO[j].setId(Integer.parseInt(id[j]));

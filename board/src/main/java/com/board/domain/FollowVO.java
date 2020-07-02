@@ -1,12 +1,21 @@
 package com.board.domain;
 
+import java.util.Date;
+
 public class FollowVO {
 
 	private int id;
 	private int userID;
 	private int following;
 	private int fforf;
+	private Date folDate;
 	
+	public Date getFolDate() {
+		return folDate;
+	}
+	public void setFolDate(Date folDate) {
+		this.folDate = folDate;
+	}
 	public int getId() {
 		return id;
 	}

@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+button:focus { outline:none; }
+
 *,
 *:before,
 *:after {
@@ -33,24 +36,36 @@ body {
 
 /*/////////// ΰ //////////////*/
 .logo {
-  float: left;/*         */
-  padding: 30px 0 20px;/* ΰ    ġ*/
+  float: left;
+  padding: 25px 0 0 10px;
 }
 .logo a {
   color: #fff;
-  font-size: 28px;
+  font-size: 40px;
   display: block;
-  padding: 0 0 0 20px;
-  text-decoration: none; /* ؽ Ʈ          */
+  padding: 0 0 0px 20px;
+  text-decoration: none; 
+  font-family: 'Fredoka One', cursive;
 }
 /*///////////////////////////*/
 
 
 /*/////////////// ˻ â/////////////////*/
 .search {
-  width: 100%;
+  width: 500px;
   position: relative;
   display: flex;
+}
+
+.ss{
+  width:100px;
+  border: 3px solid #10b27d;
+  padding: 10px;
+  height: 50px;
+  border-radius: 5px;
+  color: #9dbfaf;
+  margin-right:5px;
+  cursor: pointer;
 }
 
 .searchTerm {
@@ -130,6 +145,7 @@ body {
   width: 80px;
   margin-top:6px;
   text-align:center;
+  cursor: pointer;
 }
 
 .profile img{
@@ -143,18 +159,55 @@ body {
 #writebutton{
   display: inline-block;
   vertical-align: middle;
-  width: 80px;
-  height:80px;
+  width: 50px;
+  height:50px;
   text-align:center;
   float:right;
+  margin-top:15px;
 }
 
-#writebutton img{
-   width:52px;
-   height:52px;
-   padding: 6px;
-   border: 2px solid #10b27d;
-   border-radius: 77%;
-   margin-top:15px;
+#writebutton i{
+   margin:0 auto;
+   font-size:35px;
+   margin-top:7px;
+   color:#10b27d;
+}
+#writebutton i:hover{
+      color:#fff;
 }
 /*////////////////////*/
+
+.pop{
+   width:140px;
+   height:100px;
+   background:#fff;
+    margin-left:89%;
+   margin-top:100px;
+   border: 1px solid #fff;
+    border-radius: 10px;
+    text-align:center;
+    box-shadow: 5px 5px 5px #dddddd;
+}
+.pop div{
+   width:140px;
+   height:50px;
+   text-align:center;
+   padding-top:15px;
+   font-size:15px;
+   border: 1px solid #fff;
+    border-radius: 10px;
+}
+.pop div:hover{
+      background:#f4f1e8;
+}
+
+.pop a{
+   text-decoration:none;
+    color:#dddddd;
+}
+.pop a:hover{
+   color:#000;
+}
+.pop i{
+   color:#fdb330;
+}

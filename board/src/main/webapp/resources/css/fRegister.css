@@ -1,11 +1,5 @@
 @charset "UTF-8";
-
-
-
-
-
-
-
+button:focus { outline:none; }
 
 
 body{
@@ -19,23 +13,25 @@ form{
    display: block;
    border:1px solid #f8f8f8;
    border-radius:10px;
-   text-align:left;
+   
    margin-top:30px;/*헤더와멀게하기위해*/
    width:100%;
+   
    
 }
 
 .register{
    
    border-radius:10px;
-   width:1000px;
-   height:550px;
+   width:700px;
+   height:370px;
    text-align:center;
    margin:0 auto;
    -webkit-box-shadow: 10px 10px 2px -4px#f8f8f8;
     -moz-box-shadow: 10px 10px 2px -4px #f8f8f8;
     box-shadow: 10px 10px 2px -4px #f8f8f8;
     background:#fff;
+    margin-bottom:40px;
 }
 
 
@@ -45,13 +41,14 @@ form{
 .top{
    text-align:center;
    font-weight:bold;
-   padding:4px;
+   padding-top:20px;
+   padding-bottom:10px;
    
    
 }
 
 p{
-   font-size:25px;
+   font-size:20px;
    color:#4c4c4c;
    text-align:center;
    font-weight:bold;
@@ -66,19 +63,22 @@ p{
 /*//////////가운데/////////*/
 .middle{
    width:800px;
-   margin-top:4px ;
-   height:330px;
+   /*margin-top:25px ;*/
    text-align:left;
    display:inline-block;
+   padding-left:50px;
   
    
 }
 
 .info{ 
-   margin-bottom:10px; /*동의란과의간격주기*/
+   margin-bottom:7px; /*동의란과의간격주기*/
    font-size:15px;
+   
 }
-
+label{
+   cursor:pointer;
+}
 
 .info a {
   display: inline-block;
@@ -168,9 +168,9 @@ margin:0px 10px;/*체크박스와글씨간격*/
 
 /*//////// 버튼 ///////////*/
 .low{
-   width:300px;
+   width:265px;
    height:65px;
-   margin-top:30px;
+  /* margin-top:10px;*/
    text-align:center;
    display:inline-block;
    padding:10px;
@@ -180,23 +180,22 @@ button{
     transition: 0.25s;
 }
 .low button{
-  width:100px;
-   height:50px;
+    width:70px;
+   height:40px;
    border:none;
-   background-color:#f9f7f2;
-   border-bottom: 5px solid #eee9d9;
-   text-shadow: 0px -2px #eee9d9;
+   background-color:#f8f8f8;
+   border-bottom: 5px solid #eee;
    color:#000;
    -webkit-transition: 0.25s;
-   
 
 }
    
 .low button:hover{
-   transform: translate(0px,5px);
-   -webkit-transform: translate(0px,5px);
-   border-bottom: 1px solid #eee9d9;
+    transform: translate(0px,5px);
+    -webkit-transform: translate(0px,5px);
+   border-bottom: 1px solid #eee;
    cursor:pointer;
+   -webkit-transition: 0.25s;
    
    
 

@@ -16,17 +16,10 @@
 <div id="header">
  
   <div class="logo">
-    <a href="/board/listPageSearch?num=1">SAMPLE</a>
+    <a href="/board/listPageSearch?num=1">Plus+</a>
   </div>
   
-<div class="wrap">
-   <div class="search">
-      <input type="text" class="searchTerm" placeholder="어떤 곳을 찾으시나요?">
-      <button type="submit" class="searchButton">
-        <i class="fa fa-search"></i>
-     </button>
-   </div>
-</div>
+
    
 </div>
 
@@ -46,22 +39,28 @@
     
     
     <div class="info">
-      
-      <input id="ch1" type="checkbox">이용약관 동의 (필수)    
+      <label>
+      <input id="ch1" type="checkbox">이용약관 동의 (필수)  </label>  
       <a href="#pop01"><i class="fas fa-info-circle"></i></a>
       
    </div>
    <div class="info">
-      <input id="ch2" type="checkbox">개인정보 수집 및 이용 동의 (필수)
+   <label>
+      <input id="ch2" type="checkbox">개인정보 수집 및 이용 동의 (필수)</label>
       <a href="#pop02"><i class="fas fa-info-circle"></i></a>
+   
    </div>
    <div class="info">
-      <input id="ch3" type="checkbox">위치 정보 동의 (필수)
+   <label>
+      <input id="ch3" type="checkbox">위치 정보 동의 (필수)</label>
       <a href="#pop03"><i class="fas fa-info-circle"></i></a>   
+   
    </div>
    <div class="info">
-      <input type="checkbox">이메일 및 광고 홍보 동의 (선택)
+   <label>
+      <input type="checkbox">이메일 및 광고 홍보 동의 (선택)</label>
       <a href="#pop04"><i class="fas fa-info-circle"></i></a>
+ 
    </div>
 
 
