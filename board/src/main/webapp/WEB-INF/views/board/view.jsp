@@ -60,10 +60,11 @@
             </div>
 
             </c:if>
-            
+            <div id="rr">
             <c:if test="${session == null }"> <!-- 로그인 안했을때 -->
                 <a href="/member/login"><img width="50" height="50" src="/resources/imgs/p1.png"></a>
             </c:if>
+            </div>
       </div>
 <div class="pop" id="loginPopup" style="display:none">               
                 <div class="pi"><a href="/member/myPage?num=1&userID=${session.id }"><i class="fas fa-user-cog"></i>  마이페이지</a></div>

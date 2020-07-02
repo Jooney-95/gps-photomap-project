@@ -73,7 +73,7 @@
        
     </div>
      
-     <div class="info">
+     <div class="infos">
        <i class="far fa-envelope fa-lg"></i>
        <input type="hidden" id="mEmail" name="mEmail" >
        <input type="email" id="email" placeholder="이메일">@
