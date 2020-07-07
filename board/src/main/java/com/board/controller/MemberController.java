@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.board.domain.BoardVO;
 import com.board.domain.FileVO;
 import com.board.domain.FollowVO;
+import com.board.domain.LikeImgVO;
 import com.board.domain.MemberVO;
 import com.board.domain.Page;
 import com.board.service.BoardService;
@@ -361,21 +362,27 @@ public class MemberController {
 
       List<FileVO> fList = new ArrayList<FileVO>();
       List<ArrayList<FileVO>> fileList = new ArrayList<ArrayList<FileVO>>();
+      List<LikeImgVO> likeImgVO = null;
+      List<ArrayList<LikeImgVO>> likeImgVOList = new ArrayList<ArrayList<LikeImgVO>>();
 
       if (list != null) {
          // 占쏙옙 占쏙옙호占쏙옙 占쌔댐옙占싹댐옙 占싱뱄옙占쏙옙 占쌨아울옙占쏙옙
          for (BoardVO vo : list) {
             fList = fileService.viewFile(vo.getBno());
             fileList.add((ArrayList<FileVO>) fList);
+            likeImgVO = fileService.selectLikeImg(vo.getBno());
+            likeImgVOList.add((ArrayList<LikeImgVO>) likeImgVO);
          }
          Gson gson = new Gson();
          String jsonList = gson.toJson(list);
          String jsonFileList = gson.toJson(fileList);
          String jsonPage = gson.toJson(page);
+         String jsonLikeImg = gson.toJson(likeImgVOList);
 
          data.put("board", jsonList);
          data.put("file", jsonFileList);
          data.put("page", jsonPage);
+         data.put("likeImg", jsonLikeImg);
 
          return data;
 

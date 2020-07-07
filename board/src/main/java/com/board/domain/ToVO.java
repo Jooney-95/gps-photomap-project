@@ -69,6 +69,24 @@ public class ToVO {
 
 		return fileMap;
 	}
+
+	public HashMap<String, Object> likeImgVO(String[] likeImgs, int fileBno) {
+		// TODO Auto-generated method stub
+		List<LikeImgVO> likeImgVOList = new ArrayList<LikeImgVO>();
+		LikeImgVO[] likeImgVO = new LikeImgVO[likeImgs.length];
+		
+		for (int i = 0; i < likeImgs.length; i++) {
+			likeImgVO[i] = new LikeImgVO();
+			likeImgVO[i].setImgBno(Integer.parseInt(likeImgs[i]));
+			likeImgVO[i].setFileBno(fileBno);
+			likeImgVOList.add(likeImgVO[i]);
+		}
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("likeImgVOList", likeImgVOList);
+		
+		return map;
+	}
 	
 
 	

@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.board.domain.FileVO;
 import com.board.domain.Files;
+import com.board.domain.LikeImgVO;
 
 @Repository
 public class FileDAOImpl implements FileDAO {
@@ -66,9 +67,18 @@ public class FileDAOImpl implements FileDAO {
 	}
 
 	@Override
-	public List<FileVO> imgSelect(int userID) throws Exception {
+	public List<FileVO> writeFile(int userID) throws Exception {
 		// TODO Auto-generated method stub
-		return sql.selectList(namespace + ".imgSelect", userID);
+		return sql.selectList(namespace + ".writeFile", userID);
+	}
+	
+	@Override
+	public List<FileVO> modifyFile(int userID, int bno) throws Exception {
+		// TODO Auto-generated method stub
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("userID", userID);
+		map.put("bno", bno);
+		return sql.selectList(namespace + ".modifyFile", map);
 	}
 
 	@Override
@@ -81,6 +91,25 @@ public class FileDAOImpl implements FileDAO {
 	public void writeClick(HashMap<String, Object> fileMap) throws Exception {
 		// TODO Auto-generated method stub
 		sql.update(namespace + ".writeClick", fileMap);
+	}
+
+	@Override
+	public void likeImgs(HashMap<String, Object> likeImgMap) throws Exception {
+		// TODO Auto-generated method stub
+	
+		sql.insert(namespace + ".likeImgs", likeImgMap);
+	}
+
+	@Override
+	public void deleteLikeImgs(int fileBno) throws Exception {
+		// TODO Auto-generated method stub
+		sql.delete(namespace + ".deleteLikeImgs", fileBno);
+	}
+
+	@Override
+	public List<LikeImgVO> selectLikeImg(int fileBno) throws Exception {
+		// TODO Auto-generated method stub
+		return sql.selectList(namespace + ".selectLikeImg", fileBno);
 	}
 
 }

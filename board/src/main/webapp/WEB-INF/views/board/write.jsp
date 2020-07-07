@@ -88,9 +88,9 @@ pageEncoding="UTF-8"%>
       <p>이미지는 최대 50개까지 선택 가능합니다.</p>
       </div>
       
-      <div class="m" ></div>
+      
 
-      <div class="img_box"></div>
+      <div class="img_box"><div class="m" ></div></div>
       
       <div id="bottom">
          공개 범위 

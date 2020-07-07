@@ -4,30 +4,13 @@ var member;
 var page;
 var following;
 var pageNumber;
-
-// color:#feec77;
-// text-shadow: 0 0 24px;
+var likeImg;
 
 window.onload = function() {
    sessionStorage.setItem("nav", "list");
+   getMyPageList(1);
    setNav(1);
    unSetNav(1);
-   /*
-    * switch (sessionStorage.getItem("nav")) { case "list": $(".myPageNav > a >
-    * i")[0].style.color = "#feec77"; $(".myPageNav > a >
-    * i")[0].style.textShadow = "0 0 24px"; break; case "fforf": $(".myPageNav >
-    * a > i")[1].style.color = "#feec77"; $(".myPageNav > a >
-    * i")[1].style.textShadow = "0 0 24px"; break; case "fol": if
-    * ($("#userID").val() == "") { sessionStorage.setItem("nav", "list");
-    * $(".myPageNav > a > i")[0].style.color = "#feec77"; $(".myPageNav > a >
-    * i")[0].style.textShadow = "0 0 24px"; } else { $(".myPageNav > a >
-    * i")[2].style.color = "#feec77"; $(".myPageNav > a >
-    * i")[2].style.textShadow = "0 0 24px"; } break; default:
-    * sessionStorage.setItem("nav", "list"); $(".myPageNav > a >
-    * i")[0].style.color = "#feec77"; $(".myPageNav > a >
-    * i")[0].style.textShadow = "0 0 24px"; }
-    */
-   getMyPageList(1);
    followCheck();
 }
 
@@ -164,9 +147,10 @@ function getMyPageList(pageNum) {
          switch (sessionStorage.getItem("nav")) {
          case "list":
             if (Object.keys(data).includes('board')) {
+               page = JSON.parse(data.page);
                list = JSON.parse(data.board);
                file = JSON.parse(data.file);
-               page = JSON.parse(data.page);
+               likeImg = JSON.parse(data.likeImg);
                pageNumber = page.num;
                addListMyPage(data);
             }
@@ -201,24 +185,35 @@ function addListMyPage(data) {
    var count = 0;
    for (var i = 0; i < list.length; i++) {
       var innerList;
-      innerList = '<div id="table"><div id="up"<div id="right"><ul><!--  날짜 or 시간    --><li><div class="r-1"><div id="date_'
-            + list[i].bno
-            + '" class="date">'
-            + getTimeStamp(list[i].regDate)
-            + '</div></div></li><li><!-- 아이디 & 공감수 & 조회수 & 공개 범위 --><div class="r-2"><!-- 제목 --><div id="title" title="'
-            + list[i].title
-            + '"><i class="fas fa-caret-right fa-2x"></i> <a href="/board/view?bno='
-            + list[i].bno
-            + '">'
-            + textOverCut(list[i].title, "title")
-            + '</a></div><div class="pNum" id="pNum_'
-            + list[i].bno
-            + '"></div><div id ="likeCnt"><i class="far fa-thumbs-up"></i>'
-            + list[i].likeCnt
-            + '</div></div></li><li></ul><div id="r-3"><div id="viewCnt">조회수 '
-            + list[i].viewCnt
-            + '회</div></div></div><div class="downimg" id="img_'
-            + list[i].bno + '"></div></div>';
+
+      innerList = '  <div id="table">';
+      innerList += '    <div id="up">';
+      innerList += '       <div id="right">';
+      innerList += '          <ul>';
+      innerList += '             <!--  날짜 or 시간    -->';
+      innerList += '             <li>';
+      innerList += '                <div class="r-1">';
+      innerList += '                   <div id="date_' + list[i].bno + '" class="date">' + getTimeStamp(list[i].regDate) + '</div>';
+      innerList += '                </div>';
+      innerList += '             </li>';
+      innerList += '             <!-- 아이디 & 공감수 & 조회수 & 공개 범위 -->';
+      innerList += '             <li>';
+      innerList += '                <!-- 제목 -->';
+      innerList += '                <div class="r-2">';
+      innerList += '                   <div id="title" title="' + list[i].title + '"><i class="fas fa-caret-right fa-2x"></i> <a href="/board/view?bno=' + list[i].bno + '">' + textOverCut(list[i].title, "title") + '</a></div>';
+      innerList += '                   <div class="pNum" id="pNum_' + list[i].bno + '"></div>';
+      innerList += '                   <div id ="likeCnt"><i class="far fa-thumbs-up"></i>' + list[i].likeCnt + '</div>';
+      innerList += '                </div>';
+      innerList += '             </li>';
+      innerList += '             <li>';
+      innerList += '          </ul>';
+      innerList += '          <div id="r-3">';
+      innerList += '             <div id="viewCnt">조회수 ' + list[i].viewCnt + '회</div>';
+      innerList += '          </div>';
+      innerList += '       </div>';
+      innerList += '    <div class="downimg" id="img_' + list[i].bno + '"></div>';
+      innerList += ' </div>';
+
       $(".in").append(innerList);
       getPNum(list[i].pNum, list[i].bno);
       getImg(list[i].bno, count);
@@ -378,20 +373,40 @@ function getPNum(pNum, bno) {
 }
 
 function getImg(bno, count) {
+   var iCount;
+   var imgFlag = true;
    for (var i = 0; i < 4; i++) {
-      if (file[count][i] != undefined) {
-         $("#img_" + bno).append(
-               '<a href="/board/view?bno=' + bno
-               + '"><img width="100" height="100" id="img_' + bno
-               + '_' + i + '" alt="" src=' + file[count][i].path
-               + '></a>');
+      iCount = i;
+      if (likeImg[count][i] != undefined) {
+         var imgObj = file[count].filter(function (obj) { return obj.id == likeImg[count][i].imgBno });
+         printImg(bno, i, imgObj[0].path)
+
       } else {
-         break;
+         var j = 0;
+         while (imgFlag) {
+            if ((file[count][j] != undefined) && (likeImg[count].filter(function (obj) { return obj.imgBno == file[count][j].id })[0] == undefined)) {
+               printImg(bno, iCount, file[count][j].path)
+               iCount++;
+            }
+            j++;
+            if (j >= file[count].length || iCount >= 4) {
+               imgFlag = false;
+            }
+         }
       }
-      if(file[count].length > 4){
-         console.log("+"+ (file[count].length - 4));
-      }
+
    }
+   if (file[count].length > 4) {
+      $("#img_" + bno).append("+" + (file[count].length - 4));
+   }
+}
+
+function printImg(bno, index, path){
+   var imgInner;
+   imgInner = '   <a href="/board/view?bno=' + bno + '">';
+   imgInner += '     <img width="100" height="100" id="img_' + bno + '_' + index + '" alt="" src=' + path + '>';
+   imgInner += '  </a>';
+   $("#img_" + bno).append(imgInner);
 }
 
 function loginPopup() {

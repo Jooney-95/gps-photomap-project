@@ -3,6 +3,7 @@ var file;
 var member;
 var page;
 var pageNumber;
+var likeImg;
 
 window.onload = function () {
    switch (sessionStorage.getItem("flag")) {
@@ -79,6 +80,7 @@ function getPageList(pageNum) {
             file = JSON.parse(data.file);
             member = JSON.parse(data.member);
             page = JSON.parse(data.page);
+            likeImg = JSON.parse(data.likeImg);
             pageNumber = page.num;
             addListPage(data)
          }
@@ -222,23 +224,40 @@ function getMember(bno, count) {
 }
 
 function getImg(bno, count) {
+   var iCount;
+   var imgFlag = true;
    for (var i = 0; i < 4; i++) {
-      if (file[count][i] != undefined) {
-         var imgInner;
-
-         imgInner = '   <a href="/board/view?bno=' + bno + '">';
-         imgInner += '     <img width="100" height="100" id="img_' + bno + '_' + i + '" alt="" src=' + file[count][i].path + '>';
-         imgInner += '  </a>';
-
-         $("#img_" + bno).append(imgInner);
+      iCount = i;
+      if (likeImg[count][i] != undefined) {
+         var imgObj = file[count].filter(function (obj) { return obj.id == likeImg[count][i].imgBno });
+         printImg(bno, i, imgObj[0].path)
 
       } else {
-         break;
+         var j = 0;
+         while (imgFlag) {
+            if ((file[count][j] != undefined) && (likeImg[count].filter(function (obj) { return obj.imgBno == file[count][j].id })[0] == undefined)) {
+               printImg(bno, iCount, file[count][j].path)
+               iCount++;
+            }
+            j++;
+            if (j >= file[count].length || iCount >= 4) {
+               imgFlag = false;
+            }
+         }
       }
+
    }
    if (file[count].length > 4) {
       $("#img_" + bno).append("+" + (file[count].length - 4));
    }
+}
+
+function printImg(bno, index, path){
+   var imgInner;
+   imgInner = '   <a href="/board/view?bno=' + bno + '">';
+   imgInner += '     <img width="100" height="100" id="img_' + bno + '_' + index + '" alt="" src=' + path + '>';
+   imgInner += '  </a>';
+   $("#img_" + bno).append(imgInner);
 }
 
 function loginPopup() {

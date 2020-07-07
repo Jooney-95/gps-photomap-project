@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.board.domain.BoardVO;
 import com.board.domain.FileVO;
 import com.board.domain.FollowVO;
+import com.board.domain.LikeImgVO;
 import com.board.domain.LikeVO;
 import com.board.domain.MemberVO;
 import com.board.domain.Page;
@@ -66,14 +67,17 @@ public class BoardController {
 
 		List<FileVO> list = null;
 		List<TpVO> tp = null;
+		List<LikeImgVO> likeImg = null;
 
 		list = fileService.viewFile(bno);
 		tp = tpService.viewTp(bno);
+		likeImg = fileService.selectLikeImg(bno);
 
 		model.addAttribute("view", vo);
 		model.addAttribute("list", list);
 		model.addAttribute("tp", tp);
 		model.addAttribute("member", mVo);
+		model.addAttribute("likeImg", likeImg);
 
 	}
 
@@ -82,16 +86,19 @@ public class BoardController {
 	public void getModify(@RequestParam("bno") int bno, Model model) throws Exception {
 
 		BoardVO vo = service.view(bno);
+		
+		List<LikeImgVO> likeImg = null;
+		// List<FileVO> list = null;
+		// List<TpVO> tp = null;
 
-		List<FileVO> list = null;
-		List<TpVO> tp = null;
-
-		list = fileService.viewFile(bno);
-		tp = tpService.viewTp(bno);
+		// list = fileService.viewFile(bno);
+		// tp = tpService.viewTp(bno);
+		likeImg = fileService.selectLikeImg(bno);
 
 		model.addAttribute("view", vo);
-		model.addAttribute("list", list);
-		model.addAttribute("tp", tp);
+		model.addAttribute("likeImg", likeImg);
+		// model.addAttribute("list", list);
+		// model.addAttribute("tp", tp);
 
 	}
 
@@ -175,18 +182,68 @@ public class BoardController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/imgUpload", method = RequestMethod.POST)
-	public String postImgUpload(HttpServletRequest req, MultipartHttpServletRequest request) throws Exception {
+	@RequestMapping(value = "/writeFile", method = RequestMethod.POST)
+	public String postWriteFile(HttpServletRequest req, MultipartHttpServletRequest request) throws Exception {
 		int userID = Integer.parseInt(req.getParameter("userID"));
 		List<MultipartFile> file = request.getFiles("imgFileList");
 
 		fileService.imgUpload(file, userID);
-		List<FileVO> fVo = fileService.imgSelect(userID);
+		List<FileVO> fVo = fileService.writeFile(userID);
 
 		Gson gson = new Gson();
 		String jsonPlace = gson.toJson(fVo);
 
 		return jsonPlace;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/modifyFile", method = RequestMethod.POST)
+	public HashMap<String, Object> postModifyFile(HttpServletRequest req, MultipartHttpServletRequest request) throws Exception {
+		int userID = Integer.parseInt(req.getParameter("userID"));
+		int bno = Integer.parseInt(req.getParameter("bno"));
+		
+		List<MultipartFile> file = request.getFiles("imgFileList");
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+			
+		fileService.imgUpload(file, userID);
+		List<FileVO> fVo = fileService.modifyFile(userID, bno);
+
+		List<TpVO> tp = null;
+		tp = tpService.viewTp(bno);
+
+		Gson gson = new Gson();
+		String JsonFile = gson.toJson(fVo);
+		String JsonTp = gson.toJson(tp);
+
+		map.put("file", JsonFile);
+		map.put("tp", JsonTp);
+
+		return map;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/loadImg", method = RequestMethod.POST)
+	public HashMap<String, Object> getLoadImg(HttpServletRequest req) throws Exception {
+		int userID = Integer.parseInt(req.getParameter("userID"));
+		int bno = Integer.parseInt(req.getParameter("bno"));
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		List<FileVO> fVo = fileService.modifyFile(userID, bno);
+		List<TpVO> tp = tpService.viewTp(bno);
+		List<LikeImgVO> likeImgVO = fileService.selectLikeImg(bno);
+		
+		Gson gson = new Gson();
+		String JsonFile = gson.toJson(fVo);
+		String JsonTp = gson.toJson(tp);
+		String JsonLikeImg = gson.toJson(likeImgVO);
+
+		map.put("file", JsonFile);
+		map.put("tp", JsonTp);
+		map.put("likeImg", JsonLikeImg);
+
+		return map;
 	}
 
 	@ResponseBody
@@ -204,7 +261,7 @@ public class BoardController {
 
 		int fileBno = service.write(boardVO);
 
-		if (del.length > 1) {
+		if (del != null) {
 			fileService.deleteFile(del);
 		}
 
@@ -216,7 +273,13 @@ public class BoardController {
 			String time[] = req.getParameterValues("time");
 			String content[] = req.getParameterValues("content");
 			String tp[] = req.getParameterValues("tp");
-			System.out.println(loc);
+			String likeImgs[] = req.getParameterValues("likeImgs");
+			
+			if(likeImgs != null) {
+				fileService.deleteLikeImgs(fileBno);
+				fileService.likeImgs(toVO.likeImgVO(likeImgs, fileBno));
+			}
+			
 			tpService.reset(id);
 
 			for (int i = 0; i < id.length; i++) {
@@ -230,7 +293,9 @@ public class BoardController {
 			}
 
 			fileService.writeClick(toVO.writeClick(fileBno, id, lat, lon, loc, time, content, size));
-
+			
+			
+			
 			if (id.length > 49) {
 				String del_id[] = new String[id.length - 50];
 				for (int i = 50; i < id.length; i++) {
@@ -260,7 +325,7 @@ public class BoardController {
 
 		service.modify(boardVO);
 
-		if (del.length > 1) {
+		if (del != null) {
 			fileService.deleteFile(del);
 		}
 
@@ -272,8 +337,13 @@ public class BoardController {
 			String time[] = req.getParameterValues("time");
 			String content[] = req.getParameterValues("content");
 			String tp[] = req.getParameterValues("tp");
+			String likeImgs[] = req.getParameterValues("likeImgs");
+			
+			fileService.deleteLikeImgs(bno);
+			if(likeImgs != null) {	
+				fileService.likeImgs(toVO.likeImgVO(likeImgs, bno));
+			}
 
-			tpService.reset(id);
 
 			for (int i = 0; i < id.length; i++) {
 				if (tp[i].length() != 0) {
@@ -313,6 +383,7 @@ public class BoardController {
 
 		List<BoardVO> list = null;
 		
+		
 		if (login != null) {
 			List<FollowVO> fforfList = null;
 
@@ -334,30 +405,37 @@ public class BoardController {
 		List<ArrayList<FileVO>> fileList = new ArrayList<ArrayList<FileVO>>();
 		MemberVO m = new MemberVO();
 		List<MemberVO> mList = new ArrayList<MemberVO>();
-		
+		List<LikeImgVO> likeImgVO = null;
+		List<ArrayList<LikeImgVO>> likeImgVOList = new ArrayList<ArrayList<LikeImgVO>>();
 
 		if (list != null) {
 			// 占쏙옙 占쏙옙호占쏙옙 占쌔댐옙占싹댐옙 占싱뱄옙占쏙옙 占쌨아울옙占쏙옙
 			for (BoardVO vo : list) {
 				fList = fileService.viewFile(vo.getBno());
 				m = memberService.memberVO(vo.getWriter());
+				likeImgVO = fileService.selectLikeImg(vo.getBno());
 				fileList.add((ArrayList<FileVO>) fList);
 				mList.add(m);
+				likeImgVOList.add((ArrayList<LikeImgVO>) likeImgVO);
 			}
 			Gson gson = new Gson();
 			String jsonList = gson.toJson(list);
 			String jsonMList = gson.toJson(mList);
 			String jsonFileList = gson.toJson(fileList);
 			String jsonPage = gson.toJson(page);
+			String jsonLikeImg = gson.toJson(likeImgVOList);
 
 			HashMap<String, Object> data = new HashMap<String, Object>();
 			data.put("board", jsonList);
 			data.put("file", jsonFileList);
 			data.put("member", jsonMList);
 			data.put("page", jsonPage);
+			data.put("likeImg", jsonLikeImg);
 
 			return data;
+			
 		} else {
+			
 			HashMap<String, Object> data = new HashMap<String, Object>();
 			
 			return data;

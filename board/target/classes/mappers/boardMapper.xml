@@ -214,7 +214,18 @@
    </select>
    
    <!-- 파일 불러오기 -->
-   <select id="imgSelect" parameterType="int"
+   <select id="modifyFile" parameterType="hashMap"
+      resultType="com.board.domain.FileVO">
+      select
+      id, fileBno, latitude, longitude, timeView, path, content, place
+      from
+      file_board
+      where userID = #{userID} and fileBno = 0 or userID = #{userID} and fileBno = #{bno}
+      order by timeView
+   </select>
+   
+   <!-- 파일 불러오기 -->
+   <select id="writeFile" parameterType="int"
       resultType="com.board.domain.FileVO">
       select
       id, latitude, longitude, timeView, path
@@ -224,7 +235,7 @@
       order by timeView
    </select>
 
-   <!-- 파일 수정 -->
+   <!-- 파일 수정 
    <update id="modifyFile" parameterType="com.board.domain.FileVO">
       update file_board
       set
@@ -234,7 +245,7 @@
       content = #{content}
       where id = #{id}
    </update>
-   
+   -->
    <!-- 파일 추가 -->   
    <update id="writeClick" parameterType="hashMap">
    <foreach collection="fileVOList" item="item" separator=" ; ">
@@ -278,8 +289,29 @@
       where id = #{del}
    </select>
 
+	<insert id="likeImgs" parameterType="hashMap">
+      insert into
+      likeImg(fileBno, imgBno)
+      values
+      <foreach collection="likeImgVOList" item="item" separator=" , ">
+         (#{item.fileBno}, #{item.imgBno})
+      </foreach>
+	</insert>
+	
+	<delete id="deleteLikeImgs" parameterType="int">
+		delete from
+		likeImg
+		where fileBno = #{fileBno}
+	</delete>
+	
+	<select id="selectLikeImg" parameterType="int" resultType="com.board.domain.LikeImgVO">
+		select id, fileBno, imgBno
+		from likeImg
+		where fileBno = #{fileBno}
+	</select>
+
    <!-- file_board end -->
-   <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+   <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->   
    <!-- reg_board start -->
 
    <!-- 회원가입 -->

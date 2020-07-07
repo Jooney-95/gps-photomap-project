@@ -1,34 +1,47 @@
 var sel_files;
 var selFiles;
-var MAX_W = 300;
-var MAX_H = 300;
-var index;
 var del_files;
+var unloadFlag;
+var likeImgs;
 
+$(document).ready(function () {
+   sel_files = [];
+   selFiles = [];
+   del_files = [];
+   likeImgs = [];
+   unloadFlag = false;
 
-$(document).ready(
-   function () {
-      sel_files = [];
-      selFiles = [];
-      del_files = [-1];
-      index = 0;
+   sessionStorage.clear();
+   localStorage.removeItem("writeImgData");
+   deleteImg();
 
-      $("#input_imgs").on("change", handleImgFileSelect);
-      $(window).bind("beforeunload", function () {
-         delImg();
-      });
+   if (localStorage.getItem("writeImgData") != null) {
+      var writeImgData = JSON.parse(localStorage.getItem("writeImgData"));
+      printImgBox(writeImgData);
+   }
 
-      function handleBrowserCloseButton(event) {
-         if (($(window).width() - window.event.clientX) < 35
-            && window.event.clientY < 0) {
-            // Call method by Ajax call
-            delImg();
-         }
+   $("#input_imgs").on("change", handleImgFileSelect);
+
+   $(window).bind("beforeunload", function () {
+      if (unloadFlag) {
+         return true;
       }
    });
 
-function delImg() {
-   if ($("input[name='id']").val() != "" && $("input[name='id']").length > 0) {
+   /*
+   function handleBrowserCloseButton(event) {
+      if (($(window).width() - window.event.clientX) < 35
+         && window.event.clientY < 0) {
+         // Call method by Ajax call
+         alert("종료 테스트");
+         deleteImg();
+      }
+   }
+   */
+});
+
+function deleteImg() {
+   if ($("input[name='id']").val() != "") {
       var query = {
          userID: $("#userID").val()
       }
@@ -50,85 +63,58 @@ function delImg() {
 
 
 function handleImgFileSelect(e) {
-   
+   unloadFlag = true;
    var files = e.target.files;
    var filesArr = Array.prototype.slice.call(files);
-   filesArr.forEach(function (f) {
-      console.log(f.type.match('image/jpeg'))
-      if (!f.type.match('image/jpeg')) {
+   for (var i = 0; i < filesArr.length; i++) {
+      //filesArr.forEach(function (f) {
+
+      if (!filesArr[i].type.match('image/jpeg')) {
          alert("jpeg 만 업로드 가능합니다.");
          return;
       }
       console.log(sel_files.length + selFiles.length)
       if (sel_files.length + selFiles.length < 50) {
 
-         if (f.size < 31457280) {
-            sel_files.push(f);
+         if (filesArr[i].size < 31457280) {
+            sel_files.push(filesArr[i]);
 
-
-            var img_html = '  <div class="middle" id="middle_' + index + '" name="imgDiv">';
-            img_html += '        <div class="left">';
-            img_html += '           <ul>';
-            img_html += '              <li>';
-            img_html += '                 <div class="leftone">';
-            img_html += '                    <i class="fas fa-map-marker-alt"></i>';
-            img_html += '                    <input type="hidden" id="id_' + index + '" name="id">';
-            img_html += '                    <input type="text"  id="loc_' + index + '" name="loc">';
-            img_html += '                    <input type="hidden" id="lat_' + index + '" name="lat" />';
-            img_html += '                    <input type="hidden" id="lon_' + index + '" name="lon" />';
-            img_html += '                 </div>';
-            img_html += '              </li>';
-            img_html += '              <li>';
-            img_html += '                 <div class="lefttwo">';
-            img_html += '                    <img id="img_' + index + '" name="filesList" src="" />';
-            img_html += '                 </div>';
-            img_html += '              </li>';
-            img_html += '           </ul>';
-            img_html += '        </div>';
-            img_html += '        <div class="right">';
-            img_html += '           <div class="one">';
-            img_html += '              <input type="text" id="time_' + index + '" name="time" />';
-            img_html += '           </div>';
-            img_html += '           <div class="two">';
-            img_html += '              <textarea style="width:90%" cols="30" rows="5" id="textarea_' + index + '" name="content" ></textarea><br/>';
-            img_html += '           </div>';
-            img_html += '           <div id="three">';
-            img_html += '              <div class="t">';
-            img_html += '                 <div class="t-1" onclick="tpAdd(' + index + ')">';
-            img_html += '                    <p>이동수단</p>';
-            img_html += '                 </div>';
-            img_html += '              <div class="t-2" id="tp_' + index + '" >';
-            img_html += '                 <ul>';
-            img_html += '                    <li class="b"><label><input type="checkbox" id="sneakers_' + index + '" name="tp" value="sneakers" /><img src="/resources/imgs/sneakers.png">도 보</label></li>';
-            img_html += '                    <li class="b"><label><input type="checkbox" id="bus_' + index + '" name="tp" value="bus" /><img src="/resources/imgs/bus.png">버 스</label></li>';
-            img_html += '                    <li class="a"><label><input type="checkbox" id="train_' + index + '" name="tp" value="train" /><img src="/resources/imgs/train.png">지하철</label></li>';
-            img_html += '                    <li class="a"><label><input type="checkbox" id="car_' + index + '" name="tp" value="car" /><img src="/resources/imgs/car.png">자동차</label></li>';
-            img_html += '                    <li class="b"><label><input type="checkbox" id="taxi_' + index + '" name="tp" value="taxi" /><img src="/resources/imgs/taxi.png">택 시</label></li>';
-            img_html += '                    <li class="a"><label><input type="checkbox" id="bike_' + index + '" name="tp" value="bike" /><img src="/resources/imgs/bike.png">자전거</label></li>';
-            img_html += '                    <li class="a"><label><input type="checkbox" id="scooter_' + index + '" name="tp" value="scooter" /><img src="/resources/imgs/scooter.png">스쿠터</label></li>';
-            img_html += '                 </ul>';
-            img_html += '              </div>';
-            img_html += '           </div>';
-            img_html += '        </div>';
-            img_html += '     </div>';
-            img_html += '     <div class="down"><button type="button" id="b_' + index + '" onclick="del(' + index + ')">삭제</button></div>'
-
-            $(".m").remove();
-            $(".img_box").append(img_html);
-
-            index++;
          } else {
 
          }
       } else {
 
       }
-   });
-   imgUpload(sel_files);
+   }
+   uploadImg();
+
 }
 
+$(document).on("change", ":checkbox", function () {
+   console.log("id : " + $(this).attr("id") + "   checked : " + $(this));
+   if (sessionStorage.getItem($(this).attr("id")) == null) {
+      sessionStorage.setItem($(this).attr("id"), "checked");
+   } else {
+      sessionStorage.removeItem($(this).attr("id"));
+   }
+})
 
-function tpAdd(index) {
+$(document).on("keyup", "textarea[name='content']", function () {
+   sessionStorage.setItem($(this).attr("id"), $(this).val());
+})
+
+function getSession() {
+
+   for (var i = 0; i < sessionStorage.length; i++) {
+      if (sessionStorage.key(i).substr(0, 8) == "textarea") {
+         $("#" + sessionStorage.key(i)).val(sessionStorage.getItem(sessionStorage.key(i)));
+      } else {
+         $("#" + sessionStorage.key(i)).attr("checked", "checked");
+      }
+   }
+}
+
+function tpList(index) {
    if (document.querySelector("#tp_" + index).style.display == "none") {
       $("#tp_" + index).css("display", "");
    } else {
@@ -136,28 +122,60 @@ function tpAdd(index) {
    }
 }
 
-function del(index) {
-   // sel_files.splice(index, 1);
-
+function deleteBtn(index) {
    $("#middle_" + index).css("opacity", 0.5);
-   $("#b_" + index).attr("onclick", "undel(" + index + ")");
+   $("#b_" + index).attr("onclick", "unDeleteBtn(" + index + ")");
    $("#b_" + index).html("복원");
 }
 
-function undel(index) {
+function unDeleteBtn(index) {
    $("#middle_" + index).css("opacity", "");
-   $("#b_" + index).attr("onclick", "del(" + index + ")");
+   $("#b_" + index).attr("onclick", "deleteBtn(" + index + ")");
    $("#b_" + index).html("삭제");
 }
 
-function imgUpload(img) {
-console.log(img)
+function selectLikeImg(index) {
+	unloadFlag = true;
+	console.log(likeImgs.indexOf(index))
+	console.log(likeImgs.length)
+	if (likeImgs.indexOf(index) == -1) {
+		if (likeImgs.length < 4) {
+			storageLikeImg(index);
+			console.log("test1")
+		} else {
+			var firstImgBno = likeImgs.shift();
+			deleteStorageLikeImg(firstImgBno);
+			storageLikeImg(index);
+			console.log("test2")
+		}
+	} else {
+		deleteStorageLikeImg(index);
+		console.log("test3")
+	}
+}
+
+function storageLikeImg(imgBno){
+	likeImgs.push(imgBno);
+	sessionStorage.setItem("selectLikeImg_" + imgBno, "fas fa-star");
+	$("#selectLikeImg_" + imgBno).attr("class", "fas fa-star");
+}
+
+function deleteStorageLikeImg(imgBno){
+	if(likeImgs.indexOf(imgBno) != -1){
+		likeImgs.splice(likeImgs.indexOf(imgBno), 1);
+	}
+	sessionStorage.removeItem("selectLikeImg_" + imgBno);
+	$("#selectLikeImg_" + imgBno).attr("class", "far fa-star");
+}
+
+
+function uploadImg() {
    if (sel_files.length > 0) {
       var form = $("#f")[0];
       var formData = new FormData(form);
 
       for (var i = 0; i < sel_files.length; i++) {
-    	 selFiles.push(sel_files[i]);
+         selFiles.push(sel_files[i]);
          formData.append('imgFileList', sel_files[i]);
       }
       formData.append('userID', $("#userID").val());
@@ -168,14 +186,13 @@ console.log(img)
          processData: false,
          contentType: false,
          traditional: true,
-         url: "/board/imgUpload",
+         url: "/board/writeFile",
          dataType: "json",
          data: formData,
          success: function (data) {
-            console.log(data);
-            imgPrint(data);
+            localStorage.setItem("writeImgData", JSON.stringify(data));
+            printImgBox(data);
             sel_files = [];
-            loc = [];
          },
          error: function (request, status, error) {
             alert("code:" + request.status + "\n" + "message:"
@@ -199,6 +216,7 @@ $(document).on(
          var content = [];
          var tp = [];
          var size = 0;
+         unloadFlag = false;
 
          for (var i = 0; i < $("input[name='id']").length; i++) {
             if ($("div[name='imgDiv']")[i].style.opacity == 0.5
@@ -237,14 +255,18 @@ $(document).on(
                content: content,
                del: del_files,
                tp: tp,
-               size: size
+               size: size,
+               likeImgs : likeImgs
             };
+
             $.ajax({
                type: "post",
                url: "/board/writeClick",
                traditional: true,
                data: query,
                success: function (data) {
+                  localStorage.removeItem("writeImgData");
+                  sessionStorage.clear();
                   location.href = data;
                },
                error: function (request, status, error) {
@@ -262,13 +284,67 @@ $(document).on(
       }
    });
 
-function imgPrint(obj) {
-   for(var i = 0; i<obj.length; i++){
-      $("#time_"+i).val(obj[i].timeView);
-      $("#id_"+i).val(obj[i].id);
-      $("#img_"+i).attr("src", obj[i].path);
-      getLoc(obj[i].latitude, obj[i].longitude, i);
+function printImgBox(obj) {
+   $(".img_box").empty();
+   for (var i = 0; i < obj.length; i++) {
+
+      var img_html = '  <div class="middle" id="middle_' + obj[i].id + '" name="imgDiv">';
+      img_html += '		<!-- 대표이미지 설정 아이콘 --><i class="far fa-star" id="selectLikeImg_' + obj[i].id + '" onclick="selectLikeImg(' + obj[i].id + ')"></i>';
+      img_html += '        <div class="left">';
+      img_html += '           <ul>';
+      img_html += '              <li>';
+      img_html += '                 <div class="leftone">';
+      img_html += '                    <i class="fas fa-map-marker-alt"></i>';
+      img_html += '                    <input type="hidden" id="id_' + obj[i].id + '" name="id">';
+      img_html += '                    <input type="text"  id="loc_' + obj[i].id + '" name="loc">';
+      img_html += '                    <input type="hidden" id="lat_' + obj[i].id + '" name="lat" />';
+      img_html += '                    <input type="hidden" id="lon_' + obj[i].id + '" name="lon" />';
+      img_html += '                 </div>';
+      img_html += '              </li>';
+      img_html += '              <li>';
+      img_html += '                 <div class="lefttwo">';
+      img_html += '                    <img id="img_' + obj[i].id + '" name="filesList" src="" />';
+      img_html += '                 </div>';
+      img_html += '              </li>';
+      img_html += '           </ul>';
+      img_html += '        </div>';
+      img_html += '        <div class="right">';
+      img_html += '           <div class="one">';
+      img_html += '              <input type="text" id="time_' + obj[i].id + '" name="time" />';
+      img_html += '           </div>';
+      img_html += '           <div class="two">';
+      img_html += '              <textarea style="width:90%" cols="30" rows="5" id="textarea_' + obj[i].id + '" name="content"></textarea>';
+      img_html += '           </div>';
+      img_html += '           <div id="three">';
+      img_html += '              <div class="t">';
+      img_html += '                 <div class="t-1" onclick="tpAdd(' + obj[i].id + ')">';
+      img_html += '                    <p>이동수단</p>';
+      img_html += '                 </div>';
+      img_html += '              <div class="t-2" id="tp_' + i + '" >';
+      img_html += '                 <ul>';
+      img_html += '                    <li class="b"><label><input type="checkbox" id="sneakers_' + obj[i].id + '" name="tp" value="sneakers" /><img src="/resources/imgs/sneakers.png">도 보</label></li>';
+      img_html += '                    <li class="b"><label><input type="checkbox" id="bus_' + obj[i].id + '" name="tp" value="bus" /><img src="/resources/imgs/bus.png">버 스</label></li>';
+      img_html += '                    <li class="a"><label><input type="checkbox" id="train_' + obj[i].id + '" name="tp" value="train" /><img src="/resources/imgs/train.png">지하철</label></li>';
+      img_html += '                    <li class="a"><label><input type="checkbox" id="car_' + obj[i].id + '" name="tp" value="car" /><img src="/resources/imgs/car.png">자동차</label></li>';
+      img_html += '                    <li class="b"><label><input type="checkbox" id="taxi_' + obj[i].id + '" name="tp" value="taxi" /><img src="/resources/imgs/taxi.png">택 시</label></li>';
+      img_html += '                    <li class="a"><label><input type="checkbox" id="bike_' + obj[i].id + '" name="tp" value="bike" /><img src="/resources/imgs/bike.png">자전거</label></li>';
+      img_html += '                    <li class="a"><label><input type="checkbox" id="scooter_' + obj[i].id + '" name="tp" value="scooter" /><img src="/resources/imgs/scooter.png">스쿠터</label></li>';
+      img_html += '                 </ul>';
+      img_html += '              </div>';
+      img_html += '           </div>';
+      img_html += '        </div>';
+      img_html += '     </div>';
+      img_html += '     <div class="down"><button type="button" id="b_' + obj[i].id + '" onclick="deleteBtn(' + obj[i].id + ')">삭제</button></div>'
+
+      $(".img_box").append(img_html);
+
+      $("#time_" + obj[i].id).val(obj[i].timeView);
+      $("#id_" + obj[i].id).val(obj[i].id);
+      $("#img_" + obj[i].id).attr("src", obj[i].path);
+
+      getLoc(obj[i].latitude, obj[i].longitude, obj[i].id);
    }
+   getSession();
 }
 
 function getLoc(x, y, iIndex) {
@@ -286,6 +362,7 @@ function getLoc(x, y, iIndex) {
    };
    geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
 }
+
 function loginPopup() {
    if (document.getElementById("loginPopup").style.display == "none") {
       document.getElementById("loginPopup").style.display = "";
