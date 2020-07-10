@@ -5,32 +5,59 @@ var page;
 var pageNumber;
 var likeImg;
 
-window.onload = function () {
-   switch (sessionStorage.getItem("flag")) {
-      case "like":
-         $(".listBold")[0].style.fontWeight = "bold";
-         break;
-      case "new":
-         $(".listBold")[1].style.fontWeight = "bold";
-         break;
-      case "fol":
-         if ($("#userID").val() == "") {
-            sessionStorage.setItem("flag", "new");
-            $(".listBold")[1].style.fontWeight = "bold";
-         } else {
-            $(".listBold")[2].style.fontWeight = "bold";
-         }
-         break;
-      default:
-         sessionStorage.setItem("flag", "new");
-         $(".listBold")[1].style.fontWeight = "bold";
-   }
 
-   getPageList(1, sessionStorage.getItem("flag"));
+window.onload = function () {
+   sessionStorage.clear();
+   pageNumber = 1;
+   sessionStorage.setItem("like", "/board/getPage");
+   sessionStorage.setItem("new", "/board/getPage");
+   sessionStorage.setItem("fol", "/board/getPage");
+   sessionStorage.setItem("likeSearch", "/board/getPageSearch");
+   sessionStorage.setItem("newSearch", "/board/getPageSearch");
+   sessionStorage.setItem("folSearch", "/board/getPageSearch");
+
+   getFlag();
+   getPageList(pageNumber);
 }
+
+function getFlag(){
+   sessionStorage.removeItem("flag");
+   sessionStorage.setItem("flag", "new");
+
+   var flag = sessionStorage.getItem("flag");
+
+   if(flag == "like" || flag == "likeSearch"){
+      $(".listBold")[0].style.fontWeight = "bold";
+      return;
+   } else if(flag == "new" || flag == "newSearch"){
+      $(".listBold")[1].style.fontWeight = "bold";
+      return;
+   } else {
+      $(".listBold")[2].style.fontWeight = "bold";
+   }
+}
+
 $(document).on('click', '.listBold', function () {
    $(this).css('font-weight', 'bold')
    $(".listBold").not($(this)).css('font-weight', '400');
+});
+
+$(document).on("click", "#searchBtn", function(){
+   var flag = sessionStorage.getItem("flag");
+   var sessionSearchType = sessionStorage.getItem("searchType");
+   var sessionKeyword = sessionStorage.getItem("keyword");
+   var searchType = document.getElementsByName("searchType")[0].value;
+   var keyword = document.getElementsByName("keyword")[0].value;
+   
+   if(flag == "like" || flag == "new" || flag == "fol"){
+     sessionStorage.setItem("flag", sessionStorage.getItem("flag") + "Search");
+   }
+   if(sessionSearchType != searchType || sessionKeyword != keyword){
+      sessionStorage.setItem("searchType", searchType);
+      sessionStorage.setItem("keyword", keyword);
+     $("#pageList").empty();
+      getPageList(pageNumber);
+   }
 });
 
 $(window).scroll(
@@ -43,39 +70,50 @@ $(window).scroll(
    });
 
 function getList(value) {
-   $("#pageList").empty();
-   switch (value) {
-      case 1:
-         sessionStorage.setItem("flag", "like");
-         break;
-      case 2:
-         sessionStorage.setItem("flag", "new");
-         break;
-      default:
-         if ($("#userID").val() != "") {
-            sessionStorage.setItem("flag", "fol");
-         } else {
-            alert("로그인하세요");
-            location.href = "/member/login"
-         }
+   var flag = sessionStorage.getItem("flag");
+   var keyword = document.getElementsByName("keyword")[0].value;
+   keyword = "";
+   sessionStorage.removeItem("keyword");
+
+   if(flag != "like" && value == 1){
+      sessionStorage.setItem("flag", "like");
+      return;
+   } else if(flag != "new" && value == 2){
+      sessionStorage.setItem("flag", "new");
+      return;
+   } else {
+      sessionStorage.setItem("flag", "fol");
    }
-   getPageList(1);
+   $("#pageList").empty();
+   getPageList(pageNumber);
 }
 
 function getPageList(pageNum) {
+   var flag = sessionStorage.getItem(flag);
+   var URL = sessionStorage.getItem(sessionStorage.getItem("flag"));
 
-   var query = {
-      pageNum: pageNum,
-      flag: sessionStorage.getItem("flag")
-   };
-
+   if(flag == "like" || flag == "new" || flag == "fol"){
+      var query = {
+         pageNum: pageNum,
+         flag: flag
+      };
+   } else{
+      var query = {
+         pageNum: pageNum,
+         flag: flag,
+         searchType: sessionStorage.getItem("searchType"),
+         keyword: sessionStorage.getItem("keyword")
+      };
+   }
+   
    $.ajax({
       type: "post",
-      url: "/board/getPage",
+      url: URL,
       data: query,
       success: function (data) {
 
          if (Object.keys(data).includes('board')) {
+        	 console.log(data)
             list = JSON.parse(data.board);
             file = JSON.parse(data.file);
             member = JSON.parse(data.member);
@@ -93,7 +131,7 @@ function getPageList(pageNum) {
 }
 
 function addListPage(data) {
-   // $(".main").empty();
+   
    pageNumber = page.num;
    var count = 0;
    for (var i = 0; i < list.length; i++) {

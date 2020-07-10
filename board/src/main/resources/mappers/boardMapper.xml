@@ -105,6 +105,42 @@
    </select>
    
       <!-- 게시물 좋아요 목록 -->
+   <select id="getLikeSearchPage" parameterType="hashMap"
+      resultType="com.board.domain.BoardVO">
+      select
+      bno, title, writer, regDate, viewCnt, pNum, likeCnt
+      from tbl_board
+      where
+      <if test='searchType.equals("title")'>
+         (title LIKE concat('%', #{keyword}, '%'))
+      </if>
+      <if test='searchType.equals("writer")'>
+         (writer LIKE concat('%', #{keyword}, '%'))
+      </if>
+      and pNum = -1
+      order by likeCnt desc, bno desc
+      limit #{displayPost}, #{postNum}
+   </select>
+   
+   <!-- 게시물 최신 목록 -->
+   <select id="getNewSearchPage" parameterType="hashMap"
+      resultType="com.board.domain.BoardVO">
+      select
+      bno, title, writer, regDate, viewCnt, pNum, likeCnt
+      from tbl_board
+      where
+      <if test='searchType.equals("title")'>
+      	(title LIKE concat('%', #{keyword}, '%'))
+      </if>
+      <if test='searchType.equals("writer")'>
+      	(writer LIKE concat('%', #{keyword}, '%'))
+      </if>
+      and pNum = -1
+      order by bno desc
+      limit #{displayPost}, #{postNum}
+   </select>
+   
+      <!-- 게시물 좋아요 목록 -->
    <select id="getUserLikePage" parameterType="hashMap"
       resultType="com.board.domain.BoardVO">
       select
@@ -151,7 +187,73 @@
       , "-1")
       order by bno desc
       limit #{displayPost}, #{postNum}
-      
+   </select>
+   
+         <!-- 게시물 좋아요 목록 -->
+   <select id="getUserLikeSearchPage" parameterType="hashMap"
+      resultType="com.board.domain.BoardVO">
+      select
+      bno, title, writer, regDate, viewCnt, pNum, likeCnt
+      from tbl_board
+      where pNum in
+      <foreach collection="fforfList" item="item" open="(" close="" separator=",">
+         #{item.following}
+      </foreach>
+      , "-1", #{userID}) and
+      <if test='searchType.equals("title")'>
+         (title LIKE concat('%', #{keyword}, '%'))
+      </if>
+      <if test='searchType.equals("writer")'>
+         (writer LIKE concat('%', #{keyword}, '%'))
+      </if>
+      order by likeCnt desc, bno desc
+      limit #{displayPost}, #{postNum}
+   </select>
+   
+   <!-- 게시물 최신 목록 -->
+   <select id="getUserNewSearchPage" parameterType="hashMap"
+      resultType="com.board.domain.BoardVO">
+      select
+      bno, title, writer, regDate, viewCnt, pNum, likeCnt
+      from tbl_board
+      where pNum in
+      <foreach collection="fforfList" item="item" open="(" close="" separator=",">
+         #{item.following}
+      </foreach>
+      , "-1", #{userID}) and
+      <if test='searchType.equals("title")'>
+         (title LIKE concat('%', #{keyword}, '%'))
+      </if>
+      <if test='searchType.equals("writer")'>
+         (writer LIKE concat('%', #{keyword}, '%'))
+      </if>
+      order by bno desc
+      limit #{displayPost}, #{postNum}
+   </select>
+   
+   <!-- 이웃 게시물 목록 -->
+   <select id="getUserFolSearchPage" parameterType="hashMap"
+      resultType="com.board.domain.BoardVO">
+      select
+      bno, title, writer, regDate, viewCnt, pNum, likeCnt
+      from tbl_board
+      where writer in
+      <foreach collection="fforfList" item="item" open="(" close=")" separator=",">
+         #{item.following}
+      </foreach>
+      and pNum in
+      <foreach collection="fforfList" item="item" open="(" close="" separator=",">
+         #{item.following}
+      </foreach>
+      , "-1") and
+      <if test='searchType.equals("title")'>
+         (title LIKE concat('%', #{keyword}, '%'))
+      </if>
+      <if test='searchType.equals("writer")'>
+         (writer LIKE concat('%', #{keyword}, '%'))
+      </if>
+      order by bno desc
+      limit #{displayPost}, #{postNum}
    </select>
    
    <!-- 좋아요 증가 -->
@@ -361,7 +463,7 @@
    <!-- 아이디 확인 -->
    <select id="idCheck" parameterType="string"
       resultType="com.board.domain.MemberVO">
-      select mID from reg_board
+      select id, mID from reg_board
       where mID = #{mID}
    </select>
 

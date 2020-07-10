@@ -344,7 +344,7 @@ public class BoardController {
 				fileService.likeImgs(toVO.likeImgVO(likeImgs, bno));
 			}
 
-
+			tpService.deleteFileBno(bno);
 			for (int i = 0; i < id.length; i++) {
 				if (tp[i].length() != 0) {
 					String[] tp_str = tp[i].split(",");
@@ -371,7 +371,7 @@ public class BoardController {
 
 	@ResponseBody
 	@RequestMapping(value = "/getPage", method = RequestMethod.POST)
-	public HashMap<String, Object> getLikePage(HttpServletRequest req, HttpSession session) throws Exception {
+	public HashMap<String, Object> getPage(HttpServletRequest req, HttpSession session) throws Exception {
 		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
 		String flag = req.getParameter("flag");
 		MemberVO login = (MemberVO) session.getAttribute("session");
@@ -385,18 +385,21 @@ public class BoardController {
 		
 		
 		if (login != null) {
+			System.out.println("로그인 했을때 실행");
 			List<FollowVO> fforfList = null;
-
 			fforfList = memberService.fforfList(login.getId());
 			if (fforfList.size() > 0) {
+				System.out.println("서로이웃이 있을때 실행");
 				list = service.getPage(page.getDisplayPost(), page.getPostNum(), flag, fforfList);
 			} else {
 				if (!flag.equals("fol")) {
+					System.out.println("서로이웃이 없고 이웃게시물이 아닐때 실행");
 					list = service.getPage(page.getDisplayPost(), page.getPostNum(), flag);
 				}
 			}
 		} else {
 			if (!flag.equals("fol")) {
+				System.out.println("로그인 안하고 이웃게시물이 아닐때 실행");
 				list = service.getPage(page.getDisplayPost(), page.getPostNum(), flag);
 			}
 		}
@@ -442,5 +445,89 @@ public class BoardController {
 		}
 
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getPageSearch", method = RequestMethod.POST)
+	public HashMap<String, Object> getPageSearch(HttpServletRequest req, HttpSession session) throws Exception {
+		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
+		String flag = req.getParameter("flag");
+		String searchType = req.getParameter("searchType");
+		String keyword = req.getParameter("keyword");
+		MemberVO login = (MemberVO) session.getAttribute("session");
+
+		Page page = new Page();
+
+		page.setNum(pageNum);
+		page.setCount(service.count());
+
+		List<BoardVO> list = null;
+		
+		if(searchType.equals("writer")) {
+			MemberVO mVo = memberService.idCheck(keyword);
+			if(mVo != null) {
+				keyword = Integer.toString(mVo.getId());
+			} else {
+				keyword = "0";
+			}
+		}		
+		if (login != null) {
+			List<FollowVO> fforfList = null;
+
+			fforfList = memberService.fforfList(login.getId());
+			if (fforfList.size() > 0) {
+				list = service.getPageSearch(page.getDisplayPost(), page.getPostNum(), searchType, keyword, flag, fforfList);
+			} else {
+				if (!flag.equals("fol")) {
+					list = service.getPageSearch(page.getDisplayPost(), page.getPostNum(), searchType, keyword, flag);
+				}
+			}
+		} else {
+			if (!flag.equals("fol")) {
+				list = service.getPageSearch(page.getDisplayPost(), page.getPostNum(), searchType, keyword, flag);
+			}
+		}
+
+		List<FileVO> fList = new ArrayList<FileVO>();
+		List<ArrayList<FileVO>> fileList = new ArrayList<ArrayList<FileVO>>();
+		MemberVO m = new MemberVO();
+		List<MemberVO> mList = new ArrayList<MemberVO>();
+		List<LikeImgVO> likeImgVO = null;
+		List<ArrayList<LikeImgVO>> likeImgVOList = new ArrayList<ArrayList<LikeImgVO>>();
+
+		if (list != null) {
+			// 占쏙옙 占쏙옙호占쏙옙 占쌔댐옙占싹댐옙 占싱뱄옙占쏙옙 占쌨아울옙占쏙옙
+			for (BoardVO vo : list) {
+				fList = fileService.viewFile(vo.getBno());
+				m = memberService.memberVO(vo.getWriter());
+				likeImgVO = fileService.selectLikeImg(vo.getBno());
+				fileList.add((ArrayList<FileVO>) fList);
+				mList.add(m);
+				likeImgVOList.add((ArrayList<LikeImgVO>) likeImgVO);
+			}
+			Gson gson = new Gson();
+			String jsonList = gson.toJson(list);
+			String jsonMList = gson.toJson(mList);
+			String jsonFileList = gson.toJson(fileList);
+			String jsonPage = gson.toJson(page);
+			String jsonLikeImg = gson.toJson(likeImgVOList);
+
+			HashMap<String, Object> data = new HashMap<String, Object>();
+			data.put("board", jsonList);
+			data.put("file", jsonFileList);
+			data.put("member", jsonMList);
+			data.put("page", jsonPage);
+			data.put("likeImg", jsonLikeImg);
+
+			return data;
+			
+		} else {
+			
+			HashMap<String, Object> data = new HashMap<String, Object>();
+			
+			return data;
+		}
+
+	}
+	
 
 }

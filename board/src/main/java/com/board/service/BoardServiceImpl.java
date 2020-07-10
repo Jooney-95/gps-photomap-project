@@ -121,4 +121,18 @@ public class BoardServiceImpl implements BoardService {
 		return dao.getPage(displayPost, postNum, flag, fforfList);
 	}
 
+	@Override
+	public List<BoardVO> getPageSearch(int displayPost, int postNum, String searchType, String keyword, String flag)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return dao.getPageSearch(displayPost, postNum, searchType, keyword, flag);
+	}
+
+	@Override
+	public List<BoardVO> getPageSearch(int displayPost, int postNum, String searchType, String keyword, String flag,
+			List<FollowVO> fforfList) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.getPageSearch(displayPost, postNum, searchType, keyword, flag, fforfList);
+	}
+
 }

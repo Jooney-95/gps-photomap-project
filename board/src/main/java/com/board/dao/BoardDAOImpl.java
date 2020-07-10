@@ -166,4 +166,45 @@ public class BoardDAOImpl implements BoardDAO {
 		}
 	}
 
+	@Override
+	public List<BoardVO> getPageSearch(int displayPost, int postNum, String searchType, String keyword, String flag)
+			throws Exception {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		  
+		data.put("displayPost", displayPost);
+		data.put("postNum", postNum);
+		data.put("flag", flag);
+		data.put("searchType", searchType);
+		data.put("keyword", keyword);
+		
+		if(flag.equals("likeSearch")) {
+			return sql.selectList(namespace + ".getLikeSearchPage", data);
+		} else {
+			return sql.selectList(namespace + ".getNewSearchPage", data);
+		}
+	}
+
+	@Override
+	public List<BoardVO> getPageSearch(int displayPost, int postNum, String searchType, String keyword, String flag,
+			List<FollowVO> fforfList) throws Exception {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		
+		data.put("displayPost", displayPost);
+		data.put("postNum", postNum);
+		data.put("flag", flag);
+		data.put("searchType", searchType);
+		data.put("keyword", keyword);
+		data.put("fforfList", fforfList);
+		
+		if(flag.equals("likeSearch")) {
+			return sql.selectList(namespace + ".getUserLikeSearchPage", data);
+		} else if(flag.equals("newSearch")){
+			return sql.selectList(namespace + ".getUserNewSearchPage", data);
+		} else {
+			return sql.selectList(namespace + ".getUserFolSearchPage", data);
+		}
+	}
+
 }
