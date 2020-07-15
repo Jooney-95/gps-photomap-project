@@ -14,6 +14,7 @@ $(document).ready(function () {
    sessionStorage.clear();
    localStorage.removeItem("writeImgData");
    deleteImg();
+   fileDropDown();
 
    if (localStorage.getItem("writeImgData") != null) {
       var writeImgData = JSON.parse(localStorage.getItem("writeImgData"));
@@ -65,6 +66,11 @@ function deleteImg() {
 function handleImgFileSelect(e) {
    unloadFlag = true;
    var files = e.target.files;
+   console.log(files);
+   fileUpLoad(files);
+}
+
+function fileUpLoad(files){
    var filesArr = Array.prototype.slice.call(files);
    for (var i = 0; i < filesArr.length; i++) {
       //filesArr.forEach(function (f) {
@@ -87,8 +93,48 @@ function handleImgFileSelect(e) {
       }
    }
    uploadImg();
-
 }
+
+ // 파일 드롭 다운
+ function fileDropDown(){
+   var dropZone = $("#f");
+   //Drag기능 
+   dropZone.on('dragenter',function(e){
+       e.stopPropagation();
+       e.preventDefault();
+       // 드롭다운 영역 css
+       dropZone.css('background-color','#E3F2FC');
+   });
+   dropZone.on('dragleave',function(e){
+       e.stopPropagation();
+       e.preventDefault();
+       // 드롭다운 영역 css
+       dropZone.css('background-color','#FFFFFF');
+   });
+   dropZone.on('dragover',function(e){
+       e.stopPropagation();
+       e.preventDefault();
+       // 드롭다운 영역 css
+       dropZone.css('background-color','#E3F2FC');
+   });
+   dropZone.on('drop',function(e){
+       e.preventDefault();
+       // 드롭다운 영역 css
+       dropZone.css('background-color','#FFFFFF');
+       
+       var files = e.originalEvent.dataTransfer.files;
+       if(files != null){
+           if(files.length < 1){
+               alert("폴더 업로드 불가");
+               return;
+           }
+           fileUpLoad(files);
+       }else{
+           alert("ERROR");
+       }
+   });
+}
+
 
 $(document).on("change", ":checkbox", function () {
    console.log("id : " + $(this).attr("id") + "   checked : " + $(this));
