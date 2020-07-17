@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.board.domain.FileVO;
-import com.board.domain.Files;
+import com.board.domain.UploadFiles;
 import com.board.domain.LikeImgVO;
 
 @Repository
@@ -32,7 +32,7 @@ public class FileDAOImpl implements FileDAO {
 	@Override
 	public void modifyFile(String[] str_id, String[] latitude, String[] longitude, String[] time, String[] content) throws Exception {
 		// TODO Auto-generated method stub
-		Files files = new Files();
+		UploadFiles files = new UploadFiles();
 		
 		FileVO[] fileVO = files.modifyFile(str_id, latitude, longitude, time, content);
 		
@@ -45,7 +45,7 @@ public class FileDAOImpl implements FileDAO {
 	@Override
 	public void deleteFile(String[] delete) throws Exception {
 		// TODO Auto-generated method stub
-		Files files = new Files();
+		UploadFiles files = new UploadFiles();
 		for(String del : delete) {
 			files.deleteFile(sql.selectOne(namespace + ".fileName", Integer.parseInt(del)));
 			sql.delete(namespace + ".deleteFile", Integer.parseInt(del));
@@ -61,7 +61,7 @@ public class FileDAOImpl implements FileDAO {
 	@Override
 	public void imgUpload(List<MultipartFile> file, int uesrID) throws Exception {
 		// TODO Auto-generated method stub
-		Files files = new Files();
+		UploadFiles files = new UploadFiles();
 		
 		sql.insert(namespace + ".imgUpload", files.imgUpload(file, uesrID));
 	}

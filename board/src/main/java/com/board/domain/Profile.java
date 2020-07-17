@@ -8,7 +8,7 @@ public class Profile {
 	
 	private static final String PREFIX_URL = "/img/";
 	
-	Files f = new Files();
+	UploadFiles f = new UploadFiles();
 	
 	public MemberVO profileImg(MemberVO vo, MultipartFile file) throws Exception {
 		// TODO Auto-generated method stub

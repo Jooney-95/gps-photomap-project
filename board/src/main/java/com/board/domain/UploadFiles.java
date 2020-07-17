@@ -3,11 +3,17 @@ package com.board.domain;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.PosixFilePermission;
+import java.nio.file.attribute.PosixFilePermissions;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.apache.tika.Tika;
@@ -20,9 +26,9 @@ import com.drew.metadata.Metadata;
 import com.drew.metadata.exif.ExifSubIFDDirectory;
 import com.drew.metadata.exif.GpsDirectory;
 
-public class Files {
+public class UploadFiles {
 
-	private static final String SAVE_PATH = "C:\\upload";
+	private static final String SAVE_PATH = "/var/Plus/upload";
 	private static final String PREFIX_URL = "/img/";
 	private int SIZE = 0;
 	private int i = 0;
@@ -119,10 +125,20 @@ public class Files {
 			fileWrite(mF, saveFileName);
 			File convFile = new File(saveFileName);
 			mF.transferTo(convFile);
+			filePermissions(SAVE_PATH + "/" + saveFileName);
 			fileEXIF(convFile, saveFileName);
 		}
 	}
 
+	private void filePermissions(String filePath) throws IOException {
+		File targetFile = new File(filePath);
+		if(targetFile.exists()) {
+			 Path path = Paths.get(filePath);
+	            Set<PosixFilePermission> posixPermissions = PosixFilePermissions.fromString("rwxrwxrwx");
+	            Files.setPosixFilePermissions(path, posixPermissions);
+		}
+	}
+	
 	private void fileEXIF(File file, String saveFileName) throws JpegProcessingException {
 		try {
 

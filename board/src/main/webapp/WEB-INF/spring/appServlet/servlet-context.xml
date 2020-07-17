@@ -58,5 +58,5 @@
 	</interceptors>
 
 	<resources mapping="/img/**"
-		location="file:///C:/upload/" />
+		location="file:/var/Plus/upload" />
 </beans:beans>
