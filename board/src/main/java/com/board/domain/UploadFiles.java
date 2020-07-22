@@ -3,17 +3,11 @@ package com.board.domain;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.attribute.PosixFilePermission;
-import java.nio.file.attribute.PosixFilePermissions;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 import org.apache.tika.Tika;
@@ -28,7 +22,7 @@ import com.drew.metadata.exif.GpsDirectory;
 
 public class UploadFiles {
 
-	private static final String SAVE_PATH = "/var/Plus/upload";
+	private static final String SAVE_PATH = "C:\\upload";
 	private static final String PREFIX_URL = "/img/";
 	private int SIZE = 0;
 	private int i = 0;
@@ -125,20 +119,10 @@ public class UploadFiles {
 			fileWrite(mF, saveFileName);
 			File convFile = new File(saveFileName);
 			mF.transferTo(convFile);
-			filePermissions(SAVE_PATH + "/" + saveFileName);
 			fileEXIF(convFile, saveFileName);
 		}
 	}
 
-	private void filePermissions(String filePath) throws IOException {
-		File targetFile = new File(filePath);
-		if(targetFile.exists()) {
-			 Path path = Paths.get(filePath);
-	            Set<PosixFilePermission> posixPermissions = PosixFilePermissions.fromString("rwxrwxrwx");
-	            Files.setPosixFilePermissions(path, posixPermissions);
-		}
-	}
-	
 	private void fileEXIF(File file, String saveFileName) throws JpegProcessingException {
 		try {
 
@@ -155,24 +139,32 @@ public class UploadFiles {
 
 						fView = formatView.format(date);
 						timeView[i] = fView;
+						System.out.println("fView : " + fView);
 
 					} else {
+						System.out.println("data 없음");
 						timeView[i] = "";
 					}
 				} else {
+					System.out.println("directory 없음");
 					timeView[i] = "";
 				}
 
 				if (gpsDirectory != null) {
 					GeoLocation exifLocation = gpsDirectory.getGeoLocation();
 					if (exifLocation != null) {
-
 						latitude[i] = Double.toString(exifLocation.getLatitude());
 						longitude[i] = Double.toString(exifLocation.getLongitude());
+						System.out.println("latitude, longitude : " + latitude + ", " + longitude );
+					} else {
+						latitude[i] = "";
+						longitude[i] = "";
+						System.out.println("exifLocation 없음");
 					}
 				} else {
 					latitude[i] = "";
 					longitude[i] = "";
+					System.out.println("gpsDirectory 없음");
 				}
 
 			} else {
