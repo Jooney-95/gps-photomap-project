@@ -70,7 +70,7 @@ function handleImgFileSelect(e) {
    fileUpLoad(files);
 }
 
-function fileUpLoad(files){
+function fileUpLoad(files) {
    var filesArr = Array.prototype.slice.call(files);
    for (var i = 0; i < filesArr.length; i++) {
       //filesArr.forEach(function (f) {
@@ -95,43 +95,42 @@ function fileUpLoad(files){
    uploadImg();
 }
 
- // 파일 드롭 다운
- function fileDropDown(){
+// 파일 드롭 다운
+function fileDropDown() {
    var dropZone = $("#f");
    //Drag기능 
-   dropZone.on('dragenter',function(e){
-       e.stopPropagation();
-       e.preventDefault();
-       // 드롭다운 영역 css
-       dropZone.css('background-color','#E3F2FC');
+   dropZone.on('dragenter', function (e) {
+      e.stopPropagation();
+      e.preventDefault();
+      // 드롭다운 영역 css
+      dropZone.css('background-color', '#E3F2FC');
    });
-   dropZone.on('dragleave',function(e){
-       e.stopPropagation();
-       e.preventDefault();
-       // 드롭다운 영역 css
-       dropZone.css('background-color','#FFFFFF');
+   dropZone.on('dragleave', function (e) {
+      e.stopPropagation();
+      e.preventDefault();
+      // 드롭다운 영역 css
+      dropZone.css('background-color', '#FFFFFF');
    });
-   dropZone.on('dragover',function(e){
-       e.stopPropagation();
-       e.preventDefault();
-       // 드롭다운 영역 css
-       dropZone.css('background-color','#E3F2FC');
+   dropZone.on('dragover', function (e) {
+      e.stopPropagation();
+      e.preventDefault();
+      // 드롭다운 영역 css
+      dropZone.css('background-color', '#E3F2FC');
    });
-   dropZone.on('drop',function(e){
-       e.preventDefault();
-       // 드롭다운 영역 css
-       dropZone.css('background-color','#FFFFFF');
-       
-       var files = e.originalEvent.dataTransfer.files;
-       if(files != null){
-           if(files.length < 1){
-               alert("폴더 업로드 불가");
-               return;
-           }
-           fileUpLoad(files);
-       }else{
-           alert("ERROR");
-       }
+   dropZone.on('drop', function (e) {
+      e.preventDefault();
+      // 드롭다운 영역 css
+      dropZone.css('background-color', '#FFFFFF');
+
+      var files = e.originalEvent.dataTransfer.files;
+
+      if (files != null) {
+         if (files.length >= 1) {
+            fileUpLoad(files);
+         }
+      } else {
+         alert("ERROR");
+      }
    });
 }
 
@@ -181,37 +180,37 @@ function unDeleteBtn(index) {
 }
 
 function selectLikeImg(index) {
-	unloadFlag = true;
-	console.log(likeImgs.indexOf(index))
-	console.log(likeImgs.length)
-	if (likeImgs.indexOf(index) == -1) {
-		if (likeImgs.length < 4) {
-			storageLikeImg(index);
-			console.log("test1")
-		} else {
-			var firstImgBno = likeImgs.shift();
-			deleteStorageLikeImg(firstImgBno);
-			storageLikeImg(index);
-			console.log("test2")
-		}
-	} else {
-		deleteStorageLikeImg(index);
-		console.log("test3")
-	}
+   unloadFlag = true;
+   console.log(likeImgs.indexOf(index))
+   console.log(likeImgs.length)
+   if (likeImgs.indexOf(index) == -1) {
+      if (likeImgs.length < 4) {
+         storageLikeImg(index);
+         console.log("test1")
+      } else {
+         var firstImgBno = likeImgs.shift();
+         deleteStorageLikeImg(firstImgBno);
+         storageLikeImg(index);
+         console.log("test2")
+      }
+   } else {
+      deleteStorageLikeImg(index);
+      console.log("test3")
+   }
 }
 
-function storageLikeImg(imgBno){
-	likeImgs.push(imgBno);
-	sessionStorage.setItem("selectLikeImg_" + imgBno, "fas fa-star");
-	$("#selectLikeImg_" + imgBno).attr("class", "fas fa-star");
+function storageLikeImg(imgBno) {
+   likeImgs.push(imgBno);
+   sessionStorage.setItem("selectLikeImg_" + imgBno, "fas fa-star");
+   $("#selectLikeImg_" + imgBno).attr("class", "fas fa-star");
 }
 
-function deleteStorageLikeImg(imgBno){
-	if(likeImgs.indexOf(imgBno) != -1){
-		likeImgs.splice(likeImgs.indexOf(imgBno), 1);
-	}
-	sessionStorage.removeItem("selectLikeImg_" + imgBno);
-	$("#selectLikeImg_" + imgBno).attr("class", "far fa-star");
+function deleteStorageLikeImg(imgBno) {
+   if (likeImgs.indexOf(imgBno) != -1) {
+      likeImgs.splice(likeImgs.indexOf(imgBno), 1);
+   }
+   sessionStorage.removeItem("selectLikeImg_" + imgBno);
+   $("#selectLikeImg_" + imgBno).attr("class", "far fa-star");
 }
 
 
@@ -302,7 +301,7 @@ $(document).on(
                del: del_files,
                tp: tp,
                size: size,
-               likeImgs : likeImgs
+               likeImgs: likeImgs
             };
 
             $.ajax({

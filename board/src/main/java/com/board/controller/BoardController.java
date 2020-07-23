@@ -383,7 +383,7 @@ public class BoardController {
 
 		List<BoardVO> list = null;
 		
-		
+		System.out.println("flag : " + flag);
 		if (login != null) {
 			System.out.println("로그인 했을때 실행");
 			List<FollowVO> fforfList = null;

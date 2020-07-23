@@ -36,12 +36,6 @@
 	</form>
 	</div>
 	
-	<c:if test="${session != null }">
-		<p>${session.mNickname }</p>
-		<a href="/member/logout">로그아웃</a>
-	</c:if>
-	
-	
 	<c:if test="${msg eq 'falseID'}">
 	    <script>
 	    	alert("아이디 오류");

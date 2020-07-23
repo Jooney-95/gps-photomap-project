@@ -4,7 +4,7 @@ var member;
 var page;
 var pageNumber;
 var likeImg;
-
+var listFlag;
 
 window.onload = function () {
    sessionStorage.clear();
@@ -58,6 +58,12 @@ $(document).on("click", "#searchBtn", function(){
      $("#pageList").empty();
       getPageList(pageNumber);
    }
+   
+   // if(listFlag == true){
+   //    listFlag = false;
+   //    $("#pageList").empty();
+   //    getPageList(pageNumber);
+   // }
 });
 
 $(window).scroll(
@@ -75,22 +81,33 @@ function getList(value) {
    keyword = "";
    sessionStorage.removeItem("keyword");
 
-   if(flag != "like" && value == 1){
+   console.log(value)
+   if(value == 1){
       sessionStorage.setItem("flag", "like");
-      return;
-   } else if(flag != "new" && value == 2){
+      console.log("like 클릭")
+
+   } else if(value == 2){
       sessionStorage.setItem("flag", "new");
-      return;
+      console.log("new 클릭")
+
    } else {
       sessionStorage.setItem("flag", "fol");
    }
-   $("#pageList").empty();
-   getPageList(pageNumber);
+
+   console.log(flag + ", " + value);
+   
+   if(listFlag == true){
+      listFlag == false;
+      $("#pageList").empty();
+      getPageList(pageNumber);
+   }
 }
 
 function getPageList(pageNum) {
-   var flag = sessionStorage.getItem(flag);
-   var URL = sessionStorage.getItem(sessionStorage.getItem("flag"));
+   var flag = sessionStorage.getItem("flag");
+   var URL = sessionStorage.getItem(flag);
+   console.log(flag);
+   console.log(URL);
 
    if(flag == "like" || flag == "new" || flag == "fol"){
       var query = {
@@ -120,7 +137,7 @@ function getPageList(pageNum) {
             page = JSON.parse(data.page);
             likeImg = JSON.parse(data.likeImg);
             pageNumber = page.num;
-            addListPage(data)
+            addListPage(data, setListFlag());
          }
       },
       error: function (request, status, error) {
@@ -130,7 +147,11 @@ function getPageList(pageNum) {
    });
 }
 
-function addListPage(data) {
+function setListFlag(){
+   listFlag = true;
+}
+
+function addListPage(data, callback) {
    
    pageNumber = page.num;
    var count = 0;
@@ -203,15 +224,16 @@ function getTimeStamp(time) {
    var year;
    var month;
    var day;
-
+   console.log("0" + (d.getMonth() + 1) + '-')
+   console.log("0" + d.getMonth() + 1 + '-')
    if ((curTime.getTime() - d.getTime()) / (1000 * 60 * 60 * 24) >= 1) {
 
       year = d.getFullYear() + '-';
 
-      if (d.getMonth() < 10) {
-         month = "0" + d.getMonth() + '-';
+      if (d.getMonth() < 9) {
+         month = "0" + (d.getMonth() + 1) + '-';
       } else {
-         month = d.getMonth() + '-';
+         month = (d.getMonth() + 1) + '-';
       }
 
       if (d.getDate() < 10) {
@@ -228,8 +250,12 @@ function getTimeStamp(time) {
             / (1000 * 60 * 60))
             + "시간전";
       } else {
+         if(Math.round((curTime.getTime() - d.getTime()) / (1000 * 60)) == 0){
+            return "방금 전";   
+         } else{
          return Math.round((curTime.getTime() - d.getTime()) / (1000 * 60))
             + "분전";
+         }
       }
    }
 }

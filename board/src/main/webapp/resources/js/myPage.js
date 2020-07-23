@@ -310,15 +310,16 @@ function getTimeStamp(time) {
    var year;
    var month;
    var day;
+   
    if(sessionStorage.getItem("nav") == "list"){
    if ((curTime.getTime() - d.getTime()) / (1000 * 60 * 60 * 24) >= 1) {
 
       year = d.getFullYear() + '-';
 
-      if (d.getMonth() < 10) {
-         month = "0" + d.getMonth() + '-';
+      if (d.getMonth() < 9) {
+         month = "0" + (d.getMonth() + 1) + '-';
       } else {
-         month = d.getMonth() + '-';
+         month = (d.getMonth() + 1) + '-';
       }
 
       if (d.getDate() < 10) {
@@ -335,8 +336,12 @@ function getTimeStamp(time) {
                / (1000 * 60 * 60))
                + "시간전";
       } else {
+         if(Math.round((curTime.getTime() - d.getTime()) / (1000 * 60)) == 0){
+            return "방금 전";   
+         } else{
          return Math.round((curTime.getTime() - d.getTime()) / (1000 * 60))
-               + "분전";
+            + "분전";
+         }
       }
    }
    } else{
@@ -346,8 +351,12 @@ function getTimeStamp(time) {
                   / (1000 * 60 * 60))
                   + "시간전";
          } else {
+            if(Math.round((curTime.getTime() - d.getTime()) / (1000 * 60)) == 0){
+               return "방금 전";   
+            } else{
             return Math.round((curTime.getTime() - d.getTime()) / (1000 * 60))
-                  + "분전";
+               + "분전";
+            }
          }
       } else if((curTime.getTime() - d.getTime()) / (1000 * 60 * 60 * 24) < 7) {
          return Math.floor((curTime.getTime() - d.getTime()) / (1000 * 60 * 60 * 24)) + "일전";

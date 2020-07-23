@@ -139,6 +139,11 @@
 
   
   <div class="main"> 
+  
+  <c:forEach items="${list }" var="list">
+  <a href="<spring:url value='${list.path }'/>" data-lightbox="image-1" data-title="${list.place }"><img width="100" height="100" alt="" src="<spring:url value='${list.path }'/>"></a>
+  </c:forEach>
+  
          <c:forEach items="${list }" var="list">
          <input type="hidden" name="id" value="${list.id }" />
          <input type="hidden" id="tblBno" value="${view.bno }" />
