@@ -57,72 +57,72 @@ function handleImgFileSelect(e) {
 	var files = e.target.files;
 	console.log(files);
 	fileUpLoad(files);
- }
- 
- function fileUpLoad(files){
+}
+
+function fileUpLoad(files) {
 	var filesArr = Array.prototype.slice.call(files);
 	for (var i = 0; i < filesArr.length; i++) {
-	   //filesArr.forEach(function (f) {
- 
-	   if (!filesArr[i].type.match('image/jpeg')) {
-		  alert("jpeg 만 업로드 가능합니다.");
-		  return;
-	   }
-	   console.log(sel_files.length + selFiles.length)
-	   if (sel_files.length + selFiles.length < 50) {
- 
-		  if (filesArr[i].size < 31457280) {
-			 sel_files.push(filesArr[i]);
- 
-		  } else {
- 
-		  }
-	   } else {
- 
-	   }
+		//filesArr.forEach(function (f) {
+
+		if (!filesArr[i].type.match('image/jpeg')) {
+			alert("jpeg 만 업로드 가능합니다.");
+			return;
+		}
+		console.log(sel_files.length + selFiles.length)
+		if (sel_files.length + selFiles.length < 50) {
+
+			if (filesArr[i].size < 31457280) {
+				sel_files.push(filesArr[i]);
+
+			} else {
+
+			}
+		} else {
+
+		}
 	}
 	uploadImg();
- }
- 
-  // 파일 드롭 다운
-  function fileDropDown(){
+}
+
+// 파일 드롭 다운
+function fileDropDown() {
 	var dropZone = $("#f");
 	//Drag기능 
-	dropZone.on('dragenter',function(e){
+	dropZone.on('dragenter', function (e) {
 		e.stopPropagation();
 		e.preventDefault();
 		// 드롭다운 영역 css
-		dropZone.css('background-color','#E3F2FC');
+		dropZone.css('background-color', '#E3F2FC');
 	});
-	dropZone.on('dragleave',function(e){
+	dropZone.on('dragleave', function (e) {
 		e.stopPropagation();
 		e.preventDefault();
 		// 드롭다운 영역 css
-		dropZone.css('background-color','#FFFFFF');
+		dropZone.css('background-color', '#FFFFFF');
 	});
-	dropZone.on('dragover',function(e){
+	dropZone.on('dragover', function (e) {
 		e.stopPropagation();
 		e.preventDefault();
 		// 드롭다운 영역 css
-		dropZone.css('background-color','#E3F2FC');
+		dropZone.css('background-color', '#E3F2FC');
 	});
-	dropZone.on('drop',function(e){
+	dropZone.on('drop', function (e) {
 		e.preventDefault();
 		// 드롭다운 영역 css
-		dropZone.css('background-color','#FFFFFF');
-		
+		dropZone.css('background-color', '#FFFFFF');
+
 		var files = e.originalEvent.dataTransfer.files;
-		if(files != null){
-			if(files.length < 1){
+		if (files != null) {
+			if (files.length < 1) {
 				alert("폴더 업로드 불가");
 				return;
 			}
 			fileUpLoad(files);
-		}else{
+		} else {
 			alert("ERROR");
 		}
 	});
- }
+}
 
 $(document).on("change", ":checkbox", function () {
 	unloadFlag = true;
@@ -145,8 +145,10 @@ function getSession() {
 		if (sessionStorage.key(i).substr(0, 8) == "textarea") {
 			$("#" + sessionStorage.key(i)).val(
 				sessionStorage.getItem(sessionStorage.key(i)));
-		} else if(sessionStorage.key(i).substr(0, 13) == "selectLikeImg"){
+		} else if (sessionStorage.key(i).substr(0, 13) == "selectLikeImg") {
 			$("#" + sessionStorage.key(i)).attr("class", "fas fa-star");
+		} else if (sessionStorage.key(i).substr(0, 9) == "deleteBtb") {
+			deleteBtn(sessionStorage.getItem(sessionStorage.key(i)));
 		} else {
 			$("#" + sessionStorage.key(i)).attr("checked", "checked");
 		}
@@ -165,15 +167,17 @@ function deleteBtn(index) {
 	$("#middle_" + index).css("opacity", 0.5);
 	$("#b_" + index).attr("onclick", "unDeleteBtn(" + index + ")");
 	$("#b_" + index).html("복원");
- }
- 
- function unDeleteBtn(index) {
+	sessionStorage.setItem("deleteBtb_" + index, index);
+}
+
+function unDeleteBtn(index) {
 	$("#middle_" + index).css("opacity", "");
 	$("#b_" + index).attr("onclick", "deleteBtn(" + index + ")");
 	$("#b_" + index).html("삭제");
- }
+	sessionStorage.removeItem("deleteBtb_" + index);
+}
 
- function selectLikeImg(index) {
+function selectLikeImg(index) {
 	unloadFlag = true;
 	if (likeImgs.indexOf(index) == -1) {
 		if (likeImgs.length < 4) {
@@ -188,21 +192,21 @@ function deleteBtn(index) {
 	}
 }
 
-function storageLikeImg(imgBno){
+function storageLikeImg(imgBno) {
 	likeImgs.push(imgBno);
 	sessionStorage.setItem("selectLikeImg_" + imgBno, "fas fa-star");
 	$("#selectLikeImg_" + imgBno).attr("class", "fas fa-star");
 }
 
-function deleteStorageLikeImg(imgBno){
-	if(likeImgs.indexOf(imgBno) != -1){
+function deleteStorageLikeImg(imgBno) {
+	if (likeImgs.indexOf(imgBno) != -1) {
 		likeImgs.splice(likeImgs.indexOf(imgBno), 1);
 	}
 	sessionStorage.removeItem("selectLikeImg_" + imgBno);
 	$("#selectLikeImg_" + imgBno).attr("class", "far fa-star");
 }
 
- 
+
 function uploadImg() {
 	if (sel_files.length > 0) {
 		var form = $("#f")[0];
@@ -319,7 +323,7 @@ $(document).on(
 					del: del_files,
 					tp: tp,
 					size: size,
-					likeImgs : likeImgs
+					likeImgs: likeImgs
 				};
 
 				$.ajax({
@@ -441,9 +445,9 @@ function getTp(obj) {
 	}
 }
 
-function getLikeImg(obj){
+function getLikeImg(obj) {
 	console.log(obj)
-	for(var i = 0; i < obj.length; i++){
+	for (var i = 0; i < obj.length; i++) {
 		storageLikeImg(obj[i].imgBno);
 	}
 }

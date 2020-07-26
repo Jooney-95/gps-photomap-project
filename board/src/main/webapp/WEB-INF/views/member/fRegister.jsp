@@ -9,6 +9,8 @@
 <link rel="stylesheet" href="/resources/css/fRegister.css">
 <link rel="stylesheet" href="/resources/css/top.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="/resources/js/fRegister.js"></script>
 </head>
 
 
@@ -16,7 +18,7 @@
 <div id="header">
  
   <div class="logo">
-    <a href="/board/listPageSearch?num=1">Plus+</a>
+    <a href="/board/main">Plus+</a>
   </div>
   
 
@@ -40,25 +42,31 @@
     
     <div class="info">
       <label>
-      <input id="ch1" type="checkbox">이용약관 동의 (필수)  </label>  
+      <input id="ch1" value="ch1" name="ch" type="checkbox">이용약관 동의 (필수)  </label>  
       <a href="#pop01"><i class="fas fa-info-circle"></i></a>
       
    </div>
    <div class="info">
    <label>
-      <input id="ch2" type="checkbox">개인정보 수집 및 이용 동의 (필수)</label>
+      <input id="ch2" value="ch2" name="ch" type="checkbox">개인정보 수집 및 이용 동의 (필수)</label>
       <a href="#pop02"><i class="fas fa-info-circle"></i></a>
    
    </div>
    <div class="info">
    <label>
-      <input id="ch3" type="checkbox">위치 정보 동의 (필수)</label>
+      <input id="ch3" value="ch3" name="ch" type="checkbox">위치 정보 동의 (필수)</label>
       <a href="#pop03"><i class="fas fa-info-circle"></i></a>   
    
    </div>
    <div class="info">
    <label>
       <input type="checkbox">이메일 및 광고 홍보 동의 (선택)</label>
+      <a href="#pop04"><i class="fas fa-info-circle"></i></a>
+ 
+   </div>
+   <div class="info">
+   <label>
+      <input id="ch4" type="checkbox">전체동의</label>
       <a href="#pop04"><i class="fas fa-info-circle"></i></a>
  
    </div>
@@ -109,45 +117,9 @@
        
     </div>
 
-
-
-
-
-
 </div>
 
-
-
 </form>
-
-   <script>
-      var ch1 = document.getElementById("ch1");
-      var ch2 = document.getElementById("ch2");
-      var ch3 = document.getElementById("ch3");
-      var bBack = document.getElementById("bBack");
-      var bNext = document.getElementById("bNext");
-
-      bBack.addEventListener('click', function(event) {
-         location.href = "/member/login";
-      });
-
-      bNext.addEventListener('click', function(event) {
-
-         if (ch1.checked) {
-            if (ch2.checked) {
-               if (ch3.checked) {
-                  document.getElementById("f").submit();
-               } else {
-                  alert("위치 정보 동의");
-               }
-            } else {
-               alert("개인정보 수집 및 이용 동의");
-            }
-         } else {
-            alert("이용약관 동의");
-         }
-      });
-   </script>
 </body>
 </html>
 

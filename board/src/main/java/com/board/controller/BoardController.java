@@ -112,14 +112,12 @@ public class BoardController {
 		service.delete(bno);
 		fileService.deleteFileBno(bno);
 		tpService.deleteFileBno(bno);
-		return "redirect:/board/listPageSearch?num=1";
+		return "redirect:/board/main";
 	}
 
 	// 占쌉시뱄옙 占쏙옙占� + 占쏙옙占쏙옙징 占쌩곤옙 + 占싯삼옙
-	@RequestMapping(value = "/listPageSearch", method = RequestMethod.GET)
-	public void getListPageSearch(Model model, HttpSession session, @RequestParam("num") int num,
-			@RequestParam(value = "searchType", required = false, defaultValue = "title") String searchType,
-			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) throws Exception {
+	@RequestMapping(value = "/main", method = RequestMethod.GET)
+	public void getMain() throws Exception {
 
 	}
 
@@ -249,23 +247,24 @@ public class BoardController {
 	@ResponseBody
 	@RequestMapping(value = "/writeClick", method = RequestMethod.POST)
 	public String postWriteClick(HttpServletRequest req) throws Exception {
-		int userID = Integer.parseInt(req.getParameter("userID"));
-		int pNum = Integer.parseInt(req.getParameter("pNum"));
-		String title = req.getParameter("title");
-		String del[] = req.getParameterValues("del");
 		int size = Integer.parseInt(req.getParameter("size"));
-
-		ToVO toVO = new ToVO();
-
-		BoardVO boardVO = toVO.boardVO(title, userID, pNum);
-
-		int fileBno = service.write(boardVO);
-
-		if (del != null) {
-			fileService.deleteFile(del);
-		}
-
 		if (size > 0) {
+			int userID = Integer.parseInt(req.getParameter("userID"));
+			int pNum = Integer.parseInt(req.getParameter("pNum"));
+			String title = req.getParameter("title");
+			String del[] = req.getParameterValues("del");
+			
+
+			ToVO toVO = new ToVO();
+
+			BoardVO boardVO = toVO.boardVO(title, userID, pNum);
+
+			int fileBno = service.write(boardVO);
+
+			if (del != null) {
+				fileService.deleteFile(del);
+			}
+
 			String id[] = req.getParameterValues("id");
 			String lat[] = req.getParameterValues("lat");
 			String lon[] = req.getParameterValues("lon");
@@ -274,12 +273,12 @@ public class BoardController {
 			String content[] = req.getParameterValues("content");
 			String tp[] = req.getParameterValues("tp");
 			String likeImgs[] = req.getParameterValues("likeImgs");
-			
-			if(likeImgs != null) {
+
+			if (likeImgs != null) {
 				fileService.deleteLikeImgs(fileBno);
 				fileService.likeImgs(toVO.likeImgVO(likeImgs, fileBno));
 			}
-			
+
 			tpService.reset(id);
 
 			for (int i = 0; i < id.length; i++) {
@@ -293,9 +292,7 @@ public class BoardController {
 			}
 
 			fileService.writeClick(toVO.writeClick(fileBno, id, lat, lon, loc, time, content, size));
-			
-			
-			
+
 			if (id.length > 49) {
 				String del_id[] = new String[id.length - 50];
 				for (int i = 50; i < id.length; i++) {
@@ -303,9 +300,11 @@ public class BoardController {
 				}
 				fileService.deleteFile(del_id);
 			}
-		}
 
-		return "/board/view?bno=" + fileBno;
+			return "/board/view?bno=" + fileBno;
+		}
+		System.out.println("이미지 없음");
+		return "/board/write";
 	}
 
 	@ResponseBody

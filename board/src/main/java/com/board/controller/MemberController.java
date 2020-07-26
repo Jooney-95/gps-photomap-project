@@ -3,6 +3,7 @@ package com.board.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -51,9 +52,16 @@ public class MemberController {
    }
 
    @RequestMapping(value = "/fRegister", method = RequestMethod.POST)
-   public String postFRegister() throws Exception {
-
-      return "redirect:/member/sRegister";
+   public String postFRegister(HttpServletRequest req) throws Exception {
+	   String[] checkbox = req.getParameterValues("ch");
+	   System.out.println(checkbox);
+	   if(checkbox != null) {
+		   System.out.println(checkbox.length);
+		   if(checkbox.length > 2) {
+			   return "redirect:/member/sRegister";
+		   }
+	   }
+      return "redirect:/member/fRegister";
    }
 
    @RequestMapping(value = "/sRegister", method = RequestMethod.GET)
@@ -61,14 +69,29 @@ public class MemberController {
 
    }
 
-   @RequestMapping(value = "/sRegister", method = RequestMethod.POST)
-   public String postSRegister(MemberVO vo) throws Exception {
+	@RequestMapping(value = "/sRegister", method = RequestMethod.POST)
+	public String postSRegister(MemberVO vo) throws Exception {
+		
+		MemberVO nicknameCheck = service.nicknameCheck(vo.getmNickname());
 
-      vo.setmPW(pwdEncoder.encode(vo.getmPW()));
-      service.register(vo);
-
-      return "redirect:/member/tRegister";
-   }
+		if (nicknameCheck == null && Pattern.matches("^[a-zA-Z0-9ㄱ-ㅎ가-힣0-9]*$", vo.getmNickname())) {
+			MemberVO idCheck = service.idCheck(vo.getmID());
+			if (idCheck == null && Pattern.matches("^[a-zA-Z0-9]*$", vo.getmID())) {
+				if (Pattern.matches("((?=.*[a-z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,})", vo.getmPW())) {
+					vo.setmPW(pwdEncoder.encode(vo.getmPW()));
+					service.register(vo);
+					return "redirect:/member/tRegister";
+				} else {
+					System.out.println("비밀번호 설정 오류");
+				}
+			} else {
+				System.out.println("아이디 설정 오류");
+			}
+		} else {
+			System.out.println("닉네임 설정 오류");
+		}
+		return "redirect:/member/sRegister";
+	}
 
    @RequestMapping(value = "/tRegister", method = RequestMethod.GET)
    public void getTRegister() {
@@ -110,6 +133,37 @@ public class MemberController {
       }
 
    }
+   
+	@ResponseBody
+	@RequestMapping(value = "/postLogin", method = RequestMethod.POST)
+	public String postLogin(HttpServletRequest req) throws Exception {
+		String id = req.getParameter("id");
+		String pw = req.getParameter("pw");
+		String loginCheck = "";
+
+		MemberVO vo = new MemberVO();
+		vo.setmID(id);
+		vo.setmPW(pw);
+		MemberVO login = service.login(vo);
+
+		// 해당하는 정보가 없을때
+		if (login == null) {
+			loginCheck = "idFalse";
+			return loginCheck;
+		} else {
+			// 암호화된 비밀번호 비교
+			boolean matchPW = pwdEncoder.matches(vo.getmPW(), login.getmPW());
+			// 비밀번호 일치
+			if (matchPW) {
+				loginCheck = "success";
+				return loginCheck;
+			} else {
+				loginCheck = "pwFalse";
+				return loginCheck;
+			}
+		}
+
+	}
 
    // 로그아웃
    @RequestMapping(value = "/logout", method = RequestMethod.GET)

@@ -21,7 +21,7 @@
 <div id="header">
    <!-- 로고 -->
      <div class="logo">
-       <a href="/board/listPageSearch?num=1">Plus+</a>
+       <a href="/board/main">Plus+</a>
      </div>     
 
      <!-- 사용자 로그인 현황 -->

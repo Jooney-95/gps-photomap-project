@@ -61,8 +61,6 @@ function deleteImg() {
    }
 }
 
-
-
 function handleImgFileSelect(e) {
    unloadFlag = true;
    var files = e.target.files;
@@ -75,7 +73,7 @@ function fileUpLoad(files) {
    for (var i = 0; i < filesArr.length; i++) {
       //filesArr.forEach(function (f) {
 
-      if (!filesArr[i].type.match('image/jpeg')) {
+      if (!filesArr[i].type.match("image/jpeg")) {
          alert("jpeg 만 업로드 가능합니다.");
          return;
       }
@@ -99,28 +97,28 @@ function fileUpLoad(files) {
 function fileDropDown() {
    var dropZone = $("#f");
    //Drag기능 
-   dropZone.on('dragenter', function (e) {
+   dropZone.on("dragenter", function (e) {
       e.stopPropagation();
       e.preventDefault();
       // 드롭다운 영역 css
-      dropZone.css('background-color', '#E3F2FC');
+      dropZone.css("background-color", "#E3F2FC");
    });
-   dropZone.on('dragleave', function (e) {
+   dropZone.on("dragleave", function (e) {
       e.stopPropagation();
       e.preventDefault();
       // 드롭다운 영역 css
-      dropZone.css('background-color', '#FFFFFF');
+      dropZone.css("background-color", "#FFFFFF");
    });
-   dropZone.on('dragover', function (e) {
+   dropZone.on("dragover", function (e) {
       e.stopPropagation();
       e.preventDefault();
       // 드롭다운 영역 css
-      dropZone.css('background-color', '#E3F2FC');
+      dropZone.css("background-color", "#E3F2FC");
    });
-   dropZone.on('drop', function (e) {
+   dropZone.on("drop", function (e) {
       e.preventDefault();
       // 드롭다운 영역 css
-      dropZone.css('background-color', '#FFFFFF');
+      dropZone.css("background-color", "#FFFFFF");
 
       var files = e.originalEvent.dataTransfer.files;
 
@@ -133,7 +131,6 @@ function fileDropDown() {
       }
    });
 }
-
 
 $(document).on("change", ":checkbox", function () {
    console.log("id : " + $(this).attr("id") + "   checked : " + $(this));
@@ -153,6 +150,8 @@ function getSession() {
    for (var i = 0; i < sessionStorage.length; i++) {
       if (sessionStorage.key(i).substr(0, 8) == "textarea") {
          $("#" + sessionStorage.key(i)).val(sessionStorage.getItem(sessionStorage.key(i)));
+      } else if (sessionStorage.key(i).substr(0, 9) == "deleteBtb") {
+         deleteBtn(sessionStorage.getItem(sessionStorage.key(i)));
       } else {
          $("#" + sessionStorage.key(i)).attr("checked", "checked");
       }
@@ -171,12 +170,14 @@ function deleteBtn(index) {
    $("#middle_" + index).css("opacity", 0.5);
    $("#b_" + index).attr("onclick", "unDeleteBtn(" + index + ")");
    $("#b_" + index).html("복원");
+   sessionStorage.setItem("deleteBtb_" + index, index);
 }
 
 function unDeleteBtn(index) {
    $("#middle_" + index).css("opacity", "");
    $("#b_" + index).attr("onclick", "deleteBtn(" + index + ")");
    $("#b_" + index).html("삭제");
+   sessionStorage.removeItem("deleteBtb_" + index);
 }
 
 function selectLikeImg(index) {
@@ -221,9 +222,9 @@ function uploadImg() {
 
       for (var i = 0; i < sel_files.length; i++) {
          selFiles.push(sel_files[i]);
-         formData.append('imgFileList', sel_files[i]);
+         formData.append("imgFileList", sel_files[i]);
       }
-      formData.append('userID', $("#userID").val());
+      formData.append("userID", $("#userID").val());
 
       $.ajax({
          type: "post",
@@ -248,86 +249,83 @@ function uploadImg() {
    }
 }
 
-$(document).on(
-   'click',
-   '#bWrite',
-   function () {
-      if ($("#title").val().trim() != "") {
-         var id = [];
-         var lat = [];
-         var lon = [];
-         var loc = [];
-         var time = [];
-         var content = [];
-         var tp = [];
-         var size = 0;
-         unloadFlag = false;
+$(document).on("click", "#bWrite", function () {
+   if ($("#title").val().trim() != "") {
+      var id = [];
+      var lat = [];
+      var lon = [];
+      var loc = [];
+      var time = [];
+      var content = [];
+      var tp = [];
+      var size = 0;
+      unloadFlag = false;
 
-         for (var i = 0; i < $("input[name='id']").length; i++) {
-            if ($("div[name='imgDiv']")[i].style.opacity == 0.5
-               && $("input[name='id']")[i].value != "") {
-               del_files.push($("input[name='id']")[i].value);
-            }
-            if ($("div[name='imgDiv']")[i].style.opacity == ""
-               && $("input[name='id']")[i].value != "") {
-               size++;
-               id.push($("input[name='id']")[i].value);
-               lat.push($("input[name='lat']")[i].value);
-               lon.push($("input[name='lon']")[i].value);
-               loc.push($("input[name='loc']")[i].value);
-               time.push($("input[name='time']")[i].value);
-               content.push($("textarea[name='content']")[i].value);
-               var tp_sub = [];
-               $("#tp_" + [i] + " input:checked").each(function () {
-                  tp_sub.push($(this).val());
-               });
-               tp.push(tp_sub);
-            }
-
+      for (var i = 0; i < $("input[name='id']").length; i++) {
+         if ($("div[name='imgDiv']")[i].style.opacity == 0.5
+            && $("input[name='id']")[i].value != "") {
+            del_files.push($("input[name='id']")[i].value);
          }
-
-         if (size != 0) {
-
-            var query = {
-               title: $("#title").val().trim(),
-               userID: $("#userID").val(),
-               pNum: $("input[name='pNum']:checked").val(),
-               id: id,
-               lat: lat,
-               lon: lon,
-               loc: loc,
-               time: time,
-               content: content,
-               del: del_files,
-               tp: tp,
-               size: size,
-               likeImgs: likeImgs
-            };
-
-            $.ajax({
-               type: "post",
-               url: "/board/writeClick",
-               traditional: true,
-               data: query,
-               success: function (data) {
-                  localStorage.removeItem("writeImgData");
-                  sessionStorage.clear();
-                  location.href = data;
-               },
-               error: function (request, status, error) {
-                  alert("code:" + request.status + "\n" + "message:"
-                     + request.responseText + "\n" + "error:"
-                     + error);
-               }
+         if ($("div[name='imgDiv']")[i].style.opacity == ""
+            && $("input[name='id']")[i].value != "") {
+            size++;
+            id.push($("input[name='id']")[i].value);
+            lat.push($("input[name='lat']")[i].value);
+            lon.push($("input[name='lon']")[i].value);
+            loc.push($("input[name='loc']")[i].value);
+            time.push($("input[name='time']")[i].value);
+            content.push($("textarea[name='content']")[i].value);
+            var tp_sub = [];
+            $("#tp_" + [i] + " input:checked").each(function () {
+               tp_sub.push($(this).val());
             });
-         } else {
-            alert("사진을 골라주세요");
+            tp.push(tp_sub);
          }
-      } else {
-         alert("제목을 입력하세요.");
-         $("#title").focus();
+
       }
-   });
+
+      if (size != 0) {
+
+         var query = {
+            title: $("#title").val().trim(),
+            userID: $("#userID").val(),
+            pNum: $("input[name='pNum']:checked").val(),
+            id: id,
+            lat: lat,
+            lon: lon,
+            loc: loc,
+            time: time,
+            content: content,
+            del: del_files,
+            tp: tp,
+            size: size,
+            likeImgs: likeImgs
+         };
+
+         $.ajax({
+            type: "post",
+            url: "/board/writeClick",
+            traditional: true,
+            data: query,
+            success: function (data) {
+               localStorage.removeItem("writeImgData");
+               sessionStorage.clear();
+               location.href = data;
+            },
+            error: function (request, status, error) {
+               alert("code:" + request.status + "\n" + "message:"
+                  + request.responseText + "\n" + "error:"
+                  + error);
+            }
+         });
+      } else {
+         alert("사진을 골라주세요");
+      }
+   } else {
+      alert("제목을 입력하세요.");
+      $("#title").focus();
+   }
+});
 
 function printImgBox(obj) {
    $(".img_box").empty();
@@ -399,8 +397,6 @@ function getLoc(x, y, iIndex) {
 
    var callback = function (result, status) {
       if (status === kakao.maps.services.Status.OK) {
-
-         console.log('지역 명칭 : ' + result[0].address.address_name);
          document.getElementById("loc_" + iIndex).value = result[0].address.address_name;
 
       }

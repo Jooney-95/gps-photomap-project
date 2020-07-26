@@ -9,12 +9,15 @@
 <head>
 <meta charset="UTF-8">
 <title>메인</title>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<link rel="stylesheet" href="/resources/dist/jquery.bxslider.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="/resources/js/jquery.bxslider.min.js"></script>
+<!--<script src="http://code.jquery.com/jquery-latest.min.js"></script>  -->
 <script src="/resources/js/listPage.js?var=2"></script>
 <link rel="stylesheet" href="/resources/css/top.css">
 <link rel="stylesheet" href="/resources/css/main.css">
 <link rel="stylesheet"
-   href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+   href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">   
 </head>
 
 <body>
@@ -22,7 +25,7 @@
    <div id="header">
       <!-- 로고 -->
       <div class="logo">
-         <a href="/board/listPageSearch?num=1">Plus+</a>
+         <a href="/board/main">Plus+</a>
       </div>
       <!-- 검색창 -->
       <div class="wrap">

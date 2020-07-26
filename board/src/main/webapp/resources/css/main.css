@@ -47,11 +47,10 @@ a{
    text-decoration:none;
 }
 #table{
-   width:450px;
-    height:250px;
+    width:350px;
+    height:350px;
     border: 1px solid #efeadc; /*  ׵θ */
-    border-radius:20px;  /* 𼭸  ձ۰ */
-    box-shadow:5px 5px 2px 2px #efeadc;/* ׸   ȿ  */
+    border-radius:10px;
     background:#fff;
     margin-top:40px;
     float:left;
@@ -62,95 +61,45 @@ a{
     
 }
 
-#up{
-   border:1px soolid #000;
-   width:450px;
-   height:130px;
-   margin:0 auto;
-}
+/*////////////////상단///////////////////*/
 
 #left{
    float:left;
-   width:130px;
-   height:120px;
-   margin:0 auto;
-   margin-top:5px;
-}
-
-.writer{
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    width: 100px;
-    height: 100px;
-    border: 1.5px dashed #c6da9c;
-    border-radius: 77%;
-    margin:0 auto;
-    margin-top:15px;  
+   width:60px;
+   height:50px;
+   padding-top:6px;
 }
 
 #table .writer a img{
-   width:100px;
-   height:100px;
-   margin:0 auto;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border: 2px dashed #c6da9c;
+    border-radius: 77%;
+    margin-left:10px;
+    float:left;
 }
 
 ul li{
    list-style:none;
 }
-#right{
-  
-   width:320px;
-   height:130px;
-   float:right;
-  
-}
-/*/////////////////////날짜 or 시간///////////////////////*/
-.r-1{
-   
-   font-size:13px;
-   padding-right: 20px;
-   padding-top:10px;
-   text-align:right;
-   width:320px;
-   height:30px;
-   color:#3b3f58;
-}
-#date{
-  
-   width:310px;
-   height:30px;
-   float:right;
-   text-align:right;
- padding-right:10px;
- padding-top:10px;
- 
-}
 
-/*/////////////아이디 & 공감수 & 조회수 & 공개 범위//////////////*/
-.r-2{  
-   margin-top:5px;
-   width:320px;
-   height:40px;  
-}
-.name{
-  
-   width:180px;
-   height:40px;
+.name{ 
+   width:140px;
+   height:30px;
    text-align:left;
    float: left;
-   padding-left:5px;
+   padding-left:10px;
    padding-top:5px;
    font-size:15px;
-    color:#3b3f58;
- 
-   
+   color:#3b3f58; 
+   margin-top:10px;
 }
 .name a{
    text-decoration:none;
-   color:#3b3f58;
-  
-   
+   color:#3b3f58;   
 }
 
 /*********링크 방문 후*********/
@@ -165,59 +114,59 @@ ul li{
    color:#10b27d;
    text-shadow: 0 0 24px;
 }
-/*공감수*/
-#likeCnt{
-   padding-top:4px;
-   width:75px;
-   height:40px;
-   float: right;
-   color:#fdb330;
-   margin-right:10px;   
-  
+
+/*///////////상단 날짜 or 시간//////////*/
+.r-1{   
+   padding-right:15px;
+   width:130px;
+   height:30px;
+   float:right;
+   margin-top:5px;
 }
-#likeCnt i{
-color:border-radius:50px;
-padding:5px;
-background-color:#fff;
-color:#fdb330;
-border:1px solid #f4f1e8;
-border-radius:50px;
-box-shadow: 0px 0px 2px 1px  #f4f1e8;
-margin-right:5px;
+
+.date{
+   width:80px;
+   height:18px;
+   color:#3b3f58;
+   font-size:13px;
+   text-align:right;
+   float:right;
+   margin-top:5px;
 }
-/*조회수*/
-#viewCnt{
-    padding-top:5px;
-    width:100px;
-   height:40px;
-   float: right;
-   font-size:10px;
-   margin-right:5px; 
-   text-align:right;  
-}
+
 /*공개범위*/
 .pNum{
-    padding-top:3px;
-     width:40px;
-   height:40px;
-   float: right;
-   margin:0 auto;
-   margin-right:15px;
-   
+   width:20px;
+   height:18px;
+   margin-left:5px;
+   float:right;
+}
+.pNum i{
+   font-size:13px;
    color:#c5c0c0;
-font-size:20px;
-  /*div안에 아이콘 가운데 오게 하기*/
+}
+
+/*조회수*/
+#viewCnt{
+   width:100px;
+   height:15px;
+   float: right;
+   font-size:10px;
+   text-align:right;
+   margin-top:5px;  
 }
 
 
 
-#title{
-  
-   width:310px;
+
+
+/*//////////////////하단////////////*/
+#title{  
+   width:200px;
    height:40px;
    text-align:left;
-   padding-top:5px;
-   padding-left:5px;
+   padding-top:15px;
+   padding-left:20px;
    font-size:17px;
    flaot:left;
 }
@@ -231,7 +180,6 @@ font-size:20px;
    color:#0000000; 
    margin-left:5px;
 }
-
 /*********링크 방문 후*********/
 #title a:visited{
    text-decoration:none;
@@ -245,42 +193,51 @@ font-size:20px;
    text-shadow: 0 0 24px;
 }
 
-.downimg{
- 
- display:block;
-/* border:1px solid #000;/**/
- width:450px;
- height:120px;
-padding-left:22px;
+.r-2{  
+   margin-top:5px;
+   width:100px;
+   height:40px;
+   float:right;  
+}
 
- 
+/*공감수*/
+#likeCnt{
+   padding-top:4px;
+   width:75px;
+   height:40px;
+   float: right;
+   color:#fdb330;
+   margin-right:10px; 
+   font-size:15px;  
   
- 
+}
+#likeCnt i{
+padding:5px;
+background-color:#fff;
+color:#fdb330;
+border:1px solid #f4f1e8;
+border-radius:50px;
+box-shadow: 0px 0px 2px 1px  #f4f1e8;
+margin-right:5px;
+font-size:14px;
+}
+
+
+
+
+
+.downimg{
+ display:block;
+ width:350px;
+ height:250px;
    
 }
 .downimg img{
 float:left;
-width:80px;
-height:80px;
-border-radius:10px;
-margin-left:17px;
-margin-top:18px;
-  -webkit-transition-duration: 0.35s;
-          transition-duration: 0.35s;
+width:348px;
+height:240px;
 /*border: 2px solid #dfddc5;*/
  
- }
- .downimg img:hover{
- transition: transform .35s;  
--o-transition: transform .35s;
--moz-transition: transform .35s;
--webkit-transition: transform .35s;
-
- transform:scale(1.2); /* 마우스 오버시 이미지 크기를 1.2 배만큼 확대시킨다. */
- -o-transform:scale(1.2); 
- -moz-transform:scale(1.2);
- -webkit-transform:scale(1.2);
-border: 2px solid #9dbfaf;
  }
  
 #pagelist{

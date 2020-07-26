@@ -23,7 +23,7 @@ pageEncoding="UTF-8"%>
 <div id="header">
    <!-- 로고 -->
      <div class="logo">
-        <a href="/board/listPageSearch?num=1">Plus+</a>
+        <a href="/board/main">Plus+</a>
      </div>
      
 <!-- 검색창 -->

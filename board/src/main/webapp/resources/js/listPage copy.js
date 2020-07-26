@@ -6,7 +6,6 @@ var pageNumber;
 var likeImg;
 var listFlag;
 
-
 window.onload = function () {
    sessionStorage.clear();
    pageNumber = 1;
@@ -19,19 +18,18 @@ window.onload = function () {
 
    getFlag();
    getPageList(pageNumber);
-   
 }
 
-function getFlag(){
+function getFlag() {
    sessionStorage.removeItem("flag");
    sessionStorage.setItem("flag", "new");
 
    var flag = sessionStorage.getItem("flag");
 
-   if(flag == "like" || flag == "likeSearch"){
+   if (flag == "like" || flag == "likeSearch") {
       $(".listBold")[0].style.fontWeight = "bold";
       return;
-   } else if(flag == "new" || flag == "newSearch"){
+   } else if (flag == "new" || flag == "newSearch") {
       $(".listBold")[1].style.fontWeight = "bold";
       return;
    } else {
@@ -76,36 +74,36 @@ $(window).scroll(
       }
    });
 
-   function getList(value) {
-      var flag = sessionStorage.getItem("flag");
-      var keyword = document.getElementsByName("keyword")[0];
-      sessionStorage.removeItem("keyword");
-      keyword.value = "";
-      pageNumber = 1;
-   
-      switch (value) {
-         case 1:
-            sessionStorage.setItem("flag", "like");
-            break;
-         case 2:
-            sessionStorage.setItem("flag", "new");
-            break;
-         default:
-            sessionStorage.setItem("flag", "fol");
-            break;
-      }
-   
-      if (listFlag == true) {
-         listFlag = false;
-         $("#pageList").empty();
-         getPageList(pageNumber);
-      }
+function getList(value) {
+   var flag = sessionStorage.getItem("flag");
+   var keyword = document.getElementsByName("keyword")[0];
+   sessionStorage.removeItem("keyword");
+   keyword.value = "";
+   pageNumber = 1;
+
+   switch (value) {
+      case 1:
+         sessionStorage.setItem("flag", "like");
+         break;
+      case 2:
+         sessionStorage.setItem("flag", "new");
+         break;
+      default:
+         sessionStorage.setItem("flag", "fol");
+         break;
    }
+
+   if (listFlag == true) {
+      listFlag = false;
+      $("#pageList").empty();
+      getPageList(pageNumber);
+   }
+}
 
 function getPageList(pageNum) {
    var flag = sessionStorage.getItem("flag");
    var URL = sessionStorage.getItem(flag);
-
+   
    if (flag == "like" || flag == "new" || flag == "fol") {
       var query = {
          pageNum: pageNum,
@@ -144,72 +142,59 @@ function getPageList(pageNum) {
    });
 }
 
+
 function addListPage(data) {
-   
+
    pageNumber = page.num;
    var count = 0;
    for (var i = 0; i < list.length; i++) {
       var innerList;
-      innerList =  '  <div id="table">';
-      
-      innerList += '     <ul>';
-      innerList += '        <li>';
+      innerList = '  <div id="table">';
+      innerList += '    <div id="up">';
       innerList += '       <div id="left">';
       innerList += '          <div class="writer" id="writer_' + list[i].bno + '"></div>';
-      innerList += '      </div>';
-      innerList += '          <div class="name" id="nickname_' + list[i].bno + '">';
       innerList += '       </div>';
-      innerList += '        </li>';
-      
-      innerList += '        <li>';      
-      innerList += '        <div class="r-1">';
-      innerList += '            <div class="pNum" id="pNum_' + list[i].bno + '"></div>';
-      innerList += '             <div id="date_' + list[i].bno + '" class="date">' + getTimeStamp(list[i].regDate) + '</div>';
-      innerList += '            <div id="viewCnt">조회수 ' + list[i].viewCnt + '회</div>';
-      innerList += '         </div>';
-      innerList += '        </li>';
-      innerList += '      </ul>';
-      
-      innerList += '    <div class="downimg" id="img_' + list[i].bno + '">';
-      innerList += '       <div class="imgContainer" id="imgContainer_' + list[i].bno + '">';
-      innerList += '          <ul class="slider" id="slider_' + list[i].bno + '">';
-      innerList += '          </ul>';
-      innerList += '       </div>';
-      innerList += '    </div>';
-      innerList += '    <div id="sliderBtn_' + list[i].bno + '">';
-      innerList += '       <span id="sliderPrev_' + list[i].bno + '" onclick="sliderPrev(' + list[i].bno + ')"><</span>';
-      innerList += '       <span id="sliderNext' + list[i].bno + '" onclick="sliderNext(' + list[i].bno + ')">></span>';
-      innerList += '    </div>';
-      
+      innerList += '       <div id="right">';
       innerList += '          <ul>';
-      innerList += '        <li>';
-      innerList += '            <div id="title" title="' + list[i].title + '">';
-      innerList += '                <i class="fas fa-caret-right fa-2x"></i>';
-      innerList += '                <a href="/board/view?bno=' + list[i].bno + '">' + textOverCut(list[i].title, "title") + '</a>';
-      innerList += '            </div>';
-      innerList += '          </li>';
-
-      innerList += '        <li>';
-      innerList += '            <div class="r-2">';
-      innerList += '                 <div id ="likeCnt"><i class="far fa-thumbs-up"></i>' + list[i].likeCnt + '</div>';
-      innerList += '            </div>';
-      innerList += '          </li>';      
+      innerList += '             <!--  날짜 or 시간    -->';
+      innerList += '             <li>';
+      innerList += '                <div class="r-1">';
+      innerList += '                   <div id="date_' + list[i].bno + '" class="date">' + getTimeStamp(list[i].regDate) + '</div>';
+      innerList += '                </div>';
+      innerList += '             </li>';
+      innerList += '             <li>';
+      innerList += '                <!-- 아이디 & 공감수 & 조회수 & 공개 범위 -->';
+      innerList += '                <div class="r-2">';
+      innerList += '                   <div class="name" id="nickname_' + list[i].bno + '"></div>';
+      innerList += '                   <div class="pNum" id="pNum_' + list[i].bno + '"></div>';
+      innerList += '                   <div id ="likeCnt"><i class="far fa-thumbs-up"></i>' + list[i].likeCnt + '</div>';
+      innerList += '                </div>';
+      innerList += '             </li>';
+      innerList += '             <li>';
+      innerList += '                <!-- 제목 -->';
+      innerList += '                <div id="title" title="' + list[i].title + '">';
+      innerList += '                   <i class="fas fa-caret-right fa-2x"></i>';
+      innerList += '                   <a href="/board/view?bno=' + list[i].bno + '">' + textOverCut(list[i].title, "title") + '</a>';
+      innerList += '                   <div id="viewCnt">조회수 ' + list[i].viewCnt + '회</div>';
+      innerList += '                </div>';
+      innerList += '             </li>';
       innerList += '          </ul>';
+      innerList += '       </div>';
       innerList += '    </div>';
+      innerList += '    <div class="downimg" id="img_' + list[i].bno + '"></div>';
       innerList += ' </div>';
 
       $("#pageList").append(innerList);
 
       getPNum(list[i].pNum, list[i].bno);
       getMember(list[i].bno, count);
-      // getImg(list[i].bno, count);
-      getImgSlider(list[i].bno, count);
+      getImg(list[i].bno, count);
 
       count++;
    }
    listFlag = true;
-   $('.slider').bxSlider({captions:true});
 }
+
 function textOverCut(text, type) {
    var lastText = "...";
 
@@ -331,24 +316,6 @@ function printImg(bno, index, path) {
    $("#img_" + bno).append(imgInner);
 }
 
-function getImgSlider(bno, count){
-   for(var i=0; i<file[count].length;i++){
-      imgSlider(bno, i, file[count][i].path);
-   }
-}
-
-function imgSlider(bno, index, path){
-   var imgInner;
-   imgInner = '   <li class="sliderItem">';
-   imgInner += '     <a href="/board/view?bno=' + bno + '">';
-   imgInner += '        <img id="img_' + bno + '_' + index + '" alt="" src=' + path + '>';
-   imgInner += '     </a>';
-   imgInner += '  </li>';
-   $("#slider_" + bno).append(imgInner);
-}
-
-
-
 function loginPopup() {
    if (document.getElementById("loginPopup").style.display == "none") {
       document.getElementById("loginPopup").style.display = "";
@@ -356,5 +323,3 @@ function loginPopup() {
       document.getElementById("loginPopup").style.display = "none";
    }
 }
-
-

@@ -18,7 +18,7 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
 		
-		return "redirect:/board/listPageSearch?num=1";
+		return "redirect:/board/main";
 	}
 	
 }
