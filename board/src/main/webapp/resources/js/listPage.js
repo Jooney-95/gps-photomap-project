@@ -7,7 +7,10 @@ var likeImg;
 var listFlag;
 
 
-window.onload = function () {
+$(document).ready(function () {
+   if($("#hiddenNickname").val() != undefined){
+      $("#sessionNickname").text(textOverCut($("#hiddenNickname").val(), "nickname") + "님");
+   }
    sessionStorage.clear();
    pageNumber = 1;
    sessionStorage.setItem("like", "/board/getPage");
@@ -20,7 +23,7 @@ window.onload = function () {
    getFlag();
    getPageList(pageNumber);
    
-}
+});
 
 function getFlag(){
    sessionStorage.removeItem("flag");
@@ -170,33 +173,29 @@ function addListPage(data) {
       innerList += '        </li>';
       innerList += '      </ul>';
       
-      innerList += '    <div class="downimg" id="img_' + list[i].bno + '">';
-      innerList += '       <div class="imgContainer" id="imgContainer_' + list[i].bno + '">';
-      innerList += '          <ul class="slider" id="slider_' + list[i].bno + '">';
-      innerList += '          </ul>';
+      innerList += '      <ul>';
+      innerList += '        <li>';
+      innerList += '       <div class="downimg" id="img_' + list[i].bno + '">';
+      innerList += '             <div class="imgContainer" id="imgContainer_' + list[i].bno + '">';
+      innerList += '                <ul class="slider" id="slider_' + list[i].bno + '">';
+      innerList += '                </ul>';
+      innerList += '           </div>';
       innerList += '       </div>';
-      innerList += '    </div>';
-      innerList += '    <div id="sliderBtn_' + list[i].bno + '">';
-      innerList += '       <span id="sliderPrev_' + list[i].bno + '" onclick="sliderPrev(' + list[i].bno + ')"><</span>';
-      innerList += '       <span id="sliderNext' + list[i].bno + '" onclick="sliderNext(' + list[i].bno + ')">></span>';
-      innerList += '    </div>';
+      innerList += '        </li>';
+      innerList += '       </ul>';
       
-      innerList += '          <ul>';
+      innerList += '       <ul>';
       innerList += '        <li>';
       innerList += '            <div id="title" title="' + list[i].title + '">';
       innerList += '                <i class="fas fa-caret-right fa-2x"></i>';
       innerList += '                <a href="/board/view?bno=' + list[i].bno + '">' + textOverCut(list[i].title, "title") + '</a>';
+      innerList += '                <div id ="likeCnt"><i class="far fa-thumbs-up"></i>' + list[i].likeCnt + '</div>';
       innerList += '            </div>';
-      innerList += '          </li>';
-
-      innerList += '        <li>';
-      innerList += '            <div class="r-2">';
-      innerList += '                 <div id ="likeCnt"><i class="far fa-thumbs-up"></i>' + list[i].likeCnt + '</div>';
-      innerList += '            </div>';
-      innerList += '          </li>';      
-      innerList += '          </ul>';
+      innerList += '          </li>';    
+      innerList += '        </ul>';
       innerList += '    </div>';
       innerList += ' </div>';
+
 
       $("#pageList").append(innerList);
 
@@ -208,15 +207,17 @@ function addListPage(data) {
       count++;
    }
    listFlag = true;
-   $('.slider').bxSlider({captions:true});
+   $('.slider').bxSlider({touchEnabled : (navigator.maxTouchPoints > 0)});
 }
 function textOverCut(text, type) {
-   var lastText = "...";
+   
 
    if (type == "title") {
       var len = 15;
+      var lastText = "...";
    } else {
-      var len = 10;
+      var len = 8;
+      var lastText = "";
    }
    if (text.length > len) {
       return text.substr(0, len) + lastText;
@@ -286,9 +287,11 @@ function getMember(bno, count) {
 
    writerInner = '   <a href="/member/myPage?num=1&userID=' + member[count].id + '">';
    writerInner += '     <img alt="" src=' + member[count].mImg + '>';
-   writerInner += '  </a>';
+   writerInner += '   <a href="/member/myPage?num=1&userID=' + member[count].id + '">';
 
-   nicknameInner = textOverCut(member[count].mNickname, "nickname") + ' 님';
+   nicknameInner = '   <a href="/member/myPage?num=1&userID=' + member[count].id + '">';
+   nicknameInner += textOverCut(member[count].mNickname, "nickname") + ' 님';
+   nicknameInner += '   <a href="/member/myPage?num=1&userID=' + member[count].id + '">';
 
    $("#writer_" + bno).append(writerInner);
    $("#nickname_" + bno).append(nicknameInner);

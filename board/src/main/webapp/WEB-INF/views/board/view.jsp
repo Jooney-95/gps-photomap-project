@@ -51,7 +51,8 @@
             <div id="r">
                <div class="profile">
                     <img src="${session.mImg }" onclick="loginPopup()"/>
-                  <p>${session.mNickname }님</p>
+                    <input type="hidden" id="hiddenNickname" value="${session.mNickname }">
+                  <p id="sessionNickname"></p>
                </div>
             </div>
             
@@ -181,7 +182,7 @@
    <c:forEach items="${list }" var="list">
          <input type="hidden" name="id" value="${list.id }" />
          <input type="hidden" id="tblBno" value="${view.bno }" />
-         <input type="hidden" name="userID" value="${session.id }" />
+         <input type="hidden" id="userID" name="userID" value="${session.id }" />
    
    
      <div class="middle">
@@ -467,93 +468,16 @@
       likeImgArr.push("${likeImg.imgBno}");
       </c:forEach>
      
-      function likeImg(){
-         for(var i = 0; i < likeImgArr.length; i++){
-            $("#selectLikeImg_" + likeImgArr[i]).attr("class", "fas fa-star");
-         }
-      }
       
       
-      $("#bLike").click(
-            function(){
-               if("${session }" != ""){
-                  var query = {
-                        userID : "${session.id}",
-                        tblBno : "${view.bno}"
-                  };
-                  $.ajax({
-                     url : "/board/likeClick",
-                     type : "post",
-                     data : query,
-                     success : function(count) {
-                        countLike();
-                        likeCheck();
-                     },
-                      error:function(request,status,error){
-                            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-                      }
-                  });
-               } else{
-                  alert("로그인 후 이용해주세요");
-               }
-            });
       
-      window.onload = function(){
-         countLike();
-         likeCheck();
-         likeImg();
-      }
-         function countLike(){
-         var query = {
-               tblBno : "${view.bno}"
-         };
-         $.ajax({
-           url : "/board/likeCount",
-           type : "post",
-           data : query,
-           success : function(count) {
-              $("#like").text(count);
-              
-              
-           },
-            error:function(request,status,error){
-                  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-            }
-        });
-      }
+      
+      
+      
          
-         function likeCheck(){
-            if("${session }" != ""){
-             var query = {
-                   userID : "${session.id}",
-                   tblBno : "${view.bno}"
-             };
-             $.ajax({
-               url : "/board/likeCheck",
-               type : "post",
-               data : query,
-               success : function(check) {
-                  if(check == 1){
-                     $("#bLike").css("color","#fdb330");
-                  } else{
-                     $("#bLike").css("color","#e8dfe2");
-                    
-                  }
-               },
-                error:function(request,status,error){
-                      alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-                }
-            });
-            }
-          }
+         
   
-         function loginPopup() {
-              if (document.getElementById("loginPopup").style.display == "none") {
-                 document.getElementById("loginPopup").style.display = "";
-              } else {
-                 document.getElementById("loginPopup").style.display = "none";
-              }
-           }
+         
          
          
    </script>

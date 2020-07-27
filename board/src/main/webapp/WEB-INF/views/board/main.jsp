@@ -48,7 +48,8 @@
             <div id="r">
                <div class="profile">
                     <img src="${session.mImg }" onclick="loginPopup()"/>
-                  <p>${session.mNickname }님</p>
+                    <input type="hidden" id="hiddenNickname" value="${session.mNickname }">
+                  <p id="sessionNickname"></p>
                </div>
             </div>
 

@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -105,6 +106,7 @@ public class UploadFiles {
 
 		byte[] data = multipartFile.getBytes();
 		FileOutputStream fos = new FileOutputStream(SAVE_PATH + "/" + saveFileName);
+		// FileOutputStream fos = new FileOutputStream(saveFileName);
 		fos.write(data);
 		fos.close();
 
@@ -117,7 +119,7 @@ public class UploadFiles {
 
 			String saveFileName = getRandomString();
 			fileWrite(mF, saveFileName);
-			File convFile = new File(saveFileName);
+			File convFile = new File(SAVE_PATH + "/" + saveFileName);
 			mF.transferTo(convFile);
 			fileEXIF(convFile, saveFileName);
 		}
@@ -201,24 +203,35 @@ public class UploadFiles {
 	public void deleteFile(String name) {
 		// TODO Auto-generated method stub
 		File file = new File(SAVE_PATH + "/" + name);
+		System.out.println("삭제할 파일 존재 : " + file.exists());
 		if (file.exists()) {
 			file.delete();
+			System.out.println("파일 삭제 : " + SAVE_PATH + "/" + name);
 		}
 	}
 
 	public String getRandomString() {
 
-		String fileName;
+		Calendar cal = Calendar.getInstance();
+		String dirName = String.format(SAVE_PATH + "\\" + "%04d\\%02d\\%02d", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
+				cal.get(Calendar.DAY_OF_MONTH));
+		String fileName = String.format("%04d/%02d/%02d/", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
+				cal.get(Calendar.DAY_OF_MONTH));
+
+
+		File dir = new File(dirName);
+		dir.mkdirs();
+		
 		String saveFileName = UUID.randomUUID().toString().replaceAll("-", "") + ".jpg";
 
-		File file = new File(SAVE_PATH + "\\" + saveFileName);
+		File file = new File(fileName + "\\" + saveFileName);
 
 		while (file.exists()) {
 			saveFileName = "0" + saveFileName;
-			file = new File(SAVE_PATH + "\\" + saveFileName);
+			file = new File(fileName + "\\" + saveFileName);
 		}
 
-		fileName = saveFileName;
+		fileName += saveFileName;
 
 		return fileName;
 

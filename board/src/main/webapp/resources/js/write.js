@@ -5,6 +5,7 @@ var unloadFlag;
 var likeImgs;
 
 $(document).ready(function () {
+   $("#sessionNickname").text(textOverCut($("#hiddenNickname").val(), "nickname") + "님");
    sel_files = [];
    selFiles = [];
    del_files = [];
@@ -409,5 +410,20 @@ function loginPopup() {
       document.getElementById("loginPopup").style.display = "";
    } else {
       document.getElementById("loginPopup").style.display = "none";
+   }
+}
+
+function textOverCut(text, type) {
+   var lastText = "...";
+
+   if (type == "title") {
+      var len = 15;
+   } else {
+      var len = 10;
+   }
+   if (text.length > len) {
+      return text.substr(0, len) + lastText;
+   } else {
+      return text;
    }
 }
