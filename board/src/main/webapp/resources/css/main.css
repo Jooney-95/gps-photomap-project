@@ -12,20 +12,18 @@ button:focus { outline:none; }
 body {
   font-family: sans-serif;
   font-size: 18px;
-  background:#f9f9f9;
 }
 
 
 .main{
     text-align:center;
-    width:90%;
+    width:1070px;
     overflow:hidden;
-    height:auto; /*      Ϸ             ̸   ݵ        */ 
-    border: 2px solid #d7d8d7;  /* ׵θ */
-    margin:0 auto;  /*                   */
-    margin-top:140px;  /*Ʋ          */
+    height:auto;
+    margin:0 auto;  
+    margin-top:110px;  
     margin-bottom:50px;
-    border-radius:5px;  /* 𼭸  ձ۰ */
+    border-radius:5px;  
     padding-top:20px;
     padding-bottom:100px;
     position:relative;
@@ -33,10 +31,10 @@ body {
 
 #list{
    width:250px;
-   margin:0 auto;  /*                   */
+   margin:0 auto;  
    text-align:center;
    margin-top:10px;
-   
+   margin-bottom:20px;
 }
 
 #list .listBold{
@@ -47,17 +45,17 @@ a{
    text-decoration:none;
 }
 #table{
-    width:350px;
-    height:350px;
-    border: 1px solid #efeadc;
+    width:320px;
+    height:320px;
+    border: 1px solid #d7d8d7;
     border-radius:10px;
     background:#fff;
-    margin-top:40px;
+    margin-top:20px;
     float:left;
-    margin-left:75px;
+    margin-left:20px;
     display: inline-block;
     background:#fff;
-    margin-bottom:40px;
+    margin-bottom:20px;
     
 }
 
@@ -65,8 +63,8 @@ a{
 
 #left{
    float:left;
-   width:60px;
-   height:50px;
+   width:50px;
+   height:40px;
    padding-top:6px;
 }
 
@@ -76,7 +74,6 @@ a{
     align-items: center;
     width: 40px;
     height: 40px;
-    border: 2px dashed #c6da9c;
     border-radius: 77%;
     margin-left:10px;
     float:left;
@@ -87,15 +84,16 @@ ul li{
 }
 
 .name{ 
-   width:155px;
+   width:135px;
    height:30px;
    text-align:left;
    float: left;
    padding-left:10px;
    padding-top:5px;
-   font-size:15px;
+   font-size:13px;
    color:#3b3f58; 
-   margin-top:10px;
+   margin-top:12px;
+   font-weight:bold;
 }
 .name a{
    text-decoration:none;
@@ -118,7 +116,7 @@ ul li{
 /*///////////상단 날짜 or 시간//////////*/
 .r-1{   
    padding-right:15px;
-   width:130px;
+   width:120px;
    height:30px;
    float:right;
    margin-top:5px;
@@ -128,7 +126,7 @@ ul li{
    width:80px;
    height:18px;
    color:#3b3f58;
-   font-size:13px;
+   font-size:12px;
    text-align:right;
    float:right;
    margin-top:5px;
@@ -142,7 +140,7 @@ ul li{
    float:right;
 }
 .pNum i{
-   font-size:13px;
+   font-size:12px;
    color:#c5c0c0;
 }
 
@@ -153,7 +151,8 @@ ul li{
    float: right;
    font-size:10px;
    text-align:right;
-   margin-top:5px;  
+   margin-top:5px;
+   margin-right:4px;  
 }
 
 
@@ -162,17 +161,18 @@ ul li{
 
 /*//////////////////하단////////////*/
 #title{  
-   width:348px;
+   width:318px;
    height:40px;
    text-align:left;
    padding-top:20px;
    padding-left:20px;
-   font-size:16px;
+   font-size:14px;
    flaot:left;
 }
 #title i{
-   font-size:20px;
+   font-size:18px;
    color:#86a845;
+   margin-top:3px;
 }
 
 #title a{
@@ -195,12 +195,12 @@ ul li{
 
 /*공감수*/
 #likeCnt{
-   width:75px;
+   width:70px;
    height:25px;
    float: right;
    color:#fdb330;
    margin-right:15px; 
-   font-size:15px;
+   font-size:14px;
    text-align:right;   
 }
 #likeCnt i{
@@ -211,7 +211,7 @@ border:1px solid #f4f1e8;
 border-radius:50px;
 box-shadow: 0px 0px 2px 1px  #f4f1e8;
 margin-right:5px;
-font-size:14px;
+font-size:13px;
 }
 
 
@@ -220,16 +220,15 @@ font-size:14px;
 
 .downimg{
  display:block;
- width:348px;
- height:240px;  
+ width:318px;
+ height:210px;  
  margin-top:50px;
 }
 .downimg img{
 float:left;
-width:348px;
-height:240px;
-/*border: 2px solid #dfddc5;*/
- 
+width:318px;
+height:210px;
+
  }
  
 #pagelist{

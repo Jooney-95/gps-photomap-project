@@ -202,11 +202,12 @@ public class UploadFiles {
 
 	public void deleteFile(String name) {
 		// TODO Auto-generated method stub
-		File file = new File(SAVE_PATH + "/" + name);
+		File file = new File(SAVE_PATH + "\\" + name);
+		System.out.println("삭제파일 경로 : " + SAVE_PATH + "\\" + name);
 		System.out.println("삭제할 파일 존재 : " + file.exists());
 		if (file.exists()) {
 			file.delete();
-			System.out.println("파일 삭제 : " + SAVE_PATH + "/" + name);
+			System.out.println("파일 삭제 : " + SAVE_PATH + "\\" + name);
 		}
 	}
 
@@ -254,6 +255,13 @@ public class UploadFiles {
 			}
 		}
 		return modifyVO;
+	}
+
+	public void deleteFileList(List<String> fileNameList) {
+		// TODO Auto-generated method stub
+		for(String name : fileNameList) {
+			deleteFile(name);
+		}
 	}
 
 }

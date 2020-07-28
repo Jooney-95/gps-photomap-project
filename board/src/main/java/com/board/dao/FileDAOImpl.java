@@ -55,6 +55,8 @@ public class FileDAOImpl implements FileDAO {
 	@Override
 	public void deleteFileBno(int bno) throws Exception {
 		// TODO Auto-generated method stub
+		UploadFiles files = new UploadFiles();
+		files.deleteFileList(sql.selectList(namespace + ".fileNameList", bno));
 		sql.delete(namespace + ".deleteFFB", bno);
 	}
 
@@ -84,6 +86,9 @@ public class FileDAOImpl implements FileDAO {
 	@Override
 	public void beforeunload(int userID) throws Exception {
 		// TODO Auto-generated method stub
+		UploadFiles files = new UploadFiles();
+		files.deleteFileList(sql.selectList(namespace + ".beforeunloadList", userID));
+		
 		sql.delete(namespace + ".beforeunload", userID);
 	}
 

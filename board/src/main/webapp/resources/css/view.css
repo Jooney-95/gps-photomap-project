@@ -19,12 +19,50 @@ body {
 
 /*올린 시간 & 조회수*/
 .time{
-   
+  
    width:1050px;
-   height:30px;
+   height:60px;
    margin:0 auto;
    text-align:center;
    color:#909090;
+}
+
+
+/*/////////작성자//////////////*/
+.t{
+   float:left;
+   margin-left:35px;
+}
+.t #user{
+   display:inline-block;
+   width:auto;
+   
+}
+/*작성자 프로필 사진*/
+.t #user img{
+   width:40px;
+   height:40px;
+   border: 2px solid #e6dec6;
+   border-radius: 77%;
+   cursor:pointer;
+   margin-top:4px;  
+   float:left; 
+}
+/*작성자 아이디*/
+.t #user input{
+   margin-left:10px;
+   font-size:13px;
+   text-align:left;
+   background:none;
+   border:#fff;
+   margin-top:20px;
+  
+   
+  
+}
+.tt{
+   float:right;
+   padding-top:17px;
 }
 .time1{
    font-size:12px;
@@ -151,8 +189,8 @@ body {
 }
 #top #ab{
    height:80px;
-   width:630px;
-   padding-top:20px;
+   width:590px;
+   padding-top:40px;
    padding-bottom:5px;
    text-algin:center;
    display:block;
@@ -162,63 +200,17 @@ body {
 /*///////작성자& 제목///////////*/
 #top #a{
    display:inline-block;
-   width:520px;
-   float:left;
+   width:590px;
    text-align:center;
   
    
 }
-/*/////////작성자//////////////*/
-#top #a-1{
-   display:inline-block;
-   
-   float:left;
-   width:auto;
-   
-}
-/*작성자 프로필 사진*/
-#top #a-1 img{
-   width:40px;
-   height:40px;
-   border: 2px solid #e6dec6;
-   border-radius: 77%;
-   cursor:pointer;
-   margin-top:4px;  
-   float:left; 
-}
-/*작성자 아이디*/
-#top #a-1 input{
-   font-size:13px;
-   text-align:right;
-   float:left;
-   background:none;
-   border:#fff;
-   margin-top:20px;
-  
-   border:none;;
-   width:90px;
-   
-  
-}
+
 /*////////제목//////////*/
-#top #a-2{
-   display:inline-block;
-    font-size:25px;
-   width:330px;
-   height:50px;
-   border:none;
-   text-align:center;
-   padding:0px; 
-   margin:0 auto;
-   float:left;
-}
-#top #a-2 input{
+#top #a input{
    font-size:20px;
-   float:left;
-   border:none;*/
+   border:none;
    margin:0 auto;
-   width:330px;
-   height:50px;
    text-align:center;
 }
 
@@ -229,9 +221,9 @@ body {
    text-align:center;
    display:inline-block;
    cursor:pointer;
-   padding-top:5px;
    position:relative;
-   left:10px;
+   left:70px;
+   bottom:35px;
  /* border:1px solid #f5f5f5;  /**/
    
 }

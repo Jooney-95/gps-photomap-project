@@ -42,7 +42,7 @@ form{
    text-align:center;
    font-weight:bold;
    padding-top:20px;
-   padding-bottom:10px;
+   padding-bottom:15px;
    
    
 }
@@ -70,9 +70,14 @@ p{
   
    
 }
+.all{
+   margin-top:13px;
+   
+   font-size:15px;
+}
 
 .info{ 
-   margin-bottom:7px; /*동의란과의간격주기*/
+   /*margin-bottom:7px; /*동의란과의간격주기*/
    font-size:15px;
    
 }
@@ -89,7 +94,8 @@ label{
 }
 
 
-.info input[type="checkbox"]{
+.info input[type="checkbox"],
+.all input[type="checkbox"]{
 margin:0px 10px;/*체크박스와글씨간격*/
 }
 
@@ -170,7 +176,7 @@ margin:0px 10px;/*체크박스와글씨간격*/
 .low{
    width:265px;
    height:65px;
-  /* margin-top:10px;*/
+   margin-top:10px; 
    text-align:center;
    display:inline-block;
    padding:10px;

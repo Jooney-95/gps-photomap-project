@@ -8,7 +8,10 @@
 
 <head>
 <meta charset="UTF-8">
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+<link rel="stylesheet" href="/resources/dist/jquery.bxslider.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="/resources/js/jquery.bxslider.min.js"></script>
 <script src="/resources/js/myPage.js"></script>
 <title>insert title here</title>
 <link rel="stylesheet" href="/resources/css/top.css">
@@ -18,7 +21,6 @@
 </head>
 
 <body>
-
    <!-- 상단 바 -->
    <div id="header">
       <!-- 로고 -->
@@ -92,14 +94,14 @@
       <div class="all">
          <div class="nav">
             <div class="myPageNav" id="o" title="내 게시물" onclick="getMyPageNav(1)">
-               <a href="#"><i class="fas fa-clipboard fa-2x"></i></a>
+               <a><i class="fas fa-clipboard fa-2x"></i></a>
             </div>
             <div class="myPageNav" id="t" title="이웃목록" onclick="getMyPageNav(2)">
-               <a href="#"><i class="fas fa-users fa-2x"></i></a>
+               <a><i class="fas fa-users fa-2x"></i></a>
             </div>
             <c:if test="${session.id eq userID }">
                <div class="myPageNav" id="th" title="이웃요청" onclick="getMyPageNav(3)">
-                  <a href="#"><i class="fas fa-user-plus fa-2x"></i></a>
+                  <a><i class="fas fa-user-plus fa-2x"></i></a>
                </div>
             </c:if>
          </div>

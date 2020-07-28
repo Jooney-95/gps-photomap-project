@@ -79,7 +79,7 @@ p{
 
 .info{
    
-   background: #f6ee8;
+  
    border-radius:3px;
    width:580px;
    height:45px;
@@ -96,24 +96,24 @@ p{
 
 {
    
-   background: #f6ee8;
+  
    width:350px;
    height:40px;
    border:none;
    transition:0.35s;/*애니메이션을 주기위에 부모 부터 주기*/
-   border-bottom:1px solid #eee3dd;
+   border-bottom:2px solid #eee;
    border-radius:10px;
    font-size:12px;   
    padding-left:15px;
 }
 .middle input[type="password"]{
    
-    background: #f6ee8;
+  
    width:358px;
    height:40px;
    border:none;
    transition:0.35s;/*애니메이션을 주기위에 부모 부터 주기*/
-   border-bottom:1px solid #eee3dd;
+   border-bottom:2px solid #eee;
    border-radius:10px;
    font-size:12px;   
    padding-left:15px;
@@ -123,47 +123,42 @@ p{
 .middle input[type="text"]:focus,
 .middle input[type="password"]:focus{
    
-   background: #fbf5f2;
+   background: #f9f9f9;
    border:none;
    border-radius: 10px;
-   -webkit-box-shadow: 10px 10px 1px -4px #f8f1ed;
-    -moz-box-shadow: 10px 10px 1px -4px #f8f1ed;
-     box-shadow: 11px 10px 1px -4px #f8f1ed;
-
+  
 }
 
 .middle input[type="email"]{
-   background: #f6ee8;
+  
    width:185px;
    height:46px;
    border:none;
    transition:0.35s;/*애니메이션을 주기위에 부모 부터 주기*/
-   border-bottom:1px solid #eee3dd;
+   border-bottom:2px solid #eee;
    border-radius:10px;
    padding-left:15px;
    font-size:12px;
 } 
 /*이메일 @ 뒤 박스 속성*/
 .middle #email2{
-   background: #f6ee8;
+  
    width:150px;
    height:46px;
    border:none;
    transition:0.35s;/*애니메이션을 주기위에 부모 부터 주기*/
-   border-bottom:1px solid #eee3dd;
+   border-bottom:2px solid #eee;
    border-radius:10px;
    padding-left:15px;
    font-size:12px;
 } 
  
- .middle input[type="email"]:focus{
+ .middle input[type="email"]:focus,
+ .middle input[type="email2"]:focus{
    
-   background: #fbf5f2;
+   background: #f9f9f9;
    border:none;
    border-radius: 10px;
-   -webkit-box-shadow: 10px 10px 1px -4px #f8f1ed;
-    -moz-box-shadow: 10px 10px 1px -4px #f8f1ed;
-     box-shadow: 11px 10px 1px -4px #f8f1ed;
 
 }
  
@@ -176,12 +171,12 @@ p{
 }
 
 #nicknameCheck, #idCheck{
-   border-radius:15px;
+   border-radius:12px;
    background:#fff;
    border:2px solid #9fd7bf;
-   padding:5px;
+   padding:7px;
    margin-left:15px;
-   font-size:12px;
+   font-size:10px;
    
 }
 
@@ -214,13 +209,13 @@ p{
   
 }
 select {
-   border-radius:15px;
+   border-radius:12px;
    background:#fff;
    border:2px solid #9fd7bf;
-   padding:5px;
+   padding:7px;
    padding-left:10px;
    margin-left:15px;
-  font-size:12px;
+  font-size:11px;
   width: 95px;
   top: 593px;
     position: absolute;
@@ -272,8 +267,8 @@ button{
     transition: 0.25s;
 }
 .low button{
-  width:80px;
-   height:50px;
+  width:70px;
+   height:40px;
    border:none;
    background-color:#f8f8f8;
    border-bottom: 5px solid #eee;

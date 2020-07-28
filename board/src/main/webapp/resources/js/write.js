@@ -72,8 +72,6 @@ function handleImgFileSelect(e) {
 function fileUpLoad(files) {
    var filesArr = Array.prototype.slice.call(files);
    for (var i = 0; i < filesArr.length; i++) {
-      //filesArr.forEach(function (f) {
-
       if (!filesArr[i].type.match("image/jpeg")) {
          alert("jpeg 만 업로드 가능합니다.");
          return;
@@ -85,10 +83,11 @@ function fileUpLoad(files) {
             sel_files.push(filesArr[i]);
 
          } else {
-
+            alert("파일 용량크기 제한");            
          }
       } else {
-
+         alert("이미지 50장 제한");
+         break;
       }
    }
    uploadImg();
@@ -98,24 +97,27 @@ function fileUpLoad(files) {
 function fileDropDown() {
    var dropZone = $("#f");
    //Drag기능 
-   dropZone.on("dragenter", function (e) {
-      e.stopPropagation();
-      e.preventDefault();
-      // 드롭다운 영역 css
-      dropZone.css("background-color", "#E3F2FC");
-   });
-   dropZone.on("dragleave", function (e) {
-      e.stopPropagation();
-      e.preventDefault();
-      // 드롭다운 영역 css
-      dropZone.css("background-color", "#FFFFFF");
-   });
-   dropZone.on("dragover", function (e) {
-      e.stopPropagation();
-      e.preventDefault();
-      // 드롭다운 영역 css
-      dropZone.css("background-color", "#E3F2FC");
-   });
+   dropZone.on('dragenter', function (e) {
+   
+		e.stopPropagation();
+		e.preventDefault();
+		// 드롭다운 영역 css
+		dropZone.css('background-color', '#E3F2FC');
+	});
+	dropZone.on('dragleave', function (e) {
+		
+		e.stopPropagation();
+		e.preventDefault();
+		// 드롭다운 영역 css
+		dropZone.css('background-color', '#FFFFFF');
+	});
+	dropZone.on('dragover', function (e) {
+		
+		e.stopPropagation();
+		e.preventDefault();
+		// 드롭다운 영역 css
+		dropZone.css('background-color', '#E3F2FC');
+	});
    dropZone.on("drop", function (e) {
       e.preventDefault();
       // 드롭다운 영역 css

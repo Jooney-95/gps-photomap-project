@@ -1,6 +1,7 @@
-var regTypeID = /[^a-z0-9]{1,}/gi;
-var regTypePW = /^[a-zA-Z0-9](?=.*[!@#$%^*+=-]){8,}/;
-var regTypeNickname = /[^a-z0-9ㄱ-ㅎ가-힣0-9]{1,}/gi;
+var regTypeID = /[^a-z0-9]/gi;
+// var regTypePW = /^[a-zA-Z0-9](?=.*[!@#$%^*+=-]){8,}/;
+var regTypePW = /^(?=.*[a-zA-Z])(?=.*[\{\}\[\]\/?.,;:|\)*~`!^\-+<>@\#$%&\\\=\(\'\"])(?=.*[0-9]).{8,}/;
+var regTypeNickname = /[^a-z0-9ㄱ-ㅎ가-힣0-9]/gi;
 
 $(document).on("click", "#bBack", function () {
     location.href = "/member/fRegister";
@@ -67,6 +68,7 @@ function checkPW() {
 $(document).on("keyup", "#nickname", function () {
     var v = this.value;
     this.value = v.replace(regTypeNickname, "");
+    $("#nickname").val($("#nickname").val().substr(0,8));
 });
 
 $(document).on("keydown", "#nickname", function () {
@@ -136,6 +138,7 @@ $(document).on("click", "#idCheck", function () {
 
 $(document).on("click", "#nicknameCheck", function () {
     if ($("#nickname").val().trim() != "") {
+        if($("#nickname").val().length <= 8) {
         var query = {
             mNickname: $("#nickname").val()
         };
@@ -153,7 +156,10 @@ $(document).on("click", "#nicknameCheck", function () {
                 }
             }
         });
-    } else {
+    } else{
+        alert("닉네임은 8자 이하로 가능합니다.");
+    }
+ } else {
         alert("닉네임을 입력해주세요");
     }
 });

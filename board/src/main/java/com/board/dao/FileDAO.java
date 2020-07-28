@@ -34,4 +34,5 @@ public interface FileDAO {
 
 	public List<LikeImgVO> selectLikeImg(int fileBno) throws Exception;
 
+
 }

@@ -74,10 +74,10 @@ public class MemberController {
 		
 		MemberVO nicknameCheck = service.nicknameCheck(vo.getmNickname());
 
-		if (nicknameCheck == null && Pattern.matches("^[a-zA-Z0-9ㄱ-ㅎ가-힣0-9]*$", vo.getmNickname())) {
+		if (nicknameCheck == null && Pattern.matches("^[a-zA-Z0-9ㄱ-ㅎ가-힣0-9]*$", vo.getmNickname()) && vo.getmNickname().length() <= 8 ) {
 			MemberVO idCheck = service.idCheck(vo.getmID());
 			if (idCheck == null && Pattern.matches("^[a-zA-Z0-9]*$", vo.getmID())) {
-				if (Pattern.matches("((?=.*[a-z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,})", vo.getmPW())) {
+				if (Pattern.matches("^(?=.*[a-zA-Z])(?=.*[\\{\\}\\[\\]\\/?.,;:|\\)*~`!^\\-+<>@\\#$%&\\\\\\=\\(\\'\\\"])(?=.*[0-9]).{8,}$", vo.getmPW())) {
 					vo.setmPW(pwdEncoder.encode(vo.getmPW()));
 					service.register(vo);
 					return "redirect:/member/tRegister";

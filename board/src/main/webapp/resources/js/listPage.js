@@ -168,7 +168,7 @@ function addListPage(data) {
       innerList += '        <div class="r-1">';
       innerList += '            <div class="pNum" id="pNum_' + list[i].bno + '"></div>';
       innerList += '             <div id="date_' + list[i].bno + '" class="date">' + getTimeStamp(list[i].regDate) + '</div>';
-      innerList += '            <div id="viewCnt">조회수 ' + list[i].viewCnt + '회</div>';
+      innerList += '            <div id="viewCnt">조회수 ' + number(list[i].viewCnt) + '회</div>';
       innerList += '         </div>';
       innerList += '        </li>';
       innerList += '      </ul>';
@@ -189,7 +189,7 @@ function addListPage(data) {
       innerList += '            <div id="title" title="' + list[i].title + '">';
       innerList += '                <i class="fas fa-caret-right fa-2x"></i>';
       innerList += '                <a href="/board/view?bno=' + list[i].bno + '">' + textOverCut(list[i].title, "title") + '</a>';
-      innerList += '                <div id ="likeCnt"><i class="far fa-thumbs-up"></i>' + list[i].likeCnt + '</div>';
+      innerList += '                <div id ="likeCnt"><i class="far fa-thumbs-up"></i>' + number(list[i].likeCnt) + '</div>';
       innerList += '            </div>';
       innerList += '          </li>';    
       innerList += '        </ul>';
@@ -287,11 +287,11 @@ function getMember(bno, count) {
 
    writerInner = '   <a href="/member/myPage?num=1&userID=' + member[count].id + '">';
    writerInner += '     <img alt="" src=' + member[count].mImg + '>';
-   writerInner += '   <a href="/member/myPage?num=1&userID=' + member[count].id + '">';
+   writerInner += '   <a>';
 
    nicknameInner = '   <a href="/member/myPage?num=1&userID=' + member[count].id + '">';
-   nicknameInner += textOverCut(member[count].mNickname, "nickname") + ' 님';
-   nicknameInner += '   <a href="/member/myPage?num=1&userID=' + member[count].id + '">';
+   nicknameInner += textOverCut(member[count].mNickname, "nickname") + '님';
+   nicknameInner += '   <a>';
 
    $("#writer_" + bno).append(writerInner);
    $("#nickname_" + bno).append(nicknameInner);
@@ -350,8 +350,6 @@ function imgSlider(bno, index, path){
    $("#slider_" + bno).append(imgInner);
 }
 
-
-
 function loginPopup() {
    if (document.getElementById("loginPopup").style.display == "none") {
       document.getElementById("loginPopup").style.display = "";
@@ -360,4 +358,18 @@ function loginPopup() {
    }
 }
 
-
+function number(n){
+   var number = parseFloat(n);
+   if(number > 1000000000){
+      return parseInt(number / 1000000000) + "." + parseInt((number % 1000000000) / 100000000) + "B";
+      // break;
+   } else if(number > 1000000){
+      return parseInt(number / 1000000) + "." + parseInt((number % 1000000) / 100000) + "M";
+      // break;
+   } else if(number > 1000){
+      return parseInt(number / 1000) + "." + parseInt((number % 1000) / 100) + "K"
+      // break;
+   } else {
+      return number;
+   }
+}

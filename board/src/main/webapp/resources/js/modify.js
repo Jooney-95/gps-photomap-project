@@ -73,12 +73,12 @@ function fileUpLoad(files) {
 
 			if (filesArr[i].size < 31457280) {
 				sel_files.push(filesArr[i]);
-
 			} else {
-
+				alert("파일 용량크기 제한");
 			}
 		} else {
-
+			alert("이미지 50장 제한");
+			break;
 		}
 	}
 	uploadImg();
@@ -89,18 +89,21 @@ function fileDropDown() {
 	var dropZone = $("#f");
 	//Drag기능 
 	dropZone.on('dragenter', function (e) {
+		
 		e.stopPropagation();
 		e.preventDefault();
 		// 드롭다운 영역 css
 		dropZone.css('background-color', '#E3F2FC');
 	});
 	dropZone.on('dragleave', function (e) {
+		
 		e.stopPropagation();
 		e.preventDefault();
 		// 드롭다운 영역 css
 		dropZone.css('background-color', '#FFFFFF');
 	});
 	dropZone.on('dragover', function (e) {
+		
 		e.stopPropagation();
 		e.preventDefault();
 		// 드롭다운 영역 css

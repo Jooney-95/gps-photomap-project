@@ -175,8 +175,8 @@ public class BoardController {
 	@RequestMapping(value = "/beforeunload", method = RequestMethod.POST)
 	public void postBeforeunload(HttpServletRequest req) throws Exception {
 		int userID = Integer.parseInt(req.getParameter("userID"));
-
 		fileService.beforeunload(userID);
+		
 	}
 
 	@ResponseBody

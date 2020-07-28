@@ -85,53 +85,55 @@
 
       <div id ="ab">
        <!-- 제목 -->
-     <ul>
-      <li> 
-      <div id="aaa">
+        <div id="a" >
+          <input type="text" name="title" value="${view.title }" readOnly />
+        </div>
       
-      </div>
-       <div id="a" >
-       <div id="a-1">
-       <a href="/member/myPage?num=1&userID=${member.id }"><img src="${member.mImg }"/></a><!-- 작성자 프로필 이미지 -->
-       <input type="text" name="writer" value="${member.mNickname } 님" readOnly />
-       </div>
-       <div id="a-2">
-        <input type="text" name="title" value="${view.title }" readOnly />
-       </div>
-       </div>
         <!-- 공감버튼 -->
       
-         <div id="b">
+        <div id="b">
            <i class="far fa-thumbs-up " id="bLike"></i>
            <p id="like"></p>
          </div>
-        </li> 
+        
        
-  </ul>  
+        
+    
  </div>
     </div>   
          
+        
+        
+       
+       
          <div class="time">
-         <div class="time1"><p>조회수  <input type="text" id="viewCnt" value="${view.viewCnt }"/></p></div>
-         <div class="time3">
-         <input type="text" id="date" value="<fmt:formatDate value='${view.regDate }'  pattern='yyyy-MM-dd hh시 mm분' />"/>
-        </div>
-        <div class="time2">
-         <c:choose>
-         <c:when test="${view.pNum eq '-1' }">
+         <div class="t">
+            <div id="user">
+               <a href="/member/myPage?num=1&userID=${member.id }"><img src="${member.mImg }"/></a><!-- 작성자 프로필 이미지 -->
+               <input type="text" name="writer" value="${member.mNickname } 님" readOnly />
+            </div>
+         </div>
+         <div class="tt" >
+            <div class="time1"><p>조회수  <input type="text" id="viewCnt" value="${view.viewCnt }"/></p></div>
+            <div class="time3">
+            <input type="text" id="date" value="<fmt:formatDate value='${view.regDate }'  pattern='yyyy-MM-dd hh시 mm분' />"/>
+            </div>
+            <div class="time2">
+            <c:choose>
+            <c:when test="${view.pNum eq '-1' }">
                         <i class="fas fa-globe-americas"></i>
-                     </c:when>
-         <c:when test="${view.pNum eq '-2' }">
+                      </c:when>
+            <c:when test="${view.pNum eq '-2' }">
                         <i class="fas fa-lock"></i>
                      </c:when>
-         <c:otherwise>
-                       <i class="fas fa-user-friends"></i>
+            <c:otherwise>
+                        <i class="fas fa-user-friends"></i>
                     </c:otherwise>
-      </c:choose>
-      </div>
-          
+            </c:choose>
+            </div>
          </div>
-         
+         </div>
+       
         <div class="mainwrapper">
          
    <!-- 카카오맵 api 호출 -->

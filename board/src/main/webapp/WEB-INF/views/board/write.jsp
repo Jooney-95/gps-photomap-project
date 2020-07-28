@@ -71,7 +71,6 @@ pageEncoding="UTF-8"%>
 
 <form method="post" id="f" enctype="multipart/form-data" >   
 <div class="main">
-
       <div id="top">
          <p>제목     <input type="text" id="title" name="title" placeholder="제목을 입력하세요."/></p>
          <input type="hidden" id="userID" name="writer" value="${session.id }" />

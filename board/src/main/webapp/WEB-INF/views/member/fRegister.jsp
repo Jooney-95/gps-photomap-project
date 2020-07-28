@@ -64,10 +64,10 @@
       <a href="#pop04"><i class="fas fa-info-circle"></i></a>
  
    </div>
-   <div class="info">
+   <div class="all">
    <label>
       <input id="ch4" type="checkbox">전체동의</label>
-      <a href="#pop04"><i class="fas fa-info-circle"></i></a>
+     
  
    </div>
 

@@ -185,40 +185,57 @@ function addListMyPage(data) {
    var count = 0;
    for (var i = 0; i < list.length; i++) {
       var innerList;
-
-      innerList = '  <div id="table">';
-      innerList += '    <div id="up">';
-      innerList += '       <div id="right">';
-      innerList += '          <ul>';
-      innerList += '             <!--  날짜 or 시간    -->';
-      innerList += '             <li>';
-      innerList += '                <div class="r-1">';
-      innerList += '                   <div id="date_' + list[i].bno + '" class="date">' + getTimeStamp(list[i].regDate) + '</div>';
-      innerList += '                </div>';
-      innerList += '             </li>';
-      innerList += '             <!-- 아이디 & 공감수 & 조회수 & 공개 범위 -->';
-      innerList += '             <li>';
-      innerList += '                <!-- 제목 -->';
-      innerList += '                <div class="r-2">';
-      innerList += '                   <div id="title" title="' + list[i].title + '"><i class="fas fa-caret-right fa-2x"></i> <a href="/board/view?bno=' + list[i].bno + '">' + textOverCut(list[i].title, "title") + '</a></div>';
-      innerList += '                   <div class="pNum" id="pNum_' + list[i].bno + '"></div>';
-      innerList += '                   <div id ="likeCnt"><i class="far fa-thumbs-up"></i>' + list[i].likeCnt + '</div>';
-      innerList += '                </div>';
-      innerList += '             </li>';
-      innerList += '             <li>';
-      innerList += '          </ul>';
-      innerList += '          <div id="r-3">';
-      innerList += '             <div id="viewCnt">조회수 ' + list[i].viewCnt + '회</div>';
-      innerList += '          </div>';
+      innerList =  '  <div id="table">';
+      
+      innerList += '     <ul>';
+      innerList += '        <li>';
+      innerList += '       <div id="left">';
+      innerList += '          <div class="writer" id="writer_' + list[i].bno + '"><a href="/member/myPage?num=1&userID=' + $("#userID").val() + '"><img alt="" src='+$(".ff > img").attr("src")+'></div><a>';
+      innerList += '      </div>';
+      innerList += '          <a href="/member/myPage?num=1&userID=' + $("#userID").val() + '"><div class="name">'+$(".one").text()+'</div></a>';
+      innerList += '        </li>';
+      
+      innerList += '        <li>';      
+      innerList += '        <div class="r-1">';
+      innerList += '            <div class="pNum" id="pNum_' + list[i].bno + '"></div>';
+      innerList += '             <div id="date_' + list[i].bno + '" class="date">' + getTimeStamp(list[i].regDate) + '</div>';
+      innerList += '            <div id="viewCnt">조회수 ' + list[i].viewCnt + '회</div>';
+      innerList += '         </div>';
+      innerList += '        </li>';
+      innerList += '      </ul>';
+      
+      innerList += '      <ul>';
+      innerList += '        <li>';
+      innerList += '       <div class="downimg" id="img_' + list[i].bno + '">';
+      innerList += '             <div class="imgContainer" id="imgContainer_' + list[i].bno + '">';
+      innerList += '                <ul class="slider" id="slider_' + list[i].bno + '">';
+      innerList += '                </ul>';
+      innerList += '           </div>';
       innerList += '       </div>';
-      innerList += '    <div class="downimg" id="img_' + list[i].bno + '"></div>';
+      innerList += '        </li>';
+      innerList += '       </ul>';
+      
+      innerList += '       <ul>';
+      innerList += '        <li>';
+      innerList += '            <div id="title" title="' + list[i].title + '">';
+      innerList += '                <i class="fas fa-caret-right fa-2x"></i>';
+      innerList += '                <a href="/board/view?bno=' + list[i].bno + '">' + textOverCut(list[i].title, "title") + '</a>';
+      innerList += '                <div id ="likeCnt"><i class="far fa-thumbs-up"></i>' + list[i].likeCnt + '</div>';
+      innerList += '            </div>';
+      innerList += '          </li>';    
+      innerList += '        </ul>';
+      innerList += '    </div>';
       innerList += ' </div>';
 
       $(".in").append(innerList);
       getPNum(list[i].pNum, list[i].bno);
-      getImg(list[i].bno, count);
+      // getImg(list[i].bno, count);
+      getImgSlider(list[i].bno, count);
+
       count++;
    }
+   $('.slider').bxSlider({touchEnabled : (navigator.maxTouchPoints > 0)});
+
 }
 
 function addListMyFforf(data) {
@@ -367,6 +384,21 @@ function getTimeStamp(time) {
 }
 
 
+function getImgSlider(bno, count){
+   for(var i=0; i<file[count].length;i++){
+      imgSlider(bno, i, file[count][i].path);
+   }
+}
+
+function imgSlider(bno, index, path){
+   var imgInner;
+   imgInner = '   <li class="sliderItem">';
+   imgInner += '     <a href="/board/view?bno=' + bno + '">';
+   imgInner += '        <img id="img_' + bno + '_' + index + '" alt="" src=' + path + '>';
+   imgInner += '     </a>';
+   imgInner += '  </li>';
+   $("#slider_" + bno).append(imgInner);
+}
 
 function getPNum(pNum, bno) {
    switch (pNum) {
