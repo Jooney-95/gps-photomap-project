@@ -308,7 +308,7 @@
    <select id="viewFile" parameterType="int"
       resultType="com.board.domain.FileVO">
       select
-      id, fileBno, latitude, longitude, timeView, path, content, place
+      id, fileBno, latitude, longitude, timeView, path, content, place, fileName
       from
       file_board
       where fileBno = #{bno}
@@ -319,7 +319,7 @@
    <select id="modifyFile" parameterType="hashMap"
       resultType="com.board.domain.FileVO">
       select
-      id, fileBno, latitude, longitude, timeView, path, content, place
+      id, fileBno, latitude, longitude, timeView, path, content, place, fileName
       from
       file_board
       where userID = #{userID} and fileBno = 0 or userID = #{userID} and fileBno = #{bno}
@@ -330,7 +330,7 @@
    <select id="writeFile" parameterType="int"
       resultType="com.board.domain.FileVO">
       select
-      id, latitude, longitude, timeView, path
+      id, latitude, longitude, timeView, path, fileName
       from
       file_board
       where userID = #{userID} and fileBno = 0

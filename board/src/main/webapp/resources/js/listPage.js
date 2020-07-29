@@ -11,6 +11,7 @@ $(document).ready(function () {
    if($("#hiddenNickname").val() != undefined){
       $("#sessionNickname").text(textOverCut($("#hiddenNickname").val(), "nickname") + "님");
    }
+   
    sessionStorage.clear();
    pageNumber = 1;
    sessionStorage.setItem("like", "/board/getPage");
@@ -201,14 +202,30 @@ function addListPage(data) {
 
       getPNum(list[i].pNum, list[i].bno);
       getMember(list[i].bno, count);
-      // getImg(list[i].bno, count);
-      getImgSlider(list[i].bno, count);
+      getImg(list[i].bno, count);
+      //getImgSlider(list[i].bno, count);
 
       count++;
    }
    listFlag = true;
-   $('.slider').bxSlider({touchEnabled : (navigator.maxTouchPoints > 0)});
+   $('.slider').bxSlider({
+      speed : 300,
+      touchEnabled : (navigator.maxTouchPoints > 0),
+      onSliderLoad: function(){
+         console.log("sliderLoad");
+      },
+      onSlideAfter: function(){
+         $(".bx-next, .bx-prev").css("pointer-events", "auto");
+         $("a").attr("onclick","return true");
+
+      }
+   });
 }
+
+$(document).on("click", ".bx-next, .bx-prev", function(){
+   $(".bx-next, .bx-prev").css("pointer-events", "none");
+   $("a").attr("onclick","return false");
+})
 function textOverCut(text, type) {
    
 
@@ -304,13 +321,14 @@ function getImg(bno, count) {
       iCount = i;
       if (likeImg[count][i] != undefined) {
          var imgObj = file[count].filter(function (obj) { return obj.id == likeImg[count][i].imgBno });
-         printImg(bno, i, imgObj[0].path)
+         //printImg(bno, i, imgObj[0].fileName)
+         imgSlider(bno, i, imgObj[0].fileName);
 
       } else {
          var j = 0;
          while (imgFlag) {
             if ((file[count][j] != undefined) && (likeImg[count].filter(function (obj) { return obj.imgBno == file[count][j].id })[0] == undefined)) {
-               printImg(bno, iCount, file[count][j].path)
+               imgSlider(bno, iCount, file[count][j].fileName)
                iCount++;
             }
             j++;
@@ -319,11 +337,10 @@ function getImg(bno, count) {
             }
          }
       }
-
    }
-   if (file[count].length > 4) {
-      $("#img_" + bno).append("+" + (file[count].length - 4));
-   }
+   // if (file[count].length > 4) {
+   //    $("#img_" + bno).append("+" + (file[count].length - 4));
+   // }
 }
 
 function printImg(bno, index, path) {
@@ -336,15 +353,15 @@ function printImg(bno, index, path) {
 
 function getImgSlider(bno, count){
    for(var i=0; i<file[count].length;i++){
-      imgSlider(bno, i, file[count][i].path);
+      imgSlider(bno, i, file[count][i].fileName);
    }
 }
 
-function imgSlider(bno, index, path){
+function imgSlider(bno, index, fileName){
    var imgInner;
    imgInner = '   <li class="sliderItem">';
    imgInner += '     <a href="/board/view?bno=' + bno + '">';
-   imgInner += '        <img id="img_' + bno + '_' + index + '" alt="" src=' + path + '>';
+   imgInner += '        <img id="img_' + bno + '_' + index + '" alt="" src=' + "/img/thumb/" + fileName + '>';
    imgInner += '     </a>';
    imgInner += '  </li>';
    $("#slider_" + bno).append(imgInner);

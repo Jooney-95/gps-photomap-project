@@ -153,7 +153,7 @@ function getSession() {
 		} else if (sessionStorage.key(i).substr(0, 9) == "deleteBtb") {
 			deleteBtn(sessionStorage.getItem(sessionStorage.key(i)));
 		} else {
-			$("#" + sessionStorage.key(i)).attr("checked", "checked");
+			$("#" + sessionStorage.key(i)).prop("checked", true);
 		}
 	}
 }
@@ -374,7 +374,7 @@ function printImgBox(obj, tp) {
 		img_html += '              </li>';
 		img_html += '              <li>';
 		img_html += '                 <div class="lefttwo">';
-		img_html += '                    <img id="img_' + obj[i].id + '" name="filesList" src="' + obj[i].path + '" />';
+		img_html += '                    <img id="img_' + obj[i].id + '" name="filesList" src="' + "/img/thumb/" + obj[i].fileName + '" />';
 		img_html += '                 </div>';
 		img_html += '              </li>';
 		img_html += '           </ul>';
@@ -443,7 +443,7 @@ function getLoc(x, y, iIndex) {
 function getTp(obj) {
 	console.log(obj)
 	for (var i = 0; i < obj.length; i++) {
-		$("#" + obj[i].tp + "_" + obj[i].tpBno).attr("checked", "checked");
+		$("#" + obj[i].tp + "_" + obj[i].tpBno).prop("checked", true);
 		sessionStorage.setItem(obj[i].tp + "_" + obj[i].tpBno, "checked");
 	}
 }

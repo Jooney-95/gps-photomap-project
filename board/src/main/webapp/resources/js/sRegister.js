@@ -2,18 +2,22 @@ var regTypeID = /[^a-z0-9]/gi;
 // var regTypePW = /^[a-zA-Z0-9](?=.*[!@#$%^*+=-]){8,}/;
 var regTypePW = /^(?=.*[a-zA-Z])(?=.*[\{\}\[\]\/?.,;:|\)*~`!^\-+<>@\#$%&\\\=\(\'\"])(?=.*[0-9]).{8,}/;
 var regTypeNickname = /[^a-z0-9ㄱ-ㅎ가-힣0-9]/gi;
+var submitFlag = true;
 
 $(document).on("click", "#bBack", function () {
     location.href = "/member/fRegister";
 });
 
 $(document).on("click", "#bNext", function () {
-    checkNickname();
-
+    if(submitFlag){
+        submitFlag = false;
+        checkNickname();
+    }
 });
 
 function checkNickname() {
     if ($("#nicknameMsg").val() != "check") {
+        submitFlag = true;
         alert("닉네임 중복 확인해주세요");
         nickname.focus();
         return;
@@ -23,6 +27,7 @@ function checkNickname() {
 
 function checkID() {
     if ($("#idMsg").val() != "check") {
+        submitFlag = true;
         alert("아이디 중복 확인해주세요");
         id.focus();
         return;
@@ -35,6 +40,7 @@ function checkEmail() {
         $("#mEmail").val($("#email").val().trim() + "@" + $("#email2").val().trim());
     } else {
         alert("이메일을 입력해주세요");
+        submitFlag = true;
         email.focus();
         return;
     }
@@ -44,21 +50,25 @@ function checkEmail() {
 function checkPW() {
     if ($("#pw").val() != "") {
         if ($("#pw").val().length != $("#pw").val().trim().length) {
+            submitFlag = true;
             alert("비밀번호는 공백으로 시작하거나 공백으로 끝날 수 없습니다.");
             return;
         }
         if (regTypePW.test($("#pw").val())) {
             if ($("#pwRepeat").val() != $("#pw").val()) {
+                submitFlag = true;
                 alert("비밀번호가 다릅니다.");
                 pwRepeat.focus();
                 return;
             }
         } else {
             alert("비밀번호 양식을 맞춰주세요.");
+            submitFlag = true;
             return;
         }
     } else {
         alert("비밀번호를 입력해주세요");
+        submitFlag = true;
         pw.focus();
         return;
     }

@@ -13,12 +13,12 @@ public class Profile {
 	public MemberVO profileImg(MemberVO vo, MultipartFile file) throws Exception {
 		// TODO Auto-generated method stub
 		
-		String saveFileName = f.getRandomString();
-		f.fileWrite(file, saveFileName);
-		File convFile = new File(saveFileName);
+		String[] saveFileName = f.getRandomString();
+		f.fileWrite(file, saveFileName[0]);
+		File convFile = new File(saveFileName[0]);
 		file.transferTo(convFile);
 		
-		vo.setmImg(PREFIX_URL + saveFileName);
+		vo.setmImg(PREFIX_URL + saveFileName[0]);
 		
 		return vo;
 	}

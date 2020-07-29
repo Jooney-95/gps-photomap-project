@@ -1,8 +1,10 @@
 package com.board.domain;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -11,20 +13,32 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
+import javax.imageio.ImageIO;
+
 import org.apache.tika.Tika;
+import org.imgscalr.Scalr;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.drew.imaging.ImageMetadataReader;
+import com.drew.imaging.ImageProcessingException;
 import com.drew.imaging.jpeg.JpegMetadataReader;
 import com.drew.imaging.jpeg.JpegProcessingException;
 import com.drew.lang.GeoLocation;
+import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
+import com.drew.metadata.MetadataException;
+import com.drew.metadata.Tag;
+import com.drew.metadata.exif.ExifIFD0Directory;
 import com.drew.metadata.exif.ExifSubIFDDirectory;
 import com.drew.metadata.exif.GpsDirectory;
 
 public class UploadFiles {
 
 	private static final String SAVE_PATH = "C:\\upload";
+	private static final String SAVE_THUMB_PATH = "C:\\upload\\thumb";
 	private static final String PREFIX_URL = "/img/";
+	
+	private int orientation = 1;
 	private int SIZE = 0;
 	private int i = 0;
 	private int fBno = 0;
@@ -101,40 +115,41 @@ public class UploadFiles {
 		return fileMap;
 	}
 
-	public boolean fileWrite(MultipartFile multipartFile, String saveFileName) throws Exception {
-		boolean result = false;
+	public void fileWrite(MultipartFile multipartFile, String saveFileName) throws Exception {
 
 		byte[] data = multipartFile.getBytes();
 		FileOutputStream fos = new FileOutputStream(SAVE_PATH + "/" + saveFileName);
-		// FileOutputStream fos = new FileOutputStream(saveFileName);
 		fos.write(data);
 		fos.close();
 
-		return result;
 	}
 
 	private void fileWirteEXIF(List<MultipartFile> multipart) throws Exception {
 
 		for (MultipartFile mF : multipart) {
 
-			String saveFileName = getRandomString();
-			fileWrite(mF, saveFileName);
-			File convFile = new File(SAVE_PATH + "/" + saveFileName);
+			String[] saveFileName = getRandomString();
+			fileWrite(mF, saveFileName[0]);
+			File convFile = new File(SAVE_PATH + "/" + saveFileName[0]);
 			mF.transferTo(convFile);
-			fileEXIF(convFile, saveFileName);
+			fileEXIF(convFile, saveFileName[0]);
+			makeThumbnail(saveFileName);
 		}
 	}
 
-	private void fileEXIF(File file, String saveFileName) throws JpegProcessingException {
+	private void fileEXIF(File file, String saveFileName) throws MetadataException, ImageProcessingException {
 		try {
 
 			String mimeType = new Tika().detect(file);
 			System.out.println("확장자 : " + mimeType);
 			if (mimeType.equals("image/jpeg")) {
 				Metadata metadata = JpegMetadataReader.readMetadata(file);
+				
 				GpsDirectory gpsDirectory = metadata.getDirectory(GpsDirectory.class);
 				ExifSubIFDDirectory directory = metadata.getDirectory(ExifSubIFDDirectory.class);
-
+				ExifIFD0Directory dir = metadata.getDirectory(ExifIFD0Directory.class);
+				orientation = dir.getInt(ExifIFD0Directory.TAG_ORIENTATION);
+				
 				if (directory != null) {
 					Date date = directory.getDate(ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL);
 					if (date != null) {
@@ -202,25 +217,35 @@ public class UploadFiles {
 
 	public void deleteFile(String name) {
 		// TODO Auto-generated method stub
-		File file = new File(SAVE_PATH + "\\" + name);
+		File[] file = new File[2];
+		file[0] = new File(SAVE_PATH + "\\" + name);
+		file[1] = new File(SAVE_THUMB_PATH + "\\" + name);
 		System.out.println("삭제파일 경로 : " + SAVE_PATH + "\\" + name);
-		System.out.println("삭제할 파일 존재 : " + file.exists());
-		if (file.exists()) {
-			file.delete();
+		System.out.println("삭제할 파일 존재 : " + file[0].exists());
+		if (file[0].exists()) {
+			file[0].delete();
+			file[1].delete();
 			System.out.println("파일 삭제 : " + SAVE_PATH + "\\" + name);
 		}
 	}
 
-	public String getRandomString() {
-
+	public String[] getRandomString() {
+		String[] fileName = new String[2];
+		String[] dirName = new String[2];
 		Calendar cal = Calendar.getInstance();
-		String dirName = String.format(SAVE_PATH + "\\" + "%04d\\%02d\\%02d", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
+		dirName[0] = String.format(SAVE_PATH + "\\" + "%04d\\%02d\\%02d", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
 				cal.get(Calendar.DAY_OF_MONTH));
-		String fileName = String.format("%04d/%02d/%02d/", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
+		dirName[1] = String.format(SAVE_THUMB_PATH + "\\" + "%04d\\%02d\\%02d", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
+				cal.get(Calendar.DAY_OF_MONTH));
+		
+		fileName[0] = String.format("%04d/%02d/%02d/", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
+				cal.get(Calendar.DAY_OF_MONTH));
+		fileName[1] = String.format("%04d/%02d/%02d/", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
 				cal.get(Calendar.DAY_OF_MONTH));
 
-
-		File dir = new File(dirName);
+		File dir = new File(dirName[0]);
+		dir.mkdirs();
+		dir = new File(dirName[1]);
 		dir.mkdirs();
 		
 		String saveFileName = UUID.randomUUID().toString().replaceAll("-", "") + ".jpg";
@@ -232,8 +257,9 @@ public class UploadFiles {
 			file = new File(fileName + "\\" + saveFileName);
 		}
 
-		fileName += saveFileName;
-
+		fileName[0] += saveFileName;
+		fileName[1] += saveFileName;
+		System.out.println(fileName[0] + ", " + fileName[1]);
 		return fileName;
 
 	}
@@ -262,6 +288,39 @@ public class UploadFiles {
 		for(String name : fileNameList) {
 			deleteFile(name);
 		}
+	}
+	
+	public void makeThumbnail(String[] fileName) throws Exception {
+		BufferedImage srcImg = ImageIO.read(new File(SAVE_PATH + "\\" + fileName[0]));
+		if(orientation == 6) {
+			srcImg = Scalr.rotate(srcImg, Scalr.Rotation.CW_90);
+		}
+		
+		int dw = 316, dh = 210;
+		int ow = srcImg.getWidth();
+		int oh = srcImg.getHeight();
+		
+		int nw = ow;
+		int nh = (ow * dh) / dw;
+		
+		if(nh > oh) {
+			nw = (oh * dw) / dh;
+			nh = oh;
+		}
+		
+		BufferedImage cropImg = Scalr.crop(srcImg, (ow - nw) / 2, (oh - nh) / 2, nw, nh);
+		
+		BufferedImage destImg = Scalr.resize(cropImg, dw, dh);
+		
+		
+		File thumbFile = new File(SAVE_THUMB_PATH + "\\" + fileName[1]);
+		ImageIO.write(destImg, "jpg", thumbFile);
+		
+		byte[] data = Files.readAllBytes(thumbFile.toPath());
+		FileOutputStream fos = new FileOutputStream(SAVE_THUMB_PATH + "\\" + fileName[1]);
+		fos.write(data);
+		fos.close();
+
 	}
 
 }

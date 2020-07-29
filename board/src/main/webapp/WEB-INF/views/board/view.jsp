@@ -168,7 +168,7 @@
          <input type="hidden" name="userID" value="${session.id }" />
      
       
-             <a href="<spring:url value='${list.path }'/>" data-lightbox="image-1" data-title="${list.place }"><img alt="" src="<spring:url value='${list.path }'/>"></a>
+             <a href="<spring:url value='${list.path }'/>" data-lightbox="image-1" data-title="${list.place }"><img alt="" src="<spring:url value='/img/thumb/${list.fileName }'/>"></a>
        
       
          </c:forEach>
@@ -241,7 +241,7 @@
            </div>   
            
           <div class="m2">
-             <a href="<spring:url value='${list.path }'/>" data-lightbox="image-1" data-title="${list.place }"><img alt="" src="<spring:url value='${list.path }'/>"></a>
+             <a href="<spring:url value='${list.path }'/>" data-lightbox="image-2" data-title="${list.place }"><img alt="" src="<spring:url value='/img/thumb/${list.fileName }'/>"></a>
            </div>
               
                
@@ -267,17 +267,17 @@
      <div class="button">
      <c:if test="${session.id eq view.writer }">
        <div id="upload">
-         <button class="raise" onclick="location.href='/board/modify?bno=${view.bno}'">게시물 수정</button>
+         <button type="button" class="raise" onclick="location.href='/board/modify?bno=${view.bno}'">게시물 수정</button>
        </div>
        </c:if>
         <c:if test="${session.id eq view.writer or session.mID eq 'root' }">
        <div id="upload-2">
-         <button  class="raise" onclick="location.href='/board/delete?bno=${view.bno}'">게시물 삭제</button>
+         <button type="button" id="delBtn" class="raise">게시물 삭제</button>
        </div>
        </c:if>
       </div>   
      
-     
+     s
      
    
    

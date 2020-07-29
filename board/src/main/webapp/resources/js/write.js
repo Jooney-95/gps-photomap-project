@@ -386,7 +386,7 @@ function printImgBox(obj) {
 
       $("#time_" + obj[i].id).val(obj[i].timeView);
       $("#id_" + obj[i].id).val(obj[i].id);
-      $("#img_" + obj[i].id).attr("src", obj[i].path);
+      $("#img_" + obj[i].id).attr("src", "/img/thumb/" + obj[i].fileName);
 
       getLoc(obj[i].latitude, obj[i].longitude, obj[i].id);
    }

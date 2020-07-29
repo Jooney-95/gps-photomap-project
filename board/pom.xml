@@ -214,6 +214,12 @@
 			<artifactId>tika-parsers</artifactId>
 			<version>1.18</version>
 		</dependency>
+		<!-- 섬네일 -->
+		<dependency>
+			<groupId>org.imgscalr</groupId>
+			<artifactId>imgscalr-lib</artifactId>
+			<version>4.2</version>
+		</dependency>
 
 	</dependencies>
 	<build>
