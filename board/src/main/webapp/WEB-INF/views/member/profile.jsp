@@ -53,7 +53,7 @@
 
 </div>
    <form method="post" id="f" enctype="multipart/form-data">
-   
+   <input type="hidden" value="${session.id }" id="id" name="id">
    <div class="wrapper">    
     <div class="nav" >
       <ul>
@@ -79,14 +79,9 @@
        <div id="ff">    
       
       
-        <c:choose>
-        <c:when test="${session.mImg eq null }">
-        <img id="pImg" width="170" height="170" alt="" src="/resources/imgs/unnamed.png">
-        </c:when>
-        <c:otherwise>
+  
         <img id="pImg" width="170" height="170" alt="" src="<spring:url value='${session.mImg }'/>">
-        </c:otherwise>
-        </c:choose>
+
         <input type="file" id="upload" name="Img" accept=".jpg, .jpeg, .png" style="display:none" />
       </div>
      <!-- 프로필 사진 변경 버튼 부분 -->

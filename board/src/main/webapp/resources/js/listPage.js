@@ -73,9 +73,8 @@ $(document).on("keypress", ".searchTerm", function (e) {
 
 $(window).scroll(
    function () {
-      if ($(window).scrollTop() >= ($(document).height()
-         - $(window).height() - 10)
-         && pageNumber < page.endPageNum) {
+      console.log("$(window).scrollTop() : " + $(window).scrollTop() + ", $(document).height() : " + $(document).height() + ", $(window).height() : " + $(window).height())
+      if ($(document).height() <= ($(window).scrollTop() + $(window).height() + 500) && pageNumber < page.endPageNum) {
          getPageList(++pageNumber);
       }
    });

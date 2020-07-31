@@ -219,6 +219,7 @@ function deleteStorageLikeImg(imgBno) {
 
 
 function uploadImg() {
+   $("#loading").css("display", "");
    if (sel_files.length > 0) {
       var form = $("#f")[0];
       var formData = new FormData(form);
@@ -391,6 +392,7 @@ function printImgBox(obj) {
       getLoc(obj[i].latitude, obj[i].longitude, obj[i].id);
    }
    getSession();
+   $("#loading").css("display", "none");
 }
 
 function getLoc(x, y, iIndex) {

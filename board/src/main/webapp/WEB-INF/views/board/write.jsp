@@ -74,6 +74,10 @@ pageEncoding="UTF-8"%>
       <div id="top">
          <p>제목     <input type="text" id="title" name="title" placeholder="제목을 입력하세요."/></p>
          <input type="hidden" id="userID" name="writer" value="${session.id }" />
+         <div id="loading" style="display: none;">
+            <p >이미지 업로드중</p>
+            <i class="fa fa-spinner fa-pulse fa-fw"></i> 
+         </div>
       </div>
       
       <div class="button-wrapper">
