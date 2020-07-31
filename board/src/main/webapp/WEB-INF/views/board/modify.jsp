@@ -96,9 +96,9 @@
    
  <div id="bottom">
          공개 범위 
-         <input type="radio" id="pNum0" name="pNum" value="-1">  전체공개
-         <input type="radio" id="pNum1" name="pNum" value="${session.id }">  이웃공개
-         <input type="radio" id="pNum2" name="pNum" value="-2">  비공개
+        <label><input type="radio" id="pNum0" name="pNum" value="-1">  전체공개</label> 
+         <label><input type="radio" id="pNum1" name="pNum" value="${session.id }">  이웃공개</label>
+         <label><input type="radio" id="pNum2" name="pNum" value="-2">  비공개</label>
       </div>   
    
 </div>
@@ -122,20 +122,19 @@
    var pNum0 = document.getElementById("pNum0");
    var pNum1 = document.getElementById("pNum1");
    var pNum2 = document.getElementById("pNum2");
-   var pNum = ${view.pNum }
+   var pNum = ${view.pNum };
    
    switch(pNum){
       case -1:
           pNum0.checked = "checked";
           break;
        case -2:
-          pNum1.checked = "checked";
-          break;
-       default:
           pNum2.checked = "checked";
           break;
+       default:
+          pNum1.checked = "checked";
+          break;
        }
-   
    /* var regTypeLat = /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/;
       var regTypeLon = /^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/; 
       var regTypeTime = /^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])\s([1-9]|[01][0-9]|2[0-3]):([0-5][0-9])$/;

@@ -98,9 +98,9 @@ pageEncoding="UTF-8"%>
       
       <div id="bottom">
          공개 범위 
-         <input type="radio" name="pNum" value="-1" checked="checked">  전체공개
-         <input type="radio" name="pNum" value="${session.id }">  이웃공개
-         <input type="radio" name="pNum" value="-2">  비공개
+        <label><input type="radio" name="pNum" value="-1" checked="checked">  전체공개</label>
+         <label><input type="radio" name="pNum" value="${session.id }">  이웃공개</label>
+      <label><input type="radio" name="pNum" value="-2">  비공개</label>
       </div>   
       
 </div>
