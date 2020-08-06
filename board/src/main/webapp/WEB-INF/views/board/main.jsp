@@ -8,7 +8,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>메인</title>
+<title>Plus+</title>
 <link rel="stylesheet" href="/resources/dist/jquery.bxslider.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="/resources/js/jquery.bxslider.min.js"></script>

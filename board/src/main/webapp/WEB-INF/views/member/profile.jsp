@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>프로필 설정</title>
+<title>Plus+</title>
 <link rel="stylesheet" href="/resources/css/profile.css">
 <link rel="stylesheet" href="/resources/css/top.css">
 <link rel="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">

@@ -376,14 +376,24 @@ function loginPopup() {
 
 function number(n){
    var number = parseFloat(n);
+   var fNum = 0;
+   var sNum = 0;
+   console.log(number > 1000000000)
    if(number > 1000000000){
-      return parseInt(number / 1000000000) + "." + parseInt((number % 1000000000) / 100000000) + "B";
+      fNum = parseInt(number / 1000000000);
+      sNum = parseInt((number % 1000000000) / 100000000);
+      return sNum ? fNum + "." + sNum + "B" : fNum + "B";
       // break;
    } else if(number > 1000000){
-      return parseInt(number / 1000000) + "." + parseInt((number % 1000000) / 100000) + "M";
+      fNum = parseInt(number / 1000000);
+      sNum = parseInt((number % 1000000) / 100000);
+      return sNum ? fNum + "." + sNum + "M" : fNum + "M";
       // break;
    } else if(number > 1000){
-      return parseInt(number / 1000) + "." + parseInt((number % 1000) / 100) + "K"
+      
+      fNum = parseInt(number / 1000);
+      sNum = parseInt((number % 1000) / 100);
+      return sNum ? fNum + "." + sNum + "K" : fNum + "K";
       // break;
    } else {
       return number;

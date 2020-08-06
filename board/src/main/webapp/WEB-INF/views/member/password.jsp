@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>비밀번호 변경</title>
+<title>Plus+</title>
 <link rel="stylesheet" href="/resources/css/password.css">
 <link rel="stylesheet" href="/resources/css/top.css">
 <link rel="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">

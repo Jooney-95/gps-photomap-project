@@ -11,7 +11,7 @@ pageEncoding="UTF-8"%>
 
 <meta charset="UTF-8">
 
-<title>게시물 작성</title>
+<title>Plus+</title>
 <link rel="stylesheet" href="/resources/css/write.css">
 <link rel="stylesheet" href="/resources/css/top.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
@@ -105,9 +105,7 @@ pageEncoding="UTF-8"%>
       
 </div>
       <div class=button>
-      <div class="upload"  style="float:left">   
-   <button class="raise" id="bImgUpload" type="button">이미지 업로드</button>
-</div> 
+      
    <div class="upload" style="float:right">
    <button class="raise" id="bWrite" type="button">작성</button>
 </div>   

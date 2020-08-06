@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>게시물 조회</title>
+<title>Plus+</title>
 <link rel="stylesheet" href="/resources/css/view.css?var=2">
 <link rel="stylesheet" href="/resources/css/top.css">
 <link rel="stylesheet" href="/resources/dist/css/lightbox.css">

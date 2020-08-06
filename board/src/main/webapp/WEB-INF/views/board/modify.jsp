@@ -10,7 +10,7 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="/resources/js/modify.js?var=3"></script>
 <meta charset="UTF-8">
-<title>게시물 수정</title>
+<title>Plus+</title>
 <link rel="stylesheet" href="/resources/css/modify.css">
 <link rel="stylesheet" href="/resources/css/top.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
@@ -104,9 +104,7 @@
 </div>
 
    <div class=button>
-   <div class="upload"  style="float:left">   
-   <button class="raise" id="bImgUpload" type="button">이미지 업로드</button>
-</div> 
+    
    <div class="upload" style="float:right">
    <button class="raise" id="bModify" type="button">작성</button>
 </div>   

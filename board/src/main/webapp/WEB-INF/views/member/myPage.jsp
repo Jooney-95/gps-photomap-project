@@ -13,7 +13,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="/resources/js/jquery.bxslider.min.js"></script>
 <script src="/resources/js/myPage.js"></script>
-<title>insert title here</title>
+<title>Plus+</title>
 <link rel="stylesheet" href="/resources/css/top.css">
 <link rel="stylesheet" href="/resources/css/mypage.css">
 <link rel="stylesheet"
