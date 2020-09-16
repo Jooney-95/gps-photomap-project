@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Plus+</title>
+<title>로그인</title>
 <link rel="stylesheet" href="/resources/css/tRegister.css">
 <link rel="stylesheet" href="/resources/css/top.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
@@ -36,7 +36,7 @@
   
    <div class="middle">
     <div class="finish">
-    <img src="/resources/imgs/congratulation.png">
+    <img src="/resources/imgs/congratulation (1).png">
     <p id="finish">가입을 축하드립니다!
     </div>
   

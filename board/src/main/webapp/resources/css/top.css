@@ -109,7 +109,7 @@ body {
   display: inline-block;
   vertical-align: middle;
   height: 100px;
-  width: 200px;
+  width: 250px;
   float:right;
   padding:10px;
   font-size: 15px;
@@ -134,32 +134,67 @@ body {
 
 /*//////////로그인 후 오른쪽 버튼 위치////*/
 #r{
-  width: 80px;
+  width: 90px;
   height:80px;
-  font-size: 14px;
   text-align:center;
   float:right;
 }
 
 .profile{
-  width: 80px;
-  margin-top:6px;
+  width: 43px;
+  height:43px;
+  margin:0 auto;
+  margin-top:12px;
   text-align:center;
   cursor: pointer;
+  overflow:hidden;
 }
 
 .profile img{
-   width:45px;
-   height:45px;
+   width:43px;
+   height:43px;
    border: 2px solid #10b27d;
    border-radius: 77%;
 }
 
+#r p{
+   font-size: 13px;
+   width:62px;
+   height:17px;
+   margin:0 auto;
+   margin-top:5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#alam{
+  display: inline-block;
+  vertical-align: middle;
+  width: 60px;
+  height:50px;
+  text-align:center;
+  float:right;
+  margin-top:15px;
+  z-index:110;
+  cursor: pointer;
+}
+
+#alam i{
+   margin:0 auto;
+   font-size:30px;
+   margin-top:10px;
+   color:#10b27d;
+}
+
+#alam i:hover{
+      color:#fff;
+}
 
 #writebutton{
   display: inline-block;
   vertical-align: middle;
-  width: 50px;
+  width: 60px;
   height:50px;
   text-align:center;
   float:right;
@@ -181,13 +216,11 @@ body {
 .pop{
    width:140px;
    height:100px;
-   background:#fff;
+   background:#fafafa;
     margin-left:89%;
    margin-top:100px;
-   border: 1px solid #fff;
-    border-radius: 10px;
     text-align:center;
-    box-shadow: 5px 5px 5px #dddddd;
+    box-shadow: -1px 1px 10px #e9e9e9;
 }
 .pop div{
    width:140px;
@@ -195,20 +228,52 @@ body {
    text-align:center;
    padding-top:15px;
    font-size:15px;
-   border: 1px solid #fff;
-    border-radius: 10px;
 }
 .pop div:hover{
-      background:#f4f1e8;
+      background:#e9e9e9;
+      border-radius: 5px;
+      border: 1px solid #e9e9e9;
 }
 
 .pop a{
    text-decoration:none;
-    color:#dddddd;
-}
-.pop a:hover{
-   color:#000;
+    color:#000;
 }
 .pop i{
+   color:#fdb330;
+}
+
+/*////////////////////*/
+.apop{
+    width:300px;
+    height:200px;
+    background:#fafafa;
+    margin-left:76%;
+    margin-top:102px;
+    text-align:center;
+    box-shadow: -1px 1px 10px #e9e9e9;
+    border-radius: 4px;
+    border: 0px solid #fafafa;
+}
+.apop div{
+    width:300px;
+    height:200px;
+    text-align:center;
+    padding-top:15px;
+    font-size:15px;
+    border-radius: 5px;
+    border: 1px solid #fff;
+}
+.apop div:hover{
+      background:#e9e9e9;
+      border-radius: 5px;
+      border: 1px solid #e9e9e9;
+}
+
+.apop a{
+   text-decoration:none;
+    color:#000;
+}
+.apop i{
    color:#fdb330;
 }

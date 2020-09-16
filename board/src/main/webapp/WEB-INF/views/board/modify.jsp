@@ -46,25 +46,34 @@
 
        <!-- 사용자 로그인 현황 -->
       <div class="log">
-            <c:if test="${session != null }"><!-- 로그인했을때 -->
+            <c:if test="${session != null }">
+            <!-- 로그인했을때 -->
             <div id="r">
                <div class="profile">
                     <img src="${session.mImg }" onclick="loginPopup()"/>
-                  <p>${session.mNickname }님</p>
-               </div>
+             </div>
+                  <p id="sessionNickname">${session.mNickname }</p>
+            </div>
+
+            <div id="alam">
+               <i class="fas fa-bell" onclick="alamPopup()"></i>
             </div>
 
             </c:if>
             
-            <c:if test="${session == null }"> <!-- 로그인 안했을때 -->
+            <c:if test="${session == null }"> 
+            <!-- 로그인 안했을때 -->
                 <a href="/member/login"><img width="50" height="50" src="/resources/imgs/p1.png"></a>
             </c:if>
       </div>
-<div class="pop" id="loginPopup" style="display:none">               
+            <div class="pop" id="loginPopup" style="display:none">               
                 <div class="pi"><a href="/member/myPage?num=1&userID=${session.id }"><i class="fas fa-user-cog"></i>  마이페이지</a></div>
                 <div class="pii"><a href="/member/logout"><i class="fas fa-power-off"></i>  로그아웃</a></div>
             </div>
-
+            
+            <div class="apop" id="alamPopup" style="display:none">               
+                <div class="ai"> <a>알람 내용</a></div>
+            </div>
 </div>
 
 
@@ -81,9 +90,10 @@
    <div class="button-wrapper">
       <p>이미지
            <span class="label">
-             내 라이브러리
+             <input type="file" name="imgList" id="input_imgs" class="upload-box" placeholder="Upload File"accept=".jpg, .jpeg" multiple/>
+              내 라이브러리
            </span>
-             <input type="file" name="imgList" id="input_imgs" class="upload-box" placeholder="Upload File"accept=".jpg, .jpeg" multiple/></p>
+      </p>       
    </div>
    
    <div id="text">
@@ -93,19 +103,80 @@
    
    <div class="img_box"></div>      
       
-   
- <div id="bottom">
+   <div class="bottom">
+ <div id="bottom1">
          공개 범위 
         <label><input type="radio" id="pNum0" name="pNum" value="-1">  전체공개</label> 
          <label><input type="radio" id="pNum1" name="pNum" value="${session.id }">  이웃공개</label>
          <label><input type="radio" id="pNum2" name="pNum" value="-2">  비공개</label>
-      </div>   
-   
+ </div>   
+ <div id="bottom2" >
+  
+    <div class="category" onclick="menu()">
+    
+      <label>카테고리 <i class="fas fa-angle-down"></i></label>
+    </div>
+    <div class="hide" style="display:none">
+    <div class="list">
+     <ul>
+     <li>
+        <label><input type="radio" >카테고리는</label>
+     </li>
+     <li>
+        <label><input type="radio">어떤것을</label>
+     </li>
+     <li>
+        <label><input type="radio">넣어야</label>
+     </li>
+     <li>
+        <label><input type="radio">할까유</label>
+     </li>
+     </ul>  
+    </div>  
+    
+    <div class="list">
+     <ul>
+     <li>
+        <label><input type="radio" >카테고리는</label>
+     </li>
+     <li>
+        <label><input type="radio">어떤것을</label>
+     </li>
+     <li>
+        <label><input type="radio">넣어야</label>
+     </li>
+     <li>
+        <label><input type="radio">할까유</label>
+     </li>
+     </ul>  
+    </div>  
+    
+    <div class="list">
+     <ul>
+     <li>
+        <label><input type="radio" >카테고리는</label>
+     </li>
+     <li>
+        <label><input type="radio">어떤것을</label>
+     </li>
+     <li>
+        <label><input type="radio">넣어야</label>
+     </li>
+     <li>
+        <label><input type="radio">할까유</label>
+     </li>
+     </ul>  
+    </div>  
+    
+    </div>
+       
+ </div> 
+ </div> 
 </div>
 
    <div class=button>
     
-   <div class="upload" style="float:right">
+   <div class="upload" >
    <button class="raise" id="bModify" type="button">작성</button>
 </div>   
       </div>
@@ -221,6 +292,26 @@
     
       
    </script>
+<script>
+    // html dom 이 다 로딩된 후 실행된다.
+    $(document).ready(function(){
+        // category 클래스 바로 하위에 있는 a 태그를 클릭했을때
+        $(".category>a").click(function(){
+            var submenu = $(this).next("ul");
+ 
+            // submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
+            if( submenu.is(":visible") ){
+                submenu.slideUp();
+            }else{
+                submenu.slideDown();
+            }
+        });
+    });
+</script>
+
+
+
+
 
 
 </body>

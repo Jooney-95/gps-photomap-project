@@ -8,9 +8,6 @@ var listFlag;
 
 
 $(document).ready(function () {
-   if($("#hiddenNickname").val() != undefined){
-      $("#sessionNickname").text(textOverCut($("#hiddenNickname").val(), "nickname") + "님");
-   }
    
    sessionStorage.clear();
    pageNumber = 1;
@@ -187,8 +184,10 @@ function addListPage(data) {
       innerList += '       <ul>';
       innerList += '        <li>';
       innerList += '            <div id="title" title="' + list[i].title + '">';
-      innerList += '                <i class="fas fa-caret-right fa-2x"></i>';
-      innerList += '                <a href="/board/view?bno=' + list[i].bno + '">' + textOverCut(list[i].title, "title") + '</a>';
+      innerList += '                <div id="ta">';
+      innerList += '                   <i class="fas fa-caret-right fa-2x"></i>';
+      innerList += '                   <a href="/board/view?bno=' + list[i].bno + '">' + list[i].title + '</a>';
+      innerList += '                </div>';      
       innerList += '                <div id ="likeCnt"><i class="far fa-thumbs-up"></i>' + number(list[i].likeCnt) + '</div>';
       innerList += '            </div>';
       innerList += '          </li>';    
@@ -225,22 +224,6 @@ $(document).on("click", ".bx-next, .bx-prev", function(){
    $(".bx-next, .bx-prev").css("pointer-events", "none");
    $("a").attr("onclick","return false");
 })
-function textOverCut(text, type) {
-   
-
-   if (type == "title") {
-      var len = 15;
-      var lastText = "...";
-   } else {
-      var len = 8;
-      var lastText = "";
-   }
-   if (text.length > len) {
-      return text.substr(0, len) + lastText;
-   } else {
-      return text;
-   }
-}
 
 function getTimeStamp(time) {
 
@@ -306,7 +289,7 @@ function getMember(bno, count) {
    writerInner += '   <a>';
 
    nicknameInner = '   <a href="/member/myPage?num=1&userID=' + member[count].id + '">';
-   nicknameInner += textOverCut(member[count].mNickname, "nickname") + '님';
+   nicknameInner += member[count].mNickname ;
    nicknameInner += '   <a>';
 
    $("#writer_" + bno).append(writerInner);
@@ -376,26 +359,24 @@ function loginPopup() {
 
 function number(n){
    var number = parseFloat(n);
-   var fNum = 0;
-   var sNum = 0;
-   console.log(number > 1000000000)
    if(number > 1000000000){
-      fNum = parseInt(number / 1000000000);
-      sNum = parseInt((number % 1000000000) / 100000000);
-      return sNum ? fNum + "." + sNum + "B" : fNum + "B";
+      return parseInt(number / 1000000000) + "." + parseInt((number % 1000000000) / 100000000) + "B";
       // break;
    } else if(number > 1000000){
-      fNum = parseInt(number / 1000000);
-      sNum = parseInt((number % 1000000) / 100000);
-      return sNum ? fNum + "." + sNum + "M" : fNum + "M";
+      return parseInt(number / 1000000) + "." + parseInt((number % 1000000) / 100000) + "M";
       // break;
    } else if(number > 1000){
-      
-      fNum = parseInt(number / 1000);
-      sNum = parseInt((number % 1000) / 100);
-      return sNum ? fNum + "." + sNum + "K" : fNum + "K";
+      return parseInt(number / 1000) + "." + parseInt((number % 1000) / 100) + "K"
       // break;
    } else {
       return number;
    }
 }
+
+function alamPopup() {
+    if (document.getElementById("alamPopup").style.display == "none") {
+       document.getElementById("alamPopup").style.display = "";
+    } else {
+       document.getElementById("alamPopup").style.display = "none";
+    }
+ }

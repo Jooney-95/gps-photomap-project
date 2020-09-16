@@ -5,7 +5,7 @@ var unloadFlag;
 var likeImgs;
 
 $(document).ready(function () {
-   $("#sessionNickname").text(textOverCut($("#hiddenNickname").val(), "nickname") + "님");
+
    sel_files = [];
    selFiles = [];
    del_files = [];
@@ -99,25 +99,25 @@ function fileDropDown() {
    //Drag기능 
    dropZone.on('dragenter', function (e) {
    
-		e.stopPropagation();
-		e.preventDefault();
-		// 드롭다운 영역 css
-		dropZone.css('background-color', '#E3F2FC');
-	});
-	dropZone.on('dragleave', function (e) {
-		
-		e.stopPropagation();
-		e.preventDefault();
-		// 드롭다운 영역 css
-		dropZone.css('background-color', '#FFFFFF');
-	});
-	dropZone.on('dragover', function (e) {
-		
-		e.stopPropagation();
-		e.preventDefault();
-		// 드롭다운 영역 css
-		dropZone.css('background-color', '#E3F2FC');
-	});
+      e.stopPropagation();
+      e.preventDefault();
+      // 드롭다운 영역 css
+      dropZone.css('background-color', '#E3F2FC');
+   });
+   dropZone.on('dragleave', function (e) {
+      
+      e.stopPropagation();
+      e.preventDefault();
+      // 드롭다운 영역 css
+      dropZone.css('background-color', '#FFFFFF');
+   });
+   dropZone.on('dragover', function (e) {
+      
+      e.stopPropagation();
+      e.preventDefault();
+      // 드롭다운 영역 css
+      dropZone.css('background-color', '#E3F2FC');
+   });
    dropZone.on("drop", function (e) {
       e.preventDefault();
       // 드롭다운 영역 css
@@ -149,17 +149,23 @@ $(document).on("keyup", "textarea[name='content']", function () {
 })
 
 function getSession() {
-
+	
    for (var i = 0; i < sessionStorage.length; i++) {
+      console.log(sessionStorage.key(i).substr(0, 8))
       if (sessionStorage.key(i).substr(0, 8) == "textarea") {
-         $("#" + sessionStorage.key(i)).val(sessionStorage.getItem(sessionStorage.key(i)));
+         $("#" + sessionStorage.key(i)).val(
+            sessionStorage.getItem(sessionStorage.key(i)));
+      } else if (sessionStorage.key(i).substr(0, 13) == "selectLikeImg") {
+    	  setLikeImg(parseInt(sessionStorage.key(i).substr(14)));
+//         $("#" + sessionStorage.key(i)).attr("class", "star2");
       } else if (sessionStorage.key(i).substr(0, 9) == "deleteBtb") {
          deleteBtn(sessionStorage.getItem(sessionStorage.key(i)));
       } else {
-         $("#" + sessionStorage.key(i)).attr("checked", "checked");
+         $("#" + sessionStorage.key(i)).prop("checked", true);
       }
    }
 }
+
 
 function tpList(index) {
    if (document.querySelector("#tp_" + index).style.display == "none") {
@@ -168,6 +174,28 @@ function tpList(index) {
       $("#tp_" + index).css("display", "none");
    }
 }
+
+
+function menu(){
+   if(document.querySelector(".hide").style.display == "none" ){
+      $(".hide").css("display", "");
+      $(".category").css("background","#f5f5f5")
+      $(".category").css("border","2px solid #f5f5f5")
+      $(".category").css("border-top-left-radius","5px")
+       $(".category").css("border-top-right-radius","5px")
+       $(".category").css("box-shadow","none")
+   }
+   else{
+      $(".hide").css("display", "none");
+      $(".category").css("background","#fff")
+      $(".category").css("border","2px solid #fafafa")
+      $(".category").css("border-radius","0")
+       $(".category").css("box-shadow","rgb(250, 250, 250) 2px 2px 2px 2px")
+          
+   }
+}
+
+
 
 function deleteBtn(index) {
    $("#middle_" + index).css("opacity", 0.5);
@@ -190,11 +218,13 @@ function selectLikeImg(index) {
    if (likeImgs.indexOf(index) == -1) {
       if (likeImgs.length < 4) {
          storageLikeImg(index);
+         
          console.log("test1")
       } else {
          var firstImgBno = likeImgs.shift();
          deleteStorageLikeImg(firstImgBno);
          storageLikeImg(index);
+         
          console.log("test2")
       }
    } else {
@@ -204,17 +234,27 @@ function selectLikeImg(index) {
 }
 
 function storageLikeImg(imgBno) {
-   likeImgs.push(imgBno);
-   sessionStorage.setItem("selectLikeImg_" + imgBno, "fas fa-star");
-   $("#selectLikeImg_" + imgBno).attr("class", "fas fa-star");
+	likeImgs.push(imgBno);
+	sessionStorage.setItem("selectLikeImg_" + imgBno, "star2");
+	setLikeImg(imgBno);
 }
+
+function setLikeImg(imgBno) {
+	$("#selectLikeImg_" + imgBno).attr("class", "star2");
+	$("#img_" + imgBno).attr("class", "imgselect2");
+	$("#bor_" + imgBno).attr("class", "border2");
+}
+
 
 function deleteStorageLikeImg(imgBno) {
    if (likeImgs.indexOf(imgBno) != -1) {
       likeImgs.splice(likeImgs.indexOf(imgBno), 1);
    }
    sessionStorage.removeItem("selectLikeImg_" + imgBno);
-   $("#selectLikeImg_" + imgBno).attr("class", "far fa-star");
+   $("#selectLikeImg_" + imgBno).attr("class","star1");
+   $("#img_" + imgBno).attr("class", "imgselect1");
+   $("#bor_" + imgBno).attr("class", "border");
+   
 }
 
 
@@ -335,8 +375,8 @@ function printImgBox(obj) {
    $(".img_box").empty();
    for (var i = 0; i < obj.length; i++) {
 
+
       var img_html = '  <div class="middle" id="middle_' + obj[i].id + '" name="imgDiv">';
-      img_html += '		<!-- 대표이미지 설정 아이콘 --><i class="far fa-star" id="selectLikeImg_' + obj[i].id + '" onclick="selectLikeImg(' + obj[i].id + ')"></i>';
       img_html += '        <div class="left">';
       img_html += '           <ul>';
       img_html += '              <li>';
@@ -349,35 +389,23 @@ function printImgBox(obj) {
       img_html += '                 </div>';
       img_html += '              </li>';
       img_html += '              <li>';
-      img_html += '                 <div class="lefttwo">';
-      img_html += '                    <img id="img_' + obj[i].id + '" name="filesList" src="" />';
-      img_html += '                 </div>';
-      img_html += '              </li>';
-      img_html += '           </ul>';
+      img_html += '              <div class="lefttwo">';
+        img_html += '                 <div class="border" id="bor_'+ obj[i].id + '" >';
+     img_html += '                    <img class="imgselect1" id="img_' + obj[i].id + '" name="filesList" src="' + "/img/thumb/" + obj[i].fileName + '" />';
+     img_html += '                 </div>';
+     img_html += '              </li>';
+     img_html += '              <li>';
+     img_html += '                 <div class="leftthree">';
+     img_html += '             <div class="star"><button  type="button" class="star1"  id="selectLikeImg_' + obj[i].id + '" onclick="selectLikeImg(' + obj[i].id + ')">대 표</button></div>';
+     img_html += '           </li>';
+     img_html += '           </ul>';
       img_html += '        </div>';
       img_html += '        <div class="right">';
       img_html += '           <div class="one">';
-      img_html += '              <input type="text" id="time_' + obj[i].id + '" name="time" />';
-      img_html += '           </div>';
-      img_html += '           <div class="two">';
-      img_html += '              <textarea style="width:90%" cols="30" rows="5" id="textarea_' + obj[i].id + '" name="content"></textarea>';
-      img_html += '           </div>';
-      img_html += '           <div id="three">';
-      img_html += '              <div class="t">';
-      img_html += '                 <div class="t-1" onclick="tpAdd(' + obj[i].id + ')">';
-      img_html += '                    <p>이동수단</p>';
-      img_html += '                 </div>';
-      img_html += '              <div class="t-2" id="tp_' + i + '" >';
-      img_html += '                 <ul>';
-      img_html += '                    <li class="b"><label><input type="checkbox" id="sneakers_' + obj[i].id + '" name="tp" value="sneakers" /><img src="/resources/imgs/sneakers.png">도 보</label></li>';
-      img_html += '                    <li class="b"><label><input type="checkbox" id="bus_' + obj[i].id + '" name="tp" value="bus" /><img src="/resources/imgs/bus.png">버 스</label></li>';
-      img_html += '                    <li class="a"><label><input type="checkbox" id="train_' + obj[i].id + '" name="tp" value="train" /><img src="/resources/imgs/train.png">지하철</label></li>';
-      img_html += '                    <li class="a"><label><input type="checkbox" id="car_' + obj[i].id + '" name="tp" value="car" /><img src="/resources/imgs/car.png">자동차</label></li>';
-      img_html += '                    <li class="b"><label><input type="checkbox" id="taxi_' + obj[i].id + '" name="tp" value="taxi" /><img src="/resources/imgs/taxi.png">택 시</label></li>';
-      img_html += '                    <li class="a"><label><input type="checkbox" id="bike_' + obj[i].id + '" name="tp" value="bike" /><img src="/resources/imgs/bike.png">자전거</label></li>';
-      img_html += '                    <li class="a"><label><input type="checkbox" id="scooter_' + obj[i].id + '" name="tp" value="scooter" /><img src="/resources/imgs/scooter.png">스쿠터</label></li>';
-      img_html += '                 </ul>';
-      img_html += '              </div>';
+     img_html += '              <div class="time"> <input type="text" id="time_' + obj[i].id + '" name="time" value="' + obj[i].timeView + '"/> </div>';
+     img_html += '           </div>';
+     img_html += '           <div class="two">';
+      img_html += '              <textarea style="width:90%" cols="30" rows="5" id="textarea_' + obj[i].id + '" name="content" placeholder="#해시태그"></textarea>';
       img_html += '           </div>';
       img_html += '        </div>';
       img_html += '     </div>';
@@ -417,17 +445,11 @@ function loginPopup() {
    }
 }
 
-function textOverCut(text, type) {
-   var lastText = "...";
 
-   if (type == "title") {
-      var len = 15;
-   } else {
-      var len = 10;
-   }
-   if (text.length > len) {
-      return text.substr(0, len) + lastText;
-   } else {
-      return text;
-   }
-}
+function alamPopup() {
+    if (document.getElementById("alamPopup").style.display == "none") {
+       document.getElementById("alamPopup").style.display = "";
+    } else {
+       document.getElementById("alamPopup").style.display = "none";
+    }
+ }

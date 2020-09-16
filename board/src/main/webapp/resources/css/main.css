@@ -94,6 +94,9 @@ ul li{
    color:#3b3f58; 
    margin-top:12px;
    font-weight:bold;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
 }
 .name a{
    text-decoration:none;
@@ -165,9 +168,10 @@ ul li{
    height:40px;
    text-align:left;
    padding-top:20px;
-   padding-left:20px;
-   font-size:14px;
-   flaot:left;
+   padding-left:12px;
+   font-size:13px;
+   position:relative;
+   float:left;
 }
 #title i{
    font-size:18px;
@@ -192,16 +196,22 @@ ul li{
    color:#10b27d;
    text-shadow: 0 0 24px;
 }
-
+#ta{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width:222px;
+  position:absolute;
+}
 /*공감수*/
 #likeCnt{
-   width:70px;
+   width:60px;
    height:25px;
-   float: right;
    color:#fdb330;
-   margin-right:15px; 
+   margin-right:12px; 
    font-size:14px;
-   text-align:right;   
+   text-align:right;
+   float:right;  
 }
 #likeCnt i{
 padding:5px;

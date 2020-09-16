@@ -33,7 +33,7 @@ function countLike() {
 
 function likeImg() {
    for (var i = 0; i < likeImgArr.length; i++) {
-      $("#selectLikeImg_" + likeImgArr[i]).attr("class", "fas fa-star");
+      $("#selectLikeImg_" + likeImgArr[i]).removeClass("hidden")
    }
 }
 
@@ -112,6 +112,14 @@ function loginPopup() {
       document.getElementById("loginPopup").style.display = "none";
    }
 }
+
+function alamPopup() {
+    if (document.getElementById("alamPopup").style.display == "none") {
+       document.getElementById("alamPopup").style.display = "";
+    } else {
+       document.getElementById("alamPopup").style.display = "none";
+    }
+ }
 
 function textOverCut(text, type) {
    var lastText = "...";

@@ -45,53 +45,68 @@
         </button>
     </div>
 </div>
-    <!-- 사용자 로그인 현황 -->
+  <!-- 사용자 로그인 현황 -->
       <div class="log">
-            <c:if test="${session != null }"><!-- 로그인했을때 -->
+         <c:if test="${session != null }">
+            <!-- 로그인했을때 -->
             <div id="r">
                <div class="profile">
                     <img src="${session.mImg }" onclick="loginPopup()"/>
-                    <input type="hidden" id="hiddenNickname" value="${session.mNickname }">
-                  <p id="sessionNickname"></p>
-               </div>
+             </div>
+                  <p id="sessionNickname">${session.mNickname }</p>
             </div>
-            
+
+            <div id="alam">
+               <i class="fas fa-bell" onclick="alamPopup()"></i>
+            </div>
+         
             <div id="writebutton">
                <!-- 게시물 작성 버튼-->
                <a href="/board/write" title="게시물 작성"><i class="far fa-edit"></i></a>
             </div>
+         </c:if>
+         
 
-            </c:if>
+         <c:if test="${session == null }">
+            <!-- 로그인 안했을때 -->
             <div id="rr">
-            <c:if test="${session == null }"> <!-- 로그인 안했을때 -->
-                <a href="/member/login"><img width="50" height="50" src="/resources/imgs/p1.png"></a>
-            </c:if>
+               <a href="/member/login"><img src="/resources/imgs/p1.png"></a>
             </div>
+         </c:if>         
       </div>
-<div class="pop" id="loginPopup" style="display:none">               
+            <div class="pop" id="loginPopup" style="display:none">               
                 <div class="pi"><a href="/member/myPage?num=1&userID=${session.id }"><i class="fas fa-user-cog"></i>  마이페이지</a></div>
                 <div class="pii"><a href="/member/logout"><i class="fas fa-power-off"></i>  로그아웃</a></div>
             </div>
-<div class="pop" id="loginPopup" style="display:none">               
-                <div class="pi"><a href="/member/myPage?num=1&userID=${session.id }"><i class="fas fa-user-cog"></i>  마이페이지</a></div>
-                <div class="pii"><a href="/member/logout"><i class="fas fa-power-off"></i>  로그아웃</a></div>
+            
+            <div class="apop" id="alamPopup" style="display:none">               
+                <div class="ai"> <a>알람 내용</a></div>
             </div>
-   </div>
-   
+  </div>
 
 
 <div id="top">
       
 
-      <div id ="ab">
+      <div id ="abcd">
+      <!-- 카테고리 -->
+      <div id="a">
+          카테고리 넣을 공간
+      </div>
+      
        <!-- 제목 -->
-        <div id="a" >
+        <div id="b" >
           <input type="text" name="title" value="${view.title }" readOnly />
         </div>
       
+      <!-- 저장 -->
+      <div id="c">
+      <i class="fas fa-bookmark"></i>
+      </div>
+      
         <!-- 공감버튼 -->
       
-        <div id="b">
+        <div id="d">
            <i class="far fa-thumbs-up " id="bLike"></i>
            <p id="like"></p>
          </div>
@@ -190,63 +205,34 @@
      <div class="middle">
        <div class="m1">
         <div class="m1-1">
-        <ul><li>
-        <!-- 대표이미지 설정 아이콘 --><i class="far fa-star" id="selectLikeImg_${list.id }"></i>
+        
+      
         <div class="leftone">
                  <i class="fas fa-map-marker-alt"></i> 
                  <input type="text" name="loc" value="${list.place }" readOnly />
                  <input type="hidden" name="lat" value="${list.latitude }" readOnly />
                   <input type="hidden" name="lon" value="${list.longitude }" readOnly />
          </div>
-         </li>
-         <li>
+       
+        
          <div class="one">
                   <input type="text" name="time" value="${list.timeView }" readOnly />
         </div>
-        </li>
-        </ul>
+      
          </div>   
          
-         <div class="m1-2">
-                
-                <div class="t-2">
-                     <c:forEach items="${tp }" var="tp">
-                     <c:choose>
-                     <c:when test="${tp.tpBno eq list.id and tp.tp eq 'sneakers' }">
-                        <label><img src="/resources/imgs/sneakers.png"></label>
-                     </c:when>
-                     <c:when test="${tp.tpBno eq list.id and tp.tp eq 'bus' }">
-                        <label><img src="/resources/imgs/bus.png"></label>
-                     </c:when>
-                     <c:when test="${tp.tpBno eq list.id and tp.tp eq 'train' }">
-                        <label><img src="/resources/imgs/train.png"></label>
-                     </c:when>
-                     <c:when test="${tp.tpBno eq list.id and tp.tp eq 'car' }">
-                        <label><img src="/resources/imgs/car.png"></label>
-                     </c:when>
-                     <c:when test="${tp.tpBno eq list.id and tp.tp eq 'taxi' }">
-                        <label><img src="/resources/imgs/taxi.png"></label>
-                     </c:when>
-                     <c:when test="${tp.tpBno eq list.id and tp.tp eq 'bike' }">
-                        <label><img src="/resources/imgs/bike.png"></label>
-                     </c:when>
-                     <c:when test="${tp.tpBno eq list.id and tp.tp eq 'scooter' }">
-                        <label><img src="/resources/imgs/scooter.png"></label>
-                     </c:when>
-                     </c:choose>
-                     </c:forEach>
-               </div>   
-                  
-              </div>       
+        
            </div>   
            
           <div class="m2">
              <a href="<spring:url value='${list.path }'/>" data-lightbox="image-2" data-title="${list.place }"><img alt="" src="<spring:url value='/img/thumb/${list.fileName }'/>"></a>
            </div>
               
+         <!-- 대표이미지 설정 아이콘 --><div class="m3 hidden" id="selectLikeImg_${list.id }">대표
+        </div>
                
               
-           <div class="m3">
+           <div class="m4">
                      <textarea cols="40" rows="5" name="content" readOnly >${list.content }</textarea>
             </div>                 
              

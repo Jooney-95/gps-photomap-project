@@ -5,6 +5,7 @@ encoding//src/main/java/com/board/domain/FolPage.java=UTF-8
 encoding//src/main/java/com/board/domain/UploadFiles.java=UTF-8
 encoding//src/main/java/com/login/interceptor/LoginInterceptor.java=UTF-8
 encoding//src/main/webapp/WEB-INF/views/home.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/member/myPage.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/member/profile.jsp=UTF-8
 encoding//src/main/webapp/resources/css/main.css=UTF-8
 encoding//src/main/webapp/resources/css/mypage.css=UTF-8

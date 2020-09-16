@@ -8,7 +8,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Plus+</title>
+<title>메인</title>
 <link rel="stylesheet" href="/resources/dist/jquery.bxslider.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="/resources/js/jquery.bxslider.min.js"></script>
@@ -41,23 +41,27 @@
          </div>
       </div>
 
-      <!-- 사용자 로그인 현황 -->
+       <!-- 사용자 로그인 현황 -->
       <div class="log">
          <c:if test="${session != null }">
             <!-- 로그인했을때 -->
             <div id="r">
                <div class="profile">
                     <img src="${session.mImg }" onclick="loginPopup()"/>
-                    <input type="hidden" id="hiddenNickname" value="${session.mNickname }">
-                  <p id="sessionNickname"></p>
-               </div>
+             </div>
+                  <p id="sessionNickname">${session.mNickname }</p>
             </div>
 
+            <div id="alam">
+               <i class="fas fa-bell" onclick="alamPopup()"></i>
+            </div>
+         
             <div id="writebutton">
                <!-- 게시물 작성 버튼-->
                <a href="/board/write" title="게시물 작성"><i class="far fa-edit"></i></a>
             </div>
          </c:if>
+         
 
          <c:if test="${session == null }">
             <!-- 로그인 안했을때 -->
@@ -69,6 +73,10 @@
             <div class="pop" id="loginPopup" style="display:none">               
                 <div class="pi"><a href="/member/myPage?num=1&userID=${session.id }"><i class="fas fa-user-cog"></i>  마이페이지</a></div>
                 <div class="pii"><a href="/member/logout"><i class="fas fa-power-off"></i>  로그아웃</a></div>
+            </div>
+            
+            <div class="apop" id="alamPopup" style="display:none">               
+                <div class="ai"> <a>알람 내용</a></div>
             </div>
   </div>
 

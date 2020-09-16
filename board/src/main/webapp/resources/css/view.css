@@ -1,5 +1,6 @@
 @charset "UTF-8";
 button:focus { outline:none; }
+input:focus{outline:none;}
 
 *,
 *:before,
@@ -176,7 +177,7 @@ body {
 
 #top{
    width:100%;
-   margin-top:115px;
+   margin-top:100px;
    display: table;
    text-align:center;
     /*//테스트 //*/
@@ -187,49 +188,74 @@ body {
   
    
 }
-#top #ab{
-   height:80px;
-   width:590px;
-   padding-top:40px;
+#top #abcd{
+   height:86px;
+   width:420px;
+   padding-top:25px;
    padding-bottom:5px;
    text-algin:center;
    display:block;
    margin:0 auto;
-   border-bottom:2px solid #e4f1f0;
+   border-bottom:2px solid #eee;
 }
 /*///////작성자& 제목///////////*/
 #top #a{
+     display: inline-block;
+    float: left;
+    position: relative;
+    right: 163px;
+    top: 30px;
+}
+}
+
+#top #b{
    display:inline-block;
-   width:590px;
+   width:420px;
    text-align:center;
   
    
 }
 
 /*////////제목//////////*/
-#top #a input{
+#top #b input{
    font-size:20px;
    border:none;
    margin:0 auto;
    text-align:center;
+   width: 100%;
+}
+
+
+/*/////////////////*/
+#top #c{
+   float:right;
+   display:inline-block;
+   cursor:pointer;
+   float: right;
+    position: relative;
+    left: 35px;
+    bottom: 20px;
+    color:#ccc;
+   
 }
 
 /*//////////공감///////////*/
-#top #b{
+#top #d{
+   
+
    float:right;
-    height:50px;
    text-align:center;
    display:inline-block;
    cursor:pointer;
    position:relative;
-   left:70px;
-   bottom:35px;
+   left:130px;
+   bottom:34px;
  /* border:1px solid #f5f5f5;  /**/
    
 }
 
 /*공감 아이콘*/
-#top #b i {
+#top #d i {
 cursor:pointer;
 border-radius:50px;
 padding:7px;
@@ -244,7 +270,7 @@ margin-top:6px;
 }
 
 /*공감 숫자*/
-#top #b p{
+#top #d p{
    
    float:right;
    font-size:20px;
@@ -273,6 +299,7 @@ li{
    top: 0;
     position: sticky;
    background-color:#fff;
+   z-index: 1;
    
    }
 
@@ -360,12 +387,13 @@ ul{
 .m1-1{
    display:inline-block;
    float:left;
-   padding:5px;
+  /* padding:5px;*/
    height:56px;
-   width:280px;
+   width:436px;
       
    
 }
+
 .m1-1 .leftone{
    float:left;
 }
@@ -381,14 +409,15 @@ ul{
    margin-left:7px;
    border:none;
 }
+
 .m1-1 .one{
-   
+   width: 270px;
 }
 .m1-1 .one input{
    width:225px;
    font-size:14px;
    color:#909090;
-   margin-left:23px;
+ 
    border:none;
    
 }
@@ -438,16 +467,35 @@ ul{
     text-align:center;
     cursor: pointer;
     border-radius:10px;
-    border:2px solid #f9f7f2;*/
+    border:2px solid #f9f7f2;
     
 }
+.hidden{
+   display:none;
+}
 
+.m3 {
+   height: 25px;
+    width: 60px;
+   font-size:10px;
+    border:1px solid #1cdd9e;
+    border-radius:5px;
+    background:#1cdd9e;
+    color:#fff;
+    white-space:nowrap;
+    padding:3px; 
+    float: left;
+    position:relative;
+    left: 117px;
+    bottom: 127px;
+    z-index: 0;
+}
 
 
 /*/////////////타임라인 오른쪽/////////////*/
 
 
-.m3{  
+.m4{  
    height:80px;
    text-align:center;
    margin-top:20px;
@@ -456,14 +504,14 @@ ul{
    padding:20px;  
 }
    
-.m3 textarea{
+.m4 textarea{
    margin:0 auto;
    width:100%  ;
    height:60px;
    resize:none;
    border-radius:10px;
-   border:2px solid #f9f7f2;
-   background:#f9f7f2;
+   border:2px solid #fafafa;
+   background:#fafafa;
    padding:10px;
 }
 

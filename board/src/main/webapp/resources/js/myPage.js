@@ -24,37 +24,12 @@ $(window).scroll(
          });
 
 function setNav(nav) {
-   $(".myPageNav > a > i")[nav - 1].style.color = "#feec77";
    
    
    
 }
 function unSetNav(nav) {
-   switch (nav) {
-   case 1:
-      if ($("#userID").val() == $("#sessionID").val()) {
-         $(".myPageNav > a > i")[2].style.color = "";
-         
-      }
-      $(".myPageNav > a > i")[1].style.color = "";
-      $(".myPageNav > a > i")[1].style.textShadow = "";
-      break;
-   case 2:
-      if ($("#userID").val() == $("#sessionID").val()) {
-         $(".myPageNav > a > i")[2].style.color = "";
-         
-      }
-      $(".myPageNav > a > i")[0].style.color = "";
-      
-      break;
-   default:
-      $(".myPageNav > a > i")[1].style.color = "";
-      
-      $(".myPageNav > a > i")[0].style.color = "";
-      
-      break;
 
-   }
 }
 
 $(document).on(
@@ -115,10 +90,15 @@ function getMyPageNav(nav) {
       unSetNav(nav);
       break;
    case 2:
-      sessionStorage.setItem("nav", "fforf");
+      sessionStorage.setItem("nav", "like");
       setNav(nav);
       unSetNav(nav);
       break;
+   case 3:
+         sessionStorage.setItem("nav", "fforf");
+         setNav(nav);
+         unSetNav(nav);
+         break;
    default:
       sessionStorage.setItem("nav", "fol");
       setNav(nav);
@@ -135,6 +115,7 @@ function getMyPageList(pageNum) {
    };
    var URL = {
       list : "/member/getMyPage",
+      like : "/member/getLikePage",
       fforf : "/member/getFforf",
       fol : "/member/getFol"
    }
@@ -218,9 +199,11 @@ function addListMyPage(data) {
       innerList += '       <ul>';
       innerList += '        <li>';
       innerList += '            <div id="title" title="' + list[i].title + '">';
-      innerList += '                <i class="fas fa-caret-right fa-2x"></i>';
-      innerList += '                <a href="/board/view?bno=' + list[i].bno + '">' + textOverCut(list[i].title, "title") + '</a>';
-      innerList += '                <div id ="likeCnt"><i class="far fa-thumbs-up"></i>' + list[i].likeCnt + '</div>';
+      innerList += '                <div id="ta">';
+      innerList += '                   <i class="fas fa-caret-right fa-2x"></i>';
+      innerList += '                   <a href="/board/view?bno=' + list[i].bno + '">' + list[i].title + '</a>';
+      innerList += '                </div>';      
+      innerList += '                <div id ="likeCnt"><i class="far fa-thumbs-up"></i>' + number(list[i].likeCnt) + '</div>';
       innerList += '            </div>';
       innerList += '          </li>';    
       innerList += '        </ul>';
@@ -230,7 +213,7 @@ function addListMyPage(data) {
       $(".in").append(innerList);
       getPNum(list[i].pNum, list[i].bno);
       // getImg(list[i].bno, count);
-      getImgSlider(list[i].bno, count);
+      getImg(list[i].bno, count);
 
       count++;
    }
@@ -244,7 +227,7 @@ function addListMyFforf(data) {
          innerList = '<div class="neighbor"><div class="pro"><a href="/member/myPage?num=1&userID='+member[i].id+'"><img width="100" height="100" alt="" src='
                + member[i].mImg
                + ' /></a></div><div class="nickname">'
-               + textOverCut(member[i].mNickname,"nickname") + '님</div></div>';
+               + member[i].mNickname + '</div></div>';
          $(".in").append(innerList);
       }
    }
@@ -257,7 +240,7 @@ function addListMyFforf(data) {
                + ' /></a></div><div class="dh"><div class="ti">'
                + getTimeStamp(following[i].folDate)
                + '</div><div class="nicknamee">'
-               + textOverCut(member[i].mNickname,"nickname")
+               + member[i].mNickname
                + '님</div><p>회원님에게 이웃 요청을 보냈습니다</p><div class="check"><button class="yes" type="button" onclick="follow('+i+')">수락</button><button class="no" type="button" onclick="unFollow('+i+')">거절</button></div></div>';
          $(".in").append(innerList);
       }
@@ -305,20 +288,6 @@ function unFollow(i){
       }
 }
 
-function textOverCut(text, type) {
-   var lastText = "...";
-
-   if(type == "title"){
-      var len = 12;
-   } else{
-      var len = 10;
-   }
-   if (text.length > len) {
-      return text.substr(0, len) + lastText;
-   } else {
-      return text;
-   }
-}
 
 function getTimeStamp(time) {
 
@@ -386,15 +355,15 @@ function getTimeStamp(time) {
 
 function getImgSlider(bno, count){
    for(var i=0; i<file[count].length;i++){
-      imgSlider(bno, i, file[count][i].path);
+      imgSlider(bno, i, file[count][i].fileName);
    }
 }
 
-function imgSlider(bno, index, path){
+function imgSlider(bno, index, fileName){
    var imgInner;
    imgInner = '   <li class="sliderItem">';
    imgInner += '     <a href="/board/view?bno=' + bno + '">';
-   imgInner += '        <img id="img_' + bno + '_' + index + '" alt="" src=' + path + '>';
+   imgInner += '        <img id="img_' + bno + '_' + index + '" alt="" src=' + "/img/thumb/" + fileName +  '>';
    imgInner += '     </a>';
    imgInner += '  </li>';
    $("#slider_" + bno).append(imgInner);
@@ -413,6 +382,7 @@ function getPNum(pNum, bno) {
    }
 }
 
+
 function getImg(bno, count) {
    var iCount;
    var imgFlag = true;
@@ -420,13 +390,14 @@ function getImg(bno, count) {
       iCount = i;
       if (likeImg[count][i] != undefined) {
          var imgObj = file[count].filter(function (obj) { return obj.id == likeImg[count][i].imgBno });
-         printImg(bno, i, imgObj[0].path)
+         //printImg(bno, i, imgObj[0].fileName)
+         imgSlider(bno, i, imgObj[0].fileName);
 
       } else {
          var j = 0;
          while (imgFlag) {
             if ((file[count][j] != undefined) && (likeImg[count].filter(function (obj) { return obj.imgBno == file[count][j].id })[0] == undefined)) {
-               printImg(bno, iCount, file[count][j].path)
+               imgSlider(bno, iCount, file[count][j].fileName)
                iCount++;
             }
             j++;
@@ -435,20 +406,54 @@ function getImg(bno, count) {
             }
          }
       }
-
    }
-   if (file[count].length > 4) {
-      $("#img_" + bno).append("+" + (file[count].length - 4));
-   }
+   // if (file[count].length > 4) {
+   //    $("#img_" + bno).append("+" + (file[count].length - 4));
+   // }
 }
 
-function printImg(bno, index, path){
+function printImg(bno, index, path) {
    var imgInner;
    imgInner = '   <a href="/board/view?bno=' + bno + '">';
    imgInner += '     <img width="100" height="100" id="img_' + bno + '_' + index + '" alt="" src=' + path + '>';
    imgInner += '  </a>';
    $("#img_" + bno).append(imgInner);
 }
+
+function getImgSlider(bno, count){
+   for(var i=0; i<file[count].length;i++){
+      imgSlider(bno, i, file[count][i].fileName);
+   }
+}
+
+function imgSlider(bno, index, fileName){
+   var imgInner;
+   imgInner = '   <li class="sliderItem">';
+   imgInner += '     <a href="/board/view?bno=' + bno + '">';
+   imgInner += '        <img id="img_' + bno + '_' + index + '" alt="" src=' + "/img/thumb/" + fileName + '>';
+   imgInner += '     </a>';
+   imgInner += '  </li>';
+   $("#slider_" + bno).append(imgInner);
+}
+
+function number(n){
+      var number = parseFloat(n);
+      if(number > 1000000000){
+         return parseInt(number / 1000000000) + "." + parseInt((number % 1000000000) / 100000000) + "B";
+         // break;
+      } else if(number > 1000000){
+         return parseInt(number / 1000000) + "." + parseInt((number % 1000000) / 100000) + "M";
+         // break;
+      } else if(number > 1000){
+         return parseInt(number / 1000) + "." + parseInt((number % 1000) / 100) + "K"
+         // break;
+      } else {
+         return number;
+      }
+   }
+
+
+
 
 function loginPopup() {
    if (document.getElementById("loginPopup").style.display == "none") {
@@ -457,3 +462,11 @@ function loginPopup() {
       document.getElementById("loginPopup").style.display = "none";
    }
 }
+
+function alamPopup() {
+    if (document.getElementById("alamPopup").style.display == "none") {
+       document.getElementById("alamPopup").style.display = "";
+    } else {
+       document.getElementById("alamPopup").style.display = "none";
+    }
+ }

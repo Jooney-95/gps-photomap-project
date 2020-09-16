@@ -35,10 +35,14 @@
             <div id="r">
                <div class="profile">
                     <img src="${session.mImg }" onclick="loginPopup()"/>
-                  <p>${session.mNickname }님</p>
-               </div>
+             </div>
+                  <p id="sessionNickname">${session.mNickname }</p>
             </div>
 
+            <div id="alam">
+               <i class="fas fa-bell" onclick="alamPopup()"></i>
+            </div>
+            
             <div id="writebutton">
                <!-- 게시물 작성 버튼-->
                <a href="/board/write" title="게시물 작성"><i class="far fa-edit"></i></a>
@@ -56,6 +60,9 @@
                 <div class="pi"><a href="/member/myPage?num=1&userID=${session.id }"><i class="fas fa-user-cog"></i>  마이페이지</a></div>
                 <div class="pii"><a href="/member/logout"><i class="fas fa-power-off"></i>  로그아웃</a></div>
             </div>
+            <div class="apop" id="alamPopup" style="display:none">               
+                <div class="ai"> <a>알람 내용</a></div>
+            </div>            
 
          <c:if test="${session == null }">
             <!-- 로그인 안했을때 -->
@@ -64,7 +71,6 @@
             </div>
          </c:if>
       </div>
-   </div>
 
    <div class="main">
 <input type="hidden" id="userID" value="${member.id }"/>
@@ -86,29 +92,37 @@
       
 
 
-      <div class="one">${member.mNickname }님</div>
+      <div class="one">${member.mNickname }</div>
 
       <div class="show">게시글 : ${count } 서로이웃 : ${countFollow }</div>
 
-
+   <div class="wrapper">
       <div class="all">
-         <div class="nav">
-            <div class="myPageNav" id="o" title="내 게시물" onclick="getMyPageNav(1)">
-               <a><i class="fas fa-clipboard fa-2x"></i></a>
+      <div class="nav" >
+
+            <div class="o" onclick="getMyPageNav(1)">
+               <i class="fas fa-clipboard"></i><a>게시물 </a>
             </div>
-            <div class="myPageNav" id="t" title="이웃목록" onclick="getMyPageNav(2)">
-               <a><i class="fas fa-users fa-2x"></i></a>
+
+            <div class="save" onclick="getMyPageNav(2)">
+               <i class="fas fa-bookmark"></i><a>저장 목록</a>
             </div>
-            <c:if test="${session.id eq userID }">
-               <div class="myPageNav" id="th" title="이웃요청" onclick="getMyPageNav(3)">
-                  <a><i class="fas fa-user-plus fa-2x"></i></a>
-               </div>
+
+            <div class="s" onclick="getMyPageNav(3)">
+               <i class="fas fa-users"></i><a>이웃 목록</a>
+            </div>
+
+              <c:if test="${session.id eq userID }">
+            <div class="yesno"  onclick="getMyPageNav(4)">
+                <i class="fas fa-user-plus fa-2x"></i><a>이웃 요청</a>
+            </div>
             </c:if>
-         </div>
+         </div>        
          <div class="in">
          
          </div>
       </div>
+    </div>
    </div>
 
    <script>
