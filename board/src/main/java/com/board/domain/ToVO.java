@@ -15,23 +15,25 @@ public class ToVO {
 		return vo;
 	}
 	
-	public BoardVO boardVO(String title, int userID, int pNum) {
+	public BoardVO boardVO(String title, int userID, int pNum, String kate) {
 		BoardVO vo = new BoardVO();
 
 		vo.setTitle(title);
 		vo.setWriter(userID);
 		vo.setpNum(pNum);
+		vo.setKate(kate);
 		
 		return vo;
 	}
 	
-	public BoardVO boardVO(String title, int userID, int pNum, int bno) {
+	public BoardVO boardVO(String title, int userID, int pNum, int bno, String kate) {
 		BoardVO vo = new BoardVO();
 
 		vo.setTitle(title);
 		vo.setWriter(userID);
 		vo.setpNum(pNum);
 		vo.setBno(bno);
+		vo.setKate(kate);
 		
 		return vo;
 	}

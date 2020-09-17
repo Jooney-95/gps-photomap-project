@@ -43,10 +43,14 @@ public interface BoardDAO {
 	public List<BoardVO> getPage(int displayPost, int postNum, String flag) throws Exception;
 
 	public List<BoardVO> getPage(int displayPost, int postNum, String flag, List<FollowVO> fforfList) throws Exception;
+	
+	public List<BoardVO> getPage(int displayPost, int postNum, String flag, String[] kate) throws Exception;
 
-	public List<BoardVO> getPageSearch(int displayPost, int postNum, String searchType, String keyword, String flag) throws Exception;
+	public List<BoardVO> getPage(int displayPost, int postNum, String flag, String[] kate, List<FollowVO> fforfList) throws Exception;
+
+	public List<BoardVO> getPageSearch(int displayPost, int postNum, String searchType, String keyword, String flag, String[] kate) throws Exception;
 	
 	public List<BoardVO> getPageSearch(int displayPost, int postNum, String searchType, String keyword, String flag,
-			List<FollowVO> fforfList) throws Exception;
+			String[] kate, List<FollowVO> fforfList) throws Exception;
 
 }

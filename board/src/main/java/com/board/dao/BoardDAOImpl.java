@@ -12,13 +12,12 @@ import com.board.domain.BoardVO;
 import com.board.domain.FollowVO;
 import com.board.domain.LikeVO;
 
-
 @Repository
 public class BoardDAOImpl implements BoardDAO {
-	
+
 	@Inject
 	private SqlSession sql;
-	
+
 	private static String namespace = "com.board.mappers.board";
 
 	@Override
@@ -52,23 +51,22 @@ public class BoardDAOImpl implements BoardDAO {
 		return sql.selectOne(namespace + ".count");
 	}
 
-	
 	// 게시물 목록 + 페이징 + 검색
 	@Override
-	public List<BoardVO> listPageSearch(
-			int displayPost, int postNum, String searchType, String keyword) throws Exception {
+	public List<BoardVO> listPageSearch(int displayPost, int postNum, String searchType, String keyword)
+			throws Exception {
 
 		HashMap<String, Object> data = new HashMap<String, Object>();
-	  
+
 		data.put("displayPost", displayPost);
 		data.put("postNum", postNum);
-	  
+
 		data.put("searchType", searchType);
 		data.put("keyword", keyword);
-	  
+
 		return sql.selectList(namespace + ".listPageSearch", data);
-	 }
-	 
+	}
+
 	@Override
 	public void hitViewCnt(int bno) throws Exception {
 		// TODO Auto-generated method stub
@@ -78,14 +76,13 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public List<BoardVO> MyPageSearch(int id, int displayPost, int postNum, String searchType, String keyword) {
 		// TODO Auto-generated method stub
-		
-		
+
 		HashMap<String, Object> data = new HashMap<String, Object>();
-		
+
 		data.put("writer", id);
 		data.put("displayPost", displayPost);
 		data.put("postNum", postNum);
-	  
+
 		return sql.selectList(namespace + ".MyPageSearch", data);
 	}
 
@@ -99,14 +96,14 @@ public class BoardDAOImpl implements BoardDAO {
 	public void likeUp(LikeVO vo) throws Exception {
 		// TODO Auto-generated method stub
 		sql.insert(namespace + ".likeUp", vo);
-		
+
 	}
 
 	@Override
 	public void likeDown(LikeVO vo) throws Exception {
 		// TODO Auto-generated method stub
 		sql.delete(namespace + ".likeDown", vo);
-		
+
 	}
 
 	@Override
@@ -137,11 +134,11 @@ public class BoardDAOImpl implements BoardDAO {
 	public List<BoardVO> getPage(int displayPost, int postNum, String flag) throws Exception {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> data = new HashMap<String, Object>();
-		  
+
 		data.put("displayPost", displayPost);
 		data.put("postNum", postNum);
 		data.put("flag", flag);
-		if(flag.equals("like")) {
+		if (flag.equals("like")) {
 			return sql.selectList(namespace + ".getLikePage", data);
 		} else {
 			return sql.selectList(namespace + ".getNewPage", data);
@@ -151,15 +148,16 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public List<BoardVO> getPage(int displayPost, int postNum, String flag, List<FollowVO> fforfList) throws Exception {
 		// TODO Auto-generated method stub
+
 		HashMap<String, Object> data = new HashMap<String, Object>();
-		
+
 		data.put("displayPost", displayPost);
 		data.put("postNum", postNum);
 		data.put("flag", flag);
 		data.put("fforfList", fforfList);
-		if(flag.equals("like")) {
+		if (flag.equals("like")) {
 			return sql.selectList(namespace + ".getUserLikePage", data);
-		} else if(flag.equals("new")){
+		} else if (flag.equals("new")) {
 			return sql.selectList(namespace + ".getUserNewPage", data);
 		} else {
 			return sql.selectList(namespace + ".getUserFolPage", data);
@@ -167,18 +165,55 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	public List<BoardVO> getPageSearch(int displayPost, int postNum, String searchType, String keyword, String flag)
+	public List<BoardVO> getPage(int displayPost, int postNum, String flag, String kate[]) throws Exception {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> data = new HashMap<String, Object>();
+
+		data.put("displayPost", displayPost);
+		data.put("postNum", postNum);
+		data.put("flag", flag);
+		data.put("kate", kate[0]);
+		if (flag.equals("like")) {
+			return sql.selectList(namespace + ".getLikePage", data);
+		} else {
+			return sql.selectList(namespace + ".getNewPage", data);
+		}
+	}
+
+	@Override
+	public List<BoardVO> getPage(int displayPost, int postNum, String flag, String kate[], List<FollowVO> fforfList)
 			throws Exception {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> data = new HashMap<String, Object>();
-		  
+
+		data.put("displayPost", displayPost);
+		data.put("postNum", postNum);
+		data.put("flag", flag);
+		data.put("kate", kate[0]);
+		data.put("fforfList", fforfList);
+		if (flag.equals("like")) {
+			return sql.selectList(namespace + ".getUserLikePage", data);
+		} else if (flag.equals("new")) {
+			return sql.selectList(namespace + ".getUserNewPage", data);
+		} else {
+			return sql.selectList(namespace + ".getUserFolPage", data);
+		}
+	}
+
+	@Override
+	public List<BoardVO> getPageSearch(int displayPost, int postNum, String searchType, String keyword, String flag, String[] kate)
+			throws Exception {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> data = new HashMap<String, Object>();
+
 		data.put("displayPost", displayPost);
 		data.put("postNum", postNum);
 		data.put("flag", flag);
 		data.put("searchType", searchType);
 		data.put("keyword", keyword);
-		
-		if(flag.equals("likeSearch")) {
+		data.put("kate", kate[0]);
+
+		if (flag.equals("likeSearch")) {
 			return sql.selectList(namespace + ".getLikeSearchPage", data);
 		} else {
 			return sql.selectList(namespace + ".getNewSearchPage", data);
@@ -186,21 +221,22 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	public List<BoardVO> getPageSearch(int displayPost, int postNum, String searchType, String keyword, String flag,
+	public List<BoardVO> getPageSearch(int displayPost, int postNum, String searchType, String keyword, String flag, String[] kate,
 			List<FollowVO> fforfList) throws Exception {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> data = new HashMap<String, Object>();
-		
+
 		data.put("displayPost", displayPost);
 		data.put("postNum", postNum);
 		data.put("flag", flag);
 		data.put("searchType", searchType);
 		data.put("keyword", keyword);
+		data.put("kate", kate[0]);
 		data.put("fforfList", fforfList);
-		
-		if(flag.equals("likeSearch")) {
+
+		if (flag.equals("likeSearch")) {
 			return sql.selectList(namespace + ".getUserLikeSearchPage", data);
-		} else if(flag.equals("newSearch")){
+		} else if (flag.equals("newSearch")) {
 			return sql.selectList(namespace + ".getUserNewSearchPage", data);
 		} else {
 			return sql.selectList(namespace + ".getUserFolSearchPage", data);

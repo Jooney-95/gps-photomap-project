@@ -120,19 +120,31 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		return dao.getPage(displayPost, postNum, flag, fforfList);
 	}
-
+	
 	@Override
-	public List<BoardVO> getPageSearch(int displayPost, int postNum, String searchType, String keyword, String flag)
-			throws Exception {
+	public List<BoardVO> getPage(int displayPost, int postNum, String flag, String kate[]) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.getPageSearch(displayPost, postNum, searchType, keyword, flag);
+		return dao.getPage(displayPost, postNum, flag, kate);
 	}
 
 	@Override
-	public List<BoardVO> getPageSearch(int displayPost, int postNum, String searchType, String keyword, String flag,
+	public List<BoardVO> getPage(int displayPost, int postNum, String flag, String kate[], List<FollowVO> fforfList) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.getPage(displayPost, postNum, flag, kate, fforfList);
+	}
+
+	@Override
+	public List<BoardVO> getPageSearch(int displayPost, int postNum, String searchType, String keyword, String flag, String[] kate)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return dao.getPageSearch(displayPost, postNum, searchType, keyword, flag, kate);
+	}
+
+	@Override
+	public List<BoardVO> getPageSearch(int displayPost, int postNum, String searchType, String keyword, String flag, String[] kate,
 			List<FollowVO> fforfList) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.getPageSearch(displayPost, postNum, searchType, keyword, flag, fforfList);
+		return dao.getPageSearch(displayPost, postNum, searchType, keyword, flag, kate, fforfList);
 	}
 
 }

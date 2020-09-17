@@ -8,7 +8,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>메인</title>
+<title>Plus+</title>
 <link rel="stylesheet" href="/resources/dist/jquery.bxslider.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="/resources/js/jquery.bxslider.min.js"></script>
@@ -41,7 +41,7 @@
          </div>
       </div>
 
-       <!-- 사용자 로그인 현황 -->
+      <!-- 사용자 로그인 현황 -->
       <div class="log">
          <c:if test="${session != null }">
             <!-- 로그인했을때 -->
@@ -83,12 +83,32 @@
 
 
    <div class="main">
-   <div id="list">
-      <span class="listBold" onclick="getList(1)">인기순</span> | 
-      <span class="listBold" onclick="getList(2)">최신순</span> | 
-      <span class="listBold" onclick="getList(3)">이웃게시물</span>
-      
+   <div class="list">
+      <div class="listBold" id="best" onclick="getList(1)">
+         <i class="far fa-thumbs-up"></i><a>인기순 </a>
+      </div>
+       
+      <div class="listBold" id="latest" onclick="getList(2)">
+         <i class="fas fa-history"></i><a>최신순</a>
+      </div>
+       
+      <div class="listBold" id="neighbor" onclick="getList(3)">
+         <i class="fas fa-users"></i><a>이웃게시물</a>
+      </div>
+            
+      <div class="listBold" id="category" onclick="getList(4)">
+         <i class="fas fa-list"></i><a>카테고리 </a>
+      </div>
    </div>
+   
+   <div class="kategorie hidden">
+      	<input type="radio" name="kategorie" id="all" value="" checked >
+      	<label for="all">전체</label>
+      	<input type="radio" name="kategorie" id="a" value="a" >
+      	<label for="a">여행</label>
+      	<input type="radio" name="kategorie" id="b" value="b" >
+      	<label for="b">음식</label>	
+      </div>
    
    <div id="pageList">
    </div>

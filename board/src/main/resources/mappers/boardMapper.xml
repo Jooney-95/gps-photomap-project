@@ -11,9 +11,9 @@
       useGeneratedKeys="true" keyProperty="bno">
       insert into
       tbl_board(title,
-      writer, pNum)
+      writer, pNum, kate)
       values(
-      #{title}, #{writer}, #{pNum}
+      #{title}, #{writer}, #{pNum}, #{kate}
       )
    </insert>
 
@@ -21,7 +21,7 @@
    <select id="view" parameterType="int"
       resultType="com.board.domain.BoardVO">
       select
-      bno, title, writer, regDate, viewCnt, pNum, likeCnt
+      *
       from
       tbl_board
       where
@@ -35,7 +35,8 @@
       title =
       #{title},
       writer = #{writer},
-      pNum = #{pNum}
+      pNum = #{pNum},
+      kate = #{kate}
       where bno = #{bno}
    </update>
 
@@ -70,7 +71,7 @@
    <select id="listPageSearch" parameterType="hashMap"
       resultType="com.board.domain.BoardVO">
       select
-      bno, title, writer, regDate, viewCnt, pNum, likeCnt
+      *
       from tbl_board
       <if test='searchType.equals("title")'>
          WHERE (title LIKE concat('%', #{keyword}, '%'))
@@ -86,9 +87,16 @@
    <select id="getLikePage" parameterType="hashMap"
       resultType="com.board.domain.BoardVO">
       select
-      bno, title, writer, regDate, viewCnt, pNum, likeCnt
+      *
       from tbl_board
       where pNum = -1
+        <choose>
+      <when test='kate.equals("")'>
+      </when>
+      <otherwise>
+      and kate = #{kate}
+      </otherwise>
+      </choose>
       order by likeCnt desc, bno desc
       limit #{displayPost}, #{postNum}
    </select>
@@ -97,9 +105,16 @@
    <select id="getNewPage" parameterType="hashMap"
       resultType="com.board.domain.BoardVO">
       select
-      bno, title, writer, regDate, viewCnt, pNum, likeCnt
+      *
       from tbl_board
       where pNum = -1
+      <choose>
+      <when test='kate.equals("")'>
+      </when>
+      <otherwise>
+      and kate = #{kate}
+      </otherwise>
+      </choose>
       order by bno desc
       limit #{displayPost}, #{postNum}
    </select>
@@ -108,7 +123,7 @@
    <select id="getLikeSearchPage" parameterType="hashMap"
       resultType="com.board.domain.BoardVO">
       select
-      bno, title, writer, regDate, viewCnt, pNum, likeCnt
+      *
       from tbl_board
       where
       <if test='searchType.equals("title")'>
@@ -118,6 +133,13 @@
          (writer LIKE concat('%', #{keyword}, '%'))
       </if>
       and pNum = -1
+        <choose>
+      <when test='kate.equals("")'>
+      </when>
+      <otherwise>
+      and kate = #{kate}
+      </otherwise>
+      </choose>
       order by likeCnt desc, bno desc
       limit #{displayPost}, #{postNum}
    </select>
@@ -126,7 +148,7 @@
    <select id="getNewSearchPage" parameterType="hashMap"
       resultType="com.board.domain.BoardVO">
       select
-      bno, title, writer, regDate, viewCnt, pNum, likeCnt
+      *
       from tbl_board
       where
       <if test='searchType.equals("title")'>
@@ -136,6 +158,13 @@
       	(writer LIKE concat('%', #{keyword}, '%'))
       </if>
       and pNum = -1
+        <choose>
+      <when test='kate.equals("")'>
+      </when>
+      <otherwise>
+      and kate = #{kate}
+      </otherwise>
+      </choose>
       order by bno desc
       limit #{displayPost}, #{postNum}
    </select>
@@ -144,13 +173,20 @@
    <select id="getUserLikePage" parameterType="hashMap"
       resultType="com.board.domain.BoardVO">
       select
-      bno, title, writer, regDate, viewCnt, pNum, likeCnt
+      *
       from tbl_board
       where pNum in
       <foreach collection="fforfList" item="item" open="(" close="" separator=",">
          #{item.following}
       </foreach>
       , "-1", #{userID})
+        <choose>
+      <when test='kate.equals("")'>
+      </when>
+      <otherwise>
+      and kate = #{kate}
+      </otherwise>
+      </choose>
       order by likeCnt desc, bno desc
       limit #{displayPost}, #{postNum}
    </select>
@@ -159,13 +195,20 @@
    <select id="getUserNewPage" parameterType="hashMap"
       resultType="com.board.domain.BoardVO">
       select
-      bno, title, writer, regDate, viewCnt, pNum, likeCnt
+      *
       from tbl_board
       where pNum in
       <foreach collection="fforfList" item="item" open="(" close="" separator=",">
          #{item.following}
       </foreach>
       , "-1", #{userID})
+        <choose>
+      <when test='kate.equals("")'>
+      </when>
+      <otherwise>
+      and kate = #{kate}
+      </otherwise>
+      </choose>
       order by bno desc
       limit #{displayPost}, #{postNum}
    </select>
@@ -174,7 +217,7 @@
    <select id="getUserFolPage" parameterType="hashMap"
       resultType="com.board.domain.BoardVO">
       select
-      bno, title, writer, regDate, viewCnt, pNum, likeCnt
+      *
       from tbl_board
       where writer in
       <foreach collection="fforfList" item="item" open="(" close=")" separator=",">
@@ -185,6 +228,13 @@
          #{item.following}
       </foreach>
       , "-1")
+        <choose>
+      <when test='kate.equals("")'>
+      </when>
+      <otherwise>
+      and kate = #{kate}
+      </otherwise>
+      </choose>
       order by bno desc
       limit #{displayPost}, #{postNum}
    </select>
@@ -193,7 +243,7 @@
    <select id="getUserLikeSearchPage" parameterType="hashMap"
       resultType="com.board.domain.BoardVO">
       select
-      bno, title, writer, regDate, viewCnt, pNum, likeCnt
+      *
       from tbl_board
       where pNum in
       <foreach collection="fforfList" item="item" open="(" close="" separator=",">
@@ -206,6 +256,13 @@
       <if test='searchType.equals("writer")'>
          (writer LIKE concat('%', #{keyword}, '%'))
       </if>
+        <choose>
+      <when test='kate.equals("")'>
+      </when>
+      <otherwise>
+      and kate = #{kate}
+      </otherwise>
+      </choose>
       order by likeCnt desc, bno desc
       limit #{displayPost}, #{postNum}
    </select>
@@ -214,7 +271,7 @@
    <select id="getUserNewSearchPage" parameterType="hashMap"
       resultType="com.board.domain.BoardVO">
       select
-      bno, title, writer, regDate, viewCnt, pNum, likeCnt
+      *
       from tbl_board
       where pNum in
       <foreach collection="fforfList" item="item" open="(" close="" separator=",">
@@ -227,6 +284,13 @@
       <if test='searchType.equals("writer")'>
          (writer LIKE concat('%', #{keyword}, '%'))
       </if>
+        <choose>
+      <when test='kate.equals("")'>
+      </when>
+      <otherwise>
+      and kate = #{kate}
+      </otherwise>
+      </choose>
       order by bno desc
       limit #{displayPost}, #{postNum}
    </select>
@@ -235,7 +299,7 @@
    <select id="getUserFolSearchPage" parameterType="hashMap"
       resultType="com.board.domain.BoardVO">
       select
-      bno, title, writer, regDate, viewCnt, pNum, likeCnt
+      *
       from tbl_board
       where writer in
       <foreach collection="fforfList" item="item" open="(" close=")" separator=",">
@@ -252,6 +316,13 @@
       <if test='searchType.equals("writer")'>
          (writer LIKE concat('%', #{keyword}, '%'))
       </if>
+        <choose>
+      <when test='kate.equals("")'>
+      </when>
+      <otherwise>
+      and kate = #{kate}
+      </otherwise>
+      </choose>
       order by bno desc
       limit #{displayPost}, #{postNum}
    </select>
@@ -281,7 +352,7 @@
    <select id="MyPageSearch" parameterType="hashMap"
       resultType="com.board.domain.BoardVO">
       select
-      bno, title, writer, regDate, viewCnt, pNum, likeCnt
+      *
       from tbl_board
       where writer = #{writer}
       order by bno desc
@@ -308,7 +379,7 @@
    <select id="viewFile" parameterType="int"
       resultType="com.board.domain.FileVO">
       select
-      id, fileBno, latitude, longitude, timeView, path, content, place, fileName
+      *
       from
       file_board
       where fileBno = #{bno}
@@ -319,7 +390,7 @@
    <select id="modifyFile" parameterType="hashMap"
       resultType="com.board.domain.FileVO">
       select
-      id, fileBno, latitude, longitude, timeView, path, content, place, fileName
+      *
       from
       file_board
       where userID = #{userID} and fileBno = 0 or userID = #{userID} and fileBno = #{bno}
@@ -330,7 +401,7 @@
    <select id="writeFile" parameterType="int"
       resultType="com.board.domain.FileVO">
       select
-      id, latitude, longitude, timeView, path, fileName
+      *
       from
       file_board
       where userID = #{userID} and fileBno = 0

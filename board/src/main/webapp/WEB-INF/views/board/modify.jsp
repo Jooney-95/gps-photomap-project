@@ -117,56 +117,24 @@
       <label>카테고리 <i class="fas fa-angle-down"></i></label>
     </div>
     <div class="hide" style="display:none">
+      <input type="hidden" id="kate" value="${view.kate}">
     <div class="list">
      <ul>
-     <li>
-        <label><input type="radio" >카테고리는</label>
-     </li>
-     <li>
-        <label><input type="radio">어떤것을</label>
-     </li>
-     <li>
-        <label><input type="radio">넣어야</label>
-     </li>
-     <li>
-        <label><input type="radio">할까유</label>
-     </li>
+      <li>
+         <input type="radio" id="none" name="kategorie" value="" checked>
+         <label for="none">없음</label>
+         </li>
+         <li>
+         <input type="radio" id="a" name="kategorie" value="a">
+         <label for="a">여행</label>
+         </li>
+          <li>
+         <input type="radio" id="b" name="kategorie" value="b">
+         <label for="b">음식</label>
+         </li>
      </ul>  
     </div>  
     
-    <div class="list">
-     <ul>
-     <li>
-        <label><input type="radio" >카테고리는</label>
-     </li>
-     <li>
-        <label><input type="radio">어떤것을</label>
-     </li>
-     <li>
-        <label><input type="radio">넣어야</label>
-     </li>
-     <li>
-        <label><input type="radio">할까유</label>
-     </li>
-     </ul>  
-    </div>  
-    
-    <div class="list">
-     <ul>
-     <li>
-        <label><input type="radio" >카테고리는</label>
-     </li>
-     <li>
-        <label><input type="radio">어떤것을</label>
-     </li>
-     <li>
-        <label><input type="radio">넣어야</label>
-     </li>
-     <li>
-        <label><input type="radio">할까유</label>
-     </li>
-     </ul>  
-    </div>  
     
     </div>
        

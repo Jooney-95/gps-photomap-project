@@ -217,9 +217,24 @@ function addListMyPage(data) {
 
       count++;
    }
-   $('.slider').bxSlider({touchEnabled : (navigator.maxTouchPoints > 0)});
+   $('.slider').bxSlider({
+	      speed : 300,
+	      touchEnabled : (navigator.maxTouchPoints > 0),
+	      onSliderLoad: function(){
+	         console.log("sliderLoad");
+	      },
+	      onSlideAfter: function(){
+	         $(".bx-next, .bx-prev").css("pointer-events", "auto");
+	         $("a").attr("onclick","return true");
 
+	      }
+	   });
 }
+
+$(document).on("click", ".bx-next, .bx-prev", function(){
+	   $(".bx-next, .bx-prev").css("pointer-events", "none");
+	   $("a").attr("onclick","return false");
+	})
 
 function addListMyFforf(data) {
       for (var i = 0; i < member.length; i++) {
