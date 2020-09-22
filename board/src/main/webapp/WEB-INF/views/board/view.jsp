@@ -88,36 +88,39 @@
 <div id="top">
       
 
-      <div id ="abcd">
-      <!-- 카테고리 -->
-      <div id="a">
-          카테고리 넣을 공간
-          ${view.kate}
-      </div>
+<div id="abcd">
       
+
        <!-- 제목 -->
         <div id="b" >
           <input type="text" name="title" value="${view.title }" readOnly />
         </div>
-      
-      <!-- 저장 -->
-      <div id="c">
-      <i class="fas fa-bookmark"></i>
+        
+        <div id="acd">
+      <!-- 카테고리 -->
+      <div id="a">
+          카테고리${view.kate}
       </div>
+      
+      
+      <div id="cd">
+        <!-- 저장 -->
+         <div id="c">
+          <i class="fas fa-bookmark" id="bsave"></i>
+         </div>
       
         <!-- 공감버튼 -->
       
-        <div id="d">
+         <div id="d">
            <i class="far fa-thumbs-up " id="bLike"></i>
            <p id="like"></p>
          </div>
-        
-       
-        
-    
- </div>
+    </div>
+   </div> 
+
+   </div>
     </div>   
-         
+     
         
         
        
@@ -184,7 +187,7 @@
          <input type="hidden" name="userID" value="${session.id }" />
      
       
-             <a href="<spring:url value='${list.path }'/>" data-lightbox="image-1" data-title="${list.place }"><img alt="" src="<spring:url value='/img/thumb/${list.fileName }'/>"></a>
+             <a href="<spring:url value='${list.path }'/>" title="이미지를 클릭해보세요!" data-lightbox="image-1" data-title="${list.place }"><img alt="" src="<spring:url value='/img/thumb/${list.fileName }'/>"></a>
        
       
          </c:forEach>
@@ -226,10 +229,10 @@
            </div>   
            
           <div class="m2">
-             <a href="<spring:url value='${list.path }'/>" data-lightbox="image-2" data-title="${list.place }"><img alt="" src="<spring:url value='/img/thumb/${list.fileName }'/>"></a>
+             <a href="<spring:url value='${list.path }'/>" title="이미지를 클릭해보세요!" data-lightbox="image-2" data-title="${list.place }"><img alt="" src="<spring:url value='/img/thumb/${list.fileName }'/>"></a>
            </div>
               
-         <!-- 대표이미지 설정 아이콘 --><div class="m3 hidden" id="selectLikeImg_${list.id }">대표
+         <!-- 대표이미지 설정 아이콘 --><div class="m3 hidden" id="selectLikeImg_${list.id }">대 표
         </div>
                
               
@@ -264,7 +267,6 @@
        </c:if>
       </div>   
      
-     s
      
    
    

@@ -21,7 +21,7 @@ function countLike() {
       type: "post",
       data: query,
       success: function (count) {
-         $("#like").text(count);
+         $("#like").text(number(count));
 
 
       },
@@ -104,6 +104,34 @@ function likeCheck() {
       });
    }
 }
+
+function number(count) {
+     var number = parseFloat(count);
+     if (number > 1000000000) {
+       return (
+         parseInt(number / 1000000000) +
+         "." +
+         parseInt((number % 1000000000) / 100000000) +
+         "B"
+       );
+       // break;
+     } else if (number > 1000000) {
+       return (
+         parseInt(number / 1000000) +
+         "." +
+         parseInt((number % 1000000) / 100000) +
+         "M"
+       );
+       // break;
+     } else if (number > 1000) {
+       return (
+         parseInt(number / 1000) + "." + parseInt((number % 1000) / 100) + "K"
+       );
+       // break;
+     } else {
+       return number;
+     }
+   }
 
 function loginPopup() {
    if (document.getElementById("loginPopup").style.display == "none") {

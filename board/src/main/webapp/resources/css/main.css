@@ -293,6 +293,142 @@ height:210px;
     position:absolute; 
     bottom:15px;
     padding:10px;  
-   margin-left:300px;
+    margin-left:300px;
   /* border:1px solid #000;*/
+}
+
+.ttop{
+   width:525px;
+   height:80px;
+   margin:0 auto;
+   margin-bottom:10px;
+}
+
+.set{
+   width:525px;
+    height:auto;
+   font-size:23px;
+   text-align:left;
+   margin-top:30px;
+   color:#000000;
+   font-weight:bold;
+}
+.set2{
+   width:525px;
+    height:auto;
+   font-size:14px;
+   text-align:left;
+   margin-top:15px;
+   color:#000000;
+}
+
+.kategorie.hidden{
+   width:525px;
+   height:auto;
+   background:#fff;
+   margin:0 auto;
+   text-align:left;
+}
+.kate input{
+   display:none;
+}
+.kategorie.hidden p{
+   font-size:15px;
+   color:#b3b3b3;
+   margin-top:10px;
+}
+.thema{
+   width:525px;
+   height:110px;
+   background:#fff;
+   margin:0 auto;
+   margin-top:6px;
+   margin-bottom:20px;
+   text-align:center;
+   color:#000000;
+}
+.area{
+   width:525px;
+   height:145px;
+   background:#fff;
+   margin:0 auto;
+   margin-top:6px;
+   margin-bottom:20px;
+   text-align:center;
+   color:#000000;
+}
+.group{
+   width:525px;
+   height:100px;
+   background:#fff;
+   margin:0 auto;
+   margin-top:6px;
+   margin-bottom:20px;
+   text-align:center;
+   color:#000000;
+}
+
+
+
+.kate{
+   width:100px;
+   height:30px;
+   float:left;
+   margin: 0.25em 0.25em 0 0;
+}
+@-webkit-keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 #66c887;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 #66c887;
+  }
+}
+
+.kate button:hover{
+  box-shadow: inset 10em 0 0 0 #66c887;
+  border-color: #66c887;
+  color: #fff;
+}
+.kate button:focus{
+  border-color: #66c887;
+  color:#fff;
+  background:#8fc866;
+}
+.kate button {
+   width:100px;
+   height:30px;
+  color: #000000;
+  -webkit-transition: 0.25s;
+  transition: 0.25s;
+     font-size:12px;
+  text-align: center;
+  background: none;
+  border: 0.12em solid #8fc866;
+  cursor:pointer;
+}
+
+.kateall{
+   width:150px;
+   height:30px;
+   font-size:12px;
+   cursor:pointer;
+   text-align:left;
+   color:#929392;
+   float:left;
+}
+.kateall label{
+   cursor:pointer;
+}
+
+.check{
+   float:right;
+}
+.check button{
+   width:100px;
+   height:30px;
+   cursor:pointer;
 }
