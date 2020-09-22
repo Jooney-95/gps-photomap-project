@@ -374,8 +374,16 @@ height:210px;
    width:100px;
    height:30px;
    float:left;
-   margin: 0.25em 0.25em 0 0;
+   border: 0.12em solid #8fc866;
+  color: #000000;
+  -webkit-transition: 0.25s;
+  transition: 0.25s;
+     font-size:12px;
+  background: none;
+  cursor:pointer;
+  
 }
+
 @-webkit-keyframes pulse {
   0% {
     box-shadow: 0 0 0 0 #66c887;
@@ -388,29 +396,26 @@ height:210px;
   }
 }
 
-.kate button:hover{
+.kate:hover{
   box-shadow: inset 10em 0 0 0 #66c887;
   border-color: #66c887;
   color: #fff;
 }
-.kate button:focus{
+.kate input:checked ~ label{
   border-color: #66c887;
   color:#fff;
   background:#8fc866;
 }
-.kate button {
-   width:100px;
-   height:30px;
-  color: #000000;
-  -webkit-transition: 0.25s;
-  transition: 0.25s;
-     font-size:12px;
-  text-align: center;
-  background: none;
-  border: 0.12em solid #8fc866;
-  cursor:pointer;
-}
 
+.kate input,.kate label{
+   cursor:pointer;
+}
+.kate label{
+	display:block;
+   width:100px;
+  height:30px;
+  padding:5px;
+}
 .kateall{
    width:150px;
    height:30px;

@@ -22,7 +22,7 @@ $(document).ready(function () {
 
 function getFlag() {
   sessionStorage.removeItem("flag");
-  sessionStorage.setItem("flag", "new");
+  sessionStorage.setItem("flag", "like");
 
   var flag = sessionStorage.getItem("flag");
 

@@ -111,55 +111,55 @@
          <div class="thema">
          <div class="kate">
                <input type="radio" name="kategorie" id="a1" value="a1" >
-               <label for="a1"><button type="button"><i class="fas fa-tree"></i> 피크닉</button></label>
+               <label for="a1"><i class="fas fa-tree"></i> 피크닉</label>
             </div>
          <div class="kate">
                <input type="radio" name="kategorie" id="b1" value="b1" >
-               <label for="b1"><button type="button"><i class="far fa-image"></i> 전시회</button></label>
+               <label for="b1"><i class="far fa-image"></i> 전시회</label>
             </div> 
          <div class="kate">
                <input type="radio" name="kategorie" id="c1" value="c1" >
-               <label for="c1"><button type="button"><i class="fas fa-university"></i> 박물관</button></label>
+               <label for="c1"><i class="fas fa-university"></i> 박물관</label>
             </div>
          <div class="kate">
                <input type="radio" name="kategorie" id="d1" value="d1" >
-               <label for="d1"><button type="button"><i class="fas fa-utensils"></i> 맛집투어</button></label>
+               <label for="d1"><i class="fas fa-utensils"></i> 맛집투어</label>
             </div>
          <div class="kate">
                <input type="radio" name="kategorie" id="e1" value="e1" >
-               <label for="e1"><button type="button">사진명소</button></label>
+               <label for="e1">사진명소</label>
             </div>
          <div class="kate">
                <input type="radio" name="kategorie" id="f1" value="f1" >
-               <label for="f1"><button type="button"><i class="fas fa-car"></i> 드라이브</button></label>
+               <label for="f1"><i class="fas fa-car"></i> 드라이브</label>
             </div>
                      <div class="kate">
                <input type="radio" name="kategorie" id="g1" value="g1" >
-               <label for="g1"><button type="button">데이트</button></label>
+               <label for="g1">데이트</label>
             </div>
          <div class="kate">
                <input type="radio" name="kategorie" id="h1" value="h1" >
-               <label for="h1"><button type="button"><i class="fas fa-mountain"></i> 등산</button></label>
+               <label for="h1"><i class="fas fa-mountain"></i> 등산</label>
             </div>
          <div class="kate">
                <input type="radio" name="kategorie" id="i1" value="i1" >
-               <label for="i1"><button type="button"><i class="fas fa-umbrella-beach"></i> 바다</button></label>
+               <label for="i1"><i class="fas fa-umbrella-beach"></i> 바다</label>
             </div>
          <div class="kate">
                <input type="radio" name="kategorie" id="j1" value="j1" >
-               <label for="j1"><button type="button"><i class="fas fa-water"></i> 강</button></label>
+               <label for="j1"><i class="fas fa-water"></i> 강</label>
             </div>
          <div class="kate">
                <input type="radio" name="kategorie" id="k1" value="k1" >
-               <label for="k1"><button type="button"><i class="fas fa-fish"></i> 낚시</button></label>
+               <label for="k1"><i class="fas fa-fish"></i> 낚시</label>
             </div>
          <div class="kate">
                <input type="radio" name="kategorie" id="l1" value="l1" >
-               <label for="l1"><button type="button">엑티비티</button></label>
+               <label for="l1">엑티비티</label>
             </div> 
          <div class="kate">
                <input type="radio" name="kategorie" id="m1" value="m1" >
-               <label for="m1"><button type="button">호캉스</button></label>
+               <label for="m1">호캉스</label>
             </div>                                                             
          </div>
          
@@ -167,71 +167,71 @@
          <div class="area">
          <div class="kate">
                <input type="radio" name="kategorie" id="a2" value="a2" >
-               <label for="a2"><button type="button">서울특별시</button></label>
+               <label for="a2">서울특별시</label>
             </div>
          <div class="kate">
                <input type="radio" name="kategorie" id="b2" value="b2" >
-               <label for="b2"><button type="button">경기도</button></label>
+               <label for="b2">경기도</label>
             </div>
          <div class="kate">
                <input type="radio" name="kategorie" id="c2" value="c2" >
-               <label for="c2"><button type="button">인천광역시</button></label>
+               <label for="c2">인천광역시</label>
             </div>
          <div class="kate">
                <input type="radio" name="kategorie" id="d2" value="d2" >
-               <label for="d2"><button type="button">강원도</button></label>
+               <label for="d2">강원도</label>
             </div>
          <div class="kate">
                <input type="radio" name="kategorie" id="e2" value="e2" >
-               <label for="e2"><button type="button">대구광역시</button></label>
+               <label for="e2">대구광역시</label>
             </div>
          <div class="kate">
                <input type="radio" name="kategorie" id="f2" value="f2" >
-               <label for="f2"><button type="button">경상북도</button></label>
+               <label for="f2">경상북도</label>
             </div>
                      <div class="kate">
                <input type="radio" name="kategorie" id="g2" value="g2" >
-               <label for="g2"><button type="button">부산광역시</button></label>
+               <label for="g2">부산광역시</label>
             </div>
          <div class="kate">
                <input type="radio" name="kategorie" id="h2" value="h2" >
-               <label for="h2"><button type="button">울산광역시</button></label>
+               <label for="h2">울산광역시</label>
             </div>
          <div class="kate">
                <input type="radio" name="kategorie" id="i2" value="i2" >
-               <label for="i2"><button type="button">경상남도</button></label>
+               <label for="i2">경상남도</label>
             </div>
          <div class="kate">
                <input type="radio" name="kategorie" id="j2" value="j2" >
-               <label for="j2"><button type="button">충청북도</button></label>
+               <label for="j2">충청북도</label>
             </div>
          <div class="kate">
                <input type="radio" name="kategorie" id="k2" value="k2" >
-               <label for="k2"><button type="button">세종특별자치시</button></label>
+               <label for="k2">세종특별자치시</label>
             </div>
          <div class="kate">
                <input type="radio" name="kategorie" id="l2" value="l2" >
-               <label for="l2"><button type="button">대전광역시</button></label>
+               <label for="l2">대전광역시</label>
             </div>
          <div class="kate">
                <input type="radio" name="kategorie" id="m2" value="m2" >
-               <label for="m2"><button type="button">충청남도</button></label>
+               <label for="m2">충청남도</label>
             </div>
          <div class="kate">
                <input type="radio" name="kategorie" id="n2" value="n2" >
-               <label for="n2"><button type="button">전라북도</button></label>
+               <label for="n2">전라북도</label>
             </div>
          <div class="kate">
                <input type="radio" name="kategorie" id="o2" value="o2" >
-               <label for="o2"><button type="button">광주광역시</button></label>
+               <label for="o2">광주광역시</label>
             </div>  
          <div class="kate">
                <input type="radio" name="kategorie" id="p2" value="p2" >
-               <label for="p2"><button type="button">전라남도</button></label>
+               <label for="p2">전라남도</label>
             </div> 
          <div class="kate">
                <input type="radio" name="kategorie" id="q2" value="q2" >
-               <label for="q2"><button type="button">제주특별시</button></label>
+               <label for="q2">제주특별시</label>
             </div>                                                                                                                    
          </div>
          
@@ -239,31 +239,31 @@
          <div class="group">
          <div class="kate">
                <input type="radio" name="kategorie" id="a3" value="a3" >
-               <label for="a3"><button type="button">가족</button></label>
+               <label for="a3">가족</label>
             </div>
          <div class="kate">
                <input type="radio" name="kategorie" id="b3" value="b3" >
-               <label for="b3"><button type="button">연인</button></label>
+               <label for="b3">연인</label>
             </div>
          <div class="kate">
                <input type="radio" name="kategorie" id="c3" value="c3" >
-               <label for="c3"><button type="button">우정</button></label>
+               <label for="c3">우정</label>
             </div>
          <div class="kate">
                <input type="radio" name="kategorie" id="d3" value="d3" >
-               <label for="d3"><button type="button">대학교</button></label>
+               <label for="d3">대학교</label>
             </div>
          <div class="kate">
                <input type="radio" name="kategorie" id="e3" value="e3" >
-               <label for="e3"><button type="button">동아리</button></label>
+               <label for="e3">동아리</label>
             </div>
          <div class="kate">
                <input type="radio" name="kategorie" id="f3" value="f3" >
-               <label for="f3"><button type="button">동호회</button></label>
+               <label for="f3">동호회</label>
             </div>
          <div class="kate">
                <input type="radio" name="kategorie" id="g3" value="g3" >
-               <label for="g3"><button type="button">회사</button></label>
+               <label for="g3">회사</label>
             </div>                                                  
          </div>                  
          
