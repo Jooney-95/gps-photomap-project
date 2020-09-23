@@ -117,17 +117,96 @@ pageEncoding="UTF-8"%>
            <div class="hide" style="display:none">
            <div class="list">
             <ul>
+             
              <li>
              <input type="radio" id="none" name="kategorie" value="" checked>
-             <label for="none">없음</label>
+             <label for="none">카테고리 설정 안함</label>
              </li>
+             
              <li>
-             <input type="radio" id="a" name="kategorie" value="a">
-             <label for="a">여행</label>
+                <span>테마별</span>
+                   <input type="radio" id="a1" name="kategorie" value="a1">
+                   <label for="a1">피크닉</label>
+                   <input type="radio" id="b1" name="kategorie" value="b1">
+                   <label for="b1">전시회</label>
+                   <input type="radio" id="c1" name="kategorie" value="c1">
+                   <label for="c1">박물관</label>
+                   <input type="radio" id="d1" name="kategorie" value="d1">
+                   <label for="d1">맛집투어</label>
+                   <input type="radio" id="e1" name="kategorie" value="e1">
+                   <label for="e1">사진명소</label>
+                   <input type="radio" id="f1" name="kategorie" value="f1">
+                   <label for="f1">드라이브</label>
+                   <input type="radio" id="g1" name="kategorie" value="g1">
+                   <label for="g1">데이트</label>
+                   <input type="radio" id="h1" name="kategorie" value="h1">
+                   <label for="h1">등산</label>
+                   <input type="radio" id="i1" name="kategorie" value="i1">
+                   <label for="i1">바다</label>
+                   <input type="radio" id="j1" name="kategorie" value="j1">
+                   <label for="j">강</label>
+                   <input type="radio" id="k1" name="kategorie" value="k1">
+                   <label for="k1">낚시</label>
+                   <input type="radio" id="l1" name="kategorie" value="l1">
+                   <label for="l1">액티비티</label>
+                   <input type="radio" id="m1" name="kategorie" value="m1">
+                   <label for="m1">호캉스</label>
              </li>
-              <li>
-             <input type="radio" id="b" name="kategorie" value="b">
-             <label for="b">음식</label>
+             
+             <li>
+                <span>지역별</span>
+                   <input type="radio" id="a2" name="kategorie" value="a2">
+                   <label for="a2">서울특별시</label>
+                   <input type="radio" id="b2" name="kategorie" value="b2">
+                   <label for="b2">경기도</label>
+                   <input type="radio" id="c2" name="kategorie" value="c2">
+                   <label for="c2">인천광역시</label>
+                   <input type="radio" id="d2" name="kategorie" value="d2">
+                   <label for="d2">강원도</label>
+                   <input type="radio" id="e2" name="kategorie" value="e2">
+                   <label for="e2">대구광역시</label>
+                   <input type="radio" id="f2" name="kategorie" value="f2">
+                   <label for="f2">경상북도</label>
+                   <input type="radio" id="g2" name="kategorie" value="g2">
+                   <label for="g2">부산광역시</label>
+                   <input type="radio" id="h2" name="kategorie" value="h2">
+                   <label for="h2">울산광역시</label>
+                   <input type="radio" id="i2" name="kategorie" value="i2">
+                   <label for="i2">경상남도</label>
+                   <input type="radio" id="j2" name="kategorie" value="j2">
+                   <label for="j2">충청북도</label>
+                   <input type="radio" id="k2" name="kategorie" value="k2">
+                   <label for="k2">세종특별자치시</label>
+                   <input type="radio" id="l2" name="kategorie" value="l2">
+                   <label for="l2">대전광역시</label>
+                   <input type="radio" id="m2" name="kategorie" value="m2">
+                   <label for="m2">충청남도</label>
+                   <input type="radio" id="n2" name="kategorie" value="n2">
+                   <label for="n2">전라북도</label>
+                   <input type="radio" id="o2" name="kategorie" value="o2">
+                   <label for="o2">광주광역시</label>
+                   <input type="radio" id="p2" name="kategorie" value="p2">
+                   <label for="p2">전라남도</label>
+                   <input type="radio" id="q2" name="kategorie" value="q2">
+                   <label for="q2">제주특별시</label>
+             </li>
+             
+             <li>
+                <span>모임/단체별</span>
+                   <input type="radio" id="a3" name="kategorie" value="a3">
+                   <label for="a3">가족</label>
+                   <input type="radio" id="b3" name="kategorie" value="b3">
+                   <label for="b3">연인</label>
+                   <input type="radio" id="c3" name="kategorie" value="c3">
+                   <label for="c3">친구</label>
+                   <input type="radio" id="d3" name="kategorie" value="d3">
+                   <label for="d3">대학교</label>
+                   <input type="radio" id="e3" name="kategorie" value="e3">
+                   <label for="e3">동아리</label>
+                   <input type="radio" id="f3" name="kategorie" value="f3">
+                   <label for="f3">동호회</label>
+                   <input type="radio" id="g3" name="kategorie" value="g3">
+                   <label for="g3">회사</label>
              </li>
              </ul>  
            </div>  

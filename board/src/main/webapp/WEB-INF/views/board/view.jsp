@@ -99,7 +99,9 @@
         <div id="acd">
       <!-- 카테고리 -->
       <div id="a">
-          카테고리${view.kate}
+          카테고리
+        <input type="hidden" class="kate" value="${view.kate}" />
+        <span id="kate"></span>
       </div>
       
       

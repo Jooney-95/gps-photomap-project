@@ -103,7 +103,16 @@ function getList(value) {
   }
 }
 
+$(document).on("change", "input[name='kategorie']", function(){
+	if (listFlag == true) {
+	    listFlag = false;
+	    $("#pageList").empty();
+	    getPageList(pageNumber);
+	  }
+});
+
 function getPageList(pageNum) {
+	console.log("페이징")
   var flag = sessionStorage.getItem("flag");
   var URL = sessionStorage.getItem(flag);
   var kategorie = $("input[name='kategorie']:checked");

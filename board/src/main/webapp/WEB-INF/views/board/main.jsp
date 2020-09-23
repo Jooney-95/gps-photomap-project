@@ -96,7 +96,7 @@
          <i class="fas fa-users"></i><a>이웃게시물</a>
       </div>
             
-      <div class="listBold" id="category" onclick="getList(4)">
+      <div class="listBold" id="category">
          <i class="fas fa-list"></i><a>카테고리 </a>
       </div>
    </div>
