@@ -38,9 +38,17 @@ public interface BoardService {
 	public void likeDownTbl(LikeVO vo) throws Exception;
 
 	public int count(int userID) throws Exception;
+	
+	public List<BoardVO> getPage(int displayPost, int postNum, String flag, List<FollowVO> fforfList) throws Exception;
 
 	public List<BoardVO> getPage(int displayPost, int postNum, String flag) throws Exception;
 
-	public List<BoardVO> getPage(int displayPost, int postNum, String flag, List<FollowVO> fforfList) throws Exception;
+	public List<BoardVO> getPage(int displayPost, int postNum, String flag, String[] kate, List<FollowVO> fforfList) throws Exception;
+
+	public List<BoardVO> getPage(int displayPost, int postNum, String flag, String[] kate) throws Exception;
+	
+	public List<BoardVO> getPageSearch(int displayPost, int postNum, String searchType, String keyword, String flag, String[] kate) throws Exception;
+
+	public List<BoardVO> getPageSearch(int displayPost, int postNum, String searchType, String keyword, String flag, String[] kate, List<FollowVO> fforfList) throws Exception;
 
 }

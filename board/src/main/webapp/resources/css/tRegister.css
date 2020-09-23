@@ -108,8 +108,8 @@ button{
     transition: 0.25s;
 }
 .low button{
-    width:70px;
-   height:40px;
+    width:85px;
+   height:45px;
    border:none;
    background-color:#f8f8f8;
    border-bottom: 5px solid #eee;

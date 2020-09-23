@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.board.dao.FileDAO;
 import com.board.domain.FileVO;
+import com.board.domain.LikeImgVO;
 
 @Service
 public class FileServiceImpl implements FileService {
@@ -42,9 +43,15 @@ public class FileServiceImpl implements FileService {
 	}
 
 	@Override
-	public List<FileVO> imgSelect(int userID) throws Exception {
+	public List<FileVO> writeFile(int userID) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.imgSelect(userID);
+		return dao.writeFile(userID);
+	}
+	
+	@Override
+	public List<FileVO> modifyFile(int userID, int bno) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.modifyFile(userID, bno);
 	}
 
 	@Override
@@ -57,6 +64,24 @@ public class FileServiceImpl implements FileService {
 	public void writeClick(HashMap<String, Object> fileMap) throws Exception {
 		// TODO Auto-generated method stub
 		dao.writeClick(fileMap);
+	}
+
+	@Override
+	public void likeImgs(HashMap<String, Object> likeImgMap) throws Exception {
+		// TODO Auto-generated method stub
+		dao.likeImgs(likeImgMap);
+	}
+
+	@Override
+	public void deleteLikeImgs(int fileBno) throws Exception {
+		// TODO Auto-generated method stub
+		dao.deleteLikeImgs(fileBno);
+	}
+
+	@Override
+	public List<LikeImgVO> selectLikeImg(int fileBno) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectLikeImg(fileBno);
 	}
 
 }

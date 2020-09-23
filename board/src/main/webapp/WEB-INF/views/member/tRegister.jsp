@@ -16,7 +16,7 @@
 <div id="header">
  
   <div class="logo">
-    <a href="/board/listPageSearch?num=1">Plus+</a>
+    <a href="/board/main">Plus+</a>
   </div>
   
 

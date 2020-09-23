@@ -49,6 +49,10 @@ public class MemberDAOImpl implements MemberDAO {
 	public void profile(MemberVO vo, MultipartFile file) throws Exception {
 		// TODO Auto-generated method stub
 		Profile pro = new Profile();
+		MemberVO mVO = sql.selectOne(namespace + ".memberVO", vo.getId());
+		if(!(mVO.getmImg().equals("/resources/imgs/p1.png"))) {
+			pro.deleteProfileImg(mVO.getmImg());
+		}
 		MemberVO mVo = pro.profileImg(vo, file);
 		sql.update(namespace + ".profileImg", mVo);
 	}

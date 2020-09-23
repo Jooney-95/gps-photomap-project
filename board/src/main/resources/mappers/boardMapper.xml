@@ -11,9 +11,9 @@
       useGeneratedKeys="true" keyProperty="bno">
       insert into
       tbl_board(title,
-      writer, pNum)
+      writer, pNum, kate)
       values(
-      #{title}, #{writer}, #{pNum}
+      #{title}, #{writer}, #{pNum}, #{kate}
       )
    </insert>
 
@@ -21,7 +21,7 @@
    <select id="view" parameterType="int"
       resultType="com.board.domain.BoardVO">
       select
-      bno, title, writer, regDate, viewCnt, pNum, likeCnt
+      *
       from
       tbl_board
       where
@@ -35,7 +35,8 @@
       title =
       #{title},
       writer = #{writer},
-      pNum = #{pNum}
+      pNum = #{pNum},
+      kate = #{kate}
       where bno = #{bno}
    </update>
 
@@ -70,7 +71,7 @@
    <select id="listPageSearch" parameterType="hashMap"
       resultType="com.board.domain.BoardVO">
       select
-      bno, title, writer, regDate, viewCnt, pNum, likeCnt
+      *
       from tbl_board
       <if test='searchType.equals("title")'>
          WHERE (title LIKE concat('%', #{keyword}, '%'))
@@ -86,9 +87,16 @@
    <select id="getLikePage" parameterType="hashMap"
       resultType="com.board.domain.BoardVO">
       select
-      bno, title, writer, regDate, viewCnt, pNum, likeCnt
+      *
       from tbl_board
       where pNum = -1
+        <choose>
+      <when test='kate.equals("")'>
+      </when>
+      <otherwise>
+      and kate = #{kate}
+      </otherwise>
+      </choose>
       order by likeCnt desc, bno desc
       limit #{displayPost}, #{postNum}
    </select>
@@ -97,9 +105,66 @@
    <select id="getNewPage" parameterType="hashMap"
       resultType="com.board.domain.BoardVO">
       select
-      bno, title, writer, regDate, viewCnt, pNum, likeCnt
+      *
       from tbl_board
       where pNum = -1
+      <choose>
+      <when test='kate.equals("")'>
+      </when>
+      <otherwise>
+      and kate = #{kate}
+      </otherwise>
+      </choose>
+      order by bno desc
+      limit #{displayPost}, #{postNum}
+   </select>
+   
+      <!-- 게시물 좋아요 목록 -->
+   <select id="getLikeSearchPage" parameterType="hashMap"
+      resultType="com.board.domain.BoardVO">
+      select
+      *
+      from tbl_board
+      where
+      <if test='searchType.equals("title")'>
+         (title LIKE concat('%', #{keyword}, '%'))
+      </if>
+      <if test='searchType.equals("writer")'>
+         (writer LIKE concat('%', #{keyword}, '%'))
+      </if>
+      and pNum = -1
+        <choose>
+      <when test='kate.equals("")'>
+      </when>
+      <otherwise>
+      and kate = #{kate}
+      </otherwise>
+      </choose>
+      order by likeCnt desc, bno desc
+      limit #{displayPost}, #{postNum}
+   </select>
+   
+   <!-- 게시물 최신 목록 -->
+   <select id="getNewSearchPage" parameterType="hashMap"
+      resultType="com.board.domain.BoardVO">
+      select
+      *
+      from tbl_board
+      where
+      <if test='searchType.equals("title")'>
+      	(title LIKE concat('%', #{keyword}, '%'))
+      </if>
+      <if test='searchType.equals("writer")'>
+      	(writer LIKE concat('%', #{keyword}, '%'))
+      </if>
+      and pNum = -1
+        <choose>
+      <when test='kate.equals("")'>
+      </when>
+      <otherwise>
+      and kate = #{kate}
+      </otherwise>
+      </choose>
       order by bno desc
       limit #{displayPost}, #{postNum}
    </select>
@@ -108,13 +173,20 @@
    <select id="getUserLikePage" parameterType="hashMap"
       resultType="com.board.domain.BoardVO">
       select
-      bno, title, writer, regDate, viewCnt, pNum, likeCnt
+      *
       from tbl_board
       where pNum in
       <foreach collection="fforfList" item="item" open="(" close="" separator=",">
          #{item.following}
       </foreach>
       , "-1", #{userID})
+        <choose>
+      <when test='kate.equals("")'>
+      </when>
+      <otherwise>
+      and kate = #{kate}
+      </otherwise>
+      </choose>
       order by likeCnt desc, bno desc
       limit #{displayPost}, #{postNum}
    </select>
@@ -123,13 +195,20 @@
    <select id="getUserNewPage" parameterType="hashMap"
       resultType="com.board.domain.BoardVO">
       select
-      bno, title, writer, regDate, viewCnt, pNum, likeCnt
+      *
       from tbl_board
       where pNum in
       <foreach collection="fforfList" item="item" open="(" close="" separator=",">
          #{item.following}
       </foreach>
       , "-1", #{userID})
+        <choose>
+      <when test='kate.equals("")'>
+      </when>
+      <otherwise>
+      and kate = #{kate}
+      </otherwise>
+      </choose>
       order by bno desc
       limit #{displayPost}, #{postNum}
    </select>
@@ -138,7 +217,7 @@
    <select id="getUserFolPage" parameterType="hashMap"
       resultType="com.board.domain.BoardVO">
       select
-      bno, title, writer, regDate, viewCnt, pNum, likeCnt
+      *
       from tbl_board
       where writer in
       <foreach collection="fforfList" item="item" open="(" close=")" separator=",">
@@ -149,9 +228,103 @@
          #{item.following}
       </foreach>
       , "-1")
+        <choose>
+      <when test='kate.equals("")'>
+      </when>
+      <otherwise>
+      and kate = #{kate}
+      </otherwise>
+      </choose>
       order by bno desc
       limit #{displayPost}, #{postNum}
-      
+   </select>
+   
+         <!-- 게시물 좋아요 목록 -->
+   <select id="getUserLikeSearchPage" parameterType="hashMap"
+      resultType="com.board.domain.BoardVO">
+      select
+      *
+      from tbl_board
+      where pNum in
+      <foreach collection="fforfList" item="item" open="(" close="" separator=",">
+         #{item.following}
+      </foreach>
+      , "-1", #{userID}) and
+      <if test='searchType.equals("title")'>
+         (title LIKE concat('%', #{keyword}, '%'))
+      </if>
+      <if test='searchType.equals("writer")'>
+         (writer LIKE concat('%', #{keyword}, '%'))
+      </if>
+        <choose>
+      <when test='kate.equals("")'>
+      </when>
+      <otherwise>
+      and kate = #{kate}
+      </otherwise>
+      </choose>
+      order by likeCnt desc, bno desc
+      limit #{displayPost}, #{postNum}
+   </select>
+   
+   <!-- 게시물 최신 목록 -->
+   <select id="getUserNewSearchPage" parameterType="hashMap"
+      resultType="com.board.domain.BoardVO">
+      select
+      *
+      from tbl_board
+      where pNum in
+      <foreach collection="fforfList" item="item" open="(" close="" separator=",">
+         #{item.following}
+      </foreach>
+      , "-1", #{userID}) and
+      <if test='searchType.equals("title")'>
+         (title LIKE concat('%', #{keyword}, '%'))
+      </if>
+      <if test='searchType.equals("writer")'>
+         (writer LIKE concat('%', #{keyword}, '%'))
+      </if>
+        <choose>
+      <when test='kate.equals("")'>
+      </when>
+      <otherwise>
+      and kate = #{kate}
+      </otherwise>
+      </choose>
+      order by bno desc
+      limit #{displayPost}, #{postNum}
+   </select>
+   
+   <!-- 이웃 게시물 목록 -->
+   <select id="getUserFolSearchPage" parameterType="hashMap"
+      resultType="com.board.domain.BoardVO">
+      select
+      *
+      from tbl_board
+      where writer in
+      <foreach collection="fforfList" item="item" open="(" close=")" separator=",">
+         #{item.following}
+      </foreach>
+      and pNum in
+      <foreach collection="fforfList" item="item" open="(" close="" separator=",">
+         #{item.following}
+      </foreach>
+      , "-1") and
+      <if test='searchType.equals("title")'>
+         (title LIKE concat('%', #{keyword}, '%'))
+      </if>
+      <if test='searchType.equals("writer")'>
+         (writer LIKE concat('%', #{keyword}, '%'))
+      </if>
+        <choose>
+      <when test='kate.equals("")'>
+      </when>
+      <otherwise>
+      and kate = #{kate}
+      </otherwise>
+      </choose>
+      order by bno desc
+      limit #{displayPost}, #{postNum}
    </select>
    
    <!-- 좋아요 증가 -->
@@ -179,7 +352,7 @@
    <select id="MyPageSearch" parameterType="hashMap"
       resultType="com.board.domain.BoardVO">
       select
-      bno, title, writer, regDate, viewCnt, pNum, likeCnt
+      *
       from tbl_board
       where writer = #{writer}
       order by bno desc
@@ -206,7 +379,7 @@
    <select id="viewFile" parameterType="int"
       resultType="com.board.domain.FileVO">
       select
-      id, fileBno, latitude, longitude, timeView, path, content, place
+      *
       from
       file_board
       where fileBno = #{bno}
@@ -214,16 +387,28 @@
    </select>
    
    <!-- 파일 불러오기 -->
-   <select id="imgSelect" parameterType="int"
+   <select id="modifyFile" parameterType="hashMap"
       resultType="com.board.domain.FileVO">
       select
-      id, latitude, longitude, timeView
+      *
+      from
+      file_board
+      where userID = #{userID} and fileBno = 0 or userID = #{userID} and fileBno = #{bno}
+      order by timeView
+   </select>
+   
+   <!-- 파일 불러오기 -->
+   <select id="writeFile" parameterType="int"
+      resultType="com.board.domain.FileVO">
+      select
+      *
       from
       file_board
       where userID = #{userID} and fileBno = 0
+      order by timeView
    </select>
 
-   <!-- 파일 수정 -->
+   <!-- 파일 수정 
    <update id="modifyFile" parameterType="com.board.domain.FileVO">
       update file_board
       set
@@ -233,7 +418,7 @@
       content = #{content}
       where id = #{id}
    </update>
-   
+   -->
    <!-- 파일 추가 -->   
    <update id="writeClick" parameterType="hashMap">
    <foreach collection="fileVOList" item="item" separator=" ; ">
@@ -241,8 +426,6 @@
       set
       fileBno = #{item.fileBno},
       timeView = #{item.timeView},
-      latitude = #{item.latitude},
-      longitude = #{item.longitude},
       place = #{item.place},
       content = #{item.content}
       where id = #{item.id}
@@ -269,7 +452,15 @@
       from file_board
       where userID = #{userID} and fileBno = 0
    </delete>
-
+   
+   <!-- 게시글 파일 삭제 -->
+   <select id="beforeunloadList" parameterType="int" resultType="String">
+      select
+      fileName
+      from file_board
+      where userID = #{userID} and fileBno = 0
+   </select>
+   
    <!-- 파일 이름 불러오기 -->
    <select id="fileName" parameterType="int" resultType="String">
       select
@@ -278,9 +469,39 @@
       file_board
       where id = #{del}
    </select>
+   
+   <!-- 파일 이름 불러오기 -->
+   <select id="fileNameList" parameterType="int" resultType="String">
+      select
+      fileName
+      from
+      file_board
+      where fileBno = #{bno}
+   </select>
+
+	<insert id="likeImgs" parameterType="hashMap">
+      insert into
+      likeImg(fileBno, imgBno)
+      values
+      <foreach collection="likeImgVOList" item="item" separator=" , ">
+         (#{item.fileBno}, #{item.imgBno})
+      </foreach>
+	</insert>
+	
+	<delete id="deleteLikeImgs" parameterType="int">
+		delete from
+		likeImg
+		where fileBno = #{fileBno}
+	</delete>
+	
+	<select id="selectLikeImg" parameterType="int" resultType="com.board.domain.LikeImgVO">
+		select id, fileBno, imgBno
+		from likeImg
+		where fileBno = #{fileBno}
+	</select>
 
    <!-- file_board end -->
-   <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+   <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->   
    <!-- reg_board start -->
 
    <!-- 회원가입 -->
@@ -330,7 +551,7 @@
    <!-- 아이디 확인 -->
    <select id="idCheck" parameterType="string"
       resultType="com.board.domain.MemberVO">
-      select mID from reg_board
+      select id, mID from reg_board
       where mID = #{mID}
    </select>
 

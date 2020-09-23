@@ -15,23 +15,25 @@ public class ToVO {
 		return vo;
 	}
 	
-	public BoardVO boardVO(String title, int userID, int pNum) {
+	public BoardVO boardVO(String title, int userID, int pNum, String kate) {
 		BoardVO vo = new BoardVO();
 
 		vo.setTitle(title);
 		vo.setWriter(userID);
 		vo.setpNum(pNum);
+		vo.setKate(kate);
 		
 		return vo;
 	}
 	
-	public BoardVO boardVO(String title, int userID, int pNum, int bno) {
+	public BoardVO boardVO(String title, int userID, int pNum, int bno, String kate) {
 		BoardVO vo = new BoardVO();
 
 		vo.setTitle(title);
 		vo.setWriter(userID);
 		vo.setpNum(pNum);
 		vo.setBno(bno);
+		vo.setKate(kate);
 		
 		return vo;
 	}
@@ -68,6 +70,24 @@ public class ToVO {
 		fileMap.put("fileVOList", fileVOList);
 
 		return fileMap;
+	}
+
+	public HashMap<String, Object> likeImgVO(String[] likeImgs, int fileBno) {
+		// TODO Auto-generated method stub
+		List<LikeImgVO> likeImgVOList = new ArrayList<LikeImgVO>();
+		LikeImgVO[] likeImgVO = new LikeImgVO[likeImgs.length];
+		
+		for (int i = 0; i < likeImgs.length; i++) {
+			likeImgVO[i] = new LikeImgVO();
+			likeImgVO[i].setImgBno(Integer.parseInt(likeImgs[i]));
+			likeImgVO[i].setFileBno(fileBno);
+			likeImgVOList.add(likeImgVO[i]);
+		}
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("likeImgVOList", likeImgVOList);
+		
+		return map;
 	}
 	
 

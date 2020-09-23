@@ -13,6 +13,7 @@ public class BoardVO {
 	private int viewCnt;
 	private int pNum;
 	private int likeCnt;
+	private String kate;
 	
 	public int getLikeCnt() {
 		return likeCnt;
@@ -55,6 +56,12 @@ public class BoardVO {
 	}
 	public void setpNum(int pNum) {
 		this.pNum = pNum;
+	}
+	public String getKate() {
+		return kate;
+	}
+	public void setKate(String kate) {
+		this.kate = kate;
 	}
 
 }

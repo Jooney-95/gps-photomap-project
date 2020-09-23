@@ -19,18 +19,22 @@
 <div id="header">
    <!-- 로고 -->
      <div class="logo">
-       <a href="/board/listPageSearch?num=1">Plus+</a>
+       <a href="/board/main">Plus+</a>
      </div>     
 
-     <!-- 사용자 로그인 현황 -->
+    <!-- 사용자 로그인 현황 -->
       <div class="log">
             <c:if test="${session != null }"><!-- 로그인했을때 -->
             <div id="r">
                <div class="profile">
                     <img src="${session.mImg }" onclick="loginPopup()"/>
-                  <p>${session.mNickname }님</p>
-               </div>
+             </div>
+                  <p id="sessionNickname">${session.mNickname }</p>
             </div>
+            
+            <div id="alam">
+               <i class="fas fa-bell" onclick="alamPopup()"></i>
+            </div>            
             
             <div id="writebutton">
                <!-- 게시물 작성 버튼-->
@@ -48,6 +52,10 @@
                 <div class="pi"><a href="/member/myPage?num=1&userID=${session.id }"><i class="fas fa-user-cog"></i>  마이페이지</a></div>
                 <div class="pii"><a href="/member/logout"><i class="fas fa-power-off"></i>  로그아웃</a></div>
             </div>
+            
+            <div class="apop" id="alamPopup" style="display:none">               
+                <div class="ai"> <a>알람 내용</a></div>
+            </div>            
 
 </div>
 
@@ -193,13 +201,20 @@
    </script>
    <script>
 function loginPopup() {
-             if (document.getElementById("loginPopup").style.display == "none") {
-                document.getElementById("loginPopup").style.display = "";
-             } else {
-                document.getElementById("loginPopup").style.display = "none";
-             }
-          }
-         
+    if (document.getElementById("loginPopup").style.display == "none") {
+       document.getElementById("loginPopup").style.display = "";
+    } else {
+       document.getElementById("loginPopup").style.display = "none";
+    }
+ }
+
+ function alamPopup() {
+       if (document.getElementById("alamPopup").style.display == "none") {
+          document.getElementById("alamPopup").style.display = "";
+       } else {
+          document.getElementById("alamPopup").style.display = "none";
+       }
+    }
          
    </script>
 </body>

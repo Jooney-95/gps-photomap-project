@@ -10,7 +10,7 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="/resources/js/modify.js?var=3"></script>
 <meta charset="UTF-8">
-<title>게시물 수정</title>
+<title>Plus+</title>
 <link rel="stylesheet" href="/resources/css/modify.css">
 <link rel="stylesheet" href="/resources/css/top.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
@@ -27,7 +27,7 @@
 <div id="header">
    <!-- 로고 -->
      <div class="logo">
-       <a href="/board/listPageSearch?num=1">Plus+</a>
+       <a href="/board/main">Plus+</a>
      </div>
      
 <!-- 검색창 -->
@@ -46,25 +46,34 @@
 
        <!-- 사용자 로그인 현황 -->
       <div class="log">
-            <c:if test="${session != null }"><!-- 로그인했을때 -->
+            <c:if test="${session != null }">
+            <!-- 로그인했을때 -->
             <div id="r">
                <div class="profile">
                     <img src="${session.mImg }" onclick="loginPopup()"/>
-                  <p>${session.mNickname }님</p>
-               </div>
+             </div>
+                  <p id="sessionNickname">${session.mNickname }</p>
+            </div>
+
+            <div id="alam">
+               <i class="fas fa-bell" onclick="alamPopup()"></i>
             </div>
 
             </c:if>
             
-            <c:if test="${session == null }"> <!-- 로그인 안했을때 -->
+            <c:if test="${session == null }"> 
+            <!-- 로그인 안했을때 -->
                 <a href="/member/login"><img width="50" height="50" src="/resources/imgs/p1.png"></a>
             </c:if>
       </div>
-<div class="pop" id="loginPopup" style="display:none">               
+            <div class="pop" id="loginPopup" style="display:none">               
                 <div class="pi"><a href="/member/myPage?num=1&userID=${session.id }"><i class="fas fa-user-cog"></i>  마이페이지</a></div>
                 <div class="pii"><a href="/member/logout"><i class="fas fa-power-off"></i>  로그아웃</a></div>
             </div>
-
+            
+            <div class="apop" id="alamPopup" style="display:none">               
+                <div class="ai"> <a>알람 내용</a></div>
+            </div>
 </div>
 
 
@@ -81,9 +90,10 @@
    <div class="button-wrapper">
       <p>이미지
            <span class="label">
-             내 라이브러리
+             <input type="file" name="imgList" id="input_imgs" class="upload-box" placeholder="Upload File"accept=".jpg, .jpeg" multiple/>
+              내 라이브러리
            </span>
-             <input type="file" name="imgList" id="input_imgs" class="upload-box" placeholder="Upload File"accept=".jpg, .jpeg" multiple/></p>
+      </p>       
    </div>
    
    <div id="text">
@@ -91,87 +101,50 @@
    </div>
    
    
-   <c:forEach items="${list }" var="list" varStatus="status">
-     <input type="hidden" id="id_${status.index }" name="id" value="${list.id }" />
-      
-      <div class="middle" id="middle_${status.index }" name="imgDiv">
-      
-         <div class="left">
-           <ul>
-           <li>
-           <div class="leftone">
-            <i class="fas fa-map-marker-alt"></i> 
-              <input type="text" id="loc_${status.index }" name="loc" value="${list.place }" readOnly />
-              <input type="hidden" id="lat_${status.index }" name="lat" value="${list.latitude }" readOnly />
-              <input type="hidden" name="lon" value="${list.longitude }" readOnly />
-           </div>
-           </li>
-           <li>
-            <div class="lefttwo">
-            <img alt="" id="img_${status.index }" name="filesList" src="<spring:url value='${list.path }'/>">
-            </div>
-            </li>
-            </ul>
-         </div>         
-
-         <div class="right">
-            <div class="one">
-               
-               <input type="text" id="time_${status.index }" name="time" value="${list.timeView }"/>
-            </div>
-            
-            <div class="two">
-               <textarea style="width:90%" cols="50" rows="5" id="textarea_${status.index }" name="content" >${list.content  }</textarea>
-            </div>   
-                                 
-                                 
-            <div class="three" >
-            <div class="t">
-            <!-- <div class="tooltip">Click Here</div> -->
-            <div class="t-1" onclick="tpAdd(${status.index })"><p>이동수단</p></div> 
-            
-            
-                <div class="t-2" id="tp_${status.index }" >
-                <ul>
-                     <li class="b"><label><input type="checkbox" id="sneakers_${status.index }" name="tp" value="sneakers" /><img src="/resources/imgs/sneakers.png">도보</label></li>
-                      <li class="b"><label><input type="checkbox" id="bus_${status.index }" name="tp" value="bus" /><img src="/resources/imgs/bus.png">버스</label></li>
-                     <li class="a"> <label><input type="checkbox" id="train_${status.index }" name="tp" value="train" /><img src="/resources/imgs/train.png">지하철</label></li>
-                     <li class="a"><label><input type="checkbox" id="car_${status.index }" name="tp" value="car" /><img src="/resources/imgs/car.png">자동차</label></li>
-                      <li class="b"> <label><input type="checkbox" id="taxi_${status.index }" name="tp" value="taxi" /><img src="/resources/imgs/taxi.png">택시</label></li>
-                      <li class="a"><label><input type="checkbox" id="bike_${status.index }" name="tp" value="bike" /><img src="/resources/imgs/bike.png">자전거</label></li>
-                      <li class="a"><label><input type="checkbox" id="scooter_${status.index }" name="tp" value="scooter" /><img src="/resources/imgs/scooter.png">스쿠터</label></li>
-               </ul>
-               </div>
-               </div>
-
-            </div>
-         
-          </div>
-          <div class="down">
-          <button type="button" id="b_${status.index }" onclick="del(${status.index })">삭제</button></div>
-      </div>
-      
-   </c:forEach>
-   
-   
    <div class="img_box"></div>      
       
-   
- <div id="bottom">
+   <div class="bottom">
+ <div id="bottom1">
          공개 범위 
-         <input type="radio" name="pNum" value="-1" checked="checked">  전체공개
-         <input type="radio" name="pNum" value="${session.id }">  이웃공개
-         <input type="radio" name="pNum" value="-2">  비공개
-         
-      </div>   
-   
+        <label><input type="radio" id="pNum0" name="pNum" value="-1">  전체공개</label> 
+         <label><input type="radio" id="pNum1" name="pNum" value="${session.id }">  이웃공개</label>
+         <label><input type="radio" id="pNum2" name="pNum" value="-2">  비공개</label>
+ </div>   
+ <div id="bottom2" >
+  
+    <div class="category" onclick="menu()">
+    
+      <label>카테고리 <i class="fas fa-angle-down"></i></label>
+    </div>
+    <div class="hide" style="display:none">
+      <input type="hidden" id="kate" value="${view.kate}">
+    <div class="list">
+     <ul>
+      <li>
+         <input type="radio" id="none" name="kategorie" value="" checked>
+         <label for="none">없음</label>
+         </li>
+         <li>
+         <input type="radio" id="a" name="kategorie" value="a">
+         <label for="a">여행</label>
+         </li>
+          <li>
+         <input type="radio" id="b" name="kategorie" value="b">
+         <label for="b">음식</label>
+         </li>
+     </ul>  
+    </div>  
+    
+    
+    </div>
+       
+ </div> 
+ </div> 
 </div>
 
    <div class=button>
-   <div class="upload"  style="float:left">   
-   <button class="raise" id="bImgUpload" type="button">이미지 업로드</button>
-</div> 
-   <div class="upload" style="float:right">
+    
+   <div class="upload" >
    <button class="raise" id="bModify" type="button">작성</button>
 </div>   
       </div>
@@ -183,15 +156,29 @@
 
    <script>
    
-      var regTypeLat = /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/;
+   var pNum0 = document.getElementById("pNum0");
+   var pNum1 = document.getElementById("pNum1");
+   var pNum2 = document.getElementById("pNum2");
+   var pNum = ${view.pNum };
+   
+   switch(pNum){
+      case -1:
+          pNum0.checked = "checked";
+          break;
+       case -2:
+          pNum2.checked = "checked";
+          break;
+       default:
+          pNum1.checked = "checked";
+          break;
+       }
+   /* var regTypeLat = /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/;
       var regTypeLon = /^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/; 
       var regTypeTime = /^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])\s([1-9]|[01][0-9]|2[0-3]):([0-5][0-9])$/;
       
-      var pNum = ${view.pNum }
+      
       var title = document.getElementById("title");
-      var pNum0 = document.getElementById("pNum0");
-      var pNum1 = document.getElementById("pNum1");
-      var pNum2 = document.getElementById("pNum2");
+      
       var bWrite = document.getElementById("bWrite");
       
       var lat = new Array();
@@ -223,7 +210,7 @@
             }
          }
       }
-    /*   function latLon(){
+       function latLon(){
          for(i=0;i<lat.length;i++){
             if(regTypeLat.test(lat[i].value)){
                if(regTypeLon.test(lon[i].value)){
@@ -249,20 +236,11 @@
             }
          }
          return true;
-      } */
-      switch(pNum){
-      case -1:
-         pNum0.checked = true;
-         break;
-      case -2:
-         pNum1.checked = true;
-         break;
-      default:
-         pNum2.checked = true;
-         break;
-      }
+      } 
+      
+      
 
-     /*  bWrite.addEventListener('click', function(event) {
+       bWrite.addEventListener('click', function(event) {
          if(latLon()){
             if(Time()){
                if (title.value.trim() != "") {
@@ -282,6 +260,26 @@
     
       
    </script>
+<script>
+    // html dom 이 다 로딩된 후 실행된다.
+    $(document).ready(function(){
+        // category 클래스 바로 하위에 있는 a 태그를 클릭했을때
+        $(".category>a").click(function(){
+            var submenu = $(this).next("ul");
+ 
+            // submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
+            if( submenu.is(":visible") ){
+                submenu.slideUp();
+            }else{
+                submenu.slideDown();
+            }
+        });
+    });
+</script>
+
+
+
+
 
 
 </body>

@@ -94,11 +94,11 @@ border-top-left-radius:5px;
 
 .main{
    float:right;
-   border:1px solid #efeadc; /*테두리*/
+   border:1px solid #d7d8d7; /*테두리*/
     border-top-right-radius:10px;  /*모서리둥글게*/
     border-bottom-right-radius:10px;  /*모서리둥글게*/
     border-bottom-left-radius:10px;  /*모서리둥글게*/
-   box-shadow:5px 5px 2px 2px #efeadc;/*그림자효괴*/
+   box-shadow:2px 2px 1px 1px #ededed;/*그림자효괴*/
    background:#fff;
     align-items: center;
     text-align:center;
@@ -133,14 +133,19 @@ border-top-left-radius:5px;
 .f button{
    border:2px solid #f5f5f5;
    border-radius:50%;
-   padding:10px;
    background:#fff;
    color:#c0c0c0;
    position:relative;
    bottom:40px;
    left:55px;
    cursor:pointer;
+   width:35px;
+   height:35px;
 }
+.f button i{
+   font-size:16px;
+}
+
 .t{
    padding-top:10px;
    margin:0 auto;
@@ -177,16 +182,15 @@ border-top-left-radius:5px;
 
 .t  input[type="text"]{
    padding-left:30px;
- background: #f6ee8;
    width:200px;
    height:35px;
    border:none;
    transition:0.35s;/*애니메이션을 주기위에 부모 부터 주기*/
-   border-bottom:1px solid #eee3dd;
+   border-bottom:1px solid #dfdfdf;
    border-radius:10px;
 }
 .t  input[type="text"]:focus{
-   background: #fbf5f2;
+   background: #f9fffb;
 }
 .th{
    border:1px soldi yellow;

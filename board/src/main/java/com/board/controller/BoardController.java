@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.board.domain.BoardVO;
 import com.board.domain.FileVO;
 import com.board.domain.FollowVO;
+import com.board.domain.LikeImgVO;
 import com.board.domain.LikeVO;
 import com.board.domain.MemberVO;
 import com.board.domain.Page;
@@ -66,32 +67,37 @@ public class BoardController {
 
 		List<FileVO> list = null;
 		List<TpVO> tp = null;
+		List<LikeImgVO> likeImg = null;
 
 		list = fileService.viewFile(bno);
 		tp = tpService.viewTp(bno);
+		likeImg = fileService.selectLikeImg(bno);
 
 		model.addAttribute("view", vo);
 		model.addAttribute("list", list);
 		model.addAttribute("tp", tp);
 		model.addAttribute("member", mVo);
+		model.addAttribute("likeImg", likeImg);
 
 	}
-
 
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
 	public void getModify(@RequestParam("bno") int bno, Model model) throws Exception {
 
 		BoardVO vo = service.view(bno);
 
-		List<FileVO> list = null;
-		List<TpVO> tp = null;
+		List<LikeImgVO> likeImg = null;
+		// List<FileVO> list = null;
+		// List<TpVO> tp = null;
 
-		list = fileService.viewFile(bno);
-		tp = tpService.viewTp(bno);
+		// list = fileService.viewFile(bno);
+		// tp = tpService.viewTp(bno);
+		likeImg = fileService.selectLikeImg(bno);
 
 		model.addAttribute("view", vo);
-		model.addAttribute("list", list);
-		model.addAttribute("tp", tp);
+		model.addAttribute("likeImg", likeImg);
+		// model.addAttribute("list", list);
+		// model.addAttribute("tp", tp);
 
 	}
 
@@ -105,14 +111,12 @@ public class BoardController {
 		service.delete(bno);
 		fileService.deleteFileBno(bno);
 		tpService.deleteFileBno(bno);
-		return "redirect:/board/listPageSearch?num=1";
+		return "redirect:/board/main";
 	}
 
 	// 占쌉시뱄옙 占쏙옙占� + 占쏙옙占쏙옙징 占쌩곤옙 + 占싯삼옙
-	@RequestMapping(value = "/listPageSearch", method = RequestMethod.GET)
-	public void getListPageSearch(Model model, HttpSession session, @RequestParam("num") int num,
-			@RequestParam(value = "searchType", required = false, defaultValue = "title") String searchType,
-			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) throws Exception {
+	@RequestMapping(value = "/main", method = RequestMethod.GET)
+	public void getMain() throws Exception {
 
 	}
 
@@ -170,18 +174,18 @@ public class BoardController {
 	@RequestMapping(value = "/beforeunload", method = RequestMethod.POST)
 	public void postBeforeunload(HttpServletRequest req) throws Exception {
 		int userID = Integer.parseInt(req.getParameter("userID"));
-
 		fileService.beforeunload(userID);
+
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/imgUpload", method = RequestMethod.POST)
-	public String postImgUpload(HttpServletRequest req, MultipartHttpServletRequest request) throws Exception {
+	@RequestMapping(value = "/writeFile", method = RequestMethod.POST)
+	public String postWriteFile(HttpServletRequest req, MultipartHttpServletRequest request) throws Exception {
 		int userID = Integer.parseInt(req.getParameter("userID"));
 		List<MultipartFile> file = request.getFiles("imgFileList");
 
 		fileService.imgUpload(file, userID);
-		List<FileVO> fVo = fileService.imgSelect(userID);
+		List<FileVO> fVo = fileService.writeFile(userID);
 
 		Gson gson = new Gson();
 		String jsonPlace = gson.toJson(fVo);
@@ -190,25 +194,77 @@ public class BoardController {
 	}
 
 	@ResponseBody
+	@RequestMapping(value = "/modifyFile", method = RequestMethod.POST)
+	public HashMap<String, Object> postModifyFile(HttpServletRequest req, MultipartHttpServletRequest request)
+			throws Exception {
+		int userID = Integer.parseInt(req.getParameter("userID"));
+		int bno = Integer.parseInt(req.getParameter("bno"));
+
+		List<MultipartFile> file = request.getFiles("imgFileList");
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		fileService.imgUpload(file, userID);
+		List<FileVO> fVo = fileService.modifyFile(userID, bno);
+
+		List<TpVO> tp = null;
+		tp = tpService.viewTp(bno);
+
+		Gson gson = new Gson();
+		String JsonFile = gson.toJson(fVo);
+		String JsonTp = gson.toJson(tp);
+
+		map.put("file", JsonFile);
+		map.put("tp", JsonTp);
+
+		return map;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/loadImg", method = RequestMethod.POST)
+	public HashMap<String, Object> getLoadImg(HttpServletRequest req) throws Exception {
+		int userID = Integer.parseInt(req.getParameter("userID"));
+		int bno = Integer.parseInt(req.getParameter("bno"));
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		List<FileVO> fVo = fileService.modifyFile(userID, bno);
+		List<TpVO> tp = tpService.viewTp(bno);
+		List<LikeImgVO> likeImgVO = fileService.selectLikeImg(bno);
+
+		Gson gson = new Gson();
+		String JsonFile = gson.toJson(fVo);
+		String JsonTp = gson.toJson(tp);
+		String JsonLikeImg = gson.toJson(likeImgVO);
+
+		map.put("file", JsonFile);
+		map.put("tp", JsonTp);
+		map.put("likeImg", JsonLikeImg);
+
+		return map;
+	}
+
+	@ResponseBody
 	@RequestMapping(value = "/writeClick", method = RequestMethod.POST)
 	public String postWriteClick(HttpServletRequest req) throws Exception {
-		int userID = Integer.parseInt(req.getParameter("userID"));
-		int pNum = Integer.parseInt(req.getParameter("pNum"));
-		String title = req.getParameter("title");
-		String del[] = req.getParameterValues("del");
 		int size = Integer.parseInt(req.getParameter("size"));
-
-		ToVO toVO = new ToVO();
-
-		BoardVO boardVO = toVO.boardVO(title, userID, pNum);
-
-		int fileBno = service.write(boardVO);
-
-		if (del.length > 1) {
-			fileService.deleteFile(del);
-		}
-
 		if (size > 0) {
+			int userID = Integer.parseInt(req.getParameter("userID"));
+			int pNum = Integer.parseInt(req.getParameter("pNum"));
+			String title = req.getParameter("title");
+			String kate = req.getParameter("kate");
+			String del[] = req.getParameterValues("del");
+
+			ToVO toVO = new ToVO();
+			System.out.println(kate);
+			BoardVO boardVO = toVO.boardVO(title, userID, pNum, kate);
+
+			int fileBno = service.write(boardVO);
+
+			if (del != null) {
+				fileService.deleteFile(del);
+			}
+
 			String id[] = req.getParameterValues("id");
 			String lat[] = req.getParameterValues("lat");
 			String lon[] = req.getParameterValues("lon");
@@ -216,7 +272,13 @@ public class BoardController {
 			String time[] = req.getParameterValues("time");
 			String content[] = req.getParameterValues("content");
 			String tp[] = req.getParameterValues("tp");
-			System.out.println(loc);
+			String likeImgs[] = req.getParameterValues("likeImgs");
+
+			if (likeImgs != null) {
+				fileService.deleteLikeImgs(fileBno);
+				fileService.likeImgs(toVO.likeImgVO(likeImgs, fileBno));
+			}
+
 			tpService.reset(id);
 
 			for (int i = 0; i < id.length; i++) {
@@ -238,9 +300,11 @@ public class BoardController {
 				}
 				fileService.deleteFile(del_id);
 			}
-		}
 
-		return "/board/view?bno=" + fileBno;
+			return "/board/view?bno=" + fileBno;
+		}
+		System.out.println("이미지 없음");
+		return "/board/write";
 	}
 
 	@ResponseBody
@@ -250,17 +314,17 @@ public class BoardController {
 		int pNum = Integer.parseInt(req.getParameter("pNum"));
 		int bno = Integer.parseInt(req.getParameter("bno"));
 		int size = Integer.parseInt(req.getParameter("size"));
-
+		String kate = req.getParameter("kate");
 		String title = req.getParameter("title");
 		String del[] = req.getParameterValues("del");
 
 		ToVO toVO = new ToVO();
 
-		BoardVO boardVO = toVO.boardVO(title, userID, pNum, bno);
+		BoardVO boardVO = toVO.boardVO(title, userID, pNum, bno, kate);
 
 		service.modify(boardVO);
 
-		if (del.length > 1) {
+		if (del != null) {
 			fileService.deleteFile(del);
 		}
 
@@ -272,9 +336,14 @@ public class BoardController {
 			String time[] = req.getParameterValues("time");
 			String content[] = req.getParameterValues("content");
 			String tp[] = req.getParameterValues("tp");
+			String likeImgs[] = req.getParameterValues("likeImgs");
 
-			tpService.reset(id);
+			fileService.deleteLikeImgs(bno);
+			if (likeImgs != null) {
+				fileService.likeImgs(toVO.likeImgVO(likeImgs, bno));
+			}
 
+			tpService.deleteFileBno(bno);
 			for (int i = 0; i < id.length; i++) {
 				if (tp[i].length() != 0) {
 					String[] tp_str = tp[i].split(",");
@@ -301,9 +370,12 @@ public class BoardController {
 
 	@ResponseBody
 	@RequestMapping(value = "/getPage", method = RequestMethod.POST)
-	public HashMap<String, Object> getLikePage(HttpServletRequest req, HttpSession session) throws Exception {
+	public HashMap<String, Object> getPage(HttpServletRequest req, HttpSession session) throws Exception {
 		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
 		String flag = req.getParameter("flag");
+		String kate[] = req.getParameterValues("kate");
+		System.out.println(kate);
+
 		MemberVO login = (MemberVO) session.getAttribute("session");
 
 		Page page = new Page();
@@ -312,21 +384,26 @@ public class BoardController {
 		page.setCount(service.count());
 
 		List<BoardVO> list = null;
-		
-		if (login != null) {
-			List<FollowVO> fforfList = null;
 
+		System.out.println("flag : " + flag);
+
+		if (login != null) {
+			System.out.println("로그인 했을때 실행");
+			List<FollowVO> fforfList = null;
 			fforfList = memberService.fforfList(login.getId());
 			if (fforfList.size() > 0) {
-				list = service.getPage(page.getDisplayPost(), page.getPostNum(), flag, fforfList);
+				System.out.println("서로이웃이 있을때 실행");
+				list = service.getPage(page.getDisplayPost(), page.getPostNum(), flag, kate, fforfList);
 			} else {
 				if (!flag.equals("fol")) {
-					list = service.getPage(page.getDisplayPost(), page.getPostNum(), flag);
+					System.out.println("서로이웃이 없고 이웃게시물이 아닐때 실행");
+					list = service.getPage(page.getDisplayPost(), page.getPostNum(), flag, kate);
 				}
 			}
 		} else {
 			if (!flag.equals("fol")) {
-				list = service.getPage(page.getDisplayPost(), page.getPostNum(), flag);
+				System.out.println("로그인 안하고 이웃게시물이 아닐때 실행");
+				list = service.getPage(page.getDisplayPost(), page.getPostNum(), flag, kate);
 			}
 		}
 
@@ -334,32 +411,125 @@ public class BoardController {
 		List<ArrayList<FileVO>> fileList = new ArrayList<ArrayList<FileVO>>();
 		MemberVO m = new MemberVO();
 		List<MemberVO> mList = new ArrayList<MemberVO>();
-		
+		List<LikeImgVO> likeImgVO = null;
+		List<ArrayList<LikeImgVO>> likeImgVOList = new ArrayList<ArrayList<LikeImgVO>>();
 
 		if (list != null) {
 			// 占쏙옙 占쏙옙호占쏙옙 占쌔댐옙占싹댐옙 占싱뱄옙占쏙옙 占쌨아울옙占쏙옙
 			for (BoardVO vo : list) {
 				fList = fileService.viewFile(vo.getBno());
 				m = memberService.memberVO(vo.getWriter());
+				likeImgVO = fileService.selectLikeImg(vo.getBno());
 				fileList.add((ArrayList<FileVO>) fList);
 				mList.add(m);
+				likeImgVOList.add((ArrayList<LikeImgVO>) likeImgVO);
 			}
 			Gson gson = new Gson();
 			String jsonList = gson.toJson(list);
 			String jsonMList = gson.toJson(mList);
 			String jsonFileList = gson.toJson(fileList);
 			String jsonPage = gson.toJson(page);
+			String jsonLikeImg = gson.toJson(likeImgVOList);
 
 			HashMap<String, Object> data = new HashMap<String, Object>();
 			data.put("board", jsonList);
 			data.put("file", jsonFileList);
 			data.put("member", jsonMList);
 			data.put("page", jsonPage);
+			data.put("likeImg", jsonLikeImg);
 
 			return data;
+
 		} else {
+
 			HashMap<String, Object> data = new HashMap<String, Object>();
-			
+
+			return data;
+		}
+
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/getPageSearch", method = RequestMethod.POST)
+	public HashMap<String, Object> getPageSearch(HttpServletRequest req, HttpSession session) throws Exception {
+		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
+		String flag = req.getParameter("flag");
+		String searchType = req.getParameter("searchType");
+		String keyword = req.getParameter("keyword");
+		MemberVO login = (MemberVO) session.getAttribute("session");
+		String kate[] = req.getParameterValues("kate");
+		System.out.println(kate);
+
+		Page page = new Page();
+
+		page.setNum(pageNum);
+		page.setCount(service.count());
+
+		List<BoardVO> list = null;
+
+		if (searchType.equals("writer")) {
+			MemberVO mVo = memberService.idCheck(keyword);
+			if (mVo != null) {
+				keyword = Integer.toString(mVo.getId());
+			} else {
+				keyword = "0";
+			}
+		}
+		if (login != null) {
+			List<FollowVO> fforfList = null;
+
+			fforfList = memberService.fforfList(login.getId());
+			if (fforfList.size() > 0) {
+				list = service.getPageSearch(page.getDisplayPost(), page.getPostNum(), searchType, keyword, flag, kate,
+						fforfList);
+			} else {
+				if (!flag.equals("fol")) {
+					list = service.getPageSearch(page.getDisplayPost(), page.getPostNum(), searchType, keyword, flag, kate);
+				}
+			}
+		} else {
+			if (!flag.equals("fol")) {
+				list = service.getPageSearch(page.getDisplayPost(), page.getPostNum(), searchType, keyword, flag, kate);
+			}
+		}
+
+		List<FileVO> fList = new ArrayList<FileVO>();
+		List<ArrayList<FileVO>> fileList = new ArrayList<ArrayList<FileVO>>();
+		MemberVO m = new MemberVO();
+		List<MemberVO> mList = new ArrayList<MemberVO>();
+		List<LikeImgVO> likeImgVO = null;
+		List<ArrayList<LikeImgVO>> likeImgVOList = new ArrayList<ArrayList<LikeImgVO>>();
+
+		if (list != null) {
+			// 占쏙옙 占쏙옙호占쏙옙 占쌔댐옙占싹댐옙 占싱뱄옙占쏙옙 占쌨아울옙占쏙옙
+			for (BoardVO vo : list) {
+				fList = fileService.viewFile(vo.getBno());
+				m = memberService.memberVO(vo.getWriter());
+				likeImgVO = fileService.selectLikeImg(vo.getBno());
+				fileList.add((ArrayList<FileVO>) fList);
+				mList.add(m);
+				likeImgVOList.add((ArrayList<LikeImgVO>) likeImgVO);
+			}
+			Gson gson = new Gson();
+			String jsonList = gson.toJson(list);
+			String jsonMList = gson.toJson(mList);
+			String jsonFileList = gson.toJson(fileList);
+			String jsonPage = gson.toJson(page);
+			String jsonLikeImg = gson.toJson(likeImgVOList);
+
+			HashMap<String, Object> data = new HashMap<String, Object>();
+			data.put("board", jsonList);
+			data.put("file", jsonFileList);
+			data.put("member", jsonMList);
+			data.put("page", jsonPage);
+			data.put("likeImg", jsonLikeImg);
+
+			return data;
+
+		} else {
+
+			HashMap<String, Object> data = new HashMap<String, Object>();
+
 			return data;
 		}
 

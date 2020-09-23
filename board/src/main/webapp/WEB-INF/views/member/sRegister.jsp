@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 <link rel="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="/resources/js/sRegister.js"></script>
 </head>
 
 
@@ -18,7 +19,7 @@
 <div id="header">
  
   <div class="logo">
-    <a href="/board/listPageSearch?num=1">Plus+</a>
+    <a href="/board/main">Plus+</a>
   </div>
   
    
@@ -104,187 +105,8 @@
        </div>
        
     </div>
-
-
-
-
-
-
 </div>
-
-
-
 </form>
-
-   <script>
-      var regTypeID = /[^a-z0-9]/gi;
-      var regTypePW = /^[a-zA-Z0-9](?=.*[!@#$%^*+=-]){8,}/;
-      var regTypeNickname = /[^a-z0-9ㄱ-ㅎ가-힣0-9]/gi;
-      
-      var nickname = document.getElementById("nickname");
-      var nMsg = document.getElementById("nicknameMsg");
-      var id = document.getElementById("id");
-      var idMsg = document.getElementById("idMsg");
-      var email = document.getElementById("email");
-      var email2 = document.getElementById("email2");
-      var mEmail = document.getElementById("mEmail");
-      var pw = document.getElementById("pw");
-      var pwRepeat = document.getElementById("pwRepeat");
-      var pwConfirm = document.getElementById("pwConfirm");
-      var pwHidden = document.getElementById("pwHidden");
-      var bBack = document.getElementById("bBack");
-      var bNext = document.getElementById("bNext");
-
-      bBack.addEventListener('click', function(event) {
-         location.href = "/member/fRegister";
-      });
-      bNext.addEventListener('click', function(event) {
-         if (nMsg.value == "check") {
-            if (idMsg.value == "check") {
-               if (email.value.trim() != "" && email2.value.trim() != "") {
-                  mEmail.value = email.value + "@" + email2.value;
-                  if (pw.value.trim() != "") {
-                     if (regTypePW.test(pw.value)){
-                        if (pwRepeat.value == pw.value) {
-                           document.getElementById("f").submit();
-                        } else {
-                           alert("비밀번호가 다릅니다.");
-                           pwRepeat.focus();
-                        }
-                     } else{
-                        alert("비밀번호 양식을 맞춰주세요.");
-                     }
-                  } else {
-                     alert("비밀번호를 입력해주세요");
-                     pw.focus();
-                  }
-               } else {
-                  alert("이메일을 입력해주세요");
-                  email.focus();
-               }
-            } else {
-               alert("아이디  중복 확인해주세요");
-               id.focus();
-            }
-         } else {
-            alert("닉네임 중복 확인해주세요");
-            nickname.focus();
-         }
-      });
-
-      nickname.addEventListener('keyup', function(event) {
-         var v = this.value;
-         this.value = v.replace(regTypeNickname, "");
-      });
-
-      nickname.addEventListener('keydown', function(event) {
-         nMsg.value = "";
-      });
-      
-      id.addEventListener('keyup', function(event) {
-         var v = this.value;
-         this.value = v.replace(regTypeID, "");
-      });
-      
-      id.addEventListener('keydown', function(event) {
-         idMsg.value = "";
-      });
-      
-
-      pw.addEventListener('keyup', function(event) {
-         if (regTypePW.test(pw.value)) {
-            pwRepeat.addEventListener('keyup', function(event) {
-
-               if (pwRepeat.value == pw.value) {
-                  pwConfirm.innerText = "비밀번호 일치";
-               } else {
-                  pwConfirm.innerText = "비밀번호 불일치";
-               }
-            });
-         } else {
-            pwConfirm.innerText = "";
-         }
-      });
-      
-      pwHidden.addEventListener('click', function(event) {
-         if(pwHidden.className == "fa fa-eye fa-lg"){
-            pwHidden.className = "fa fa-eye-slash fa-lg";
-            pw.type = "password";
-            pwRepeat.type = "password";
-         } else{
-            pwHidden.className = "fa fa-eye fa-lg";
-            pw.type = "text";
-            pwRepeat.type = "text";
-         }
-      });
-      
-      $("#idCheck").click(function(){
-         var query = {mID : $("#id").val()};
-         
-         $.ajax({
-            url : "/member/idCheck",
-            type : "post",
-            data : query,
-            success : function(data) {
-               if(data == 1){
-                  $("#idMsg").text("이미 중복된 아이디입니다.");
-                  $("#idMsg").val("");
-               } else{
-                  $("#idMsg").text("사용이 가능합니다");
-                  $("#idMsg").val("check");
-               }
-            }
-         });
-      });
-      $("#nicknameCheck").click(function(){
-         var query = {mNickname : $("#nickname").val()};
-         
-         $.ajax({
-            url : "/member/nicknameCheck",
-            type : "post",
-            data : query,
-            success : function(data) {
-               if(data == 1){
-                  $("#nicknameMsg").text("이미 중복된 닉네임입니다.");
-                  $("#nicknameMsg").val("");
-               } else{
-                  $("#nicknameMsg").text("사용이 가능합니다");
-                  $("#nicknameMsg").val("check");
-               }
-            }
-         });
-      });
-      
-      /* 옵션에서 이메일 값 불러오기*/
-      $(function(){   
-
-          $(document).ready(function(){
-
-             $('select[name=emailSelection]').change(function() {
-
-                if($(this).val()=="1"){
-
-                   $('#email2').val("");
-
-                } else {
-
-                   $('#email2').val($(this).val());
-
-                   $("#email2").attr("readonly", true);
-
-                }
-
-             });
-
-          });
-
-       });
-
-
-
-    
-      
-   </script>
 
 </body>
 </html>

@@ -4,30 +4,13 @@ var member;
 var page;
 var following;
 var pageNumber;
-
-// color:#feec77;
-// text-shadow: 0 0 24px;
+var likeImg;
 
 window.onload = function() {
    sessionStorage.setItem("nav", "list");
+   getMyPageList(1);
    setNav(1);
    unSetNav(1);
-   /*
-    * switch (sessionStorage.getItem("nav")) { case "list": $(".myPageNav > a >
-    * i")[0].style.color = "#feec77"; $(".myPageNav > a >
-    * i")[0].style.textShadow = "0 0 24px"; break; case "fforf": $(".myPageNav >
-    * a > i")[1].style.color = "#feec77"; $(".myPageNav > a >
-    * i")[1].style.textShadow = "0 0 24px"; break; case "fol": if
-    * ($("#userID").val() == "") { sessionStorage.setItem("nav", "list");
-    * $(".myPageNav > a > i")[0].style.color = "#feec77"; $(".myPageNav > a >
-    * i")[0].style.textShadow = "0 0 24px"; } else { $(".myPageNav > a >
-    * i")[2].style.color = "#feec77"; $(".myPageNav > a >
-    * i")[2].style.textShadow = "0 0 24px"; } break; default:
-    * sessionStorage.setItem("nav", "list"); $(".myPageNav > a >
-    * i")[0].style.color = "#feec77"; $(".myPageNav > a >
-    * i")[0].style.textShadow = "0 0 24px"; }
-    */
-   getMyPageList(1);
    followCheck();
 }
 
@@ -41,35 +24,12 @@ $(window).scroll(
          });
 
 function setNav(nav) {
-   $(".myPageNav > a > i")[nav - 1].style.color = "#feec77";
-   $(".myPageNav > a > i")[nav - 1].style.textShadow = "0 0 24px";
+   
+   
+   
 }
 function unSetNav(nav) {
-   switch (nav) {
-   case 1:
-      if ($("#userID").val() == $("#sessionID").val()) {
-         $(".myPageNav > a > i")[2].style.color = "";
-         $(".myPageNav > a > i")[2].style.textShadow = "";
-      }
-      $(".myPageNav > a > i")[1].style.color = "";
-      $(".myPageNav > a > i")[1].style.textShadow = "";
-      break;
-   case 2:
-      if ($("#userID").val() == $("#sessionID").val()) {
-         $(".myPageNav > a > i")[2].style.color = "";
-         $(".myPageNav > a > i")[2].style.textShadow = "";
-      }
-      $(".myPageNav > a > i")[0].style.color = "";
-      $(".myPageNav > a > i")[0].style.textShadow = "";
-      break;
-   default:
-      $(".myPageNav > a > i")[1].style.color = "";
-      $(".myPageNav > a > i")[1].style.textShadow = "";
-      $(".myPageNav > a > i")[0].style.color = "";
-      $(".myPageNav > a > i")[0].style.textShadow = "";
-      break;
 
-   }
 }
 
 $(document).on(
@@ -130,10 +90,15 @@ function getMyPageNav(nav) {
       unSetNav(nav);
       break;
    case 2:
-      sessionStorage.setItem("nav", "fforf");
+      sessionStorage.setItem("nav", "like");
       setNav(nav);
       unSetNav(nav);
       break;
+   case 3:
+         sessionStorage.setItem("nav", "fforf");
+         setNav(nav);
+         unSetNav(nav);
+         break;
    default:
       sessionStorage.setItem("nav", "fol");
       setNav(nav);
@@ -150,6 +115,7 @@ function getMyPageList(pageNum) {
    };
    var URL = {
       list : "/member/getMyPage",
+      like : "/member/getLikePage",
       fforf : "/member/getFforf",
       fol : "/member/getFol"
    }
@@ -162,9 +128,10 @@ function getMyPageList(pageNum) {
          switch (sessionStorage.getItem("nav")) {
          case "list":
             if (Object.keys(data).includes('board')) {
+               page = JSON.parse(data.page);
                list = JSON.parse(data.board);
                file = JSON.parse(data.file);
-               page = JSON.parse(data.page);
+               likeImg = JSON.parse(data.likeImg);
                pageNumber = page.num;
                addListMyPage(data);
             }
@@ -199,30 +166,75 @@ function addListMyPage(data) {
    var count = 0;
    for (var i = 0; i < list.length; i++) {
       var innerList;
-      innerList = '<div id="table"><div id="up"<div id="right"><ul><!--  날짜 or 시간    --><li><div class="r-1"><div id="date_'
-            + list[i].bno
-            + '" class="date">'
-            + getTimeStamp(list[i].regDate)
-            + '</div></div></li><li><!-- 아이디 & 공감수 & 조회수 & 공개 범위 --><div class="r-2"><!-- 제목 --><div id="title" title="'
-            + list[i].title
-            + '"><i class="fas fa-caret-right fa-2x"></i> <a href="/board/view?bno='
-            + list[i].bno
-            + '">'
-            + textOverCut(list[i].title, "title")
-            + '</a></div><div class="pNum" id="pNum_'
-            + list[i].bno
-            + '"></div><div id ="likeCnt"><i class="far fa-thumbs-up"></i>'
-            + list[i].likeCnt
-            + '</div></div></li><li></ul><div id="r-3"><div id="viewCnt">조회수 '
-            + list[i].viewCnt
-            + '회</div></div></div><div class="downimg" id="img_'
-            + list[i].bno + '"></div></div>';
+      innerList =  '  <div id="table">';
+      
+      innerList += '     <ul>';
+      innerList += '        <li>';
+      innerList += '       <div id="left">';
+      innerList += '          <div class="writer" id="writer_' + list[i].bno + '"><a href="/member/myPage?num=1&userID=' + $("#userID").val() + '"><img alt="" src='+$(".ff > img").attr("src")+'></div><a>';
+      innerList += '      </div>';
+      innerList += '          <a href="/member/myPage?num=1&userID=' + $("#userID").val() + '"><div class="name">'+$(".one").text()+'</div></a>';
+      innerList += '        </li>';
+      
+      innerList += '        <li>';      
+      innerList += '        <div class="r-1">';
+      innerList += '            <div class="pNum" id="pNum_' + list[i].bno + '"></div>';
+      innerList += '             <div id="date_' + list[i].bno + '" class="date">' + getTimeStamp(list[i].regDate) + '</div>';
+      innerList += '            <div id="viewCnt">조회수 ' + list[i].viewCnt + '회</div>';
+      innerList += '         </div>';
+      innerList += '        </li>';
+      innerList += '      </ul>';
+      
+      innerList += '      <ul>';
+      innerList += '        <li>';
+      innerList += '       <div class="downimg" id="img_' + list[i].bno + '">';
+      innerList += '             <div class="imgContainer" id="imgContainer_' + list[i].bno + '">';
+      innerList += '                <ul class="slider" id="slider_' + list[i].bno + '">';
+      innerList += '                </ul>';
+      innerList += '           </div>';
+      innerList += '       </div>';
+      innerList += '        </li>';
+      innerList += '       </ul>';
+      
+      innerList += '       <ul>';
+      innerList += '        <li>';
+      innerList += '            <div id="title" title="' + list[i].title + '">';
+      innerList += '                <div id="ta">';
+      innerList += '                   <i class="fas fa-caret-right fa-2x"></i>';
+      innerList += '                   <a href="/board/view?bno=' + list[i].bno + '">' + list[i].title + '</a>';
+      innerList += '                </div>';      
+      innerList += '                <div id ="likeCnt"><i class="far fa-thumbs-up"></i>' + number(list[i].likeCnt) + '</div>';
+      innerList += '            </div>';
+      innerList += '          </li>';    
+      innerList += '        </ul>';
+      innerList += '    </div>';
+      innerList += ' </div>';
+
       $(".in").append(innerList);
       getPNum(list[i].pNum, list[i].bno);
+      // getImg(list[i].bno, count);
       getImg(list[i].bno, count);
+
       count++;
    }
+   $('.slider').bxSlider({
+	      speed : 300,
+	      touchEnabled : (navigator.maxTouchPoints > 0),
+	      onSliderLoad: function(){
+	         console.log("sliderLoad");
+	      },
+	      onSlideAfter: function(){
+	         $(".bx-next, .bx-prev").css("pointer-events", "auto");
+	         $("a").attr("onclick","return true");
+
+	      }
+	   });
 }
+
+$(document).on("click", ".bx-next, .bx-prev", function(){
+	   $(".bx-next, .bx-prev").css("pointer-events", "none");
+	   $("a").attr("onclick","return false");
+	})
 
 function addListMyFforf(data) {
       for (var i = 0; i < member.length; i++) {
@@ -230,7 +242,7 @@ function addListMyFforf(data) {
          innerList = '<div class="neighbor"><div class="pro"><a href="/member/myPage?num=1&userID='+member[i].id+'"><img width="100" height="100" alt="" src='
                + member[i].mImg
                + ' /></a></div><div class="nickname">'
-               + textOverCut(member[i].mNickname,"nickname") + '님</div></div>';
+               + member[i].mNickname + '</div></div>';
          $(".in").append(innerList);
       }
    }
@@ -243,7 +255,7 @@ function addListMyFforf(data) {
                + ' /></a></div><div class="dh"><div class="ti">'
                + getTimeStamp(following[i].folDate)
                + '</div><div class="nicknamee">'
-               + textOverCut(member[i].mNickname,"nickname")
+               + member[i].mNickname
                + '님</div><p>회원님에게 이웃 요청을 보냈습니다</p><div class="check"><button class="yes" type="button" onclick="follow('+i+')">수락</button><button class="no" type="button" onclick="unFollow('+i+')">거절</button></div></div>';
          $(".in").append(innerList);
       }
@@ -291,20 +303,6 @@ function unFollow(i){
       }
 }
 
-function textOverCut(text, type) {
-   var lastText = "...";
-
-   if(type == "title"){
-      var len = 12;
-   } else{
-      var len = 10;
-   }
-   if (text.length > len) {
-      return text.substr(0, len) + lastText;
-   } else {
-      return text;
-   }
-}
 
 function getTimeStamp(time) {
 
@@ -313,15 +311,16 @@ function getTimeStamp(time) {
    var year;
    var month;
    var day;
+   
    if(sessionStorage.getItem("nav") == "list"){
    if ((curTime.getTime() - d.getTime()) / (1000 * 60 * 60 * 24) >= 1) {
 
       year = d.getFullYear() + '-';
 
-      if (d.getMonth() < 10) {
-         month = "0" + d.getMonth() + '-';
+      if (d.getMonth() < 9) {
+         month = "0" + (d.getMonth() + 1) + '-';
       } else {
-         month = d.getMonth() + '-';
+         month = (d.getMonth() + 1) + '-';
       }
 
       if (d.getDate() < 10) {
@@ -338,8 +337,12 @@ function getTimeStamp(time) {
                / (1000 * 60 * 60))
                + "시간전";
       } else {
+         if(Math.round((curTime.getTime() - d.getTime()) / (1000 * 60)) == 0){
+            return "방금 전";   
+         } else{
          return Math.round((curTime.getTime() - d.getTime()) / (1000 * 60))
-               + "분전";
+            + "분전";
+         }
       }
    }
    } else{
@@ -349,8 +352,12 @@ function getTimeStamp(time) {
                   / (1000 * 60 * 60))
                   + "시간전";
          } else {
+            if(Math.round((curTime.getTime() - d.getTime()) / (1000 * 60)) == 0){
+               return "방금 전";   
+            } else{
             return Math.round((curTime.getTime() - d.getTime()) / (1000 * 60))
-                  + "분전";
+               + "분전";
+            }
          }
       } else if((curTime.getTime() - d.getTime()) / (1000 * 60 * 60 * 24) < 7) {
          return Math.floor((curTime.getTime() - d.getTime()) / (1000 * 60 * 60 * 24)) + "일전";
@@ -361,6 +368,21 @@ function getTimeStamp(time) {
 }
 
 
+function getImgSlider(bno, count){
+   for(var i=0; i<file[count].length;i++){
+      imgSlider(bno, i, file[count][i].fileName);
+   }
+}
+
+function imgSlider(bno, index, fileName){
+   var imgInner;
+   imgInner = '   <li class="sliderItem">';
+   imgInner += '     <a href="/board/view?bno=' + bno + '">';
+   imgInner += '        <img id="img_' + bno + '_' + index + '" alt="" src=' + "/img/thumb/" + fileName +  '>';
+   imgInner += '     </a>';
+   imgInner += '  </li>';
+   $("#slider_" + bno).append(imgInner);
+}
 
 function getPNum(pNum, bno) {
    switch (pNum) {
@@ -375,22 +397,78 @@ function getPNum(pNum, bno) {
    }
 }
 
+
 function getImg(bno, count) {
+   var iCount;
+   var imgFlag = true;
    for (var i = 0; i < 4; i++) {
-      if (file[count][i] != undefined) {
-         $("#img_" + bno).append(
-               '<a href="/board/view?bno=' + bno
-               + '"><img width="100" height="100" id="img_' + bno
-               + '_' + i + '" alt="" src=' + file[count][i].path
-               + '></a>');
+      iCount = i;
+      if (likeImg[count][i] != undefined) {
+         var imgObj = file[count].filter(function (obj) { return obj.id == likeImg[count][i].imgBno });
+         //printImg(bno, i, imgObj[0].fileName)
+         imgSlider(bno, i, imgObj[0].fileName);
+
       } else {
-         break;
-      }
-      if(file[count].length > 4){
-         console.log("+"+ (file[count].length - 4));
+         var j = 0;
+         while (imgFlag) {
+            if ((file[count][j] != undefined) && (likeImg[count].filter(function (obj) { return obj.imgBno == file[count][j].id })[0] == undefined)) {
+               imgSlider(bno, iCount, file[count][j].fileName)
+               iCount++;
+            }
+            j++;
+            if (j >= file[count].length || iCount >= 4) {
+               imgFlag = false;
+            }
+         }
       }
    }
+   // if (file[count].length > 4) {
+   //    $("#img_" + bno).append("+" + (file[count].length - 4));
+   // }
 }
+
+function printImg(bno, index, path) {
+   var imgInner;
+   imgInner = '   <a href="/board/view?bno=' + bno + '">';
+   imgInner += '     <img width="100" height="100" id="img_' + bno + '_' + index + '" alt="" src=' + path + '>';
+   imgInner += '  </a>';
+   $("#img_" + bno).append(imgInner);
+}
+
+function getImgSlider(bno, count){
+   for(var i=0; i<file[count].length;i++){
+      imgSlider(bno, i, file[count][i].fileName);
+   }
+}
+
+function imgSlider(bno, index, fileName){
+   var imgInner;
+   imgInner = '   <li class="sliderItem">';
+   imgInner += '     <a href="/board/view?bno=' + bno + '">';
+   imgInner += '        <img id="img_' + bno + '_' + index + '" alt="" src=' + "/img/thumb/" + fileName + '>';
+   imgInner += '     </a>';
+   imgInner += '  </li>';
+   $("#slider_" + bno).append(imgInner);
+}
+
+function number(n){
+      var number = parseFloat(n);
+      if(number > 1000000000){
+         return parseInt(number / 1000000000) + "." + parseInt((number % 1000000000) / 100000000) + "B";
+         // break;
+      } else if(number > 1000000){
+         return parseInt(number / 1000000) + "." + parseInt((number % 1000000) / 100000) + "M";
+         // break;
+      } else if(number > 1000){
+         return parseInt(number / 1000) + "." + parseInt((number % 1000) / 100) + "K"
+         // break;
+      } else {
+         return number;
+      }
+   }
+
+
+
 
 function loginPopup() {
    if (document.getElementById("loginPopup").style.display == "none") {
@@ -399,3 +477,11 @@ function loginPopup() {
       document.getElementById("loginPopup").style.display = "none";
    }
 }
+
+function alamPopup() {
+    if (document.getElementById("alamPopup").style.display == "none") {
+       document.getElementById("alamPopup").style.display = "";
+    } else {
+       document.getElementById("alamPopup").style.display = "none";
+    }
+ }
