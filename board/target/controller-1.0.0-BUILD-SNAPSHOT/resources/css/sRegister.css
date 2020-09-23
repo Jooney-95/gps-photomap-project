@@ -1,0 +1,326 @@
+@charset "UTF-8";
+*:focus { outline:none; }
+
+/*///////////////////////////////*/
+
+
+
+
+body{
+   background:#f9f9f9;
+}
+
+
+
+/*///////////회원가입 폼////////////*/
+form{
+   display: block;
+   border:1px solid #f8f8f8;
+   border-radius:10px;
+   text-align:left;
+   margin-top:30px;/*헤더와 멀게 하기위해*/
+   width:100%;
+   
+}
+/*가운데 흰색창*/
+.register{
+   
+   border-radius:10px;
+   width:700px;
+   height:600px;
+   text-align:center;
+   margin:0 auto;
+   -webkit-box-shadow: 10px 10px 2px -4px#f8f8f8;
+    -moz-box-shadow: 10px 10px 2px -4px #f8f8f8;
+    box-shadow: 10px 10px 2px -4px #f8f8f8;
+    background:#fff;
+    margin-bottom:40px;
+}
+
+
+
+
+/*/////////TOP 수정////////////*/
+.top{
+   text-align:center;
+   font-weight:bold;
+   padding-top:20px;
+   padding-bottom:10px;
+   
+   
+}
+
+p{
+   font-size:20px;
+   color:#4c4c4c;
+   text-align:center;
+   font-weight:bold;
+   
+   
+   
+}
+
+
+
+
+/*//////////가운데 속성들/////////*/
+.middle{
+   /*width:800px;;*/
+   margin-top:23px ;
+   /*height:600px;*/
+   max-height:600px;
+   text-align:center;
+   display:inline-block;
+ margin-left:25px;
+   
+   
+}
+
+
+.info{
+   
+  
+   border-radius:3px;
+   width:580px;
+   height:45px;
+   text-align:left;
+   display:inline-block;
+   margin:15px;
+   margin-bottom:17px;
+  
+      
+   
+}
+
+.middle input[type="text"]
+
+{
+   
+  
+   width:350px;
+   height:40px;
+   border:none;
+   transition:0.35s;/*애니메이션을 주기위에 부모 부터 주기*/
+   border-bottom:2px solid #eee;
+   border-radius:10px;
+   font-size:12px;   
+   padding-left:15px;
+}
+.middle input[type="password"]{
+   
+  
+   width:358px;
+   height:40px;
+   border:none;
+   transition:0.35s;/*애니메이션을 주기위에 부모 부터 주기*/
+   border-bottom:2px solid #eee;
+   border-radius:10px;
+   font-size:12px;   
+   padding-left:15px;
+}
+
+
+.middle input[type="text"]:focus,
+.middle input[type="password"]:focus{
+   
+   background: #f9f9f9;
+   border:none;
+   border-radius: 10px;
+  
+}
+
+.middle input[type="email"]{
+  
+   width:185px;
+   height:46px;
+   border:none;
+   transition:0.35s;/*애니메이션을 주기위에 부모 부터 주기*/
+   border-bottom:2px solid #eee;
+   border-radius:10px;
+   padding-left:15px;
+   font-size:12px;
+} 
+/*이메일 @ 뒤 박스 속성*/
+.middle #email2{
+  
+   width:150px;
+   height:46px;
+   border:none;
+   transition:0.35s;/*애니메이션을 주기위에 부모 부터 주기*/
+   border-bottom:2px solid #eee;
+   border-radius:10px;
+   padding-left:15px;
+   font-size:12px;
+} 
+ 
+ .middle input[type="email"]:focus,
+ .middle input[type="email2"]:focus{
+   
+   background: #f9f9f9;
+   border:none;
+   border-radius: 10px;
+
+}
+ 
+ 
+/*중복 확인 버튼*/
+.info button{
+   border-radius:15px;
+   background:#fff;
+   border:1px solid #9fd7bf;
+}
+
+#nicknameCheck, #idCheck{
+   border-radius:12px;
+   background:#fff;
+   border:2px solid #9fd7bf;
+   padding:7px;
+   margin-left:15px;
+   font-size:10px;
+   
+}
+
+
+#nicknameCheck:hover,
+#idCheck:hover{
+   background:#9fd7bf;
+   color:#fff;
+}
+
+/*중복 및 사용가능 알림 글자*/
+.info #nicknameMsg,
+.info #idMsg,
+.info #pwConfirm{
+   font-size:12px;
+   color:#ff4848;
+   text-align:left;
+   margin-left: 48px;
+   margin-top: 5px;
+}
+.infos{
+    background: #f6ee8;
+   border-radius:3px;
+   width:580px;
+   height:45px;
+   text-align:left;
+   display:inline-block;
+   margin:15px;
+   margin-bottom:17px;
+  
+}
+select {
+   border-radius:12px;
+   background:#fff;
+   border:2px solid #9fd7bf;
+   padding:7px;
+   padding-left:10px;
+   margin-left:15px;
+  font-size:11px;
+  width: 95px;
+  top: 593px;
+    position: absolute;
+   
+
+
+}
+
+
+
+/*//////// 아이콘  ///////////*/
+
+#icon{
+   text-align:center;
+}
+/*////////  아이콘들  ///////////*/
+.middle i{
+   
+   color:#3d5bb6;
+   display: inline-block;
+   text-align:center;
+   padding-right:5px;
+   margin-right:10px;
+
+
+}
+
+.middle #pwHidden{
+   margin-left:10px;
+   
+}
+
+/*/////////////////////////////*/
+
+
+
+/*//////// 버튼  ///////////*/
+.low{
+   width:265px;
+   height:65px;
+   margin-top:30px;
+   text-align:center;
+   display:inline-block;
+   padding:10px;
+   -webkit-transition: 0.25s;
+
+}
+button{
+    transition: 0.25s;
+}
+.low button{
+  width:70px;
+   height:40px;
+   border:none;
+   background-color:#f8f8f8;
+   border-bottom: 5px solid #eee;
+   color:#000;
+   -webkit-transition: 0.25s;
+   
+
+}
+   
+.low button:hover{
+   transform: translate(0px,5px);
+   -webkit-transform: translate(0px,5px);
+   border-bottom: 1px solid #eee;
+   cursor:pointer;
+   
+   
+
+}
+.back{
+   margin-left:30px;
+}
+.next{
+   margin-right:30px;
+}
+.pg{
+   text-align:center;
+   
+   
+}
+/*progress이미지*/
+img{
+   width:480px;
+   height:25px;
+   margin-top:120px;
+   display:inline-block;
+   
+}
+
+div.main{
+    position: relative;
+    padding: 20px;
+}
+div.main input{
+    width: 300px;
+    height: 30px;
+    background-color: black;
+    border: 0;
+    color: white;
+    text-indent: 10px;
+}
+
+/* 비밀번호 보이기/숨기기 아이콘 */
+div.main i {
+   
+}

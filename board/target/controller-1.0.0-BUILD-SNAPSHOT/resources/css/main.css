@@ -1,0 +1,440 @@
+button:focus { outline:none; }
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: sans-serif;
+  font-size: 18px;
+}
+
+
+.main{
+    text-align:center;
+    width:1070px;
+    overflow:hidden;
+    height:auto;
+    margin:0 auto;  
+    margin-top:110px;  
+    margin-bottom:50px;
+    border-radius:5px;  
+    padding-top:10px;
+    padding-bottom:100px;
+    position:relative;
+}
+
+.wrapper
+{   
+   background:#fff;
+   align-items: center;
+   text-align:center;
+   width:1070px;
+   height:auto;
+   margin:0 auto;/*form안에 div .wrapper 요소 가운데 오기*/ 
+   min-height:500px; 
+}
+.list{
+   width:1014px;
+   height:50px;
+   background:#fff;
+   margin:0 auto;
+   text-align:center;
+    display:flex;
+   flex-flow:row nowrap;
+   justify-content: center;
+      text-align:center;
+}
+.list div{
+   width:90px;
+   height:30px;
+   font-size:12px;
+/*   display:inline-block;
+  */ cursor:pointer;
+   text-align:center;
+   margin:0 20px;
+   padding-top:5px;
+   color:#bbb;
+ 
+}
+
+
+
+#best:hover{
+   color:#000000;
+   font-size:13px; 
+}
+#latest:hover{
+   color:#000000;
+   font-size:13px; 
+}
+#neighbor:hover{
+   color:#000000;
+   font-size:13px;  
+}
+#category:hover{
+   color:#000000;
+   font-size:13px;  
+}
+
+
+#best i,#latest i,#neighbor i,#category i{
+  
+   width:25px;
+   margin-top:10px;
+   margin-bottom:5px;
+   font-size:13px;   
+}
+#table{
+    width:320px;
+    height:320px;
+    border: 1px solid #d7d8d7;
+    border-radius:10px;
+    background:#fff;
+    margin-top:20px;
+    float:left;
+    margin-left:20px;
+    display: inline-block;
+    background:#fff;
+    margin-bottom:20px;
+    
+}
+
+/*////////////////상단///////////////////*/
+
+#left{
+   float:left;
+   width:50px;
+   height:40px;
+   padding-top:6px;
+}
+
+#table .writer a img{
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 77%;
+    margin-left:10px;
+    float:left;
+}
+
+ul li{
+   list-style:none;
+}
+
+.name{ 
+   width:135px;
+   height:30px;
+   text-align:left;
+   float: left;
+   padding-left:10px;
+   padding-top:5px;
+   font-size:13px;
+   color:#3b3f58; 
+   margin-top:12px;
+   font-weight:bold;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
+.name a{
+   text-decoration:none;
+   color:#3b3f58;   
+}
+
+/*********링크 방문 후*********/
+.name a:visited{
+   text-decoration:none;
+     color:#3b3f58;
+}
+
+/*********링크 마우스 오버*********/
+.name a:hover{
+   text-decoration:none;
+   color:#10b27d;
+   text-shadow: 0 0 24px;
+}
+
+/*///////////상단 날짜 or 시간//////////*/
+.r-1{   
+   padding-right:15px;
+   width:120px;
+   height:30px;
+   float:right;
+   margin-top:5px;
+}
+
+.date{
+   width:80px;
+   height:18px;
+   color:#3b3f58;
+   font-size:12px;
+   text-align:right;
+   float:right;
+   margin-top:5px;
+}
+
+/*공개범위*/
+.pNum{
+   width:20px;
+   height:18px;
+   margin-left:5px;
+   float:right;
+}
+.pNum i{
+   font-size:12px;
+   color:#c5c0c0;
+}
+
+/*조회수*/
+#viewCnt{
+   width:100px;
+   height:15px;
+   float: right;
+   font-size:10px;
+   text-align:right;
+   margin-top:5px;
+   margin-right:4px;  
+}
+
+
+
+
+
+/*//////////////////하단////////////*/
+#title{  
+   width:318px;
+   height:40px;
+   text-align:left;
+   padding-top:20px;
+   padding-left:12px;
+   font-size:13px;
+   position:relative;
+   float:left;
+}
+#title i{
+   font-size:18px;
+   color:#86a845;
+   margin-top:3px;
+}
+
+#title a{
+   text-decoration:none;
+   color:#0000000; 
+   margin-left:5px;
+}
+/*********링크 방문 후*********/
+#title a:visited{
+   text-decoration:none;
+   color:#000000;
+}
+
+/*********링크 마우스 오버*********/
+#title a:hover{
+   text-decoration:none;
+   color:#10b27d;
+   text-shadow: 0 0 24px;
+}
+#ta{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width:222px;
+  position:absolute;
+}
+/*공감수*/
+#likeCnt{
+   width:60px;
+   height:25px;
+   color:#fdb330;
+   margin-right:12px; 
+   font-size:14px;
+   text-align:right;
+   float:right;  
+}
+#likeCnt i{
+padding:5px;
+background-color:#fff;
+color:#fdb330;
+border:1px solid #f4f1e8;
+border-radius:50px;
+box-shadow: 0px 0px 2px 1px  #f4f1e8;
+margin-right:5px;
+font-size:13px;
+}
+
+
+
+
+
+.downimg{
+ display:block;
+ width:318px;
+ height:210px;  
+ margin-top:50px;
+}
+.downimg img{
+float:left;
+width:318px;
+height:210px;
+
+ }
+ 
+#pagelist{
+    width:500px;
+    height:50px; 
+    position:absolute; 
+    bottom:15px;
+    padding:10px;  
+    margin-left:300px;
+  /* border:1px solid #000;*/
+}
+
+.ttop{
+   width:525px;
+   height:80px;
+   margin:0 auto;
+   margin-bottom:10px;
+}
+
+.set{
+   width:525px;
+    height:auto;
+   font-size:23px;
+   text-align:left;
+   margin-top:30px;
+   color:#000000;
+   font-weight:bold;
+}
+.set2{
+   width:525px;
+    height:auto;
+   font-size:14px;
+   text-align:left;
+   margin-top:15px;
+   color:#000000;
+}
+
+.kategorie.hidden{
+   width:525px;
+   height:auto;
+   background:#fff;
+   margin:0 auto;
+   text-align:left;
+}
+.kate input{
+   display:none;
+}
+.kategorie.hidden p{
+   font-size:15px;
+   color:#b3b3b3;
+   margin-top:10px;
+}
+.thema{
+   width:525px;
+   height:110px;
+   background:#fff;
+   margin:0 auto;
+   margin-top:6px;
+   margin-bottom:20px;
+   text-align:center;
+   color:#000000;
+}
+.area{
+   width:525px;
+   height:145px;
+   background:#fff;
+   margin:0 auto;
+   margin-top:6px;
+   margin-bottom:20px;
+   text-align:center;
+   color:#000000;
+}
+.group{
+   width:525px;
+   height:100px;
+   background:#fff;
+   margin:0 auto;
+   margin-top:6px;
+   margin-bottom:20px;
+   text-align:center;
+   color:#000000;
+}
+
+
+
+.kate{
+   width:100px;
+   height:30px;
+   float:left;
+   border: 0.12em solid #8fc866;
+  color: #000000;
+  -webkit-transition: 0.25s;
+  transition: 0.25s;
+     font-size:12px;
+  background: none;
+  cursor:pointer;
+  margin: 0.25em 0.25em 0 0;
+  
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 #66c887;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 #66c887;
+  }
+}
+
+.kate:hover{
+  box-shadow: inset 10em 0 0 0 #66c887;
+  border-color: #66c887;
+  color: #fff;
+}
+.kate input:checked ~ label{
+  border-color: #66c887;
+  color:#fff;
+  background:#8fc866;
+}
+
+.kate input,.kate label{
+   cursor:pointer;
+}
+.kate label{
+	display:block;
+   width:100px;
+  height:30px;
+  padding:5px;
+}
+.kateall{
+   width:150px;
+   height:30px;
+   font-size:12px;
+   cursor:pointer;
+   text-align:left;
+   color:#929392;
+   float:left;
+}
+.kateall label{
+   cursor:pointer;
+}
+
+.check{
+   float:right;
+}
+.check button{
+   width:100px;
+   height:30px;
+   cursor:pointer;
+}

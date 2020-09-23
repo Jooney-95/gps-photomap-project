@@ -1,0 +1,279 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+button:focus { outline:none; }
+
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: sans-serif;
+  font-size: 18px;
+}
+
+
+/*/////////////   /////////////*/
+#header {
+  background: #1CDD9E;
+  font-color:#fff; 
+  width: 100%;/*        */
+  height:100px; /*        */
+  /*        */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index:100;
+}
+/*////////////////////////////*/
+
+
+
+/*/////////// ΰ //////////////*/
+.logo {
+  float: left;
+  padding: 25px 0 0 10px;
+}
+.logo a {
+  color: #fff;
+  font-size: 40px;
+  display: block;
+  padding: 0 0 0px 20px;
+  text-decoration: none; 
+  font-family: 'Fredoka One', cursive;
+}
+/*///////////////////////////*/
+
+
+/*/////////////// ˻ â/////////////////*/
+.search {
+  width: 500px;
+  position: relative;
+  display: flex;
+}
+
+.ss{
+  width:100px;
+  border: 3px solid #10b27d;
+  padding: 10px;
+  height: 50px;
+  border-radius: 5px;
+  color: #9dbfaf;
+  margin-right:5px;
+  cursor: pointer;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 3px solid #10b27d;
+  border-right: none;
+  padding: 10px;
+  height: 50px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9dbfaf;
+}
+
+.searchTerm:focus {
+  color: #000000;/* ˻      ؽ Ʈ  */
+}
+
+.searchButton {
+  width: 60px;
+  padding: 10px;
+  height: 50px;
+  border: 1px solid #10b27d;
+  background: #10b27d;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.wrap {
+  width: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+/*///////////////////////////////*/
+
+.log{ 
+  display: inline-block;
+  vertical-align: middle;
+  height: 100px;
+  width: 250px;
+  float:right;
+  padding:10px;
+  font-size: 15px;
+  margin-right:10px;
+}
+
+
+/*///////////로그인전 프로필 위치///////*/
+#rr{
+  width: 80px;
+  height:80px;
+  text-align:center;
+  float:right;
+}
+#rr img{
+   width:50px;
+   height:50px;
+   margin-top:15px;
+}
+/*///////////////////////////////*/
+
+
+/*//////////로그인 후 오른쪽 버튼 위치////*/
+#r{
+  width: 90px;
+  height:80px;
+  text-align:center;
+  float:right;
+}
+
+.profile{
+  width: 43px;
+  height:43px;
+  margin:0 auto;
+  margin-top:12px;
+  text-align:center;
+  cursor: pointer;
+  overflow:hidden;
+}
+
+.profile img{
+   width:43px;
+   height:43px;
+   border: 2px solid #10b27d;
+   border-radius: 77%;
+}
+
+#r p{
+   font-size: 13px;
+   width:62px;
+   height:17px;
+   margin:0 auto;
+   margin-top:5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#alam{
+  display: inline-block;
+  vertical-align: middle;
+  width: 60px;
+  height:50px;
+  text-align:center;
+  float:right;
+  margin-top:15px;
+  z-index:110;
+  cursor: pointer;
+}
+
+#alam i{
+   margin:0 auto;
+   font-size:30px;
+   margin-top:10px;
+   color:#10b27d;
+}
+
+#alam i:hover{
+      color:#fff;
+}
+
+#writebutton{
+  display: inline-block;
+  vertical-align: middle;
+  width: 60px;
+  height:50px;
+  text-align:center;
+  float:right;
+  margin-top:15px;
+  z-index:110;
+}
+
+#writebutton i{
+   margin:0 auto;
+   font-size:35px;
+   margin-top:7px;
+   color:#10b27d;
+}
+#writebutton i:hover{
+      color:#fff;
+}
+/*////////////////////*/
+
+.pop{
+   width:140px;
+   height:100px;
+   background:#fafafa;
+    margin-left:89%;
+   margin-top:100px;
+    text-align:center;
+    box-shadow: -1px 1px 10px #e9e9e9;
+}
+.pop div{
+   width:140px;
+   height:50px;
+   text-align:center;
+   padding-top:15px;
+   font-size:15px;
+}
+.pop div:hover{
+      background:#e9e9e9;
+      border-radius: 5px;
+      border: 1px solid #e9e9e9;
+}
+
+.pop a{
+   text-decoration:none;
+    color:#000;
+}
+.pop i{
+   color:#fdb330;
+}
+
+/*////////////////////*/
+.apop{
+    width:300px;
+    height:200px;
+    background:#fafafa;
+    margin-left:76%;
+    margin-top:102px;
+    text-align:center;
+    box-shadow: -1px 1px 10px #e9e9e9;
+    border-radius: 4px;
+    border: 0px solid #fafafa;
+}
+.apop div{
+    width:300px;
+    height:200px;
+    text-align:center;
+    padding-top:15px;
+    font-size:15px;
+    border-radius: 5px;
+    border: 1px solid #fff;
+}
+.apop div:hover{
+      background:#e9e9e9;
+      border-radius: 5px;
+      border: 1px solid #e9e9e9;
+}
+
+.apop a{
+   text-decoration:none;
+    color:#000;
+}
+.apop i{
+   color:#fdb330;
+}

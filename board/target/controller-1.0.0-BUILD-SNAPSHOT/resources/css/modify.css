@@ -1,0 +1,507 @@
+@charset "UTF-8";
+button:focus,input:focus,textarea:focus { outline:none; }
+
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+   background:#f9f9f9;
+  font-family: sans-serif;
+  font-size: 18px;
+}
+
+
+/*//////////////게시물 작성 틀//////////////////*/
+.main{
+   text-align:center;
+    width:65%;
+    overflow:hidden;
+    height:auto; /* 정렬하려는 요소의 넓이를 반드시 지정 */ 
+    background:#fff;
+    border: 1px solid #f3f3f3;  /*테두리*/
+    margin:0 auto;  /*페이지의 가운데오게 함*/
+    margin-top:140px;  /*틀 위의 공간*/
+    border-radius:5px;  /*모서리둥글게*/
+    padding-top:20px;
+    padding-bottom:50px;
+}
+/*//////////////////////////////////*/
+
+/*//////////////반반 뷰 작성 틀//////////////////*/
+.mainright{
+   text-align:center;
+    width:50%;
+    overflow:hidden;
+    height:auto; /* 정렬하려는 요소의 넓이를 반드시 지정 */ 
+    border: 2px solid #d7d8d7;  /*테두리*/
+    margin:0 auto;  /*페이지의 가운데오게 함*/
+    margin-top:140px;  /*틀 위의 공간*/
+    margin-left:45%;
+    border-radius:5px;  /*모서리둥글게*/
+    padding-top:20px;
+    padding-bottom:50px;
+    
+}
+/*//////////////////////////////////*/
+/*/////////////제목, 작성자///////////*/
+#top input{
+   width:500px;
+   height:50px;
+   display: inline-block;
+   padding-left:10px;
+   margin-top:20px;
+   border:none;
+  border-bottom: 2px solid #eee;  /*테두리*/
+   border-radius:10px;  /*모서리둥글게*/
+    background: #f9f9f9;
+}
+
+
+
+/*////////////이미지 등록///////////*/
+.button-wrapper {/*이미지 등록영역*/
+  position: relative;
+  width: 100%;
+  display: inline-block;
+  margin-top:20px;
+  text-align: center;
+}
+.button-wrapper span.label {/*파일업로드 버튼 꾸미기*/
+  position: relative;
+  display: inline-block;
+  width: 40%;
+  background: #1CDD9E;
+  cursor: pointer;
+  color: #fff;
+  padding: 10px 0;
+  text-transform:uppercase;
+  font-size:15px;
+  z-index: 0;
+}
+
+#input_imgs {/*인풋 파일 버튼 크기*/
+    display: inline-block;
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+    z-index:1;
+}
+#text p{
+     width: 100%;
+     display: inline-block;
+       text-align: center;
+       margin-top:10px;
+       margin-left:15px;
+       font-size: 10px;
+}
+/*//////////////////////////////////*/
+
+
+
+
+
+
+/*////////////업로드될 타임라인 영역///////////*/
+.middle{
+  width:80%;
+   overflow:hidden;/*스크롤바 숨기기*/
+    min-height:300px;/*최소높이*/
+    cols="100";
+    rows="5";
+   border: 1px solid #f8f8f8; /* 테두리*/
+   border-radius:20px;  /*모서리둥글게*/
+   padding: 20px;
+   margin-top:20px;
+   display:inline-block;
+   box-shadow:3px 3px 2px 2px #f8f8f8;/*그림자효괴*/
+   background:#fff;
+   
+}
+
+/*#middle:hover{
+   background-color:#ddfee6;
+   box-shadow:2px 2px #d7d8d7;
+}*/
+/*//////////////////////////////////*/
+
+
+
+/*/////////////타임라인 왼쪽/////////////*/
+.left{
+  
+   float:left;
+   width:50%;
+    height:347px;
+  
+}
+.leftone{
+   float:left;
+   width:100%;
+   height:40px;
+   display: flex;
+   flex-flow:row nowrap;
+   overflow:hidden;
+   
+}
+.leftone i{
+   float:left;
+   font-size:20px;
+   padding-left:8px;
+   padding-top:4px;
+   color:#10b27d;
+}
+.leftone input{
+   float:left;
+   font-size:14px;
+   width:225px;
+   width:225px;
+  /* margin-top:9px;*/
+   padding-left:7px;
+   border:none;
+   
+}
+.lefttwo{
+  
+   float:left;
+   width:100%;
+   border:1px dashed #f9f7f2;
+   height:270px;
+   border-radius:5px;
+   /*가운데 사진*/
+   display:flex;
+   justify-content:center;
+   align-items:center;
+}
+.border2{
+   border:1px solid #1cdd9e;
+   
+   float:left;
+   width:100%;
+  
+   height:270px;
+   border-radius:5px;
+   /*가운데 사진*/
+   display:flex;
+   justify-content:center;
+   align-items:center;
+    
+}
+.lefttwo img{
+  /*가운데 사진*/
+   max-width:100%;
+   max-height:100%;
+  
+     /*width: auto;
+    height: auto;
+   display:block;
+   text-align:center;
+   margin:0px auto;/*div 안 이미지 가운데 */
+  
+   }
+ 
+.imgselect2{
+   
+   
+    filter: brightness(65%);        
+   
+}
+
+.leftthree{
+   width: 100%;
+    display: flex;
+    bottom: 273px;
+    position:relative;
+}
+
+
+
+/*/////////////타임라인 오른쪽/////////////*/
+.right{
+   float:right;
+   width:50%;
+   height:347px;
+   text-align:center;
+}
+.one{
+   
+   color:#909090;
+   width:90%;
+   height:40px;
+   max-height:40px; 
+   margin: auto;
+   display:flex;
+   flex-flow: row nowrap;
+   justify-content: space-between;/*양옆에 간격을 일정하게 두고 div가운데가 띄어짐*/
+   overflow:hidden;
+   white-space:nowrap;/*줄바꿈 금지!!!!!!!!!!!!!*/
+}
+.one i{
+   color:#10b27d;
+}
+
+.one .star{
+   overflow:hidden;
+   text-align: left;
+   font-size: 14px;
+   display: flex;
+    flex-flow: row nowrap;
+   align-items: center;
+   flex-grow: 1;
+    width:40%;
+   
+}
+
+.star .star1{
+   height: 25px;
+    width: 60px;
+   font-size:10px;
+    border:1px solid #f8f8f8;
+    border-radius:5px;
+    background:#fff;
+    color:#1cdd9e;
+    white-space:nowrap;
+    padding:3px; 
+    cursor:pointer;
+   }
+   
+   
+.star .star2{
+   height: 25px;
+    width: 60px;
+   font-size:10px;
+    border:1px solid #1cdd9e;
+    border-radius:5px;
+    background:#1cdd9e;
+    color:#fff;
+    white-space:nowrap;
+    padding:3px; 
+    cursor:pointer;
+   }   
+   
+.one .time{
+   overflow:hidden;
+   display: flex;
+   flex-flow: row-reverse nowrap;
+   align-items: center;
+   flex-grow: 1;/*one div의 속성 값*/
+    border: 1px solid;
+    width:60%;
+    border:none;
+    
+}
+   
+.time input{
+text-align: right;
+width: 115px;
+border: none;
+ color:#909090;
+  
+}
+
+/*
+.one input{
+   
+   margin-top:9px;
+    color:#909090;
+   text-align:right;
+   display:inline-block;
+   width:100%;
+   padding-right:16px;
+   border:none;
+   
+  
+}*/
+
+.two{
+   
+   width:100%;
+   height:270px;
+   max-height:270px;
+   display:inline-block;
+   overflow: hidden;/*박스 div요소안에서 안넘어감*/
+  
+}
+   
+
+.two textarea{
+   height:100%;
+   padding:10px;
+   margin-top:0px;
+   margin-bottom:10px;
+   display:inline-block;
+   resize:none;
+   border-radius:5px;
+   border:none;
+   background:#fafafa;
+}
+
+
+ul li{
+   list-style:none;
+}
+
+/*//////////////////////////////////*/
+
+/*////////////////삭제////////////////*/
+.down{
+   width:100%;
+   height:auto;
+   margin-top:20px;
+   text-align:center;
+   display:inline-block;
+   padding:10px;
+   -webkit-transition: 0.25s;
+     
+}
+ .down button{
+ border-radius:5px;
+   width:85px;
+   height:45px;
+   border:none;
+   background-color:#f8f8f8;
+   border-bottom: 5px solid #eee;
+   /*text-shadow: 0px -2px #a2d89f;*/
+   color:#000;
+   
+   -webkit-transition: 0.25s;
+   text-align:center;
+    display:inline-block;
+   }
+.down button:hover{ /*마우스를 눌렀을 때 효과를 주려면 active로 변경*/
+
+   transform: translate(0px,5px);
+  -webkit-transform: translate(0px,5px);
+  color:#000;
+   background:#f3d2d3;
+   border-bottom: 2px solid #ebb6b7;
+   cursor:pointer;
+   
+}
+button{
+    transition: 0.25s;
+    
+}
+
+
+
+/*//////////////////////////////////*/
+
+
+
+
+
+
+/*///////////////공개범위//////////////*/
+#bottom1{
+   margin:20px 0;
+   
+}
+#bottom2{
+    width: 500px;
+    margin-top: 20px;
+    margin: auto;
+}
+
+a{
+   cursor:pointer;
+}
+.category{
+   font-size:13px;
+   padding: 5px;
+   border: 2px solid #fafafa;
+   box-shadow: rgb(250, 250, 250) 2px 2px 2px 2px;
+}
+.category label{
+   cursor:pointer;
+}
+.hide /*카테고리 서브메뉴 감싸는 큰 틀 (div)*/
+{
+   
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    border: 2px solid #f5f5f5;
+   border-bottom-left-radius: 10px;
+   border-bottom-right-radius: 10px;
+   padding:20px;
+   font-size: 15px;
+}
+
+.list{
+   float:left;
+}
+.list li{
+   padding: 5px;
+    text-align: left;
+}
+.list input[type=radio]{
+   width: 15px;
+    height: 15px;
+    margin: 5px;
+}
+/*//////////////////////////////////*/
+
+
+
+/*////////////업로드  버튼///////////*/
+button:focus { outline:none; }
+
+.button{
+   width:320px;;
+   height:65px;
+   /*border:1px solid #000;*/
+   margin:0 auto;
+   margin-bottom:100px;
+   margin-top:50px;
+   text-align:center;
+   
+}
+.upload{
+   
+    
+    /* margin-top:10px;*/
+    text-align:center;
+    margin:0 auto;
+    display:inline-block;
+    
+
+}
+
+button{
+    transition: 0.25s;
+}
+.upload button{
+   font-size:15px;
+   width:130px;
+   height:55px;
+   border:none;
+   background-color:#fff;
+   border:1px solid #eee;
+   border-bottom: 6px solid #eee;
+   border-radius:5px;
+   color:#000;
+   -webkit-transition: 0.25s;
+   
+}
+.upload button:hover{
+   
+   transform: translate(0px,5px);
+   -webkit-transform: translate(0px,5px);
+   border-bottom: 2px solid #eee;
+   cursor:pointer;
+   
+   
+}
+/*//////////////////////////////////*/

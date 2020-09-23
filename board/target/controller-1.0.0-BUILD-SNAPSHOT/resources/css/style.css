@@ -1,0 +1,128 @@
+
+body{
+    background:#fafafa;
+}
+
+#nav {
+	margin-top: 100px;
+}
+#header{
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 999;
+    background:white;
+    border-bottom:1px solid rgba(0,0,0,0.1);
+}
+
+#header.on{
+    position: fixed;
+}
+
+
+
+
+#header .inner{
+    width: 975px;
+    height: 77px;
+    margin: 0 auto;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    transition:all 1s;
+}
+
+#header.on .inner{
+    height:52px;
+}
+
+#header .inner .logo > a{
+    color:transparent;
+}
+
+#header .inner .logo .sprite_insta_icon{
+    position: relative;
+    margin-right: 30px;
+}
+
+#header .inner .logo .sprite_insta_icon:after{
+    content: '';
+    width: 1px;
+    height: 28px;
+    background: #000;
+    position: absolute;
+    right: -15px;
+    top: -4px;
+    transition:all .5s;
+}
+#header .inner .logo div{
+    vertical-align: middle;
+}
+
+#header .inner .logo div:nth-child(2){
+    transform:translateY(2px);
+    transition:all .5s;
+}
+
+#header.on .inner .logo .sprite_insta_icon:after{
+    opacity: 0;
+}
+#header.on .inner .logo div:nth-child(2){
+    opacity: 0;
+}
+
+#header .search_box{
+
+    position:relative;
+}
+
+#search-field{
+    width: 185px;
+    height: 28px;
+    background:#fafafa;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    padding:3px 30px;
+    color:#999;
+    font-weight: 400;
+    text-align: left;
+    font-size: 14px;
+    outline:none;
+}
+
+#search-field::placeholder{
+    font-size: 0;
+}
+
+#search-field:focus::placeholder{
+    font-size: 14px;
+}
+
+
+#header .search_box .fake_field{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform:translate(-50%,-50%);
+    pointer-events: none;
+}
+
+
+#search-field:focus ~ .fake_field > span:nth-child(1){
+    transform:translateX(-105px);
+}
+
+
+#search-field:focus ~ .fake_field > span:nth-child(2){
+    display: none;
+}
+
+#header .right_icons{
+    width: 132px;
+    display: flex;
+    justify-content: space-between;
+}
+#header .right_icons > div{
+
+}
