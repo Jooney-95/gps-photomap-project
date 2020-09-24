@@ -104,128 +104,196 @@ pageEncoding="UTF-8"%>
       
       <div id="bottom">
        <div id="bottom1">
-                    공개 범위 
-             <label><input type="radio" name="pNum" value="-1" checked="checked">  전체공개</label>
-             <label><input type="radio" name="pNum" value="${session.id }">  이웃공개</label>
-             <label><input type="radio" name="pNum" value="-2">  비공개</label>
+          
+                      공개 범위
+           <div id="range">  
+             <input type="radio" id="r1" name="pNum" value="-1" checked="checked"><label for="r1" class="h2-1"><i class="fas fa-globe-americas" ></i>전체 공개</label>
+            <input type="radio" id="r2" name="pNum" value="${session.id }"> <label for="r2" class="h2-2"><i class="fas fa-user-friends"></i>  이웃공개</label>
+            <input type="radio" id="r3" name="pNum" value="-2"> <label for="r3" class="h2-3"><i class="fas fa-lock"></i>  비공개</label>
+          
+         </div>
        </div>
        <div id="bottom2" >
            <div class="category" onclick="menu()">
-    
-             <label>카테고리 <i class="fas fa-angle-down"></i></label>
+             <label title="누르면 탭이 열려요!">카테고리 <i class="fas fa-caret-right"></i></label>
            </div>
            <div class="hide" style="display:none">
            <div class="list">
-            <ul>
-             
-             <li>
-             <input type="radio" id="none" name="kategorie" value="" checked>
-             <label for="none">카테고리 설정 안함</label>
-             </li>
-             
-             <li>
-                <span>테마별</span>
+            <div id="theme"><i class="fas fa-angle-double-right"></i>테마별</div>
+                  
+                  <span id="list1">
                    <input type="radio" id="a1" name="kategorie" value="a1">
                    <label for="a1">피크닉</label>
+                  </span>
+                  <span id="list1">
                    <input type="radio" id="b1" name="kategorie" value="b1">
                    <label for="b1">전시회</label>
+                  </span>
+                  <span id="list1">
                    <input type="radio" id="c1" name="kategorie" value="c1">
                    <label for="c1">박물관</label>
+                  </span>
+                  <span id="list1">
                    <input type="radio" id="d1" name="kategorie" value="d1">
                    <label for="d1">맛집투어</label>
+                  </span>
+                  <span id="list1">
                    <input type="radio" id="e1" name="kategorie" value="e1">
                    <label for="e1">사진명소</label>
+                  </span>
+                  <span id="list1">
                    <input type="radio" id="f1" name="kategorie" value="f1">
                    <label for="f1">드라이브</label>
+                   </span>
+                  <span id="list1">
                    <input type="radio" id="g1" name="kategorie" value="g1">
                    <label for="g1">데이트</label>
+                   </span>
+                  <span id="list1">
                    <input type="radio" id="h1" name="kategorie" value="h1">
                    <label for="h1">등산</label>
+                  </span>
+                  <span id="list1">
                    <input type="radio" id="i1" name="kategorie" value="i1">
                    <label for="i1">바다</label>
+                  </span>
+                  <span id="list1">
                    <input type="radio" id="j1" name="kategorie" value="j1">
                    <label for="j">강</label>
+                  </span>
+                  <span id="list1">
                    <input type="radio" id="k1" name="kategorie" value="k1">
                    <label for="k1">낚시</label>
+                  </span>
+                  <span id="list1">
                    <input type="radio" id="l1" name="kategorie" value="l1">
                    <label for="l1">액티비티</label>
+                  </span>
+                  <span id="list1">
                    <input type="radio" id="m1" name="kategorie" value="m1">
                    <label for="m1">호캉스</label>
-             </li>
+                  </span>
              
-             <li>
-                <span>지역별</span>
+          </div> 
+          
+          <div class="list">
+            <div id="theme"><i class="fas fa-angle-double-right"></i>지역별</div>
+                  <span id="list1">
                    <input type="radio" id="a2" name="kategorie" value="a2">
                    <label for="a2">서울특별시</label>
+                  </span>
+                  <span id="list1">
                    <input type="radio" id="b2" name="kategorie" value="b2">
                    <label for="b2">경기도</label>
+                  </span>
+                  <span id="list1">
                    <input type="radio" id="c2" name="kategorie" value="c2">
                    <label for="c2">인천광역시</label>
+                  </span>
+                  <span id="list1">
                    <input type="radio" id="d2" name="kategorie" value="d2">
                    <label for="d2">강원도</label>
+                  </span>
+                  <span id="list1">
                    <input type="radio" id="e2" name="kategorie" value="e2">
                    <label for="e2">대구광역시</label>
-                   <input type="radio" id="f2" name="kategorie" value="f2">
+                  </span>
+                  <span id="list1">
+                  <input type="radio" id="f2" name="kategorie" value="f2">
                    <label for="f2">경상북도</label>
+                   </span>
+                  <span id="list1">
                    <input type="radio" id="g2" name="kategorie" value="g2">
                    <label for="g2">부산광역시</label>
+                   </span>
+                  <span id="list1">
                    <input type="radio" id="h2" name="kategorie" value="h2">
                    <label for="h2">울산광역시</label>
-                   <input type="radio" id="i2" name="kategorie" value="i2">
+                  </span>
+                  <span id="list1">
+                    <input type="radio" id="i2" name="kategorie" value="i2">
                    <label for="i2">경상남도</label>
+                  </span>
+                  <span id="list1">
                    <input type="radio" id="j2" name="kategorie" value="j2">
                    <label for="j2">충청북도</label>
+                  </span>
+                  <span id="list1">
                    <input type="radio" id="k2" name="kategorie" value="k2">
                    <label for="k2">세종특별자치시</label>
+                  </span>
+                  <span id="list1">
                    <input type="radio" id="l2" name="kategorie" value="l2">
                    <label for="l2">대전광역시</label>
+                  </span>
+                  <span id="list1">
                    <input type="radio" id="m2" name="kategorie" value="m2">
                    <label for="m2">충청남도</label>
-                   <input type="radio" id="n2" name="kategorie" value="n2">
-                   <label for="n2">전라북도</label>
-                   <input type="radio" id="o2" name="kategorie" value="o2">
-                   <label for="o2">광주광역시</label>
-                   <input type="radio" id="p2" name="kategorie" value="p2">
-                   <label for="p2">전라남도</label>
-                   <input type="radio" id="q2" name="kategorie" value="q2">
-                   <label for="q2">제주특별시</label>
-             </li>
+                  </span>
+                  <span id="list1">
+                    <input type="radio" id="n2" name="kategorie" value="n2">
+                    <label for="n2">전라북도</label>
+                  </span>
+                  <span id="list1">
+                    <input type="radio" id="o2" name="kategorie" value="o2">
+                    <label for="o2">광주광역시</label>
+                  </span>
+                  <span id="list1">
+                    <input type="radio" id="p2" name="kategorie" value="p2">
+                    <label for="p2">전라남도</label>
+                  </span>
+                  <span id="list1">
+                    <input type="radio" id="q2" name="kategorie" value="q2">
+                    <label for="q2">제주특별시</label>
+                  </span>
              
-             <li>
-                <span>모임/단체별</span>
+          </div>   
+          
+          <div class="list">
+            <div id="theme"><i class="fas fa-angle-double-right"></i>모임/단체별</div>
+                  <span id="list1">
                    <input type="radio" id="a3" name="kategorie" value="a3">
                    <label for="a3">가족</label>
+                  </span>
+                  <span id="list1">
                    <input type="radio" id="b3" name="kategorie" value="b3">
                    <label for="b3">연인</label>
+                  </span>
+                  <span id="list1">
                    <input type="radio" id="c3" name="kategorie" value="c3">
                    <label for="c3">친구</label>
+                  </span>
+                  <span id="list1">
                    <input type="radio" id="d3" name="kategorie" value="d3">
                    <label for="d3">대학교</label>
-                   <input type="radio" id="e3" name="kategorie" value="e3">
+                  </span>
+                  <span id="list1">
+                    <input type="radio" id="e3" name="kategorie" value="e3">
                    <label for="e3">동아리</label>
+                  </span>
+                  <span id="list1">
                    <input type="radio" id="f3" name="kategorie" value="f3">
                    <label for="f3">동호회</label>
+                   </span>
+                  <span id="list1">
                    <input type="radio" id="g3" name="kategorie" value="g3">
                    <label for="g3">회사</label>
-             </li>
-             </ul>  
-           </div>  
-    
-           <div class="list">
-              <ul>
-                
-             </ul>  
-          </div>  
-           <div class="list">
-              <ul>
-                
-             </ul>  
-          </div>      
-   
-    </div>
+                   </span>
+                  
+             
+          </div>   
+          
+          
+           <div class="list_set">
+             <input type="radio" id="none" name="kategorie" value="" checked>
+             <label for="none">카테고리 설정 안함</label>
+        
+           </div>
+   </div>
       </div> 
  </div> 
- </div> 
+     </div>
+
      
       
       <div class=button>
@@ -269,6 +337,8 @@ function fitImgFrameSize(e){
    }
 }
 </script>
+
+
 
 
 </body>

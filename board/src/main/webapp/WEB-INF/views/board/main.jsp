@@ -96,17 +96,17 @@
          <i class="fas fa-users"></i><a>이웃게시물</a>
       </div>
             
-      <div class="listBold" id="category">
+      <div class="listBold" id="category" onclick="divShow();">
          <i class="fas fa-list"></i><a>카테고리 </a>
       </div>
    </div>
   
-     <div class="ttop">
+     <div class="ttop" id="ttop" style="display:none;">
          <p class="set">카테고리 설정</p>
          <p class="set2">카테고리를 선택하면 선택한 주제의 인기순, 최신순으로 정렬할 수 있습니다.<br></p>           
       </div>
    
-   <div class="kategorie hidden">
+   <div class="kategorie hidden" id="kategorie" style="display:none;">
         <p><i class="fas fa-caret-right"></i> 테마별</p>
          <div class="thema">
          <div class="kate">
@@ -273,7 +273,7 @@
          </div>
          
          <div class="check">
-            <button type="button">확인</button>
+            <button type="button" onclick="divHide();">확인</button>
          </div>
       </div>
    
