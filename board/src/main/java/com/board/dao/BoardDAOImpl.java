@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.board.domain.BoardVO;
 import com.board.domain.FollowVO;
 import com.board.domain.LikeVO;
+import com.board.domain.SaveVO;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -241,6 +242,24 @@ public class BoardDAOImpl implements BoardDAO {
 		} else {
 			return sql.selectList(namespace + ".getUserFolSearchPage", data);
 		}
+	}
+
+	@Override
+	public SaveVO saveCheck(SaveVO saveVO) throws Exception {
+		// TODO Auto-generated method stub
+		return sql.selectOne(namespace + ".saveCheck", saveVO);
+	}
+
+	@Override
+	public void savePage(SaveVO saveVO) throws Exception {
+		// TODO Auto-generated method stub
+		sql.insert(namespace + ".savePage", saveVO);
+	}
+
+	@Override
+	public void deletePage(SaveVO saveVO) throws Exception {
+		// TODO Auto-generated method stub
+		sql.delete(namespace + ".deletePage", saveVO);
 	}
 
 }

@@ -68,7 +68,9 @@ $(document).on("keypress", ".searchTerm", function (e) {
 });
 
 $(window).scroll(function () {
-  //      console.log("$(window).scrollTop() : " + $(window).scrollTop() + ", $(document).height() : " + $(document).height() + ", $(window).height() : " + $(window).height())
+  // console.log("$(window).scrollTop() : " + $(window).scrollTop() + ",
+	// $(document).height() : " + $(document).height() + ", $(window).height() :
+	// " + $(window).height())
   if (
     $(document).height() <= $(window).scrollTop() + $(window).height() + 500 &&
     pageNumber < page.endPageNum
@@ -250,7 +252,7 @@ function addListPage(data) {
     getPNum(list[i].pNum, list[i].bno);
     getMember(list[i].bno, count);
     getImg(list[i].bno, count);
-    //getImgSlider(list[i].bno, count);
+    // getImgSlider(list[i].bno, count);
 
     count++;
   }
@@ -259,7 +261,7 @@ function addListPage(data) {
     speed: 300,
     touchEnabled: navigator.maxTouchPoints > 0,
     onSliderLoad: function () {
-      //         console.log("sliderLoad");
+      // console.log("sliderLoad");
     },
     onSlideAfter: function () {
       $(".bx-next, .bx-prev").css("pointer-events", "auto");
@@ -354,7 +356,7 @@ function getImg(bno, count) {
       var imgObj = file[count].filter(function (obj) {
         return obj.id == likeImg[count][i].imgBno;
       });
-      //printImg(bno, i, imgObj[0].fileName)
+      // printImg(bno, i, imgObj[0].fileName)
       imgSlider(bno, i, imgObj[0].fileName);
     } else {
       var j = 0;
@@ -376,7 +378,7 @@ function getImg(bno, count) {
     }
   }
   // if (file[count].length > 4) {
-  //    $("#img_" + bno).append("+" + (file[count].length - 4));
+  // $("#img_" + bno).append("+" + (file[count].length - 4));
   // }
 }
 
@@ -462,3 +464,14 @@ function alamPopup() {
     document.getElementById("alamPopup").style.display = "none";
   }
 }
+
+function divShow() {
+	 document.getElementById("kategorie").style.display = "block";
+	 document.getElementById("ttop").style.display = "block";
+	}
+
+	// 카테고리 숨기기
+	function divHide() {
+	 document.getElementById("kategorie").style.display = "none";
+	 document.getElementById("ttop").style.display = "none";
+	}

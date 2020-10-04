@@ -358,6 +358,35 @@
       order by bno desc
       limit #{displayPost}, #{postNum}
    </select>
+   
+   <!-- 게시글 저장 확인 -->
+   <select id="saveCheck" parameterType="com.board.domain.SaveVO"
+      resultType="com.board.domain.SaveVO">
+      select
+      *
+      from save_board
+      where
+      userID = #{userID}
+      and
+      bno = #{bno}
+   </select>
+
+   <!-- 게시글 저장 -->
+   <insert id="savePage" parameterType="com.board.domain.SaveVO">
+      insert into
+      save_board(userID, bno)
+      values(#{userID}, #{bno})
+   </insert>
+
+   <!-- 게시글 저장 삭제 -->
+   <delete id="deletePage" parameterType="com.board.domain.SaveVO">
+      delete
+      from save_board
+      where
+      userID = #{userID}
+      and
+      bno = #{bno}
+   </delete>
 
 
    <!-- tbl_board end -->

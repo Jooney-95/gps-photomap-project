@@ -24,6 +24,7 @@ import com.board.domain.LikeImgVO;
 import com.board.domain.LikeVO;
 import com.board.domain.MemberVO;
 import com.board.domain.Page;
+import com.board.domain.SaveVO;
 import com.board.domain.ToVO;
 import com.board.domain.TpVO;
 import com.board.service.BoardService;
@@ -47,7 +48,7 @@ public class BoardController {
 
 	@Inject
 	MemberService memberService;
-
+	
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public void getWrite(HttpSession session, Model model) throws Exception {
 
@@ -168,6 +169,41 @@ public class BoardController {
 		}
 
 		return check;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/saveCheck", method = RequestMethod.POST)
+	public boolean postSaveCheck(HttpServletRequest req) throws Exception {
+		int userID = Integer.parseInt(req.getParameter("userID"));
+		int tblBno = Integer.parseInt(req.getParameter("tblBno"));
+		
+		ToVO toVO = new ToVO();
+		SaveVO saveVO = toVO.saveVO(tblBno, userID);
+		SaveVO sCheck = service.saveCheck(saveVO);
+		
+		if(sCheck != null) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/savePage", method = RequestMethod.POST)
+	public void postSavePage(HttpServletRequest req) throws Exception {
+		int userID = Integer.parseInt(req.getParameter("userID"));
+		int tblBno = Integer.parseInt(req.getParameter("tblBno"));
+		
+		ToVO toVO = new ToVO();
+		SaveVO saveVO = toVO.saveVO(tblBno, userID);
+		SaveVO sCheck = service.saveCheck(saveVO);
+		System.out.println(sCheck);
+		if(sCheck != null) {
+			service.deletePage(saveVO);
+		} else {
+			service.savePage(saveVO);
+		}
 	}
 
 	@ResponseBody
