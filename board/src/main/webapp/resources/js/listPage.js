@@ -1,3 +1,42 @@
+var kateObj = {
+  a1: "피크닉",
+  b1: "전시회",
+  c1: "박물관",
+  d1: "맛집투어",
+  e1: "사진명소",
+  f1: "드라이브",
+  g1: "데이트",
+  h1: "등산",
+  i1: "바다",
+  j1: "강",
+  k1: "낚시",
+  l1: "액티비티",
+  m1: "호캉스",
+  a2: "서울특별시",
+  b2: "경기도",
+  c2: "인천광역시",
+  d2: "강원도",
+  e2: "대구광역시",
+  f2: "경상북도",
+  g2: "부산광역시",
+  h2: "울산광역시",
+  i2: "경상남도",
+  j2: "충청북도",
+  k2: "세종특별자치시",
+  l2: "대전광역시",
+  m2: "충청남도",
+  n2: "전라북도",
+  o2: "광주광역시",
+  p2: "전라남도",
+  q2: "제주특별시",
+  a3: "가족",
+  b3: "연인",
+  c3: "친구",
+  d3: "대학교",
+  e3: "동아리",
+  f3: "동호회",
+  g3: "회사"
+};
 var list;
 var file;
 var member;
@@ -122,7 +161,9 @@ function getPageList(pageNum) {
 
   for (var i = 0; i < kategorie.length; i++) {
     kategorieArr.push(kategorie[i].value);
+    $("#katetext").text(kateObj[kategorie[i].value]);
   }
+  
 
   console.log(``, URL, kategorieArr);
   if (flag == "like" || flag == "new" || flag == "fol") {

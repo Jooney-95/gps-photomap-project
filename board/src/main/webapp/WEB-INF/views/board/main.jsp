@@ -100,7 +100,7 @@
          <i class="fas fa-list"></i><a>카테고리 </a>
       </div>
    </div>
-  
+	<span id="katetext"></span>  
      <div class="ttop" id="ttop" style="display:none;">
          <p class="set">카테고리 설정</p>
          <p class="set2">카테고리를 선택하면 선택한 주제의 인기순, 최신순으로 정렬할 수 있습니다.<br></p>           
