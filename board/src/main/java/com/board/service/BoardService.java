@@ -58,4 +58,8 @@ public interface BoardService {
 
 	public void deletePage(SaveVO saveVO) throws Exception;
 
+	public List<SaveVO> saveList(int userID) throws Exception;
+
+	public List<BoardVO> savePageList(List<SaveVO> save, int displayPost, int postNum) throws Exception;
+
 }

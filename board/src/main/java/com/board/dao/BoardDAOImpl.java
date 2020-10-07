@@ -262,4 +262,20 @@ public class BoardDAOImpl implements BoardDAO {
 		sql.delete(namespace + ".deletePage", saveVO);
 	}
 
+	@Override
+	public List<SaveVO> saveList(int userID) throws Exception {
+		// TODO Auto-generated method stub
+		return sql.selectList(namespace + ".saveList", userID);
+	}
+
+	@Override
+	public List<BoardVO> savePageList(List<SaveVO> save, int displayPost, int postNum) throws Exception {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		data.put("displayPost", displayPost);
+		data.put("postNum", postNum);
+		data.put("save", save);
+		return sql.selectList(namespace + ".savePageList", data);
+	}
+
 }

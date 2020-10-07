@@ -167,4 +167,16 @@ public class BoardServiceImpl implements BoardService {
 		dao.deletePage(saveVO);
 	}
 
+	@Override
+	public List<SaveVO> saveList(int userID) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.saveList(userID);
+	}
+
+	@Override
+	public List<BoardVO> savePageList(List<SaveVO> save, int displayPost, int postNum) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.savePageList(save, displayPost, postNum);
+	}
+
 }
