@@ -125,8 +125,7 @@ button:focus { outline:none; }
    width:90px;
    height:30px;
    font-size:12px;
-/*   display:inline-block;
-  */ cursor:pointer;
+   cursor:pointer;
    text-align:center;
    margin:0 20px;
    padding-top:10px;
@@ -136,29 +135,25 @@ button:focus { outline:none; }
 
 
 
-.o:hover{
-   border-top:1px solid #000000;
+#o:hover{
    color:#000000;
    font-size:13px; 
 }
-.save:hover{
-   border-top:1px solid #000000;
+#save:hover{
    color:#000000;
    font-size:13px; 
 }
-.s:hover{
-   border-top:1px solid #000000;
+#s:hover{
    color:#000000;
    font-size:13px;  
 }
-.yesno:hover{
-   border-top:1px solid #000000;
+#yesno:hover{
    color:#000000;
    font-size:13px;  
 }
 
 
-.s i,.save i,.o i,.yesno i{
+#s i,#save i,#o i,#yesno i{
   
    width:25px;
    margin-top:10px;

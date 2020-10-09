@@ -54,13 +54,12 @@ body {
    width:90px;
    height:30px;
    font-size:12px;
-/*   display:inline-block;
-  */ cursor:pointer;
+   cursor:pointer;
    text-align:center;
    margin:0 20px;
    padding-top:5px;
    color:#bbb;
- 
+   font-weight:bold; 
 }
 
 
@@ -298,14 +297,14 @@ height:210px;
 }
 
 .ttop{
-   width:525px;
+   width:650px;
    height:80px;
    margin:0 auto;
    margin-bottom:10px;
 }
 
 .set{
-   width:525px;
+   width:650px;
     height:auto;
    font-size:23px;
    text-align:left;
@@ -314,7 +313,7 @@ height:210px;
    font-weight:bold;
 }
 .set2{
-   width:525px;
+   width:650px;
     height:auto;
    font-size:14px;
    text-align:left;
@@ -323,7 +322,7 @@ height:210px;
 }
 
 .kategorie.hidden{
-   width:525px;
+   width:650px;
    height:auto;
    background:#fff;
    margin:0 auto;
@@ -338,8 +337,8 @@ height:210px;
    margin-top:10px;
 }
 .thema{
-   width:525px;
-   height:110px;
+   width:650px;
+   height:320px;
    background:#fff;
    margin:0 auto;
    margin-top:6px;
@@ -348,8 +347,8 @@ height:210px;
    color:#000000;
 }
 .area{
-   width:525px;
-   height:145px;
+   width:650px;
+   height:320px;
    background:#fff;
    margin:0 auto;
    margin-top:6px;
@@ -358,8 +357,8 @@ height:210px;
    color:#000000;
 }
 .group{
-   width:525px;
-   height:100px;
+   width:650px;
+   height:220px;
    background:#fff;
    margin:0 auto;
    margin-top:6px;
@@ -372,19 +371,25 @@ height:210px;
 
 .kate{
    width:100px;
-   height:30px;
+   height:100px;
    float:left;
-   border: 0.12em solid #8fc866;
+   border: 0.1em solid #8fc866;
+   border-radius:8px;
   color: #000000;
   -webkit-transition: 0.25s;
   transition: 0.25s;
      font-size:12px;
   background: none;
   cursor:pointer;
-  margin: 0.25em 0.25em 0 0;
-  
+  margin: 0.55em 0.69em 0 0;  
 }
 
+.kate img{
+    margin-top: 15px;
+    margin-bottom: 13px;
+    width: 30px;
+    height: 30px;
+}
 @-webkit-keyframes pulse {
   0% {
     box-shadow: 0 0 0 0 #66c887;
@@ -403,18 +408,19 @@ height:210px;
   color: #fff;
 }
 .kate input:checked ~ label{
-  border-color: #66c887;
+  border-color: #8fc866;
   color:#fff;
   background:#8fc866;
+  border-radius: 8px;
 }
 
 .kate input,.kate label{
    cursor:pointer;
 }
 .kate label{
-	display:block;
+   display:block;
    width:100px;
-  height:30px;
+  height:100px;
   padding:5px;
 }
 .kateall{

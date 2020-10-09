@@ -177,19 +177,22 @@ function tpList(index) {
 function menu() {
   if (document.querySelector(".hide").style.display == "none") {
     $(".hide").css("display", "");
-    $(".category").css("background", "#f5f5f5");
-    $(".category").css("border", "2px solid #f5f5f5");
-    $(".category").css("border-top-left-radius", "5px");
-    $(".category").css("border-top-right-radius", "5px");
-    $(".category").css("box-shadow", "none");
+    $(".category").css("background","#f2f2f2");
+    $(".category").css("color","#000");
+    $(".category i").css("color","#5b626a");
+    $(".category").css("border-radius","0px");
+    $(".category").css("border-top-left-radius","10px");
+    $(".category").css("border-bottom-left-radius","10px");
+  
   } else {
     $(".hide").css("display", "none");
     $(".category").css("background", "#fff");
-    $(".category").css("border", "2px solid #fafafa");
-    $(".category").css("border-radius", "0");
-    $(".category").css("box-shadow", "rgb(250, 250, 250) 2px 2px 2px 2px");
+    $(".category").css("color", "#000");
+    $(".category").css("border-radius", "10px");
+    
   }
 }
+
 
 function deleteBtn(index) {
   $("#middle_" + index).css("opacity", 0.5);

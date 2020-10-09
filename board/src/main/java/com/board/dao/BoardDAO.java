@@ -5,6 +5,7 @@ import java.util.List;
 import com.board.domain.BoardVO;
 import com.board.domain.FollowVO;
 import com.board.domain.LikeVO;
+import com.board.domain.SaveVO;
 
 public interface BoardDAO {
 
@@ -52,5 +53,15 @@ public interface BoardDAO {
 	
 	public List<BoardVO> getPageSearch(int displayPost, int postNum, String searchType, String keyword, String flag,
 			String[] kate, List<FollowVO> fforfList) throws Exception;
+	
+	public SaveVO saveCheck(SaveVO saveVO) throws Exception;
+
+	public void savePage(SaveVO saveVO) throws Exception;
+
+	public void deletePage(SaveVO saveVO) throws Exception;
+
+	public List<SaveVO> saveList(int userID) throws Exception;
+
+	public List<BoardVO> savePageList(List<SaveVO> save, int displayPost, int postNum) throws Exception;
 
 }

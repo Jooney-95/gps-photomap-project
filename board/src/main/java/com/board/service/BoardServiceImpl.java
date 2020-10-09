@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.board.domain.BoardVO;
 import com.board.domain.FollowVO;
 import com.board.domain.LikeVO;
+import com.board.domain.SaveVO;
 import com.board.dao.BoardDAO;
 
 @Service
@@ -145,6 +146,37 @@ public class BoardServiceImpl implements BoardService {
 			List<FollowVO> fforfList) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.getPageSearch(displayPost, postNum, searchType, keyword, flag, kate, fforfList);
+	}
+
+	@Override
+	public SaveVO saveCheck(SaveVO saveVO) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.saveCheck(saveVO);
+	}
+
+	@Override
+	public void savePage(SaveVO saveVO) throws Exception {
+		// TODO Auto-generated method stub
+		dao.savePage(saveVO);
+		
+	}
+
+	@Override
+	public void deletePage(SaveVO saveVO) throws Exception {
+		// TODO Auto-generated method stub
+		dao.deletePage(saveVO);
+	}
+
+	@Override
+	public List<SaveVO> saveList(int userID) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.saveList(userID);
+	}
+
+	@Override
+	public List<BoardVO> savePageList(List<SaveVO> save, int displayPost, int postNum) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.savePageList(save, displayPost, postNum);
 	}
 
 }

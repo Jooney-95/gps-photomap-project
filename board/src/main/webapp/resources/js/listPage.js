@@ -1,3 +1,42 @@
+var kateObj = {
+  a1: "피크닉",
+  b1: "전시회",
+  c1: "박물관",
+  d1: "맛집투어",
+  e1: "사진명소",
+  f1: "드라이브",
+  g1: "데이트",
+  h1: "등산",
+  i1: "바다",
+  j1: "강",
+  k1: "낚시",
+  l1: "액티비티",
+  m1: "호캉스",
+  a2: "서울특별시",
+  b2: "경기도",
+  c2: "인천광역시",
+  d2: "강원도",
+  e2: "대구광역시",
+  f2: "경상북도",
+  g2: "부산광역시",
+  h2: "울산광역시",
+  i2: "경상남도",
+  j2: "충청북도",
+  k2: "세종특별자치시",
+  l2: "대전광역시",
+  m2: "충청남도",
+  n2: "전라북도",
+  o2: "광주광역시",
+  p2: "전라남도",
+  q2: "제주특별시",
+  a3: "가족",
+  b3: "연인",
+  c3: "친구",
+  d3: "대학교",
+  e3: "동아리",
+  f3: "동호회",
+  g3: "회사"
+};
 var list;
 var file;
 var member;
@@ -38,10 +77,10 @@ function getFlag() {
 }
 
 $(document).on("click", ".listBold", function () {
-  $(this).css("font-weight", "bold");
-  $(this).css("color", "#000");
-  $(".listBold").not($(this)).css("font-weight", "400");
-  $(".listBold").not($(this)).css("color", "#bbb");
+	$(this).css("font-weight", "bold");
+	$(this).css("color", "#000");
+	$(".listBold").not($(this)).css("font-weight", "bold");
+	$(".listBold").not($(this)).css("color", "#bbb");
 });
 
 $(document).on("click", "#searchBtn", function () {
@@ -68,7 +107,9 @@ $(document).on("keypress", ".searchTerm", function (e) {
 });
 
 $(window).scroll(function () {
-  //      console.log("$(window).scrollTop() : " + $(window).scrollTop() + ", $(document).height() : " + $(document).height() + ", $(window).height() : " + $(window).height())
+  // console.log("$(window).scrollTop() : " + $(window).scrollTop() + ",
+	// $(document).height() : " + $(document).height() + ", $(window).height() :
+	// " + $(window).height())
   if (
     $(document).height() <= $(window).scrollTop() + $(window).height() + 500 &&
     pageNumber < page.endPageNum
@@ -120,7 +161,9 @@ function getPageList(pageNum) {
 
   for (var i = 0; i < kategorie.length; i++) {
     kategorieArr.push(kategorie[i].value);
+    $("#katetext").text(kateObj[kategorie[i].value]);
   }
+  
 
   console.log(``, URL, kategorieArr);
   if (flag == "like" || flag == "new" || flag == "fol") {
@@ -250,7 +293,7 @@ function addListPage(data) {
     getPNum(list[i].pNum, list[i].bno);
     getMember(list[i].bno, count);
     getImg(list[i].bno, count);
-    //getImgSlider(list[i].bno, count);
+    // getImgSlider(list[i].bno, count);
 
     count++;
   }
@@ -259,7 +302,7 @@ function addListPage(data) {
     speed: 300,
     touchEnabled: navigator.maxTouchPoints > 0,
     onSliderLoad: function () {
-      //         console.log("sliderLoad");
+      // console.log("sliderLoad");
     },
     onSlideAfter: function () {
       $(".bx-next, .bx-prev").css("pointer-events", "auto");
@@ -354,7 +397,7 @@ function getImg(bno, count) {
       var imgObj = file[count].filter(function (obj) {
         return obj.id == likeImg[count][i].imgBno;
       });
-      //printImg(bno, i, imgObj[0].fileName)
+      // printImg(bno, i, imgObj[0].fileName)
       imgSlider(bno, i, imgObj[0].fileName);
     } else {
       var j = 0;
@@ -376,7 +419,7 @@ function getImg(bno, count) {
     }
   }
   // if (file[count].length > 4) {
-  //    $("#img_" + bno).append("+" + (file[count].length - 4));
+  // $("#img_" + bno).append("+" + (file[count].length - 4));
   // }
 }
 
@@ -455,28 +498,6 @@ function number(n) {
   }
 }
 
-// 상단 카테고리 탭 보이기/숨기기
-$(function (){
-	$("#category").click(function (){
-		$("#ttop").toggle();
-		$("#kategorie").toggle();
-  });
-});
-
-//카테고리 버튼을 통한 숨기기
-function divHide() {
- document.getElementById("kategorie").style.display = "none";
- document.getElementById("ttop").style.display = "none";
-}
-
-function loginPopup() {
-	  if (document.getElementById("loginPopup").style.display == "none") {
-	    document.getElementById("loginPopup").style.display = "";
-	  } else {
-	    document.getElementById("loginPopup").style.display = "none";
-	  }
-}
-
 function alamPopup() {
   if (document.getElementById("alamPopup").style.display == "none") {
     document.getElementById("alamPopup").style.display = "";
@@ -484,3 +505,14 @@ function alamPopup() {
     document.getElementById("alamPopup").style.display = "none";
   }
 }
+
+function divShow() {
+	 document.getElementById("kategorie").style.display = "block";
+	 document.getElementById("ttop").style.display = "block";
+	}
+
+	// 카테고리 숨기기
+	function divHide() {
+	 document.getElementById("kategorie").style.display = "none";
+	 document.getElementById("ttop").style.display = "none";
+	}
