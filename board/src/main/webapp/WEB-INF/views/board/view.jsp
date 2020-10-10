@@ -286,7 +286,7 @@
 		lon.push("${list.longitude}");
 		</c:forEach>	
 
-		var address = [];
+		var address = {};
 		var positions = [];
 		let map;
 		
@@ -297,7 +297,7 @@
 	    }
        	console.log(positions); // 업로드된 위치정보 출력
 		
-		function initMap() {
+         function initMap() {
 			var map = new google.maps.Map(document.getElementById('map'), {
 					zoom: 12,
 					disableDefaultUI: true, // 기본 컨트롤 비활성
@@ -330,19 +330,23 @@
             const latlng = {
 						lat: parseFloat(lat[i]), 
 						lng: parseFloat(lon[i])
-            };
-            console.log(`test`, latlng)
-				geocodeLatLng(geocoder, map, infowindow, latlng);
-				
+            }
+
+            geocodeLatLng(geocoder, map, infowindow, latlng, i);
+            var infowindow = new google.maps.InfoWindow();
 				//마커 클릭이벤트로 인포윈도우(정보창) 생성
-				var infowindow = new google.maps.InfoWindow();
+				console.log(address)
          		google.maps.event.addListener(marker, 'click', function(evt) {
              		
          			infowindow.setContent(address[i]);
 	              	infowindow.open(map, marker);
          	    });
+                console.log(`마커`)
          	    return marker;
 			});//markers 끝
+         
+			
+         
 
 			//마커 클러스터링
 			var options = {
@@ -356,12 +360,13 @@
 		
 
 		//주소 변환
-      function geocodeLatLng(geocoder, map, infowindow, latlng) {
+       function geocodeLatLng(geocoder, map, infowindow, latlng, index) { 
+      
 				geocoder.geocode({ location: latlng }, (results, status) => {
+               
 			          if (status === "OK") {
 			            if (results[0]) {
-			              	address.push(results[0].formatted_address);
-			              	 console.log(`구글주소:`,results[0].formatted_address);
+			              	address[index] = results[0].formatted_address;
 			              	// console.log(results);
 			            } else {
 			            	window.alert("No results found");
@@ -372,7 +377,7 @@
 			         
 			 	});
 				
-			
+         
 		}//주소변환 끝
 
 		}//initmap 끝
