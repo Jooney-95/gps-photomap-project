@@ -254,11 +254,7 @@ body {
 }
 #top #a .a-a{
    margin-top: 4px;
-<<<<<<< HEAD
-   border-radius:10px;
-=======
    border-radius:5px;
->>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
    background:#f2f2f2;
    padding: 5px 12px;
    font-size: 15px;
@@ -274,19 +270,11 @@ body {
    color:#5b626a;
 }
 #cd{
-<<<<<<< HEAD
-   display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    flex-direction: row;
-   
-=======
     display: flex;
     align-items: baseline;
     justify-content: space-between;
     flex-direction: row;
     margin-right: 5px;
->>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
 }
 
 /*/////////////////*/
@@ -294,39 +282,23 @@ body {
  
     font-size: 20px;
     cursor: pointer;
-<<<<<<< HEAD
-    color: #ccc;
-=======
     color: #e8dfe2;
->>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
     margin-right: 20px;
    
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
 /*//////////공감///////////*/
 #top #d{
     align-items: center;
     display: flex;
     flex-direction: row;
-<<<<<<< HEAD
-   float: left;
-=======
     float: left;
->>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
     width: 105px;
 }
 
 /*공감 아이콘*/
 #top #d i {
-<<<<<<< HEAD
-cursor: pointer;
-=======
     cursor: pointer;
->>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
     border-radius: 50px;
     padding: 7px;
     background-color: #fff;

@@ -273,8 +273,6 @@
      
    
    
-<<<<<<< HEAD
-=======
    <!-- 구글지도 테스트 -->
 	<div id="map"></div>
 	<script>
@@ -328,8 +326,13 @@
 	            		map: map,
 	            		label: labels[i % labels.length],
 	         	});
-				//좌표-주소변환 함수 호출
-				geocodeLatLng(geocoder, map, infowindow);
+            //좌표-주소변환 함수 호출
+            const latlng = {
+						lat: parseFloat(lat[i]), 
+						lng: parseFloat(lon[i])
+            };
+            console.log(`test`, latlng)
+				geocodeLatLng(geocoder, map, infowindow, latlng);
 				
 				//마커 클릭이벤트로 인포윈도우(정보창) 생성
 				var infowindow = new google.maps.InfoWindow();
@@ -353,20 +356,13 @@
 		
 
 		//주소 변환
-		function geocodeLatLng(geocoder, map, infowindow) {
-			for (var i = 0; i < positions.length; i++) {
-				const latlng = {
-						lat: parseFloat(lat[i]), 
-						lng: parseFloat(lon[i])
-				};
+      function geocodeLatLng(geocoder, map, infowindow, latlng) {
 				geocoder.geocode({ location: latlng }, (results, status) => {
 			          if (status === "OK") {
-			            if (results[i]) {
-
-			              		
+			            if (results[0]) {
 			              	address.push(results[0].formatted_address);
-			              	 console.log(address);
-			              	//console.log(results[0].formatted_address);
+			              	 console.log(`구글주소:`,results[0].formatted_address);
+			              	// console.log(results);
 			            } else {
 			            	window.alert("No results found");
 			              }
@@ -376,7 +372,7 @@
 			         
 			 	});
 				
-			}	
+			
 		}//주소변환 끝
 
 		}//initmap 끝
@@ -396,7 +392,6 @@
 
    
 <%-- 
->>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
 <!-- 카카오맵 다중마커 정렬 -->
    <script type="text/javascript"
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dd9fb87d40ab9678af574d3665e02b6e&libraries=services,clusterer"></script>
@@ -578,11 +573,8 @@
       // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
       // marker.setMap(null);
    </script>
-<<<<<<< HEAD
-=======
 --%>
 
->>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
    <script>   
       //document.getElementById("map").style.marginLeft="5%";
       
@@ -591,24 +583,8 @@
       likeImgArr.push("${likeImg.imgBno}");
       </c:forEach>
      
-<<<<<<< HEAD
-      
-      
-      
-      
-      
-      
-         
-         
-  
-         
-         
-         
-   </script>
-=======
    </script>
 
->>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
      
    
  <script>

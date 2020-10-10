@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <faceted-project>
   <fixed facet="jst.web"/>
@@ -7,13 +6,3 @@
   <installed facet="jst.web" version="3.1"/>
   <installed facet="jst.jaxrs" version="2.0"/>
 </faceted-project>
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<faceted-project>
-  <fixed facet="jst.web"/>
-  <fixed facet="jst.java"/>
-  <installed facet="jst.java" version="1.8"/>
-  <installed facet="jst.web" version="3.1"/>
-  <installed facet="jst.jaxrs" version="2.0"/>
-</faceted-project>
->>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1

@@ -77,17 +77,10 @@ function getFlag() {
 }
 
 $(document).on("click", ".listBold", function () {
-<<<<<<< HEAD
   $(this).css("font-weight", "bold");
   $(this).css("color", "#000");
-  $(".listBold").not($(this)).css("font-weight", "400");
+  $(".listBold").not($(this)).css("font-weight", "bold");
   $(".listBold").not($(this)).css("color", "#bbb");
-=======
-	$(this).css("font-weight", "bold");
-	$(this).css("color", "#000");
-	$(".listBold").not($(this)).css("font-weight", "bold");
-	$(".listBold").not($(this)).css("color", "#bbb");
->>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
 });
 
 $(document).on("click", "#searchBtn", function () {
@@ -115,8 +108,8 @@ $(document).on("keypress", ".searchTerm", function (e) {
 
 $(window).scroll(function () {
   // console.log("$(window).scrollTop() : " + $(window).scrollTop() + ",
-	// $(document).height() : " + $(document).height() + ", $(window).height() :
-	// " + $(window).height())
+  // $(document).height() : " + $(document).height() + ", $(window).height() :
+  // " + $(window).height())
   if (
     $(document).height() <= $(window).scrollTop() + $(window).height() + 500 &&
     pageNumber < page.endPageNum
@@ -151,16 +144,16 @@ function getList(value) {
   }
 }
 
-$(document).on("change", "input[name='kategorie']", function(){
-	if (listFlag == true) {
-	    listFlag = false;
-	    $("#pageList").empty();
-	    getPageList(pageNumber);
-	  }
+$(document).on("change", "input[name='kategorie']", function () {
+  if (listFlag == true) {
+    listFlag = false;
+    $("#pageList").empty();
+    getPageList(pageNumber);
+  }
 });
 
 function getPageList(pageNum) {
-	console.log("페이징")
+  console.log("페이징");
   var flag = sessionStorage.getItem("flag");
   var URL = sessionStorage.getItem(flag);
   var kategorie = $("input[name='kategorie']:checked");
@@ -170,7 +163,6 @@ function getPageList(pageNum) {
     kategorieArr.push(kategorie[i].value);
     $("#katetext").text(kateObj[kategorie[i].value]);
   }
-  
 
   console.log(``, URL, kategorieArr);
   if (flag == "like" || flag == "new" || flag == "fol") {
@@ -514,12 +506,12 @@ function alamPopup() {
 }
 
 function divShow() {
-	 document.getElementById("kategorie").style.display = "block";
-	 document.getElementById("ttop").style.display = "block";
-	}
+  document.getElementById("kategorie").style.display = "block";
+  document.getElementById("ttop").style.display = "block";
+}
 
-	// 카테고리 숨기기
-	function divHide() {
-	 document.getElementById("kategorie").style.display = "none";
-	 document.getElementById("ttop").style.display = "none";
-	}
+// 카테고리 숨기기
+function divHide() {
+  document.getElementById("kategorie").style.display = "none";
+  document.getElementById("ttop").style.display = "none";
+}

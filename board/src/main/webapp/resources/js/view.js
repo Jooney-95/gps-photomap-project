@@ -186,16 +186,13 @@ function saveCheck() {
       success: function (save) {
         console.log(`save:`, save);
       },
-<<<<<<< HEAD
-=======
       success: function (check) {
-          if (check == 1) {
-            $("#bsave").css("color", "#94ce9f");
-           } else {
-            $("#bsave").css("color", "#e8dfe2");
-          }
-        },
->>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
+        if (check == 1) {
+          $("#bsave").css("color", "#94ce9f");
+        } else {
+          $("#bsave").css("color", "#e8dfe2");
+        }
+      },
       error: function (request, status, error) {
         alert(
           "code:" +
@@ -306,8 +303,4 @@ $(document).on("click", "#delBtn", function () {
   if (confirm("삭제하시겠습니까?")) {
     location.href = "/board/delete?bno=" + $("#tblBno").val();
   }
-<<<<<<< HEAD
 });
-=======
-});
->>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1

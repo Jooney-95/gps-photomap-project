@@ -1,13 +1,5 @@
-<<<<<<< HEAD
 Manifest-Version: 1.0
 Built-By: jihoon
 Build-Jdk: 1.8.0_202
 Created-By: Maven Integration for Eclipse
 
-=======
-Manifest-Version: 1.0
-Built-By: USER
-Build-Jdk: 11.0.8
-Created-By: Maven Integration for Eclipse
-
->>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1

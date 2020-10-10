@@ -100,17 +100,6 @@
       <div class="all">
       <div class="nav" >
 
-<<<<<<< HEAD
-            <div class="o" onclick="getMyPageNav(1)">
-               <i class="fas fa-clipboard"></i><a>게시물 </a>
-            </div>
-
-            <div class="save" onclick="getMyPageNav(2)">
-               <i class="fas fa-bookmark"></i><a>저장 목록</a>
-            </div>
-
-            <div class="s" onclick="getMyPageNav(3)">
-=======
             <div class="listBold" id="o" onclick="getMyPageNav(1)">
                <i class="fas fa-clipboard"></i><a>게시물 </a>
             </div>
@@ -122,16 +111,11 @@
 			</c:if>
 			
             <div class="listBold" id="s" onclick="getMyPageNav(3)">
->>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
                <i class="fas fa-users"></i><a>이웃 목록</a>
             </div>
 
               <c:if test="${session.id eq userID }">
-<<<<<<< HEAD
-            <div class="yesno"  onclick="getMyPageNav(4)">
-=======
             <div class="listBold" id="yesno"  onclick="getMyPageNav(4)">
->>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
                 <i class="fas fa-user-plus fa-2x"></i><a>이웃 요청</a>
             </div>
             </c:if>
