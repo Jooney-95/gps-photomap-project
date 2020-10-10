@@ -125,8 +125,12 @@ button:focus { outline:none; }
    width:90px;
    height:30px;
    font-size:12px;
+<<<<<<< HEAD
 /*   display:inline-block;
   */ cursor:pointer;
+=======
+   cursor:pointer;
+>>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
    text-align:center;
    margin:0 20px;
    padding-top:10px;
@@ -136,6 +140,7 @@ button:focus { outline:none; }
 
 
 
+<<<<<<< HEAD
 .o:hover{
    border-top:1px solid #000000;
    color:#000000;
@@ -153,12 +158,31 @@ button:focus { outline:none; }
 }
 .yesno:hover{
    border-top:1px solid #000000;
+=======
+#o:hover{
+   color:#000000;
+   font-size:13px; 
+}
+#save:hover{
+   color:#000000;
+   font-size:13px; 
+}
+#s:hover{
+   color:#000000;
+   font-size:13px;  
+}
+#yesno:hover{
+>>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
    color:#000000;
    font-size:13px;  
 }
 
 
+<<<<<<< HEAD
 .s i,.save i,.o i,.yesno i{
+=======
+#s i,#save i,#o i,#yesno i{
+>>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
   
    width:25px;
    margin-top:10px;

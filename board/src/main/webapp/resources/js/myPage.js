@@ -14,6 +14,39 @@ window.onload = function () {
   followCheck();
 };
 
+<<<<<<< HEAD
+=======
+$(document).ready(function () {
+	getFlag();
+});
+
+function getFlag() {
+	  sessionStorage.removeItem("flag");
+	  sessionStorage.setItem("flag", "like");
+
+	  var flag = sessionStorage.getItem("flag");
+
+	  if (flag == "like" || flag == "likeSearch") {
+	    $(".listBold")[0].style.color = "black";
+	    return;
+	  } else if (flag == "new" || flag == "newSearch") {
+	    $(".listBold")[1].style.color = "black";
+	    return;
+	  } else {
+	    $(".listBold")[2].style.color = "black";
+	  }
+	}
+
+$(document).on("click", ".listBold", function () {
+    $(this).css("font-weight", "bold");
+    $(this).css("color", "#000");
+    $(this).css("border-top", "1px solid #000000");
+    $(".listBold").not($(this)).css("font-weight", "bold");
+    $(".listBold").not($(this)).css("color", "#bbb");
+    $(".listBold").not($(this)).css("border-top", "0px solid #bbb");
+  });
+
+>>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
 $(window).scroll(function () {
   if (
     $(window).scrollTop() >= $(document).height() - $(window).height() - 10 &&

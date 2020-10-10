@@ -77,10 +77,17 @@ function getFlag() {
 }
 
 $(document).on("click", ".listBold", function () {
+<<<<<<< HEAD
   $(this).css("font-weight", "bold");
   $(this).css("color", "#000");
   $(".listBold").not($(this)).css("font-weight", "400");
   $(".listBold").not($(this)).css("color", "#bbb");
+=======
+	$(this).css("font-weight", "bold");
+	$(this).css("color", "#000");
+	$(".listBold").not($(this)).css("font-weight", "bold");
+	$(".listBold").not($(this)).css("color", "#bbb");
+>>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
 });
 
 $(document).on("click", "#searchBtn", function () {

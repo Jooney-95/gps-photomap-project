@@ -54,13 +54,21 @@ body {
    width:90px;
    height:30px;
    font-size:12px;
+<<<<<<< HEAD
 /*   display:inline-block;
   */ cursor:pointer;
+=======
+   cursor:pointer;
+>>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
    text-align:center;
    margin:0 20px;
    padding-top:5px;
    color:#bbb;
+<<<<<<< HEAD
  
+=======
+   font-weight:bold; 
+>>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
 }
 
 
@@ -298,14 +306,22 @@ height:210px;
 }
 
 .ttop{
+<<<<<<< HEAD
    width:525px;
+=======
+   width:650px;
+>>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
    height:80px;
    margin:0 auto;
    margin-bottom:10px;
 }
 
 .set{
+<<<<<<< HEAD
    width:525px;
+=======
+   width:650px;
+>>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
     height:auto;
    font-size:23px;
    text-align:left;
@@ -314,7 +330,11 @@ height:210px;
    font-weight:bold;
 }
 .set2{
+<<<<<<< HEAD
    width:525px;
+=======
+   width:650px;
+>>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
     height:auto;
    font-size:14px;
    text-align:left;
@@ -323,7 +343,11 @@ height:210px;
 }
 
 .kategorie.hidden{
+<<<<<<< HEAD
    width:525px;
+=======
+   width:650px;
+>>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
    height:auto;
    background:#fff;
    margin:0 auto;
@@ -338,8 +362,13 @@ height:210px;
    margin-top:10px;
 }
 .thema{
+<<<<<<< HEAD
    width:525px;
    height:110px;
+=======
+   width:650px;
+   height:320px;
+>>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
    background:#fff;
    margin:0 auto;
    margin-top:6px;
@@ -348,8 +377,13 @@ height:210px;
    color:#000000;
 }
 .area{
+<<<<<<< HEAD
    width:525px;
    height:145px;
+=======
+   width:650px;
+   height:320px;
+>>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
    background:#fff;
    margin:0 auto;
    margin-top:6px;
@@ -358,8 +392,13 @@ height:210px;
    color:#000000;
 }
 .group{
+<<<<<<< HEAD
    width:525px;
    height:100px;
+=======
+   width:650px;
+   height:220px;
+>>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
    background:#fff;
    margin:0 auto;
    margin-top:6px;
@@ -372,19 +411,38 @@ height:210px;
 
 .kate{
    width:100px;
+<<<<<<< HEAD
    height:30px;
    float:left;
    border: 0.12em solid #8fc866;
+=======
+   height:100px;
+   float:left;
+   border: 0.1em solid #8fc866;
+   border-radius:8px;
+>>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
   color: #000000;
   -webkit-transition: 0.25s;
   transition: 0.25s;
      font-size:12px;
   background: none;
   cursor:pointer;
+<<<<<<< HEAD
   margin: 0.25em 0.25em 0 0;
   
 }
 
+=======
+  margin: 0.55em 0.69em 0 0;  
+}
+
+.kate img{
+    margin-top: 15px;
+    margin-bottom: 13px;
+    width: 30px;
+    height: 30px;
+}
+>>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
 @-webkit-keyframes pulse {
   0% {
     box-shadow: 0 0 0 0 #66c887;
@@ -403,18 +461,31 @@ height:210px;
   color: #fff;
 }
 .kate input:checked ~ label{
+<<<<<<< HEAD
   border-color: #66c887;
   color:#fff;
   background:#8fc866;
+=======
+  border-color: #8fc866;
+  color:#fff;
+  background:#8fc866;
+  border-radius: 8px;
+>>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
 }
 
 .kate input,.kate label{
    cursor:pointer;
 }
 .kate label{
+<<<<<<< HEAD
 	display:block;
    width:100px;
   height:30px;
+=======
+   display:block;
+   width:100px;
+  height:100px;
+>>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
   padding:5px;
 }
 .kateall{

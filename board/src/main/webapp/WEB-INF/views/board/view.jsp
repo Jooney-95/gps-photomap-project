@@ -273,6 +273,130 @@
      
    
    
+<<<<<<< HEAD
+=======
+   <!-- 구글지도 테스트 -->
+	<div id="map"></div>
+	<script>
+	
+		//위도, 경도값  배열에 저장
+		var lat = new Array();
+		var lon = new Array();
+		
+		<c:forEach items="${list }" var="list">
+		lat.push("${list.latitude}");
+		lon.push("${list.longitude}");
+		</c:forEach>	
+
+		var address = [];
+		var positions = [];
+		let map;
+		
+	    // 업로드된 이미지만큼 (위도,경도)값을 저장한다       
+	    for (var i = 0; i < lat.length; i++) {
+	    	var myLatLng = {lat: parseFloat(lat[i]), lng: parseFloat(lon[i])}; 
+	        positions.push(myLatLng);
+	    }
+       	console.log(positions); // 업로드된 위치정보 출력
+		
+		function initMap() {
+			var map = new google.maps.Map(document.getElementById('map'), {
+					zoom: 12,
+					disableDefaultUI: true, // 기본 컨트롤 비활성
+					center: positions[0]
+				});
+
+			//var myIcon = new google.maps.MarkerImage("/resources/imgs/markers.png", null, null, null, new google.maps.Size(300,200));
+			
+			var labels = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50"];
+
+	    	//다중마커 출력(인포윈도우 전용)
+			//for (var i = 0; i < positions.length; i++) {  
+				//var marker = new google.maps.Marker({
+			    	//position: positions[i],
+			        //map: map,
+			        //label: labels[i % labels.length],
+			    //});
+			//}
+			
+			var geocoder = new google.maps.Geocoder();
+			
+			//다중마커 출력(클러스터 전용)
+			var markers = positions.map(function(positions, i) {
+				var marker = new google.maps.Marker({
+						position: positions,
+	            		map: map,
+	            		label: labels[i % labels.length],
+	         	});
+				//좌표-주소변환 함수 호출
+				geocodeLatLng(geocoder, map, infowindow);
+				
+				//마커 클릭이벤트로 인포윈도우(정보창) 생성
+				var infowindow = new google.maps.InfoWindow();
+         		google.maps.event.addListener(marker, 'click', function(evt) {
+             		
+         			infowindow.setContent(address[i]);
+	              	infowindow.open(map, marker);
+         	    });
+         	    return marker;
+			});//markers 끝
+
+			//마커 클러스터링
+			var options = {
+				imagePath:"https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
+				gridSize: 50,
+				zoomOnClick: true,
+				mzxZoom: 10,
+			};
+			var markerCluster = new MarkerClusterer(map, markers, options);
+			
+		
+
+		//주소 변환
+		function geocodeLatLng(geocoder, map, infowindow) {
+			for (var i = 0; i < positions.length; i++) {
+				const latlng = {
+						lat: parseFloat(lat[i]), 
+						lng: parseFloat(lon[i])
+				};
+				geocoder.geocode({ location: latlng }, (results, status) => {
+			          if (status === "OK") {
+			            if (results[i]) {
+
+			              		
+			              	address.push(results[0].formatted_address);
+			              	 console.log(address);
+			              	//console.log(results[0].formatted_address);
+			            } else {
+			            	window.alert("No results found");
+			              }
+			          } else {
+			            	window.alert("Geocoder failed due to: " + status);
+			            }
+			         
+			 	});
+				
+			}	
+		}//주소변환 끝
+
+		}//initmap 끝
+		
+			
+		
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+	<script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
+    <script defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3apcshVnvHMEX7tVXdasnQ4qx3alFMTQ&callback=initMap">
+    </script>
+
+
+
+
+
+   
+<%-- 
+>>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
 <!-- 카카오맵 다중마커 정렬 -->
    <script type="text/javascript"
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dd9fb87d40ab9678af574d3665e02b6e&libraries=services,clusterer"></script>
@@ -454,6 +578,11 @@
       // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
       // marker.setMap(null);
    </script>
+<<<<<<< HEAD
+=======
+--%>
+
+>>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
    <script>   
       //document.getElementById("map").style.marginLeft="5%";
       
@@ -462,6 +591,7 @@
       likeImgArr.push("${likeImg.imgBno}");
       </c:forEach>
      
+<<<<<<< HEAD
       
       
       
@@ -475,6 +605,10 @@
          
          
    </script>
+=======
+   </script>
+
+>>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
      
    
  <script>

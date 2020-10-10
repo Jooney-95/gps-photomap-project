@@ -100,10 +100,17 @@
          <i class="fas fa-list"></i><a>카테고리 </a>
       </div>
    </div>
+<<<<<<< HEAD
 	<span id="katetext"></span>  
      <div class="ttop" id="ttop" style="display:none;">
          <p class="set">카테고리 설정</p>
          <p class="set2">카테고리를 선택하면 선택한 주제의 인기순, 최신순으로 정렬할 수 있습니다.<br></p>           
+=======
+   <span id="katetext"></span>  
+     <div class="ttop" id="ttop" style="display:none;">
+         <p class="set">카테고리</p>
+         <p class="set2">원하는 분야별로 게시물을 정렬하여 볼 수 있습니다.<br></p>           
+>>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
       </div>
    
    <div class="kategorie hidden" id="kategorie" style="display:none;">
@@ -111,6 +118,7 @@
          <div class="thema">
          <div class="kate">
                <input type="radio" name="kategorie" id="a1" value="a1" >
+<<<<<<< HEAD
                <label for="a1"><i class="fas fa-tree"></i> 피크닉</label>
             </div>
          <div class="kate">
@@ -160,6 +168,57 @@
          <div class="kate">
                <input type="radio" name="kategorie" id="m1" value="m1" >
                <label for="m1">호캉스</label>
+=======
+               <label for="a1"><img src="/resources/imgs/kkk1.png"><br>피크닉</label>
+            </div>
+         <div class="kate">
+               <input type="radio" name="kategorie" id="b1" value="b1" >
+               <label for="b1"><img src="/resources/imgs/kkk2.png"><br>전시회</label>
+            </div> 
+         <div class="kate">
+               <input type="radio" name="kategorie" id="c1" value="c1" >
+               <label for="c1"><img src="/resources/imgs/kkk3.png"><br>박물관</label>
+            </div>
+         <div class="kate">
+               <input type="radio" name="kategorie" id="d1" value="d1" >
+               <label for="d1"><img src="/resources/imgs/kkk4.png"><br>맛집투어</label>
+            </div>
+         <div class="kate">
+               <input type="radio" name="kategorie" id="e1" value="e1" >
+               <label for="e1"><img src="/resources/imgs/kkk5.png"><br>사진명소</label>
+            </div>
+         <div class="kate">
+               <input type="radio" name="kategorie" id="f1" value="f1" >
+               <label for="f1"><img src="/resources/imgs/kkk6.png"><br>드라이브</label>
+            </div>
+                     <div class="kate">
+               <input type="radio" name="kategorie" id="g1" value="g1" >
+               <label for="g1"><img src="/resources/imgs/kkk7.png"><br>데이트</label>
+            </div>
+         <div class="kate">
+               <input type="radio" name="kategorie" id="h1" value="h1" >
+               <label for="h1"><img src="/resources/imgs/kkk8.png"><br>등산</label>
+            </div>
+         <div class="kate">
+               <input type="radio" name="kategorie" id="i1" value="i1" >
+               <label for="i1"><img src="/resources/imgs/kkk9.png"><br>바다</label>
+            </div>
+         <div class="kate">
+               <input type="radio" name="kategorie" id="j1" value="j1" >
+               <label for="j1"><img src="/resources/imgs/kkk10.png"><br>강</label>
+            </div>
+         <div class="kate">
+               <input type="radio" name="kategorie" id="k1" value="k1" >
+               <label for="k1"><img src="/resources/imgs/kkk11.png"><br>낚시</label>
+            </div>
+         <div class="kate">
+               <input type="radio" name="kategorie" id="l1" value="l1" >
+               <label for="l1"><img src="/resources/imgs/kkk12.png"><br>엑티비티</label>
+            </div> 
+         <div class="kate">
+               <input type="radio" name="kategorie" id="m1" value="m1" >
+               <label for="m1"><img src="/resources/imgs/kkk13.png"><br>호캉스</label>
+>>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
             </div>                                                             
          </div>
          
@@ -167,6 +226,7 @@
          <div class="area">
          <div class="kate">
                <input type="radio" name="kategorie" id="a2" value="a2" >
+<<<<<<< HEAD
                <label for="a2">서울특별시</label>
             </div>
          <div class="kate">
@@ -232,6 +292,73 @@
          <div class="kate">
                <input type="radio" name="kategorie" id="q2" value="q2" >
                <label for="q2">제주특별시</label>
+=======
+               <label for="a2"><img src="/resources/imgs/k1.png"><br>서울특별시</label>
+            </div>
+         <div class="kate">
+               <input type="radio" name="kategorie" id="b2" value="b2" >
+               <label for="b2"><img src="/resources/imgs/k2.png"><br>경기도</label>
+            </div>
+         <div class="kate">
+               <input type="radio" name="kategorie" id="c2" value="c2" >
+               <label for="c2"><img src="/resources/imgs/k3.png"><br>인천광역시</label>
+            </div>
+         <div class="kate">
+               <input type="radio" name="kategorie" id="d2" value="d2" >
+               <label for="d2"><img src="/resources/imgs/k4.png"><br>강원도</label>
+            </div>
+         <div class="kate">
+               <input type="radio" name="kategorie" id="e2" value="e2" >
+               <label for="e2"><img src="/resources/imgs/k5.png"><br>대구광역시</label>
+            </div>
+         <div class="kate">
+               <input type="radio" name="kategorie" id="f2" value="f2" >
+               <label for="f2"><img src="/resources/imgs/k6.png"><br>경상북도</label>
+            </div>
+                     <div class="kate">
+               <input type="radio" name="kategorie" id="g2" value="g2" >
+               <label for="g2"><img src="/resources/imgs/k7.png"><br>부산광역시</label>
+            </div>
+         <div class="kate">
+               <input type="radio" name="kategorie" id="h2" value="h2" >
+               <label for="h2"><img src="/resources/imgs/k8.png"><br>울산광역시</label>
+            </div>
+         <div class="kate">
+               <input type="radio" name="kategorie" id="i2" value="i2" >
+               <label for="i2"><img src="/resources/imgs/k9.png"><br>경상남도</label>
+            </div>
+         <div class="kate">
+               <input type="radio" name="kategorie" id="j2" value="j2" >
+               <label for="j2"><img src="/resources/imgs/k10.png"><br>충청북도</label>
+            </div>
+         <div class="kate">
+               <input type="radio" name="kategorie" id="k2" value="k2" >
+               <label for="k2"><img src="/resources/imgs/k11.png"><br>세종특별자치시</label>
+            </div>
+         <div class="kate">
+               <input type="radio" name="kategorie" id="l2" value="l2" >
+               <label for="l2"><img src="/resources/imgs/k12.png"><br>대전광역시</label>
+            </div>
+         <div class="kate">
+               <input type="radio" name="kategorie" id="m2" value="m2" >
+               <label for="m2"><img src="/resources/imgs/k13.png"><br>충청남도</label>
+            </div>
+         <div class="kate">
+               <input type="radio" name="kategorie" id="n2" value="n2" >
+               <label for="n2"><img src="/resources/imgs/k14.png"><br>전라북도</label>
+            </div>
+         <div class="kate">
+               <input type="radio" name="kategorie" id="o2" value="o2" >
+               <label for="o2"><img src="/resources/imgs/k15.png"><br>광주광역시</label>
+            </div>  
+         <div class="kate">
+               <input type="radio" name="kategorie" id="p2" value="p2" >
+               <label for="p2"><img src="/resources/imgs/k16.png"><br>전라남도</label>
+            </div> 
+         <div class="kate">
+               <input type="radio" name="kategorie" id="q2" value="q2" >
+               <label for="q2"><img src="/resources/imgs/k17.png"><br>제주특별시</label>
+>>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
             </div>                                                                                                                    
          </div>
          
@@ -239,6 +366,7 @@
          <div class="group">
          <div class="kate">
                <input type="radio" name="kategorie" id="a3" value="a3" >
+<<<<<<< HEAD
                <label for="a3">가족</label>
             </div>
          <div class="kate">
@@ -264,6 +392,33 @@
          <div class="kate">
                <input type="radio" name="kategorie" id="g3" value="g3" >
                <label for="g3">회사</label>
+=======
+               <label for="a3"><img src="/resources/imgs/kk1.png"><br>가족</label>
+            </div>
+         <div class="kate">
+               <input type="radio" name="kategorie" id="b3" value="b3" >
+               <label for="b3"><img src="/resources/imgs/kk2.png"><br>연인</label>
+            </div>
+         <div class="kate">
+               <input type="radio" name="kategorie" id="c3" value="c3" >
+               <label for="c3"><img src="/resources/imgs/kk3.png"><br>우정</label>
+            </div>
+         <div class="kate">
+               <input type="radio" name="kategorie" id="d3" value="d3" >
+               <label for="d3"><img src="/resources/imgs/kk4.png"><br>대학교</label>
+            </div>
+         <div class="kate">
+               <input type="radio" name="kategorie" id="e3" value="e3" >
+               <label for="e3"><img src="/resources/imgs/kk5.png"><br>동아리</label>
+            </div>
+         <div class="kate">
+               <input type="radio" name="kategorie" id="f3" value="f3" >
+               <label for="f3"><img src="/resources/imgs/kk6.png"><br>동호회</label>
+            </div>
+         <div class="kate">
+               <input type="radio" name="kategorie" id="g3" value="g3" >
+               <label for="g3"><img src="/resources/imgs/kk7.png"><br>회사</label>
+>>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
             </div>                                                  
          </div>                  
          
@@ -276,6 +431,10 @@
             <button type="button" onclick="divHide();">확인</button>
          </div>
       </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
    
    <div id="pageList">
    </div>

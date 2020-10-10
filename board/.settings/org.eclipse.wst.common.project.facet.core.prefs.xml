@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <root>
   <facet id="jst.jaxrs">
     <node name="libprov">
@@ -5,3 +6,12 @@
     </node>
   </facet>
 </root>
+=======
+<root>
+  <facet id="jst.jaxrs">
+    <node name="libprov">
+      <attribute name="provider-id" value="jaxrs-no-op-library-provider"/>
+    </node>
+  </facet>
+</root>
+>>>>>>> b5823c48f55159599fcbecd434eaff92852c3bb1
