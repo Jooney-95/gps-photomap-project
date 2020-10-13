@@ -190,7 +190,7 @@
          <input type="hidden" name="userID" value="${session.id }" />
      
       
-             <a href="<spring:url value='${list.path }'/>" title="이미지를 클릭해보세요!" data-lightbox="image-1" data-title="${list.place }"><img alt="" src="<spring:url value='/img/thumb/${list.fileName }'/>"></a>
+             <a href="<spring:url value='${list.path }${list.fileName }'/>" title="이미지를 클릭해보세요!" data-lightbox="image-1" data-title="${list.place }"><img alt="" src="<spring:url value='${list.path }square/${list.fileName }'/>"></a>
        
       
          </c:forEach>
@@ -232,7 +232,7 @@
            </div>   
            
           <div class="m2">
-             <a href="<spring:url value='${list.path }'/>" title="이미지를 클릭해보세요!" data-lightbox="image-2" data-title="${list.place }"><img alt="" src="<spring:url value='/img/thumb/${list.fileName }'/>"></a>
+             <a href="<spring:url value='${list.path }${list.fileName }'/>" title="이미지를 클릭해보세요!" data-lightbox="image-2" data-title="${list.place }"><img alt="" src="<spring:url value='${list.path }view/${list.fileName }'/>"></a>
            </div>
               
          <!-- 대표이미지 설정 아이콘 --><div class="m3 hidden" id="selectLikeImg_${list.id }">대 표

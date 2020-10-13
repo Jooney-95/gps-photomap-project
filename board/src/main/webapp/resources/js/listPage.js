@@ -397,7 +397,7 @@ function getImg(bno, count) {
         return obj.id == likeImg[count][i].imgBno;
       });
       // printImg(bno, i, imgObj[0].fileName)
-      imgSlider(bno, i, imgObj[0].fileName);
+      imgSlider(bno, i, imgObj[0].path, imgObj[0].fileName);
     } else {
       var j = 0;
       while (imgFlag) {
@@ -407,7 +407,7 @@ function getImg(bno, count) {
             return obj.imgBno == file[count][j].id;
           })[0] == undefined
         ) {
-          imgSlider(bno, iCount, file[count][j].fileName);
+          imgSlider(bno, iCount,file[count][j].path, file[count][j].fileName);
           iCount++;
         }
         j++;
@@ -437,13 +437,8 @@ function printImg(bno, index, path) {
   $("#img_" + bno).append(imgInner);
 }
 
-function getImgSlider(bno, count) {
-  for (var i = 0; i < file[count].length; i++) {
-    imgSlider(bno, i, file[count][i].fileName);
-  }
-}
-
-function imgSlider(bno, index, fileName) {
+function imgSlider(bno, index, path, fileName) {
+	console.log(path, fileName)
   var imgInner;
   imgInner = '   <li class="sliderItem">';
   imgInner += '     <a href="/board/view?bno=' + bno + '">';
@@ -453,7 +448,8 @@ function imgSlider(bno, index, fileName) {
     "_" +
     index +
     '" alt="" src=' +
-    "/img/thumb/" +
+    path +
+    "slider/" +
     fileName +
     ">";
   imgInner += "     </a>";

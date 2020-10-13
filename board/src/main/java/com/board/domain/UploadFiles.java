@@ -31,10 +31,12 @@ import com.drew.metadata.exif.GpsDirectory;
 public class UploadFiles {
 
 	private static final String SAVE_PATH = "C:/var/Plus/upload/";
-	private static final String SAVE_THUMB_PATH = "C:/var/Plus/upload/thumb/";
-	private static final String SAVE_PROFILE_PATH = "C:/var/Plus/upload/profile/";
-	private static final String SAVE_PROFILE_THUMB_PATH = "C:/var/Plus/upload/profile/thumb/";
-	private static final String PREFIX_URL = "/img/";
+
+	private Calendar cal = Calendar.getInstance();
+	public String PATH = String.format("%04d/%02d/%02d/", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
+			cal.get(Calendar.DAY_OF_MONTH));
+
+	private String[] thumb = { "view/", "slider/", "square/" };
 
 	private Metadata metadata = null;
 
@@ -118,7 +120,7 @@ public class UploadFiles {
 	public void fileWrite(MultipartFile multipartFile, String saveFileName) throws Exception {
 
 		byte[] data = multipartFile.getBytes();
-		FileOutputStream fos = new FileOutputStream(SAVE_PATH + saveFileName);
+		FileOutputStream fos = new FileOutputStream(SAVE_PATH + PATH + saveFileName);
 		fos.write(data);
 		fos.close();
 
@@ -128,11 +130,11 @@ public class UploadFiles {
 
 		for (MultipartFile mF : multipart) {
 
-			String[] saveFileName = getRandomString();
-			fileWrite(mF, saveFileName[0]);
-			File convFile = new File(SAVE_PATH + saveFileName[0]);
+			String saveFileName = getRandomString();
+			fileWrite(mF, saveFileName);
+			File convFile = new File(SAVE_PATH + PATH + saveFileName);
 			mF.transferTo(convFile);
-			fileEXIF(convFile, saveFileName[0]);
+			fileEXIF(convFile, saveFileName);
 			makeThumbnail(saveFileName, "img");
 		}
 	}
@@ -150,7 +152,7 @@ public class UploadFiles {
 				timeView[i] = "";
 			}
 			fileName[i] = saveFileName;
-			path[i] = PREFIX_URL + saveFileName;
+			path[i] = "/img/" + PATH;
 			i++;
 
 		} catch (IOException ex) {
@@ -177,11 +179,13 @@ public class UploadFiles {
 
 	public void deleteFile(String name) {
 		// TODO Auto-generated method stub
-		File[] file = new File[2];
-		file[0] = new File(SAVE_PATH + name);
-		file[1] = new File(SAVE_THUMB_PATH + name);
-		
-		for(File f : file) {
+		File[] file = new File[4];
+		file[0] = new File(SAVE_PATH + PATH + name);
+		file[1] = new File(SAVE_PATH + PATH + thumb[0] + name);
+		file[2] = new File(SAVE_PATH + PATH + thumb[1] + name);
+		file[3] = new File(SAVE_PATH + PATH + thumb[2] + name);
+
+		for (File f : file) {
 			if (f.exists()) {
 				f.delete();
 				System.out.println("이미지 존재 : " + f.exists() + " 삭제 경로 : " + f.getPath());
@@ -190,38 +194,47 @@ public class UploadFiles {
 
 	}
 
-	public String[] getRandomString() {
-		String[] fileName = new String[2];
-		String[] dirName = new String[2];
-		Calendar cal = Calendar.getInstance();
-		dirName[0] = String.format(SAVE_PATH + "%04d/%02d/%02d", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
-				cal.get(Calendar.DAY_OF_MONTH));
-		dirName[1] = String.format(SAVE_THUMB_PATH + "%04d/%02d/%02d", cal.get(Calendar.YEAR),
-				cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH));
+	public String getRandomString() {
+//		String[] fileName = new String[2];
 
-		fileName[0] = String.format("%04d/%02d/%02d/", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
-				cal.get(Calendar.DAY_OF_MONTH));
-		fileName[1] = String.format("%04d/%02d/%02d/", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
-				cal.get(Calendar.DAY_OF_MONTH));
+		String[] dirName = new String[4];
+
+		dirName[0] = SAVE_PATH + PATH;
+		dirName[1] = SAVE_PATH + PATH + thumb[0];
+		dirName[2] = SAVE_PATH + PATH + thumb[1];
+		dirName[3] = SAVE_PATH + PATH + thumb[2];
+
+//		dirName[0] = String.format(SAVE_PATH + "%04d/%02d/%02d", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
+//				cal.get(Calendar.DAY_OF_MONTH));
+//		dirName[1] = String.format(SAVE_THUMB_PATH + "%04d/%02d/%02d", cal.get(Calendar.YEAR),
+//				cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH));
+//
+//		fileName[0] = String.format("%04d/%02d/%02d/", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
+//				cal.get(Calendar.DAY_OF_MONTH));
+//		fileName[1] = String.format("%04d/%02d/%02d/", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
+//				cal.get(Calendar.DAY_OF_MONTH));
 
 		File dir = new File(dirName[0]);
 		dir.mkdirs();
 		dir = new File(dirName[1]);
 		dir.mkdirs();
+		dir = new File(dirName[2]);
+		dir.mkdirs();
+		dir = new File(dirName[3]);
+		dir.mkdirs();
 
 		String saveFileName = UUID.randomUUID().toString().replaceAll("-", "") + ".jpg";
 
-		File file = new File(fileName + "/" + saveFileName);
+		File file = new File(dirName[0] + saveFileName);
 
 		while (file.exists()) {
 			saveFileName = "0" + saveFileName;
-			file = new File(fileName + "/" + saveFileName);
+			file = new File(dirName[0] + saveFileName);
 		}
 
-		fileName[0] += saveFileName;
-		fileName[1] += saveFileName;
-		System.out.println(fileName[0] + ", " + fileName[1]);
-		return fileName;
+//		System.out.println(fileName[0] + ", " + fileName[1]);
+		System.out.println(saveFileName);
+		return saveFileName;
 
 	}
 
@@ -251,45 +264,72 @@ public class UploadFiles {
 		}
 	}
 
-	public void makeThumbnail(String[] fileName, String tag) throws Exception {
+	public void makeThumbnail(String fileName, String tag) throws Exception {
 		BufferedImage srcImg = null;
 		if (tag.equals("img")) {
-			srcImg = ImageIO.read(new File(SAVE_PATH + fileName[0]));
+			srcImg = ImageIO.read(new File(SAVE_PATH + PATH + fileName));
 			srcImg = thumbOrientation(srcImg, orientation);
+
+			// 뷰 425 260
+			// 슬라이드 316 210
+			// 프로필 300 300
+			int[] dw = { 425, 316, 300 };
+			int[] dh = { 260, 210, 300 };
+			int ow = srcImg.getWidth();
+			int oh = srcImg.getHeight();
+
+			int[] nw = new int[3];
+			int[] nh = new int[3];
+			for (int i = 0; i < 3; i++) {
+				nw[i] = ow;
+				nh[i] = (ow * dh[i]) / dw[i];
+
+				if (nh[i] > oh) {
+					nw[i] = (oh * dw[i]) / dh[i];
+					nh[i] = oh;
+				}
+
+				BufferedImage cropImg = Scalr.crop(srcImg, (ow - nw[i]) / 2, (oh - nh[i]) / 2, nw[i], nh[i]);
+				BufferedImage destImg = Scalr.resize(cropImg, dw[i], dh[i]);
+
+				File thumbFile = null;
+
+				thumbFile = new File(SAVE_PATH + PATH + thumb[i] + fileName);
+				ImageIO.write(destImg, "jpg", thumbFile);
+			}
+
 		} else if (tag.equals("profile")) {
-			srcImg = ImageIO.read(new File(SAVE_PROFILE_PATH + fileName[0]));
-			metadata = getMetadata(new File(SAVE_PROFILE_PATH + fileName[0]));
-			orientation = getOrientation(new File(SAVE_PROFILE_PATH + fileName[0]));
+			srcImg = ImageIO.read(new File(SAVE_PATH + PATH + fileName));
+			metadata = getMetadata(new File(SAVE_PATH + PATH + fileName));
+			orientation = getOrientation(new File(SAVE_PATH + PATH + fileName));
 			if (orientation >= 0) {
 				srcImg = thumbOrientation(srcImg, orientation);
 			}
+			int dw = 300;
+			int dh = 300;
+			int ow = srcImg.getWidth();
+			int oh = srcImg.getHeight();
+
+			int nw = 0;
+			int nh = 0;
+
+			nw = ow;
+			nh = (ow * dh) / dw;
+
+			if (nh > oh) {
+				nw = (oh * dw) / dh;
+				nh = oh;
+			}
+
+			BufferedImage cropImg = Scalr.crop(srcImg, (ow - nw) / 2, (oh - nh) / 2, nw, nh);
+			BufferedImage destImg = Scalr.resize(cropImg, dw, dh);
+
+			File thumbFile = null;
+
+			thumbFile = new File(SAVE_PATH + PATH + fileName);
+			ImageIO.write(destImg, "jpg", thumbFile);
+
 		}
-
-		int dw = 316, dh = 210;
-		int ow = srcImg.getWidth();
-		int oh = srcImg.getHeight();
-
-		int nw = ow;
-		int nh = (ow * dh) / dw;
-
-		if (nh > oh) {
-			nw = (oh * dw) / dh;
-			nh = oh;
-		}
-
-		BufferedImage cropImg = Scalr.crop(srcImg, (ow - nw) / 2, (oh - nh) / 2, nw, nh);
-
-		BufferedImage destImg = Scalr.resize(cropImg, dw, dh);
-
-		File thumbFile = null;
-		if (tag.equals("img")) {
-			thumbFile = new File(SAVE_THUMB_PATH + fileName[1]);
-		} else if (tag.equals("profile")) {
-			thumbFile = new File(SAVE_PROFILE_THUMB_PATH + fileName[1]);
-		}
-
-		ImageIO.write(destImg, "jpg", thumbFile);
-
 	}
 
 	private BufferedImage thumbOrientation(BufferedImage srcImg, int orientation) {
