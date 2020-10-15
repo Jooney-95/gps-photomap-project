@@ -102,7 +102,7 @@ ul.bxslider {
 .bx-wrapper .bx-controls-direction a {
     position: absolute;
     top: 0;
-    width: 140px;
+    width: 80px;
     height: 210px;
     text-indent: -9999px;
     z-index: 9;

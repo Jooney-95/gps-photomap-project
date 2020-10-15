@@ -338,7 +338,7 @@
 				console.log(address)
          		google.maps.event.addListener(marker, 'click', function(evt) {
              		
-         			infowindow.setContent(address[i]);
+         			infowindow.setContent(address[i].substring(5));
 	              	infowindow.open(map, marker);
          	    });
                 console.log(`마커`)
