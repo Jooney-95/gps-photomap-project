@@ -84,7 +84,10 @@
       <input type="hidden" id="bno" name="bno" value="${view.bno }" />
       <p>제목     <input type="text" id="title" name="title" value="${view.title }"/></p>
       <input type="hidden" id="userID" name="writer" value="${session.id }" />
-       <br/>
+       <div id="loading" style="display: none;">
+            <p >이미지 업로드중</p>
+            <i class="fa fa-spinner fa-pulse fa-fw"></i> 
+         </div>
    </div>
    
    <div class="button-wrapper">

@@ -234,6 +234,7 @@ function deleteStorageLikeImg(imgBno) {
 }
 
 function uploadImg() {
+	$("#loading").css("display", "");
 	if (sel_files.length > 0) {
 		var form = $("#f")[0];
 		var formData = new FormData(form);
@@ -402,7 +403,7 @@ function printImgBox(obj, tp) {
 		img_html += '                 <div class="border" id="bor_' + obj[i].id
 				+ '" >';
 		img_html += '                    <img class="imgselect1" id="img_'
-				+ obj[i].id + '" name="filesList" src="' + obj[i].path + "view/"
+				+ obj[i].id + '" name="filesList" src="' + obj[i].path + "thumb/"
 				+ obj[i].fileName + '" />';
 		img_html += "                 </div>";
 		img_html += "              </li>";
@@ -449,6 +450,7 @@ function printImgBox(obj, tp) {
 	getLikeImg(JSON.parse(localStorage.getItem("modifyLikeImgData")));
 	getSession();
 	getKate();
+	$("#loading").css("display", "none");
 }
 
 function getLoc(x, y, iIndex) {

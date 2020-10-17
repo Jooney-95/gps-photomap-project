@@ -100,7 +100,10 @@
          <i class="fas fa-list"></i><a>카테고리 </a>
       </div>
    </div>
-   <span id="katetext"></span>  
+   
+   <div class="topkate">
+      <span id="katetext"></span>
+   </div>
      <div class="ttop" id="ttop" style="display:none;">
          <p class="set">카테고리</p>
          <p class="set2">원하는 분야별로 게시물을 정렬하여 볼 수 있습니다.<br></p>           

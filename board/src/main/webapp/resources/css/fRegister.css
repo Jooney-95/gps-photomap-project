@@ -121,13 +121,14 @@ margin:0px 10px;/*체크박스와글씨간격*/
 }
 /*/////////팝업창///////*/
 .popup {
+  overflow: auto;
   position: fixed;
-  width: 500px;
-  height:300px;
+  width: 600px;
+  height:400px;
   padding: 10px;
-  max-width: 500px;
-  border-radius: 10px;
-  border:4px solid #ffd88f;
+  max-width: 600px;
+  border-radius: 5px;
+  border: 3px solid #e9e9e9;
   top: 50%;/*위치상하를바꾸기아래로갈시%커지기!!*/
   left: 50%;/*중앙으로하기위해서는꼭고정*/
   transform: translate(-50%, -50%);
@@ -145,29 +146,57 @@ margin:0px 10px;/*체크박스와글씨간격*/
   transition-delay: 0s;
 }
 
+
+.popup::-webkit-scrollbar {
+    width: 15px;
+    cursor:pointer;
+   
+  }
+  .popup::-webkit-scrollbar-thumb {
+    background-color: #dfdfdf;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+    
+  }
+  .popup::-webkit-scrollbar-track {
+    border:1px solid #eee;
+    background-color:#f6f6f6 ;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px #fff;
+    
+  }
+
 /*/////////팝업창의x아이콘//////////*/
 
+
 .popup .close {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  color: #000;
+  position: sticky;
+  float:right;
+    color: #000;
   transition: color .3s;
   /*font-size: 1em; 아이콘사이즈키우고싶으면!!*/
   line-height: .3em;
  
-  
 
 }
 
-.popup .close:hover {
-  border:3px solid #35a785;
-  color: #35a785;
+
+.popup .p, .pp, .ppp, .pppp{
+   text-align: left;
+   font-size:13px;
+   
+}
+.popup .p{
+   font-weight: bold;
+    text-align: left;
+    margin-bottom: 10px;
 }
 
-
-
-
+.popup .ppp{
+   margin: 10px 0;
+   
+}
 /*/////////////////////////////*/
 
 

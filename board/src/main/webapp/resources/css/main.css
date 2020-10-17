@@ -41,7 +41,7 @@ body {
 }
 .list {
   width: 1014px;
-  height: 50px;
+  height: 40px;
   background: #fff;
   margin: 0 auto;
   text-align: center;
@@ -88,6 +88,24 @@ body {
   margin-bottom: 5px;
   font-size: 13px;
 }
+
+.topkate{
+   width:1010px;
+   margin:0 auto;
+   text-align:left;
+   font-size:12px;
+}
+#katetext{
+   height:20px;
+   padding:5px;
+}
+
+#katetext img{
+   width:15px;
+   height:15px;
+}
+
+
 #table {
   width: 320px;
   height: 320px;
@@ -96,11 +114,12 @@ body {
   background: #fff;
   margin-top: 20px;
   float: left;
-  margin-left: 20px;
+  margin-left: 25px;
   display: inline-block;
   background: #fff;
   margin-bottom: 20px;
 }
+
 
 /*////////////////상단///////////////////*/
 
@@ -150,13 +169,6 @@ ul li {
 .name a:visited {
   text-decoration: none;
   color: #3b3f58;
-}
-
-/*********링크 마우스 오버*********/
-.name a:hover {
-  text-decoration: none;
-  color: #10b27d;
-  text-shadow: 0 0 24px;
 }
 
 /*///////////상단 날짜 or 시간//////////*/
@@ -229,12 +241,6 @@ ul li {
   color: #000000;
 }
 
-/*********링크 마우스 오버*********/
-#title a:hover {
-  text-decoration: none;
-  color: #10b27d;
-  text-shadow: 0 0 24px;
-}
 #ta {
   white-space: nowrap;
   overflow: hidden;

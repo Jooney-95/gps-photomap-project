@@ -299,9 +299,9 @@ public class UploadFiles {
 			
 			if(ow > oh) {
 				ow = dw[0];
-				oh = ow/dw[0];
+				oh = oh / (ow/dw[0]);
 			} else {
-				ow = oh/dh[0];
+				ow = ow / (oh/dh[0]);
 				oh = dh[0];
 			}
 			BufferedImage destImg = Scalr.resize(srcImg, ow, oh);
