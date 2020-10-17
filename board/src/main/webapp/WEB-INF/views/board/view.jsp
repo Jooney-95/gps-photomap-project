@@ -99,7 +99,7 @@
         <div id="acd">
       <!-- 카테고리 -->
       <div id="a">
-        <div class="a-a"><i class="fas fa-angle-right"></i>
+        <div class="a-a" id="a2"><i class="fas fa-angle-right"></i>
         <input type="hidden" class="kate" value="${view.kate}" />
         <div id="kate"></div>
         </div>
@@ -338,7 +338,7 @@
 				console.log(address)
          		google.maps.event.addListener(marker, 'click', function(evt) {
              		
-         			infowindow.setContent(address[i]);
+         			infowindow.setContent(address[i].substring(5));
 	              	infowindow.open(map, marker);
          	    });
                 console.log(`마커`)

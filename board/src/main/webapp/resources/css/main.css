@@ -239,12 +239,12 @@ ul li {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 222px;
+  width: 215px;
   position: absolute;
 }
 /*공감수*/
 #likeCnt {
-  width: 60px;
+  width: 75px;
   height: 25px;
   color: #fdb330;
   margin-right: 12px;
