@@ -36,7 +36,7 @@ public class UploadFiles {
 	public String PATH = String.format("%04d/%02d/%02d/", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
 			cal.get(Calendar.DAY_OF_MONTH));
 
-	private String[] thumb = { "view/", "slider/", "square/" };
+	private String[] thumb = { "view/", "slider/", "square/", "thumb/" };
 
 	private Metadata metadata = null;
 
@@ -179,11 +179,12 @@ public class UploadFiles {
 
 	public void deleteFile(String name) {
 		// TODO Auto-generated method stub
-		File[] file = new File[4];
+		File[] file = new File[5];
 		file[0] = new File(SAVE_PATH + PATH + name);
 		file[1] = new File(SAVE_PATH + PATH + thumb[0] + name);
 		file[2] = new File(SAVE_PATH + PATH + thumb[1] + name);
 		file[3] = new File(SAVE_PATH + PATH + thumb[2] + name);
+		file[4] = new File(SAVE_PATH + PATH + thumb[3] + name);
 
 		for (File f : file) {
 			if (f.exists()) {
@@ -197,12 +198,13 @@ public class UploadFiles {
 	public String getRandomString() {
 //		String[] fileName = new String[2];
 
-		String[] dirName = new String[4];
+		String[] dirName = new String[5];
 
 		dirName[0] = SAVE_PATH + PATH;
 		dirName[1] = SAVE_PATH + PATH + thumb[0];
 		dirName[2] = SAVE_PATH + PATH + thumb[1];
 		dirName[3] = SAVE_PATH + PATH + thumb[2];
+		dirName[4] = SAVE_PATH + PATH + thumb[3];
 
 //		dirName[0] = String.format(SAVE_PATH + "%04d/%02d/%02d", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
 //				cal.get(Calendar.DAY_OF_MONTH));
@@ -214,14 +216,10 @@ public class UploadFiles {
 //		fileName[1] = String.format("%04d/%02d/%02d/", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
 //				cal.get(Calendar.DAY_OF_MONTH));
 
-		File dir = new File(dirName[0]);
-		dir.mkdirs();
-		dir = new File(dirName[1]);
-		dir.mkdirs();
-		dir = new File(dirName[2]);
-		dir.mkdirs();
-		dir = new File(dirName[3]);
-		dir.mkdirs();
+		for(String dir : dirName) {
+			File f = new File(dir);
+			f.mkdirs();
+		}
 
 		String saveFileName = UUID.randomUUID().toString().replaceAll("-", "") + ".jpg";
 
@@ -281,6 +279,7 @@ public class UploadFiles {
 			int[] nw = new int[3];
 			int[] nh = new int[3];
 			for (int i = 0; i < 3; i++) {
+				
 				nw[i] = ow;
 				nh[i] = (ow * dh[i]) / dw[i];
 
@@ -297,6 +296,19 @@ public class UploadFiles {
 				thumbFile = new File(SAVE_PATH + PATH + thumb[i] + fileName);
 				ImageIO.write(destImg, "jpg", thumbFile);
 			}
+			
+			if(ow > oh) {
+				ow = dw[0];
+				oh = ow/dw[0];
+			} else {
+				ow = oh/dh[0];
+				oh = dh[0];
+			}
+			BufferedImage destImg = Scalr.resize(srcImg, ow, oh);
+			File thumbFile = null;
+
+			thumbFile = new File(SAVE_PATH + PATH + thumb[3] + fileName);
+			ImageIO.write(destImg, "jpg", thumbFile);
 
 		} else if (tag.equals("profile")) {
 			srcImg = ImageIO.read(new File(SAVE_PATH + PATH + fileName));

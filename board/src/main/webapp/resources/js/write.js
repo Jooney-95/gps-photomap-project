@@ -383,7 +383,7 @@ function printImgBox(obj) {
 		img_html += '                 <div class="border" id="bor_' + obj[i].id
 				+ '" >';
 		img_html += '                    <img class="imgselect1" id="img_'
-				+ obj[i].id + '" name="filesList"src="' + obj[i].path + "view/"
+				+ obj[i].id + '" name="filesList"src="' + obj[i].path + "thumb/"
 				+ obj[i].fileName + '" />';
 		img_html += "                 </div>";
 		img_html += "              </li>";
@@ -420,7 +420,7 @@ function printImgBox(obj) {
 
 		$("#time_" + obj[i].id).val(obj[i].timeView);
 		$("#id_" + obj[i].id).val(obj[i].id);
-		$("#img_" + obj[i].id).attr("src", obj[i].path + "view/" + obj[i].fileName);
+		$("#img_" + obj[i].id).attr("src", obj[i].path + "thumb/" + obj[i].fileName);
 
 		getLoc(obj[i].latitude, obj[i].longitude, obj[i].id);
 	}
