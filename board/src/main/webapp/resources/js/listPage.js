@@ -1,5 +1,5 @@
 var kateObj = {
-  a1: "피크닉",
+  a1: '<img src="/resources/imgs/kkk1.png"><br>피크닉',
   b1: "전시회",
   c1: "박물관",
   d1: "맛집투어",
@@ -144,13 +144,13 @@ function getList(value) {
   }
 }
 
-$(document).on("change", "input[name='kategorie']", function () {
+function checkKategorie () {
   if (listFlag == true) {
     listFlag = false;
     $("#pageList").empty();
     getPageList(pageNumber);
   }
-});
+}
 
 function getPageList(pageNum) {
   console.log("페이징");
@@ -161,7 +161,7 @@ function getPageList(pageNum) {
 
   for (var i = 0; i < kategorie.length; i++) {
     kategorieArr.push(kategorie[i].value);
-    $("#katetext").text(kateObj[kategorie[i].value]);
+    $("#katetext").html(kateObj[kategorie[i].value]);
   }
 
   console.log(``, URL, kategorieArr);
@@ -504,10 +504,15 @@ function alamPopup() {
 function divShow() {
   document.getElementById("kategorie").style.display = "block";
   document.getElementById("ttop").style.display = "block";
+  document.getElementById("katetext").style.display = "none";
+  document.getElementById("pageList").style.display = "none";
 }
 
 // 카테고리 숨기기
 function divHide() {
   document.getElementById("kategorie").style.display = "none";
   document.getElementById("ttop").style.display = "none";
+  document.getElementById("katetext").style.display = "block";
+  document.getElementById("pageList").style.display = "block";
+  checkKategorie();
 }
