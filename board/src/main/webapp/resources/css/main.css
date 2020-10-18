@@ -435,6 +435,12 @@ ul li {
 }
 .check button {
   width: 100px;
-  height: 30px;
+  height: 32px;
   cursor: pointer;
+      background:#f2f2f3;
+      border:none;
+      transition:0.3s;
+    }
+.check button:hover{
+   background:#e9e9e9;
 }
