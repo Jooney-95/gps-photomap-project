@@ -76,7 +76,7 @@
             </div>
 </div>
 
-
+<input type="hidden" id="kate" value="${view.kate}">
 <form method="post" id="f" enctype="multipart/form-data">
 <div class="main">
 

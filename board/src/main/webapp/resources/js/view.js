@@ -54,17 +54,10 @@ $(document).ready(function () {
 });
 
 function setKate() {
+	
   var kate = kateObj[$(".kate").val()];
   $("#kate").html(kate);
-  
-  // 카테고리를 설정안했을시 카테고리 디자인 숨김
-  if($("#kate").text() == "") {
-	  console.log("카테고리 설정안함");
-	  $("#a2").hide();
-  }
-	  
-	  
-  
+	
 }
 
 //console.log($("#a > .a-a > .kate > #kate").val());

@@ -98,13 +98,14 @@
         
         <div id="acd">
       <!-- 카테고리 -->
+      <c:if test="${view.kate != '' }">
       <div id="a">
         <div class="a-a" id="a2"><i class="fas fa-angle-right"></i>
         <input type="hidden" class="kate" value="${view.kate}" />
         <div id="kate"></div>
         </div>
       </div>
-      
+      </c:if>
       
       <div id="cd">
         <!-- 저장 -->

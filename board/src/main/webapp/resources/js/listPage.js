@@ -47,7 +47,8 @@ var likeImg;
 var listFlag;
 
 $(document).ready(function () {
-  sessionStorage.clear();
+//  sessionStorage.clear();
+	sessionStorage.removeItem("keyword");
   pageNumber = 1;
   sessionStorage.setItem("like", "/board/getPage");
   sessionStorage.setItem("new", "/board/getPage");
@@ -61,28 +62,32 @@ $(document).ready(function () {
 });
 
 function getFlag() {
-  sessionStorage.removeItem("flag");
-  sessionStorage.setItem("flag", "like");
+	
+	if(!sessionStorage.getItem("flag")){
+		console.log(sessionStorage.getItem("flag"))
+		sessionStorage.setItem("flag", "like");
+	}
 
   var flag = sessionStorage.getItem("flag");
+  console.log(flag)
 
   if (flag == "like" || flag == "likeSearch") {
     $(".listBold")[0].style.color = "black";
+    $(".listBold")[1].style.color = "#bbb";
+    $(".listBold")[2].style.color = "#bbb";
     return;
   } else if (flag == "new" || flag == "newSearch") {
+    $(".listBold")[0].style.color = "#bbb";
     $(".listBold")[1].style.color = "black";
+    $(".listBold")[2].style.color = "#bbb";
     return;
   } else {
+    $(".listBold")[0].style.color = "#bbb";
+    $(".listBold")[1].style.color = "#bbb";
     $(".listBold")[2].style.color = "black";
   }
 }
 
-$(document).on("click", ".listBold", function () {
-  $(this).css("font-weight", "bold");
-  $(this).css("color", "#000");
-  $(".listBold").not($(this)).css("font-weight", "bold");
-  $(".listBold").not($(this)).css("color", "#bbb");
-});
 
 $(document).on("click", "#searchBtn", function () {
   var flag = sessionStorage.getItem("flag");
@@ -120,7 +125,7 @@ $(window).scroll(function () {
 });
 
 function getList(value) {
-  var flag = sessionStorage.getItem("flag");
+  
   var keyword = document.getElementsByName("keyword")[0];
   sessionStorage.removeItem("keyword");
   keyword.value = "";
@@ -137,6 +142,7 @@ function getList(value) {
       sessionStorage.setItem("flag", "fol");
       break;
   }
+  getFlag();
 
   if (listFlag == true) {
     listFlag = false;
@@ -439,7 +445,6 @@ function printImg(bno, index, path) {
 }
 
 function imgSlider(bno, index, path, fileName) {
-	console.log(path, fileName)
   var imgInner;
   imgInner = '   <li class="sliderItem">';
   imgInner += '     <a href="/board/view?bno=' + bno + '">';
@@ -507,6 +512,7 @@ function divShow() {
   document.getElementById("ttop").style.display = "block";
   document.getElementById("katetext").style.display = "none";
   document.getElementById("pageList").style.display = "none";
+  $("#category").css("color","black");
 }
 
 // 카테고리 숨기기
@@ -515,5 +521,6 @@ function divHide() {
   document.getElementById("ttop").style.display = "none";
   document.getElementById("katetext").style.display = "block";
   document.getElementById("pageList").style.display = "block";
+$("#category").css("color","#bbb");
   checkKategorie();
 }
