@@ -51,6 +51,7 @@ $(document).ready(function () {
   likeImg();
   setKate();
   saveCheck();
+  setNumber();
 });
 
 function setKate() {
@@ -86,6 +87,18 @@ function countLike() {
       );
     }
   });
+}
+
+function setNumber(){
+	var number = 1;
+	for(var index = 1; index<=$("input[name='loc']").length;index++){
+		
+		if($("#place_"+index).val()){
+			console.log(index)
+			$("#number_"+index).text(number++);
+			
+		}
+	}
 }
 
 function likeImg() {

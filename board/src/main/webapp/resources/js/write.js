@@ -428,7 +428,7 @@ function printImgBox(obj) {
 	$("#loading").css("display", "none");
 }
 
-function getLoc(x, y, iIndex) {
+/*function getLoc(x, y, iIndex) {
 	var coord = new kakao.maps.LatLng(parseFloat(x), parseFloat(y));
 
 	var geocoder = new kakao.maps.services.Geocoder();
@@ -439,7 +439,36 @@ function getLoc(x, y, iIndex) {
 		}
 	};
 	geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
+}*/
+function initMap() {
+	var map = new google.maps.Map(document.getElementById('map'), {
+			zoom: 12,
+			disableDefaultUI: true // 기본 컨트롤 비활성			
+		});
 }
+var address = {};
+function getLoc(x, y, iIndex) {
+	var geocoder = new google.maps.Geocoder();
+	var infowindow = new google.maps.InfoWindow();
+	var latlng = {lat:parseFloat(x),lng:parseFloat(y)}
+
+	geocoder.geocode({ location: latlng }, (results, status) => {
+        
+        if (status === "OK") {
+          if (results[0]) {
+        	  document.getElementById("loc_" + iIndex).value = results[0].formatted_address;
+            	 
+          } else {
+          	window.alert("No results found");
+            }
+        } else {
+          	window.alert("Geocoder failed due to: " + status);
+          }
+       
+	});
+	
+}
+
 
 function loginPopup() {
 	if (document.getElementById("loginPopup").style.display == "none") {

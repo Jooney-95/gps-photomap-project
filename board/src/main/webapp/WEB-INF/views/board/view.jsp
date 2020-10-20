@@ -204,7 +204,7 @@
     
   <div class="original"  style="display:none">
   
-   <c:forEach items="${list }" var="list">
+   <c:forEach items="${list }" var="list" varStatus="status">
          <input type="hidden" name="id" value="${list.id }" />
          <input type="hidden" id="tblBno" value="${view.bno }" />
          <input type="hidden" id="userID" name="userID" value="${session.id }" />
@@ -217,7 +217,8 @@
       
         <div class="leftone">
                  <i class="fas fa-map-marker-alt"></i> 
-                 <input type="text" name="loc" value="${list.place }" readOnly />
+                 <p id="number_${status.count }"></p>
+                 <input type="text" id="place_${status.count }" name="loc" value="${list.place }" readOnly />
                  <input type="hidden" name="lat" value="${list.latitude }" readOnly />
                   <input type="hidden" name="lon" value="${list.longitude }" readOnly />
          </div>
@@ -276,25 +277,35 @@
    
    <!-- 구글지도 테스트 -->
 	<div id="map"></div>
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+	<script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
+    <script defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3apcshVnvHMEX7tVXdasnQ4qx3alFMTQ&callback=initMap">
+    </script>
 	<script>
 	
 		//위도, 경도값  배열에 저장
 		var lat = new Array();
 		var lon = new Array();
+		var address = new Array();
 		
 		<c:forEach items="${list }" var="list">
 		lat.push("${list.latitude}");
 		lon.push("${list.longitude}");
-		</c:forEach>	
+		address.push("${list.place}");
+		</c:forEach>
 
-		var address = {};
+		address = address.filter(val => val !== "");
+
 		var positions = [];
 		let map;
 		
 	    // 업로드된 이미지만큼 (위도,경도)값을 저장한다       
 	    for (var i = 0; i < lat.length; i++) {
-	    	var myLatLng = {lat: parseFloat(lat[i]), lng: parseFloat(lon[i])}; 
-	        positions.push(myLatLng);
+		    if(lat[i] && lon[i]){
+	    		var myLatLng = {lat: parseFloat(lat[i]), lng: parseFloat(lon[i])}; 
+	        	positions.push(myLatLng);
+		    }
 	    }
        	console.log(positions); // 업로드된 위치정보 출력
 		
@@ -304,6 +315,7 @@
 					disableDefaultUI: true, // 기본 컨트롤 비활성
 					center: positions[0]
 				});
+       	
 
 			//var myIcon = new google.maps.MarkerImage("/resources/imgs/markers.png", null, null, null, new google.maps.Size(300,200));
 			
@@ -318,7 +330,6 @@
 			    //});
 			//}
 			
-			var geocoder = new google.maps.Geocoder();
 			
 			//다중마커 출력(클러스터 전용)
 			var markers = positions.map(function(positions, i) {
@@ -333,10 +344,10 @@
 						lng: parseFloat(lon[i])
             }
 
-            geocodeLatLng(geocoder, map, infowindow, latlng, i);
+            /* geocodeLatLng(geocoder, map, infowindow, latlng, i); */
             var infowindow = new google.maps.InfoWindow();
 				//마커 클릭이벤트로 인포윈도우(정보창) 생성
-				console.log(address)
+			
          		google.maps.event.addListener(marker, 'click', function(evt) {
              		
          			infowindow.setContent(address[i].substring(5));
@@ -346,7 +357,7 @@
          	    return marker;
 			});//markers 끝
          
-			
+       	
          
 
 			//마커 클러스터링
@@ -356,41 +367,14 @@
 				zoomOnClick: true,
 				mzxZoom: 10,
 			};
+			
 			var markerCluster = new MarkerClusterer(map, markers, options);
-			
-		
 
-		//주소 변환
-       function geocodeLatLng(geocoder, map, infowindow, latlng, index) { 
-      
-				geocoder.geocode({ location: latlng }, (results, status) => {
-               
-			          if (status === "OK") {
-			            if (results[0]) {
-			              	address[index] = results[0].formatted_address;
-			              	// console.log(results);
-			            } else {
-			            	window.alert("No results found");
-			              }
-			          } else {
-			            	window.alert("Geocoder failed due to: " + status);
-			            }
-			         
-			 	});
-				
-         
-		}//주소변환 끝
-
-		}//initmap 끝
 		
-			
+       	}	
 		
     </script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-	<script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
-    <script defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3apcshVnvHMEX7tVXdasnQ4qx3alFMTQ&callback=initMap">
-    </script>
+    
 
 
 
