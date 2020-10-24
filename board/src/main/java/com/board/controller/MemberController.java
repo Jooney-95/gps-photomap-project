@@ -237,10 +237,11 @@ public class MemberController {
 		}
 
 		MemberVO login = service.login(vo);
+		int id = login.getId();
 		HttpSession session = req.getSession();
 		session.setAttribute("session", login);
-
-		return "redirect:/";
+		
+		return "redirect:/member/myPage?num=1&userID="+id;
 	}
 
 	@RequestMapping(value = "/password", method = RequestMethod.GET)

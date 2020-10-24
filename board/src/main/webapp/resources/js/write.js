@@ -448,8 +448,11 @@ function initMap() {
 }
 var address = {};
 function getLoc(x, y, iIndex) {
+	if(!x || !y){
+		document.getElementById("loc_" + iIndex).value = "";
+		return;
+	}
 	var geocoder = new google.maps.Geocoder();
-	var infowindow = new google.maps.InfoWindow();
 	var latlng = {lat:parseFloat(x),lng:parseFloat(y)}
 
 	geocoder.geocode({ location: latlng }, (results, status) => {

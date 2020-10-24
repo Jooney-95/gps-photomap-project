@@ -236,3 +236,8 @@ button{
 .next{
    margin-right:30px;
 }
+
+#pImg{
+	object-fit: cover;
+	object-position: center center;
+}

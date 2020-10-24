@@ -95,7 +95,8 @@ function setNumber(){
 		
 		if($("#place_"+index).val()){
 			console.log(index)
-			$("#number_"+index).text(number++);
+			$("#number_"+index).text(number);
+			$("#number2_"+index).text(number++);
 			
 		}
 	}
