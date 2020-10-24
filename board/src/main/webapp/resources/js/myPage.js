@@ -15,34 +15,34 @@ window.onload = function () {
 };
 
 $(document).ready(function () {
-	getFlag();
+  getFlag();
 });
 
 function getFlag() {
-	  sessionStorage.removeItem("flag");
-	  sessionStorage.setItem("flag", "like");
+  sessionStorage.removeItem("flag");
+  sessionStorage.setItem("flag", "like");
 
-	  var flag = sessionStorage.getItem("flag");
+  var flag = sessionStorage.getItem("flag");
 
-	  if (flag == "like" || flag == "likeSearch") {
-	    $(".listBold")[0].style.color = "black";
-	    return;
-	  } else if (flag == "new" || flag == "newSearch") {
-	    $(".listBold")[1].style.color = "black";
-	    return;
-	  } else {
-	    $(".listBold")[2].style.color = "black";
-	  }
-	}
+  if (flag == "like" || flag == "likeSearch") {
+    $(".listBold")[0].style.color = "black";
+    return;
+  } else if (flag == "new" || flag == "newSearch") {
+    $(".listBold")[1].style.color = "black";
+    return;
+  } else {
+    $(".listBold")[2].style.color = "black";
+  }
+}
 
 $(document).on("click", ".listBold", function () {
-    $(this).css("font-weight", "bold");
-    $(this).css("color", "#000");
-    $(this).css("border-top", "1px solid #000000");
-    $(".listBold").not($(this)).css("font-weight", "bold");
-    $(".listBold").not($(this)).css("color", "#bbb");
-    $(".listBold").not($(this)).css("border-top", "0px solid #bbb");
-  });
+  $(this).css("font-weight", "bold");
+  $(this).css("color", "#000");
+  $(this).css("border-top", "1px solid #000000");
+  $(".listBold").not($(this)).css("font-weight", "bold");
+  $(".listBold").not($(this)).css("color", "#bbb");
+  $(".listBold").not($(this)).css("border-top", "0px solid #bbb");
+});
 
 $(window).scroll(function () {
   if (
@@ -538,7 +538,7 @@ function getImg(bno, count) {
         return obj.id == likeImg[count][i].imgBno;
       });
       //printImg(bno, i, imgObj[0].fileName)
-      imgSlider(bno, i, imgObj[0].fileName);
+      imgSlider(bno, i, imgObj[0].path, imgObj[0].fileName);
     } else {
       var j = 0;
       while (imgFlag) {
@@ -548,7 +548,7 @@ function getImg(bno, count) {
             return obj.imgBno == file[count][j].id;
           })[0] == undefined
         ) {
-          imgSlider(bno, iCount, file[count][j].fileName);
+          imgSlider(bno, iCount, file[count][j].path, file[count][j].fileName);
           iCount++;
         }
         j++;
@@ -578,13 +578,8 @@ function printImg(bno, index, path) {
   $("#img_" + bno).append(imgInner);
 }
 
-function getImgSlider(bno, count) {
-  for (var i = 0; i < file[count].length; i++) {
-    imgSlider(bno, i, file[count][i].fileName);
-  }
-}
 
-function imgSlider(bno, index, fileName) {
+function imgSlider(bno, index, path, fileName) {
   var imgInner;
   imgInner = '   <li class="sliderItem">';
   imgInner += '     <a href="/board/view?bno=' + bno + '">';
@@ -594,7 +589,8 @@ function imgSlider(bno, index, fileName) {
     "_" +
     index +
     '" alt="" src=' +
-    "/img/thumb/" +
+    path +
+    "slider/" +
     fileName +
     ">";
   imgInner += "     </a>";

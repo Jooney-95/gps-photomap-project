@@ -1,42 +1,43 @@
 var kateObj = {
-  a1: "피크닉",
-  b1: "전시회",
-  c1: "박물관",
-  d1: "맛집투어",
-  e1: "사진명소",
-  f1: "드라이브",
-  g1: "데이트",
-  h1: "등산",
-  i1: "바다",
-  j1: "강",
-  k1: "낚시",
-  l1: "액티비티",
-  m1: "호캉스",
-  a2: "서울특별시",
-  b2: "경기도",
-  c2: "인천광역시",
-  d2: "강원도",
-  e2: "대구광역시",
-  f2: "경상북도",
-  g2: "부산광역시",
-  h2: "울산광역시",
-  i2: "경상남도",
-  j2: "충청북도",
-  k2: "세종특별자치시",
-  l2: "대전광역시",
-  m2: "충청남도",
-  n2: "전라북도",
-  o2: "광주광역시",
-  p2: "전라남도",
-  q2: "제주특별시",
-  a3: "가족",
-  b3: "연인",
-  c3: "친구",
-  d3: "대학교",
-  e3: "동아리",
-  f3: "동호회",
-  g3: "회사"
+  a1: '테마별     > <img src="/resources/imgs/kkk1.png">   피크닉',
+  b1: '테마별     > <img src="/resources/imgs/kkk2.png">   전시회',
+  c1: '테마별     > <img src="/resources/imgs/kkk3.png">   박물관',
+  d1: '테마별     > <img src="/resources/imgs/kkk4.png">   맛집투어',
+  e1: '테마별     > <img src="/resources/imgs/kkk5.png">   사진명소',
+  f1: '테마별     > <img src="/resources/imgs/kkk6.png">   드라이브',
+  g1: '테마별     > <img src="/resources/imgs/kkk7.png">   데이트',
+  h1: '테마별     > <img src="/resources/imgs/kkk8.png">   등산',
+  i1: '테마별     > <img src="/resources/imgs/kkk9.png">   바다',
+  j1: '테마별     > <img src="/resources/imgs/kkk10.png">   강',
+  k1: '테마별     > <img src="/resources/imgs/kkk11.png">   낚시',
+  l1: '테마별     > <img src="/resources/imgs/kkk12.png">   액티비티',
+  m1: '테마별     > <img src="/resources/imgs/kkk13.png">   호캉스',
+  a2: '지역별     > <img src="/resources/imgs/k1.png">   서울특별시',
+  b2: '지역별     > <img src="/resources/imgs/k2.png">   경기도',
+  c2: '지역별     > <img src="/resources/imgs/k3.png">   인천광역시',
+  d2: '지역별     > <img src="/resources/imgs/k4.png">   강원도',
+  e2: '지역별     > <img src="/resources/imgs/k5.png">   대구광역시',
+  f2: '지역별     > <img src="/resources/imgs/k6.png">   경상북도',
+  g2: '지역별     > <img src="/resources/imgs/k7.png">   부산광역시',
+  h2: '지역별     > <img src="/resources/imgs/k8.png">   울산광역시',
+  i2: '지역별     > <img src="/resources/imgs/k9.png">   경상남도',
+  j2: '지역별     > <img src="/resources/imgs/k10.png">   충청북도',
+  k2: '지역별     > <img src="/resources/imgs/k11.png">   세종특별자치시',
+  l2: '지역별     > <img src="/resources/imgs/k12.png">   대전광역시',
+  m2: '지역별     > <img src="/resources/imgs/k13.png">   충청남도',
+  n2: '지역별     > <img src="/resources/imgs/k14.png">   전라북도',
+  o2: '지역별     > <img src="/resources/imgs/k15.png">   광주광역시',
+  p2: '지역별     > <img src="/resources/imgs/k16.png">   전라남도',
+  q2: '지역별     > <img src="/resources/imgs/k17.png">   제주특별시',
+  a3: '모임/단체별     > <img src="/resources/imgs/kk1.png">   가족',
+  b3: '모임/단체별     > <img src="/resources/imgs/kk2.png">   연인',
+  c3: '모임/단체별     > <img src="/resources/imgs/kk3.png">   친구',
+  d3: '모임/단체별     > <img src="/resources/imgs/kk4.png">   대학교',
+  e3: '모임/단체별     > <img src="/resources/imgs/kk5.png">   동아리',
+  f3: '모임/단체별     > <img src="/resources/imgs/kk6.png">   동호회',
+  g3: '모임/단체별     > <img src="/resources/imgs/kk7.png">   회사'
 };
+
 var list;
 var file;
 var member;
@@ -46,7 +47,8 @@ var likeImg;
 var listFlag;
 
 $(document).ready(function () {
-  sessionStorage.clear();
+//  sessionStorage.clear();
+	sessionStorage.removeItem("keyword");
   pageNumber = 1;
   sessionStorage.setItem("like", "/board/getPage");
   sessionStorage.setItem("new", "/board/getPage");
@@ -60,28 +62,32 @@ $(document).ready(function () {
 });
 
 function getFlag() {
-  sessionStorage.removeItem("flag");
-  sessionStorage.setItem("flag", "like");
+	
+	if(!sessionStorage.getItem("flag")){
+		console.log(sessionStorage.getItem("flag"))
+		sessionStorage.setItem("flag", "like");
+	}
 
   var flag = sessionStorage.getItem("flag");
+  console.log(flag)
 
   if (flag == "like" || flag == "likeSearch") {
     $(".listBold")[0].style.color = "black";
+    $(".listBold")[1].style.color = "#bbb";
+    $(".listBold")[2].style.color = "#bbb";
     return;
   } else if (flag == "new" || flag == "newSearch") {
+    $(".listBold")[0].style.color = "#bbb";
     $(".listBold")[1].style.color = "black";
+    $(".listBold")[2].style.color = "#bbb";
     return;
   } else {
+    $(".listBold")[0].style.color = "#bbb";
+    $(".listBold")[1].style.color = "#bbb";
     $(".listBold")[2].style.color = "black";
   }
 }
 
-$(document).on("click", ".listBold", function () {
-	$(this).css("font-weight", "bold");
-	$(this).css("color", "#000");
-	$(".listBold").not($(this)).css("font-weight", "bold");
-	$(".listBold").not($(this)).css("color", "#bbb");
-});
 
 $(document).on("click", "#searchBtn", function () {
   var flag = sessionStorage.getItem("flag");
@@ -108,8 +114,8 @@ $(document).on("keypress", ".searchTerm", function (e) {
 
 $(window).scroll(function () {
   // console.log("$(window).scrollTop() : " + $(window).scrollTop() + ",
-	// $(document).height() : " + $(document).height() + ", $(window).height() :
-	// " + $(window).height())
+  // $(document).height() : " + $(document).height() + ", $(window).height() :
+  // " + $(window).height())
   if (
     $(document).height() <= $(window).scrollTop() + $(window).height() + 500 &&
     pageNumber < page.endPageNum
@@ -119,7 +125,7 @@ $(window).scroll(function () {
 });
 
 function getList(value) {
-  var flag = sessionStorage.getItem("flag");
+  
   var keyword = document.getElementsByName("keyword")[0];
   sessionStorage.removeItem("keyword");
   keyword.value = "";
@@ -136,6 +142,7 @@ function getList(value) {
       sessionStorage.setItem("flag", "fol");
       break;
   }
+  getFlag();
 
   if (listFlag == true) {
     listFlag = false;
@@ -144,16 +151,16 @@ function getList(value) {
   }
 }
 
-$(document).on("change", "input[name='kategorie']", function(){
-	if (listFlag == true) {
-	    listFlag = false;
-	    $("#pageList").empty();
-	    getPageList(pageNumber);
-	  }
-});
+function checkKategorie () {
+  if (listFlag == true) {
+    listFlag = false;
+    $("#pageList").empty();
+    getPageList(pageNumber);
+  }
+}
 
 function getPageList(pageNum) {
-	console.log("페이징")
+  console.log("페이징");
   var flag = sessionStorage.getItem("flag");
   var URL = sessionStorage.getItem(flag);
   var kategorie = $("input[name='kategorie']:checked");
@@ -161,9 +168,8 @@ function getPageList(pageNum) {
 
   for (var i = 0; i < kategorie.length; i++) {
     kategorieArr.push(kategorie[i].value);
-    $("#katetext").text(kateObj[kategorie[i].value]);
+    $("#katetext").html(kateObj[kategorie[i].value]);
   }
-  
 
   console.log(``, URL, kategorieArr);
   if (flag == "like" || flag == "new" || flag == "fol") {
@@ -398,7 +404,7 @@ function getImg(bno, count) {
         return obj.id == likeImg[count][i].imgBno;
       });
       // printImg(bno, i, imgObj[0].fileName)
-      imgSlider(bno, i, imgObj[0].fileName);
+      imgSlider(bno, i, imgObj[0].path, imgObj[0].fileName);
     } else {
       var j = 0;
       while (imgFlag) {
@@ -408,7 +414,7 @@ function getImg(bno, count) {
             return obj.imgBno == file[count][j].id;
           })[0] == undefined
         ) {
-          imgSlider(bno, iCount, file[count][j].fileName);
+          imgSlider(bno, iCount,file[count][j].path, file[count][j].fileName);
           iCount++;
         }
         j++;
@@ -438,13 +444,7 @@ function printImg(bno, index, path) {
   $("#img_" + bno).append(imgInner);
 }
 
-function getImgSlider(bno, count) {
-  for (var i = 0; i < file[count].length; i++) {
-    imgSlider(bno, i, file[count][i].fileName);
-  }
-}
-
-function imgSlider(bno, index, fileName) {
+function imgSlider(bno, index, path, fileName) {
   var imgInner;
   imgInner = '   <li class="sliderItem">';
   imgInner += '     <a href="/board/view?bno=' + bno + '">';
@@ -454,7 +454,8 @@ function imgSlider(bno, index, fileName) {
     "_" +
     index +
     '" alt="" src=' +
-    "/img/thumb/" +
+    path +
+    "slider/" +
     fileName +
     ">";
   imgInner += "     </a>";
@@ -507,12 +508,19 @@ function alamPopup() {
 }
 
 function divShow() {
-	 document.getElementById("kategorie").style.display = "block";
-	 document.getElementById("ttop").style.display = "block";
-	}
+  document.getElementById("kategorie").style.display = "block";
+  document.getElementById("ttop").style.display = "block";
+  document.getElementById("katetext").style.display = "none";
+  document.getElementById("pageList").style.display = "none";
+  $("#category").css("color","black");
+}
 
-	// 카테고리 숨기기
-	function divHide() {
-	 document.getElementById("kategorie").style.display = "none";
-	 document.getElementById("ttop").style.display = "none";
-	}
+// 카테고리 숨기기
+function divHide() {
+  document.getElementById("kategorie").style.display = "none";
+  document.getElementById("ttop").style.display = "none";
+  document.getElementById("katetext").style.display = "block";
+  document.getElementById("pageList").style.display = "block";
+$("#category").css("color","#bbb");
+  checkKategorie();
+}

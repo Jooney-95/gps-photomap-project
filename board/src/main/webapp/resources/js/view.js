@@ -51,12 +51,17 @@ $(document).ready(function () {
   likeImg();
   setKate();
   saveCheck();
+  setNumber();
 });
 
 function setKate() {
+	
   var kate = kateObj[$(".kate").val()];
   $("#kate").html(kate);
+	
 }
+
+//console.log($("#a > .a-a > .kate > #kate").val());
 
 function countLike() {
   var query = {
@@ -82,6 +87,19 @@ function countLike() {
       );
     }
   });
+}
+
+function setNumber(){
+	var number = 1;
+	for(var index = 1; index<=$("input[name='loc']").length;index++){
+		
+		if($("#place_"+index).val()){
+			console.log(index)
+			$("#number_"+index).text(number);
+			$("#number2_"+index).text(number++);
+			
+		}
+	}
 }
 
 function likeImg() {
@@ -187,12 +205,12 @@ function saveCheck() {
         console.log(`save:`, save);
       },
       success: function (check) {
-          if (check == 1) {
-            $("#bsave").css("color", "#94ce9f");
-           } else {
-            $("#bsave").css("color", "#e8dfe2");
-          }
-        },
+        if (check == 1) {
+          $("#bsave").css("color", "#94ce9f");
+        } else {
+          $("#bsave").css("color", "#e8dfe2");
+        }
+      },
       error: function (request, status, error) {
         alert(
           "code:" +

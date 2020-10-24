@@ -1,6 +1,6 @@
 @charset "UTF-8";
 button:focus { outline:none; }
-input:focus{outline:none;}
+input:focus,textarea:focus{outline:none;}
 
 *,
 *:before,
@@ -287,7 +287,6 @@ body {
    
 }
 
-
 /*//////////공감///////////*/
 #top #d{
     align-items: center;
@@ -386,6 +385,44 @@ ul{
    margin-top:20px;
 
 }
+.gallery ul{
+   display: grid;
+   grid-template-columns: repeat(3,minmax(10px,1fr));
+}
+
+.gallery li {
+   position: relative;
+}
+
+
+.gallery span{
+   display :none;
+   position: absolute;
+   top:50%;
+   left: 50%;
+   transform: translate(-50%,-50%);
+   z-index: 10;
+}
+
+
+
+.gallery li:hover span  {
+   display: block;
+   
+   color:#fff;
+}
+
+.gallery li:hover span i{
+   color:#1cdd9e;
+   font-size:40px;
+   opacity:65%;
+}
+
+
+.gallery li:hover img{
+   filter: brightness(55%);
+}
+
 .imglist{
    width:440px;
    margin:auto;
@@ -401,6 +438,15 @@ ul{
    display:block;
    margin:3px;
    border-radius:10px;
+}
+
+
+
+
+.gnum{
+   display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .middle{
@@ -427,8 +473,9 @@ ul{
 }
 /*//위치//*/
 .m1-1{
-   display:inline-block;
-   float:left;
+   align-items: flex-end;
+    display: flex;
+    flex-direction: column;
   /* padding:5px;*/
    height:56px;
    width:436px;
@@ -438,28 +485,42 @@ ul{
 
 .m1-1 .leftone{
    float:left;
+   display:flex;
+   flex-direction: row;
 }
+
 .m1-1 .leftone i{
+   position:relative;
+   top:8px;
     float:left;
-   font-size:20px;
-   
+    font-size: 35px;
    color:#10b27d;
 }
+.num{
+    position: relative;
+    bottom: 22px;
+    color: #FFF;
+    height: 20px;
+    font-size: 15px;
+}
+    
+
 .m1-1 .leftone input{
    font-size:14px;
-   width:225px;
-   margin-left:7px;
+  width: 377px;
+    margin-left: 10px;
    border:none;
 }
 
 .m1-1 .one{
-   width: 270px;
+   position: relative;
+    width: 377px;
+    bottom: 5px;
 }
 .m1-1 .one input{
-   width:225px;
+   width:380px;
    font-size:14px;
    color:#909090;
- 
    border:none;
    
 }
@@ -491,7 +552,6 @@ ul{
     text-algin:center;
     max-width:100%;
     height:auto;
-    margin-top:10px; 
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -501,10 +561,8 @@ ul{
 
 .m2 img{
    display: block;
-    max-width:60%;
-    max-height:60%;
     margin: 0 auto;
-    width: auto;
+    width: 90%;
     height: auto;
     text-align:center;
     cursor: pointer;
@@ -519,20 +577,21 @@ ul{
 .m3 {
    font-weight: bold;
    opacity:75%;
-   height: 25px;
-    width: 60px;
-   font-size:10px;
+   height: 30px;
+    width: 80px;
+   font-size:13px;
     border:1px solid #1cdd9e;
     border-radius:5px;
     background:#1cdd9e;
     color:#fff;
     white-space:nowrap;
     padding:3px; 
-    float: left;
+   /* float: left;*/
     position:relative;
-    left: 117px;
-    bottom: 127px;
+    margin-left: 23px;
+   top: 12px;
     z-index: 0;
+    margin-bottom: -20px;
 }
 
 
@@ -540,12 +599,9 @@ ul{
 
 
 .m4{  
-   height:80px;
-   text-align:center;
-   margin-top:20px;
-   margin:0 auto;
-   width:90%;
-   padding:20px;  
+   width: 90%;
+    margin: auto;
+    margin-top:10px;
 }
    
 .m4 textarea{

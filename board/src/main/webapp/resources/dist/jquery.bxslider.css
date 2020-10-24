@@ -86,30 +86,26 @@ ul.bxslider {
 }
 /* DIRECTION CONTROLS (NEXT / PREV) */
 .bx-wrapper .bx-prev {
-  left: 10px;
-  background: url('images/leftb.png') ;
+   left: 0;
 }
-.bx-wrapper .bx-prev:hover,
-.bx-wrapper .bx-prev:focus {
+.bx-wrapper .bx-prev:hover {
   background-position: 0 0;
+   background: url('images/prev.png');
 }
 .bx-wrapper .bx-next {
-  right: 10px;
-  background: url('images/rightb.png');
+  right: 0;
 }
-.bx-wrapper .bx-next:hover,
-.bx-wrapper .bx-next:focus {
+.bx-wrapper .bx-next:hover {
   background-position: 0 0;
+  background: url('images/next.png');
 }
 .bx-wrapper .bx-controls-direction a {
-  position: absolute;
-  top: 50%;
-  margin-top: -16px;
-  outline: 0;
-  width: 29px;
-  height: 29px;
-  text-indent: -9999px;
-  z-index: 9;
+    position: absolute;
+    top: 0;
+    width: 80px;
+    height: 210px;
+    text-indent: -9999px;
+    z-index: 9;
 }
 .bx-wrapper .bx-controls-direction a.disabled {
   display: none;
